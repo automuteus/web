@@ -40,6 +40,7 @@ body {
 img#blue_guy {
     max-width: 40%;
     float: right;
+    cursor: default;
 }
 
 /* width */
