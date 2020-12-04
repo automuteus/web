@@ -1,7 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif !important;
 	background: url("/assets/AutoBG.png");
-	background-size: 100%;
     background-color: #1D1E28;
     color: #fff;
     -webkit-font-smoothing: antialiased;
@@ -9,6 +8,9 @@ body {
     text-rendering: optimizeLegibility;
     border-top: 6px #7289DA solid !important;
     font-size: 16px;
+    background-attachment: fixed;
+    background-size: cover !important;
+    background-position: top center;
 }
 
 .card-title {
@@ -72,25 +74,7 @@ html {
 
 
 /* Snow stuff */
-@media screen and (min-width: 5in) {
 
-    #snowflakeContainer {
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    display: none;
-  }
-  .snowflake {
-    position: absolute;
-    background-color: rgb(255, 255, 255);
-    user-select: none;
-    z-index: 100;
-    pointer-events: none;
-    border-radius: 50%;
-    width: 10px;
-    height: 10px;
-  }
-    }
 
 /* ---------------------- */
 
