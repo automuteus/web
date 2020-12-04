@@ -1,6 +1,6 @@
 body {
     font-family: 'Poppins', sans-serif !important;
-	background: url("../assets/AutoBG.png");
+	background: url("/assets/AutoBG.png");
 	background-size: 100%;
     background-color: #1D1E28;
     color: #fff;
@@ -21,11 +21,73 @@ body {
 
 
 /* Added By Me */
+
+.floating {   
+    animation-name: floating; 
+    animation-duration: 5s; 
+    animation-iteration-count: infinite; 
+    animation-timing-function: ease-in-out; 
+    margin-left: 30px; 
+    margin-top: 5px; 
+} 
+  
+@keyframes floating { 
+    0% { transform: translate(0,  0px); } 
+    50%  { transform: translate(0, 15px); } 
+    100%   { transform: translate(0, -0px); }     
+} 
+
 img#blue_guy {
     max-width: 40%;
     float: right;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 0px grey; 
+  border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #7289DA; 
+  border-radius: 50px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4E5D94; 
+}
+/* Smooth Scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+
+/* Snow stuff */
+
+#snowflakeContainer {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    display: none;
+  }
+
+  .snowflake {
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    user-select: none;
+    z-index: 100;
+    pointer-events: none;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+  }
 /* ---------------------- */
 
 
@@ -75,11 +137,10 @@ img#blue_guy {
 }
 .heading {
     padding: 50px;
-
-    padding-top: 10rem;
-    padding-bottom: 16rem;
+    padding-top: 7rem;
+    padding-bottom: 11rem;
     color: #fff !important;
-    background-image: url("../assets/wavy-purple-by-nouridio.svg") !important;
+    background-image: url("../assets/wavy-blurple-by-nouridio.svg") !important;
     background-position: bottom !important;
     background-size: 275% !important;
     background-repeat: no-repeat !important;

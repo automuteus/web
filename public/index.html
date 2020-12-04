@@ -3,69 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
-    <link rel="stylesheet" href="css/bootstrap.min.css">
-    <link rel="stylesheet" href="css/main.css">
-    <link rel="stylesheet" href="css/now-ui-kit.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/now-ui-kit.css">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,600,700,800,900&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>AutoMuteUs</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-/* width */
-::-webkit-scrollbar {
-  width: 10px;
-}
+    <link rel="icon" href="/assets/smol-bot-logo.gif">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 0px grey; 
-  border-radius: 10px;
-}
- 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #7289DA; 
-  border-radius: 50px;
-}
+    <meta property="og:title" content="AutoMuteUs" />
+    <meta property="og:description" content="In the works" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://wolfhound.xyz/automute.html" />
+    <meta property="og:image"  content="http://···">
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #4E5D94; 
-}
-/* Smooth Scroll */
-html {
-  scroll-behavior: smooth;
-}
-
-</style>
 </head>
 <body>
-<noscript>You need to enable JavaScript to run this app.</noscript>
-<div id="root"></div>
-<!--
-  This HTML file is a template.
-  If you open it directly in the browser, you will see an empty page.
-
-  You can add webfonts, meta tags, or analytics to this file.
-  The build step will place the bundled scripts into the <body> tag.
-
-  To begin the development, run `npm start` or `yarn start`.
-  To create a production bundle, use `npm run build` or `yarn build`.
--->
 <nav class="navbar navbar-expand-lg bg-transparent">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <img src="assets/menuIcon.svg" width="20px" height="20px" style="max-width: none !important;">
+        <img src="/assets/menuIcon.svg" width="20px" height="20px" style="max-width: none !important;">
     </button>
-    <img src="assets/bot-logo.gif" width="50" height="50">
+    <img src="/assets/smol-bot-logo.gif" width="50" height="50">
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px !important">
         <ul class="navbar-nav mr-auto">
+            <!-- <li class="nav-item">
+                <a class="nav-link" href="#">Log In</a>
+            </li> -->
             <li class="nav-item">
-                <a class="nav-link" href="#features">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="https://discord.gg/vwWXs8Z">Discord Server</a>
+                <a class="nav-link" href="https://discord.gg/vwWXs8Z">Discord Support Server</a>
             </li>
         </ul>
         <div class="nav-item dropdown">
@@ -75,75 +43,46 @@ html {
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="https://github.com/denverquane/automuteus#commands">Commands</a>
                 <a class="dropdown-item" href="https://youtu.be/kO4cqMKV2yI">Tutorials</a>
-                <div class="dropdown-divider"></div>
-                <!-- <a class="dropdown-item" href="/server-settings">Server settings</a> -->
+                <!-- <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Log In</a> -->
             </div>
         </div>
-        <!--<div class="nav-item">
-            <a class="nav-link" href="/about">About</a>
-        </div>
-        <button class="btn login-btn btn-outline-accent my-2 my-sm-0" style="font-size: 10px !important;font-family: poppins !important;">LOGIN</button> -->
+
     </div>
 </nav>
 <div class="heading">
-    <img id="blue_guy" src="assets/blue_guy.png" alt="Discord Among Us Charachter Image" title="Exhiled"/>
-    <h1 class="display-5 title">It's time to use AutoMuteUs in your server.</h1>
+    <img id="blue_guy" class="floating" src="/assets/blue_guy_santa.png" alt="Discord Among Us Charachter Image" title="Exhiled"/>
+    <h1 class="display-5 title">Use AutoMuteUs for hands free muting</h1>
     <p class="subtitle">AutoMuteUs is a Discord Bot to harness Among Us game data, and automatically mute/unmute players during games!</p>
     <a class="btn btn-primary btn-lg" href="https://add.automute.us/" target="_blank" role="button">Invite to server</a>
-    <a class="btn btn-primary btn-lg" href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.exe" target="_blank" role="button">CAPTURE SOFTWARE</a>
+    <a class="btn btn-primary btn-lg" href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip" target="_blank" role="button">CAPTURE SOFTWARE</a>
     <a class="btn btn-secondary btn-lg" href="https://github.com/denverquane/automuteus" target="_blank" role="button">GitHub</a>
-    <br /><br /><br /><br /><br /><br />
-</div>
-<section id=features>
-<div class="features">
-    <div class="title">What This Bot Can Do</div>
-    <div class="cards">
-        <div class="card" style="width: 28rem;">
-        <div class="card-body">
-            <h5 class="card-title">Feature #1</h5>
-            <p class="card-text">- Automatic Muting<br>ex. Crewmates are muted during task</p>
-        </div>
-    </div>
-        <div class="card" style="width: 28rem;">
-            <div class="card-body">
-                <h5 class="card-title">Feature #2</h5>
-                <p class="card-text">- Flexible Settings<br>ex. Adjust the time of mutes</p>
-            </div>
-        </div>
-        <div class="card" style="width: 28rem;">
-            <div class="card-body">
-                <h5 class="card-title">Feature #3</h5>
-                <p class="card-text">- Talking to yourself because no one can hear you scream<p>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="statistics">
+    <br><div>
     <div class="card-stats">
         <div class="card statistic" style="width: 18rem;">
             <div class="card-body">
-                <script>
-                    $.getJSON('https://stats.automute.us/stats/api', function (data) {
-                        var guilds = `${data.totalGuilds}`
-                        var activeGames = `${data.activeGames}`
-                        $("#guilds").html(guilds);
-                        $("#activeGames").html(activeGames);
-                    });
-                </script>
-                <p id="guilds" class="card-title" style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important;"></p>
-                    <p style="font-weight: bold !important;font-size: 20px !important;">servers</p>
+                <script src="/js/guild-counter.js"></script>
+                <p id="guilds" class="card-title" style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important; text-align:center">0</p>
+                    <p style="font-weight: bold !important;font-size: 20px !important; text-align:center">servers</p>
             </div>
         </div>
         <div class="card statistic" style="width: 18rem;">
             <div class="card-body">
-                <p id="activeGames" class="card-title"
-                    style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important;">
-                    </p>
-                    <p style="font-weight: bold !important;font-size: 20px !important;">active games</p>
+                <p id="activeGames" class="card-title" style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important; text-align:center">0</p>
+                    <p style="font-weight: bold !important;font-size: 20px !important; text-align:center">active games</p>
             </div>
         </div>
     </div>
 </div>
+<br><br><br><br><br>
+</div>
+<section id="features">
+<div class="features">
+    <div class="title">Play the game</div>
+<div class="title">Leave the muting to Us</div>
+    </div>
+<div class="statistics"></div>
+
 <div class="page_end">
     <div class="start">
         <div class="card">
@@ -157,16 +96,18 @@ html {
     </div>
     <div class="footer">
         <div class="bot-footer">
-            <img src="assets/bot-logo.gif" width="150"><br />
-            Copyright © [Aiden Haines] - 2020
+            <img src="/assets/smol-bot-logo.gif" width="150"><br />
         </div><br/>
-        <div class="nouridio">design by <a href="https://github.com/Nouridio/Discord-bot-website-template"> nouridio</a></div>
+        <div class="nouridio">artwork by  <a href="https://aspen-cyborg.tumblr.com/">SMILES</a>!</div>
     </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<script src="js/now-ui-kit.min.js"></script>
-<script src="js/guild-counter.js"></script>
-</section>
+<script src="/js/now-ui-kit.min.js"></script>
 </body>
+
+  <div id="snowflakeContainer">
+    <span class="snowflake"></span>
+  </div>
+   <script src="/js/snow-stuff.js"></script>
 </html>
