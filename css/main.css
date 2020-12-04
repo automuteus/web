@@ -72,7 +72,7 @@ html {
 
 
 /* Snow stuff */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 5in) {
 
     #snowflakeContainer {
     position: absolute;
