@@ -128,7 +128,7 @@ html {
     padding-top: 7rem;
     padding-bottom: 11rem;
     color: #fff !important;
-    background-image: url("../assets/wavy-blurple-by-nouridio.svg") !important;
+    background-image: url("/assets/blurple-waves.svg") !important;
     background-position: bottom !important;
     background-size: 275% !important;
     background-repeat: no-repeat !important;
@@ -192,7 +192,7 @@ html {
 }
 
 .statistics {
-	background-image: url(../assets/wavy-blurple-upsidedown.svg) !important;
+	background-image: url("/assets/upsidedown-blurple-waves.svg") !important;
     background-position: top !important;
     text-align: center !important;
     padding-top: 300px !important;
@@ -227,7 +227,7 @@ html {
 
 
 .page_end {
-    background-image: url("../assets/wavy-light-by-nouridio.svg") !important;
+    background-image: url("/assets/transparent-waves.svg") !important;
     background-position: bottom !important;
     background-size: 230% !important;
     background-repeat: no-repeat !important;
