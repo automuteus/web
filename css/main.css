@@ -13,7 +13,7 @@ body {
     background-position: top center;
 }
 
-.card-title {
+.card- {
     font-size: 50px !important;
     line-height: 15px !important;
     letter-spacing: 0em !important;
@@ -73,9 +73,6 @@ html {
 }
 
 
-/* Snow stuff */
-
-
 /* ---------------------- */
 
 
@@ -123,6 +120,10 @@ html {
 .btn-secondary {
     background-color: #2C2F33 !important
 }
+.btn-patreon {
+    background-color:#FF424D !important
+}
+
 .heading {
     padding: 50px;
     padding-top: 7rem;
@@ -137,13 +138,13 @@ html {
 
 .title {
     line-height: 60px !important;
-    margin-bottom: -2px !important;
+    margin-bottom: 4px !important;
     font-size: 36px !important
 }
 
 .subtitle {
     color: rgba(255, 255, 255, 0.685) !important;
-    font-size: 18px !important;
+    font-size: 16px !important;
     font-family: 'Lato', sans-serif;
 }
 
