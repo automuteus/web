@@ -36,7 +36,7 @@ var snowStorm = (function(window, document) {
 
   // --- less-used bits ---
 
-  this.freezeOnBlur = true;       // Only snow when the window is in focus (foreground.) Saves CPU.
+  this.freezeOnBlur = false;       // Only snow when the window is in focus (foreground.) Saves CPU.
   this.flakeLeftOffset = 0;       // Left margin/gutter space on edge of container (eg. browser window.) Bump up these values if seeing horizontal scrollbars.
   this.flakeRightOffset = 0;      // Right margin/gutter space on edge of container
   this.flakeWidth = 30;           // Max pixel width reserved for snow element

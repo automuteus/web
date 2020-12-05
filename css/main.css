@@ -40,7 +40,7 @@ body {
     100%   { transform: translate(0, -0px); }     
 } 
 
-img#blue_guy {
+object#blue_guy {
     max-width: 40%;
     float: right;
     cursor: default;

@@ -11,13 +11,13 @@
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,600,700,800,900&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <title>AutoMuteUs</title>
-    <link rel="icon" href="/assets/smol-bot-logo.gif">
+    <link rel="icon" href="/assets/logo.svg">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <meta property="og:title" content="AutoMuteUs" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://automute.us" />
-    <meta property="og:image" content="/assets/embed_logo.png" />
+    <meta property="og:image" content="/assets/santa-hat-logo.svg" />
     <meta property="og:description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
     <meta name="theme-color" content="#7289DA">
 
@@ -27,7 +27,7 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <img src="/assets/menuIcon.svg" width="20px" height="20px" style="max-width: none !important;">
     </button>
-    <img src="/assets/smol-bot-logo.gif" width="50" height="50">
+    <img src="/assets/santa-hat-logo.svg" width="50" height="50" onclick="javascript:toggleSound();">>
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="margin-left: 20px !important">
         <ul class="navbar-nav mr-auto">
             <!-- <li class="nav-item">
@@ -52,7 +52,7 @@
     </div>
 </nav>
 <div class="heading">
-    <a href="https://youtu.be/dQw4w9WgXcQ"><img id="blue_guy" class="floating" src="/assets/blue_guy_santa.png" alt="Discord Among Us Charachter Image" title="Exhiled"/></a>
+    <object id="blue_guy" type="image/svg+xml" data="/assets/blue_guy_santa.svg" class="floating"></object>
     <h1 class="display-5 title">Use AutoMuteUs for hands free muting</h1>
     <p class="subtitle">AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!</p>
     <a class="btn btn-primary btn-lg" href="https://add.automute.us/" target="_blank" role="button">Invite to server</a>
@@ -63,7 +63,7 @@
         <div class="card statistic" style="width: 18rem;">
             <div class="card-body">
                 <script src="/js/guild-counter.js"></script>
-                <p id="guilds" class="card-title" style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important; text-align:center">12713</p>
+                <p id="guilds" class="card-title" style="font-size: 70px !important;line-height: 15px !important;letter-spacing: 0.03em !important;font-weight: bold !important; text-align:center">12951</p>
                     <p style="font-weight: bold !important;font-size: 20px !important; text-align:center">servers</p>
             </div>
         </div>
@@ -97,14 +97,24 @@
     </div>
     <div class="footer">
         <div class="bot-footer">
-            <img src="/assets/smol-bot-logo.gif" width="150"><br />
+            <img src="/assets/santa-hat-logo.svg" width="150"><br />
         </div><br/>
         <div class="nouridio">artwork by  <a href="https://aspen-cyborg.tumblr.com/">SMILES</a>!</div>
     </div>
 </div>
+
+<audio id="deafen">
+    <source src="/assets/mp3/deafen.mp3" type="audio/mpeg" />
+  </audio>
+  <audio id="undeafen">
+    <source src="/assets/mp3/undeafen.mp3" type="audio/mpeg" />
+</audio>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="/js/now-ui-kit.min.js"></script>
+<script src="/js/snow-stuff.js"></script>
+<script src="/js/deafen-undeafen.js"></script>
+
 </body>
-   <script src="/js/snow-stuff.js"></script>
 </html>
