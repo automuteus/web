@@ -136,14 +136,14 @@ html {
 
 
 .title {
-    line-height: 90px !important;
+    line-height: 60px !important;
     margin-bottom: -2px !important;
     font-size: 36px !important
 }
 
 .subtitle {
     color: rgba(255, 255, 255, 0.685) !important;
-    font-size: 16px !important;
+    font-size: 18px !important;
     font-family: 'Lato', sans-serif;
 }
 
