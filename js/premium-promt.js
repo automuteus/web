@@ -3,6 +3,7 @@ const urlParams = new URLSearchParams(queryString);
 const guild = urlParams.get('guild')
 
 function ask(button_id) {
+    alert("This is currently not working at the momment, please come back another time");
     if (urlParams.get('guild') != null) {
         if (urlParams.get('guild') == null || urlParams.get('guild') == "") return window.location.href = '/premium';
         if (urlParams.get('guild').length < 17 || urlParams.get('guild').length > 20) return window.location.href = '/premium';
