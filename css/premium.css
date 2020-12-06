@@ -161,10 +161,19 @@ html {
     color: #a2a8bd;
 }
 
-.features .card-body {
+@media (min-width: 480px){
+   .features .card-body {
     text-align: left !important;
     width: 350px;
+    } 
 }
+@media (max-width: 480px){
+    .features .card-body {
+     text-align: left !important;
+     } 
+ }
+
+
 
 .features .card-title {
     margin: 0 0 -3px !important;
