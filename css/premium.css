@@ -152,7 +152,7 @@ html {
 .features .title {
     font-size: 40px !important;
     color: #ffffff !important;
-    line-height: 70px !important;
+    line-height: 50px !important;
     padding-top: 0px;
 }
 
@@ -170,7 +170,7 @@ html {
     margin: 0 0 -3px !important;
 }
 .cards {
-    margin-top: 30px !important;
+    margin-top: 0px !important;
 }
 
 .card {
@@ -225,3 +225,5 @@ html {
 .navbar-toggler-icon {
     color: #fff !important
 }
+
+
