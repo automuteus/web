@@ -4,9 +4,9 @@ const guild = urlParams.get('guild')
 
 function ask(button_id) {
     if (urlParams.get('guild') != null) {
-        if (urlParams.get('guild') == null || urlParams.get('guild') == "") return window.location.href = 'https://automute.us/premium';
-        if (urlParams.get('guild').length < 17 || urlParams.get('guild').length > 20) return window.location.href = 'https://automute.us/premium';
-        if (isNaN(urlParams.get('guild'))) return  alert("Invalid ID. You can get your Server ID with developer tools in discord.") & (window.location.href = 'https://automute.us/premium'); 
+        if (urlParams.get('guild') == null || urlParams.get('guild') == "") return window.location.href = '/premium.html';
+        if (urlParams.get('guild').length < 17 || urlParams.get('guild').length > 20) return window.location.href = '/premium.html';
+        if (isNaN(urlParams.get('guild'))) return  alert("Invalid ID. You can get your Server ID with developer tools in discord.") & (window.location.href = '/premium.html'); 
         if (urlParams.get('guild') == '754465589958803548') return alert("Thats the AutoMuteUs server you silly goose!");
         var loc = `https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=${button_id}&custom=${urlParams.get('guild')}`;
         window.location.href = '' + loc + '';
