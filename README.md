@@ -5,6 +5,6 @@ Run `node server.js` to start the backend express server that performs the Disco
 
 Once the server is running, in a separate console/process, run `yarn` (or `npm install`) to install dependencies. Once this completes, run `yarn start` or `npm run start` and navigate to `localhost:3000` in your browser.
 
-Original Template and License
-GitHub[https://github.com/Nouridio/Discord-bot-website-template]
-LICENSE[https://github.com/Nouridio/Discord-bot-website-template/blob/master/LICENSE]
+Original Template and License ```
+[GitHub](https://github.com/Nouridio/Discord-bot-website-template)
+[LICENSE](https://github.com/Nouridio/Discord-bot-website-template/blob/master/LICENSE)
