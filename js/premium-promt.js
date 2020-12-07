@@ -13,7 +13,8 @@ function ask(button_id) {
         window.location.href = '' + loc + '';
     } else {
         var guild = prompt("Please provide the Server ID you want premium for:", "754465589958803548");
-        if (guild == null || guild == "") return alert("This feild can not be blank.");
+        if (guild == "") return alert("This feild can not be blank.");
+        if (guild == null) return 
         if (guild.length < 17 || guild.length > 20) return alert("Invalid ID. You can get your Server ID with developer tools in discord.");
         if (isNaN(guild)) return alert("Invalid ID. You can get your Server ID with developer tools in discord.");
         if (guild == "754465589958803548") return alert("You can't use example ID");
