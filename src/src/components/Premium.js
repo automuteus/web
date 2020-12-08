@@ -19,7 +19,7 @@ class Premium extends React.Component {
         <h6 className="text-muted mb-4">
           Game cap is full, and you want faster muting? Try these!
         </h6>
-        <Row xs={1} lg={4} className="justify-content-center">
+        <Row xs={1} lg={3} className="justify-content-center">
           <SubscriptionCard
             color="#71491E"
             title="AutoMuteUs Bronze"
@@ -29,7 +29,7 @@ class Premium extends React.Component {
           >
             <div>
               <p>
-                Offers Basic Premium features for AutoMuteUs! ($1.50 a month)
+                Offers Basic Premium features for AutoMuteUs! ($1.50* a month)
               </p>
               <ul>
                 <li>
@@ -61,7 +61,7 @@ class Premium extends React.Component {
           >
             <div>
               <p>
-                Offers Standard Premium features for AutoMuteUs! ($3.50 a month)
+                Offers Standard Premium features for AutoMuteUs! ($3.50* a month)
               </p>
               <ul>
                 <li>
@@ -92,7 +92,7 @@ class Premium extends React.Component {
           >
             <div>
               <p>
-                Offers Enhanced Premium features for AutoMuteUs! ($5.50 a month)
+                Offers Enhanced Premium features for AutoMuteUs! ($5.50* a month)
               </p>
               <ul>
                 <li>
