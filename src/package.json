@@ -25,6 +25,7 @@
     "react-router-transition": "^2.0.0",
     "react-scripts": "^4.0.1",
     "react-snowfall": "^1.0.2",
+    "serve": "^11.3.2",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
