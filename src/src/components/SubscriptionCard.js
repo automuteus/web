@@ -23,9 +23,9 @@ export default class SubscriptionCard extends React.Component {
     const urlParams = new URLSearchParams(window.location.search);
     let guild;
 
-    console.log(urlParams);
-
-    if (
+    if (!this.props.show_fee) {
+      this.setState({ guild_id: "donation" });
+    } else if (
       (guild = urlParams.get("guild")) != null &&
       !(guild === null || guild === "" || !this.validateId(guild, false))
     ) {
@@ -51,9 +51,6 @@ export default class SubscriptionCard extends React.Component {
     if (id.length < 17 || id.length > 20 || isNaN(id))
       message =
         "Invalid ID. You can get your Server ID with developer tools in discord.";
-    else if (id === "754465589958803548")
-      message = "Thats the AutoMuteUs server you silly goose!";
-
     if (message) {
       if (notice) alert(message);
       return false;

@@ -116,7 +116,7 @@ class Premium extends React.Component {
         </Row>
 
         <h1 className="mb-4">💎 Super Awesome Donator Tier 💎</h1>
-        <Row xs={1} lg={4} className="justify-content-center">
+        <Row xs={1} lg={3} className="justify-content-center">
           <SubscriptionCard
             color="#38fedc"
             title="Donation"
