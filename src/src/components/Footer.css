@@ -1,0 +1,13 @@
+
+
+
+footer {
+  padding: 1em;
+  margin-top: auto;
+}
+
+.muted-snow > canvas {
+  opacity: 0.75;
+  z-index: -1;
+  position: fixed !important;
+}
