@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Roboto", sans-serif !important;
-  background-color: #1d1e28;
+  background-color: #1d1e2800;
   background-image: url("assets/img/bg.png");
   background-position: center center;
   background-attachment: fixed;
