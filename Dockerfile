@@ -1,8 +1,8 @@
 FROM node:15.3-alpine3.10 AS builder
 WORKDIR /app 
-COPY src/package.json /app 
-COPY src/yarn.lock /app
-COPY src/ /app 
+COPY client/package.json /app 
+COPY client/yarn.lock /app
+COPY client/ /app 
 RUN yarn install && yarn build
 
 # nginx state for serving content
