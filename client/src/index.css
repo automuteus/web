@@ -16,7 +16,7 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Roboto", sans-serif !important;
-  background-color: #1d1e2800;
+  background-color: #23272A;
   background-image: url("assets/img/bg.png");
   background-position: center center;
   background-attachment: fixed;
@@ -76,13 +76,15 @@ h6 {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #7289da;
+  background-color: #7289da;
+  transition: background-color 200ms;
   border-radius: 50px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #4e5d94;
+  background-color: #4e5d94;
+  transition: background-color 200ms;
 }
 
 ::selection {
