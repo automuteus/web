@@ -50,8 +50,8 @@ export default class ServerStats extends React.Component {
           id="home-stats"
           className="d-flex align-content-center align-content-lg-start flex-column flex-lg-row"
         >
-          <StatCard label="Servers" stat={"Such"} loaded={isLoaded} />
-          <StatCard label="Active Games" stat={"Very"} loaded={isLoaded} />
+          <StatCard label="Servers" stat={"Such"} loaded={true} />
+          <StatCard label="Active Games" stat={"Very"} loaded={true} />
         </div>
       );
     } else {
