@@ -11,6 +11,16 @@ import crewmate_white from "../assets/img/crewmate_white.png";
 import crewmate_yellow from "../assets/img/crewmate_yellow.png";
 import crewmate_cyan from "../assets/img/crewmate_cyan.png";
 
+import MetaTags from "react-meta-tags";
+
+<MetaTags>
+   <title>AutoMuteUs Premium</title>
+   <meta name="description" content="Get past the game cap and more with AutoMuteUs Premium!" />
+   <meta property="og:title" content="AutoMuteUs Premium" />
+   <meta property="og:image" content="/assets/img/logo_premium.png" />
+   <meta property="og:color" content="#7289DA" />
+</MetaTags>
+
 class Premium extends React.Component {
   render() {
     return (

@@ -11,6 +11,16 @@ import ServerStats from "./ServerStats"
 
 import crewmate from "../assets/img/svg/amus_crewmate_santa.svg";
 
+import MetaTags from 'react-meta-tags';
+
+<MetaTags>
+   <title>AutoMuteUs</title>
+   <meta name="description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
+   <meta property="og:title" content="AutoMuteUs" />
+   <meta property="og:image" content="/assets/img/logo_embed.png" />
+   <meta property="og:color" content="#7289DA" />
+</MetaTags>
+
 class Home extends React.Component {
   render() {
     return (
