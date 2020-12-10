@@ -19,10 +19,12 @@ class Premium extends React.Component {
       <div className="text-center">
         <MetaTags>
           <title>AutoMuteUs Premium</title>
-          <meta name="description" content="Get past the game cap and more with AutoMuteUs Premium!" />
-          <meta property="og:title" content="AutoMuteUs" />
+          <meta property="og:title" content="AutoMuteUs Premium" />
+          <meta property="og:type" content="website" />
+          <meta property="og:url" content="https://automute.us/premium" />
           <meta property="og:image" content="./assets/img/logo_premium.png" />
-          <meta property="og:color" content="#7289DA" />
+          <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
+          <meta name="theme-color" content="#7289DA" />
         </MetaTags>
         <h1>⭐ Premium Tiers ⭐</h1>
         <h6 className="text-muted mb-4">

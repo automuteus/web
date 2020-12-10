@@ -19,10 +19,12 @@ class Home extends React.Component {
       <div className="d-flex flex-lg-row flex-column align-items-center p-3" id="main-content">
           <MetaTags>
             <title>AutoMuteUs</title>
-            <meta name="description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
             <meta property="og:title" content="AutoMuteUs" />
-            <meta property="og:image" content="/assets/img/logo_embed.png" />
-            <meta property="og:color" content="#7289DA" />
+            <meta property="og:type" content="website" />
+            <meta property="og:url" content="https://automute.us" />
+            <meta property="og:image" content="./assets/img/logo_embed.png" />
+            <meta property="og:description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
+            <meta name="theme-color" content="#7289DA" />
           </MetaTags>
         <div id="home-text">
           <h2 className="title">Use AutoMuteUs for hands free muting</h2>
