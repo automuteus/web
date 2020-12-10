@@ -22,7 +22,7 @@ class Premium extends React.Component {
           <meta property="og:title" content="AutoMuteUs Premium" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://automute.us/premium" />
-          <meta property="og:image" content="./assets/img/logo_premium.png" />
+          <meta property="og:image" content="https://github.com/automuteus/react-web/blob/main/client/src/assets/img/logo_premium.png?raw=true" />
           <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
           <meta name="theme-color" content="#7289DA" />
         </MetaTags>
