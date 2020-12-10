@@ -2,3 +2,7 @@
 # yarn lockfile v1
 
 
+react-meta-tags@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-meta-tags/-/react-meta-tags-1.0.0.tgz#0779943da09af4a445bbc9ee582620b04a36f292"
+  integrity sha512-0eQr/eBhv05wgFLmkvvdrsVClSgw902PhZauERtBgtIZW8cIC0yQ4DVIDl/l5vgP9djanZLl2MAaVw8BWAXzog==

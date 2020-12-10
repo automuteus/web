@@ -11,20 +11,19 @@ import crewmate_white from "../assets/img/crewmate_white.png";
 import crewmate_yellow from "../assets/img/crewmate_yellow.png";
 import crewmate_cyan from "../assets/img/crewmate_cyan.png";
 
-import MetaTags from "react-meta-tags";
-
-<MetaTags>
-   <title>AutoMuteUs Premium</title>
-   <meta name="description" content="Get past the game cap and more with AutoMuteUs Premium!" />
-   <meta property="og:title" content="AutoMuteUs Premium" />
-   <meta property="og:image" content="/assets/img/logo_premium.png" />
-   <meta property="og:color" content="#7289DA" />
-</MetaTags>
+import MetaTags from 'react-meta-tags';
 
 class Premium extends React.Component {
   render() {
     return (
       <div className="text-center">
+        <MetaTags>
+          <title>AutoMuteUs Premium</title>
+          <meta name="description" content="Get past the game cap and more with AutoMuteUs Premium!" />
+          <meta property="og:title" content="AutoMuteUs" />
+          <meta property="og:image" content="./assets/img/logo_premium.png" />
+          <meta property="og:color" content="#7289DA" />
+        </MetaTags>
         <h1>⭐ Premium Tiers ⭐</h1>
         <h6 className="text-muted mb-4">
           Game cap is full, and you want faster muting? Try these!
