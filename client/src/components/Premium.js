@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Row } from "react-bootstrap";
+import Helmet from "react-helmet";
 
 import SubscriptionCard from "./SubscriptionCard";
 
@@ -11,21 +12,25 @@ import crewmate_white from "../assets/img/crewmate_white.png";
 import crewmate_yellow from "../assets/img/crewmate_yellow.png";
 import crewmate_cyan from "../assets/img/crewmate_cyan.png";
 
-import MetaTags from 'react-meta-tags';
-
 class Premium extends React.Component {
   render() {
     return (
       <div className="text-center">
-        <MetaTags>
+        <Helmet>
           <title>AutoMuteUs Premium</title>
           <meta property="og:title" content="AutoMuteUs Premium" />
           <meta property="og:type" content="website" />
           <meta property="og:url" content="https://automute.us/premium" />
-          <meta property="og:image" content="https://github.com/automuteus/react-web/blob/main/client/src/assets/img/logo_premium.png?raw=true" />
-          <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
+          <meta
+            property="og:image"
+            content="http://github.com/automuteus/react-web/blob/main/client/src/assets/img/logo_premium.png?raw=true"
+          />
+          <meta
+            property="og:description"
+            content="Avoid the game cap and more with AutoMuteUs Premium"
+          />
           <meta name="theme-color" content="#7289DA" />
-        </MetaTags>
+        </Helmet>
         <h1>⭐ Premium Tiers ⭐</h1>
         <h6 className="text-muted mb-4">
           Game cap is full, and you want faster muting? Try these!
@@ -72,7 +77,8 @@ class Premium extends React.Component {
           >
             <div>
               <p>
-                Offers Standard Premium features for AutoMuteUs! ($3.50* a month)
+                Offers Standard Premium features for AutoMuteUs! ($3.50* a
+                month)
               </p>
               <ul>
                 <li>
@@ -103,7 +109,8 @@ class Premium extends React.Component {
           >
             <div>
               <p>
-                Offers Enhanced Premium features for AutoMuteUs! ($5.50* a month)
+                Offers Enhanced Premium features for AutoMuteUs! ($5.50* a
+                month)
               </p>
               <ul>
                 <li>
