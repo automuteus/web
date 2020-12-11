@@ -36,7 +36,6 @@ class Premium extends React.Component {
             <meta property="og:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
 
             {/* Twitter Meta Tags */}
-            {/* <meta name="twitter:card" content="summary_large_image" /> */}
             <meta name="twitter:title" content="AutoMuteUs Premium" />
             <meta name="twitter:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
             <meta name="twitter:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />

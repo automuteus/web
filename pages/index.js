@@ -33,7 +33,6 @@ export default class App extends React.Component {
           <meta property="og:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png" />
 
           {/* Twitter Meta Tags */}
-          {/* <meta name="twitter:card" content="summary_large_image" /> */}
           <meta name="twitter:title" content="AutoMuteUs" />
           <meta name="twitter:description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
           <meta name="twitter:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png" />
