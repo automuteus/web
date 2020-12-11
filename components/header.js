@@ -1,31 +1,29 @@
 import React from "react";
+import Image from "next/image";
 
 import { Navbar, Nav } from "react-bootstrap";
-
-import "./Header.css"
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
-
-import logo from "../assets/img/logo_embed.png";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 class Header extends React.Component {
   render() {
     return (
       <Navbar bg="transparent" variant="dark" expand="lg">
         <Navbar.Toggle aria-controls="primary-navbar-nav" />
-        <Link to={"/"}>
-          <Navbar.Brand>
-            <img
-              src={logo}
-              width="50"
-              height="50"
-              className="d-inline-block align-top"
-              alt="AutoMuteUs"
-            />
-          </Navbar.Brand>
-        </Link>
+        <Navbar.Brand>
+          <Link href="/" passHref>
+            <a>
+              <img
+                src="/assets/img/logo_embed.png"
+                className="d-inline-block align-top"
+                alt="AutoMuteUs"
+                width="50"
+                height="50"
+              />
+            </a>
+          </Link>
+        </Navbar.Brand>
         <Navbar.Collapse id="primary-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="https://discord.gg/vwWXs8Z" target="_blank">

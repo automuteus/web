@@ -1,12 +1,13 @@
 import React from "react";
-
-import EffectToggle from "./EffectToggle"
-
-import "./Footer.css"
-
-import Snowfall from "react-snowfall";
+import dynamic from "next/dynamic";
 import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import EffectToggle from "./effect-toggle";
+
+import styles from "./footer.module.css";
+
+const Snowfall = dynamic(() => import("react-snowfall"), { ssr: false });
 
 export default class Footer extends React.Component {
   constructor(props) {
@@ -26,7 +27,7 @@ export default class Footer extends React.Component {
 
   render() {
     return (
-      <footer className="text-right muted-snow">
+      <footer className={`${styles.footer} ${styles.muted_snow} text-right`}>
         {this.state.snowActive && <Snowfall snowflakeCount={75} />}
 
         <EffectToggle

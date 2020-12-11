@@ -1,6 +1,6 @@
 import React from "react";
 
-import "./ServerStats.css";
+import styles from "./server-stats.module.css";
 
 export default class ServerStats extends React.Component {
   constructor(props) {
@@ -57,8 +57,7 @@ export default class ServerStats extends React.Component {
     } else {
       return (
         <div
-          id="home-stats"
-          className="d-flex align-content-center align-content-lg-start flex-column flex-lg-row"
+          className={`d-flex align-content-center align-content-lg-start flex-column flex-lg-row ${styles.home_stats}`}
         >
           <StatCard label="Servers" stat={guilds} loaded={isLoaded} />
           <StatCard label="Active Games" stat={activeGames} loaded={isLoaded} />
@@ -70,11 +69,11 @@ export default class ServerStats extends React.Component {
 
 function StatCard(props) {
   return (
-    <div className="stat-card p-3 p-lg-5 pb-0">
-      <div className="stat-data">
-        <div className={props.loaded ? "fadeIn" : "fadeOut"}>{props.stat}</div>
+    <div className={`stat-card p-3 p-lg-5 pb-0 ${styles.stat_card}`}>
+      <div className={styles.stat_data}>
+        <div className={props.loaded ? styles.fadeIn : styles.fadeOut}>{props.stat}</div>
       </div>
-      <div className="stat-label">{props.label}</div>
+      <div className={styles.stat_label}>{props.label}</div>
     </div>
   );
 }

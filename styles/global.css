@@ -16,15 +16,15 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Roboto", sans-serif !important;
-  background-color: #23272A;
-  background-image: url("assets/img/bg.png");
+  background-color: #23272a;
+  background-image: url("../public/assets/img/bg.png");
   background-position: center center;
   background-attachment: fixed;
   background-size: cover !important;
   color: white !important;
 }
 
-#root {
+#__next {
   display: flex;
   flex: 1 0 auto;
   min-height: 100%;
@@ -96,21 +96,26 @@ h6 {
   height: 100%;
 }
 
-#main-container {
-  background-image: url("assets/img/svg/blurple-waves.svg");
-  background-attachment: fixed;
-  background-position: bottom;
-  background-size: 200%;
-  background-repeat: no-repeat;
-  display: flex;
-  flex-direction: column;
+.sub-card {
+  color: rgba(255, 255, 255, 0.863) !important;
+  font-size: 17px;
+  border-radius: 20px;
+  border-width: 4px;
+  background-color: rgba(29, 30, 40, 0.835) !important;
 }
 
-#main-container > nav {
-  margin-left: -15px;
-  margin-right: -15px;
-  margin-bottom: 0;
-  box-shadow: none;
+.sub-card .card-title {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sub-card .card-title img {
+  height: auto;
+  width: 2em;
 }
 
 .btn {
@@ -156,6 +161,54 @@ h6 {
   background-color: #2f6298;
 }
 
+.title {
+  line-height: 60px !important;
+  margin-bottom: 4px !important;
+  font-size: 36px !important;
+}
+
+.subtitle {
+  color: rgba(255, 255, 255, 0.685) !important;
+  font-size: 16px !important;
+  font-family: "Roboto", sans-serif;
+}
+
+#home-text {
+  flex: 1 1 auto;
+}
+
+#home-crewmate {
+  flex: 1 0 auto;
+  min-width: 40%;
+  max-width: 40%;
+  cursor: default;
+}
+
+.navbar {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+}
+
+.navbar-dark .navbar-toggler-icon {
+  background-image: url("../public/assets/img/svg/menu_icon.svg") !important;
+  font-size: 0.75em;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: white;
+  transition: color 200ms;
+}
+
+.navbar-collapse {
+  padding: 0.25rem 0.75rem;
+}
+
+.navbar .navbar-toggler {
+  outline: 0;
+  cursor: pointer;
+  border: none;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 }
@@ -166,6 +219,13 @@ h6 {
 
 /* Large devices (desktops, 992px and up) */
 @media (min-width: 992px) {
+  .navbar-collapse {
+    padding: 0;
+  }
+
+  .navbar-dark .navbar-nav .nav-link:not(:first-child) {
+    margin-left: 0.75rem;
+  }
 }
 
 /* Extra large devices (large desktops, 1200px and up) */

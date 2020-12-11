@@ -1,9 +1,9 @@
-.stat-card {
+.stat_card {
   text-align: center;
   font-family: "Poppins";
 }
 
-.stat-card .stat-data {
+.stat_card .stat_data {
   font-size: 4em;
   font-weight: 700;
   color: #7289da !important;
@@ -12,13 +12,13 @@
   text-shadow: 0 0 5px black;
 }
 
-.stat-label {
+.stat_label {
   font-size: 1.3em;
   line-height: 1;
   margin-top: 0;
 }
 
-div#home-stats {
+.home-stats {
   display: flex;
   flex-direction: row;
 }
