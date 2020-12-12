@@ -24,9 +24,9 @@ class Premium extends React.Component {
             <meta name="theme-color" content="#7289DA" />
 
             {/* Google / Search Engine Tag */}
-            <meta itemprop="name" content="AutoMuteUs Premium" />
-            <meta itemprop="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta itemprop="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
+            <meta itemProp="name" content="AutoMuteUs Premium" />
+            <meta itemProp="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
+            <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
 
             {/* Discord/Facebook Facebook Meta Tags */}
             <meta property="og:url" content="http://wolfhound.xyz:42069/premium" />
