@@ -46,3 +46,5 @@ jobs:
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
+      - name: Update deployment
+        run: curl -d "${{ secrets.SIMPLE_UPDATE_TOKEN }}" -X POST https://simpleupdate.automute.us/v0/automuteus-ui/automuteus-ui/main
