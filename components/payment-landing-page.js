@@ -1,8 +1,6 @@
 import React from "react";
 
-import { Button, Card, Col, Image } from "react-bootstrap";
-import { faPaypal } from "@fortawesome/free-brands-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Card, Col } from "react-bootstrap";
 
 export default class PaymentComplete extends React.Component {
   render() {
@@ -13,11 +11,21 @@ export default class PaymentComplete extends React.Component {
           style={{ borderColor: this.props.color }}
         >
           <Card.Body>
-            <Card.Title style={{ color: this.props.color }}>
+            <Card.Title
+              style={{
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: "2.5em",
+                color: this.props.color,
+              }}
+            >
               {this.props.title}
-              <Image src={this.props.image} />
             </Card.Title>
-            <Card.Text className="text-left" as="div">
+            <Card.Text
+              style={{ fontSize: "1.5em" }}
+              className="text-left"
+              as="div"
+            >
               {this.props.children}
             </Card.Text>
           </Card.Body>
