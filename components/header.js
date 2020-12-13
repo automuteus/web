@@ -11,6 +11,7 @@ import {
   faCheckCircle,
   faTachometerAlt,
 } from "@fortawesome/free-solid-svg-icons";
+import styles from "./header.module.css";
 
 export default function Header() {
   const [session, loading] = useSession();
@@ -18,7 +19,7 @@ export default function Header() {
   // console.log(session);
 
   return (
-    <Navbar bg="transparent" variant="dark" expand="lg">
+    <Navbar as="header" variant="dark" expand="lg" className={`${styles.header}`}>
       <Navbar.Toggle aria-controls="primary-navbar-nav" />
       <Navbar.Brand>
         <Link href="/" passHref>

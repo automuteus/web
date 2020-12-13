@@ -5,6 +5,7 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faGem } from "@fortawesome/free-solid-svg-icons";
+import { motion } from "framer-motion";
 
 import Layout from "../components/layout";
 import ServerStats from "../components/server-stats";
@@ -13,7 +14,7 @@ import Link from "next/link";
 export default class App extends React.Component {
   render() {
     return (
-      <Layout innerClassName="justify-content-center">
+      <Layout outerClassName="theatric" innerClassName="justify-content-center" effect={true}>
         <Head>
           {/* HTML Meta Tags */}
           <title>AutoMuteUs</title>
@@ -58,7 +59,12 @@ export default class App extends React.Component {
             content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
           />
         </Head>
-        <div className="d-flex flex-lg-row w-100  align-items-center">
+        <motion.div
+          exit={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          className="d-flex flex-lg-row w-100  align-items-center"
+        >
           <div id="home-text">
             <h2 className="title">Use AutoMuteUs for hands free muting</h2>
             <p className="subtitle">
@@ -101,7 +107,7 @@ export default class App extends React.Component {
               aria-label="AutoMuteUs"
             ></object>
           </div>
-        </div>
+        </motion.div>
       </Layout>
     );
   }

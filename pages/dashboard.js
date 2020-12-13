@@ -1,4 +1,5 @@
 import { useSession, getSession } from "next-auth/client";
+import { motion } from "framer-motion";
 import Layout from "../components/layout";
 
 export default function Page() {
@@ -18,8 +19,14 @@ export default function Page() {
   return (
     <>
       <Layout innerClassName="datapage" effect={false}>
-        <h1>Protected Page</h1>
-        <p>You can view this page because you are signed in.</p>
+        <motion.div
+          exit={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+        >
+          <h1>Protected Page</h1>
+          <p>You can view this page because you are signed in.</p>
+        </motion.div>
       </Layout>
     </>
   );

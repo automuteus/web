@@ -129,8 +129,14 @@ h6 {
 }
 
 #main-content {
-  transition: all 200ms;
+  background: #2c2f33;
   height: 100%;
+}
+
+.theatric #main-content,
+.theatric header,
+.theatric footer {
+  background: transparent !important;
 }
 
 .container-fluid > *,
@@ -283,10 +289,8 @@ h6 {
 }
 
 .datapage {
-  background: #2c2f33;
 }
 .datapage ~ footer {
-  background: #23272a;
 }
 
 /* Small devices (landscape phones, 576px and up) */

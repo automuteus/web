@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      effect: this.props.effect,
+      effect: this.props.effect || false,
     };
 
     this.onToggle = this.onToggle.bind(this);

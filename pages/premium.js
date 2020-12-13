@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Head from "next/head";
+import { motion } from "framer-motion";
 
 import { Row } from "react-bootstrap";
 
@@ -15,30 +16,59 @@ const crewmate_cyan = "/assets/img/crewmate_cyan.png";
 class Premium extends React.Component {
   render() {
     return (
-      <Layout>
-        <div className="text-center">
+      <Layout effect={true}>
+        <motion.div
+          exit={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          initial={{ opacity: 0 }}
+          className="text-center"
+        >
           <Head>
             {/* HTML Meta Tags */}
             <title>AutoMuteUs Premium</title>
-            <meta name="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
+            <meta
+              name="description"
+              content="Avoid the game cap and more with AutoMuteUs Premium"
+            />
             <meta name="theme-color" content="#7289DA" />
 
             {/* Google / Search Engine Tag */}
             <meta itemProp="name" content="AutoMuteUs Premium" />
-            <meta itemProp="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
+            <meta
+              itemProp="description"
+              content="Avoid the game cap and more with AutoMuteUs Premium"
+            />
+            <meta
+              itemProp="image"
+              content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+            />
 
             {/* Discord/Facebook Facebook Meta Tags */}
-            <meta property="og:url" content="http://wolfhound.xyz:42069/premium" />
+            <meta
+              property="og:url"
+              content="http://wolfhound.xyz:42069/premium"
+            />
             <meta property="og:type" content="website" />
             <meta property="og:title" content="AutoMuteUs Premium" />
-            <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta property="og:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
+            <meta
+              property="og:description"
+              content="Avoid the game cap and more with AutoMuteUs Premium"
+            />
+            <meta
+              property="og:image"
+              content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+            />
 
             {/* Twitter Meta Tags */}
             <meta name="twitter:title" content="AutoMuteUs Premium" />
-            <meta name="twitter:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta name="twitter:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
+            <meta
+              name="twitter:description"
+              content="Avoid the game cap and more with AutoMuteUs Premium"
+            />
+            <meta
+              name="twitter:image"
+              content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+            />
           </Head>
           <h1>⭐ Premium Tiers ⭐</h1>
           <h6 className="text-muted mb-4">
@@ -171,7 +201,7 @@ class Premium extends React.Component {
               </div>
             </SubscriptionCard>
           </Row>
-        </div>
+        </motion.div>
       </Layout>
     );
   }
