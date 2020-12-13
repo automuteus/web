@@ -9,10 +9,10 @@ import "../styles/global.css";
 
 export default function App({ Component, pageProps, router }) {
   return (
-    <AnimatePresence exitBeforeEnter>
-      <Provider session={pageProps.session}>
+    <Provider session={pageProps.session}>
+      <AnimatePresence exitBeforeEnter>
         <Component {...pageProps} key={router.route} />
-      </Provider>
-    </AnimatePresence>
+      </AnimatePresence>
+    </Provider>
   );
 }

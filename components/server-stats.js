@@ -32,7 +32,7 @@ export default class ServerStats extends React.Component {
     this.fetchData();
     this.interval = setInterval(() => {
       this.fetchData();
-    }, 7000);
+    }, 10000);
   }
 
   componentWillUnmount() {

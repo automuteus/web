@@ -6,7 +6,7 @@ import Header from "./header";
 import Footer from "./footer";
 import styles from "./layout.module.css";
 
-export default function Layout({ children, home }) {
+export default function Layout(props) {
   return (
     <Container fluid className={styles.main_container}>
       <Head>
@@ -19,11 +19,11 @@ export default function Layout({ children, home }) {
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
         id="main-content"
-        className=" d-flex flex-lg-row flex-column align-items-center p-3"
+        className={`d-flex flex-column p-3 ${props.innerClassName}`}
       >
-        {children}
+        {props.children}
       </motion.main>
-      <Footer />
+      <Footer effect={props.effect} />
     </Container>
   );
 }

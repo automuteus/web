@@ -13,7 +13,7 @@ export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      snowActive: true,
+      effect: this.props.effect,
     };
 
     this.onToggle = this.onToggle.bind(this);
@@ -21,22 +21,25 @@ export default class Footer extends React.Component {
 
   onToggle(e) {
     this.setState({
-      snowActive: e.target.checked,
+      effect: e.target.checked,
     });
   }
 
   render() {
     return (
       <footer className={`${styles.footer} ${styles.muted_snow} text-right`}>
-        {this.state.snowActive && <Snowfall snowflakeCount={75} />}
-
-        <EffectToggle
-          name="snow-switch"
-          init={this.snowActive}
-          tooltip="Toggle snow"
-          toggle={this.onToggle}
-          label={<FontAwesomeIcon icon={faSnowflake} />}
-        />
+        {this.state.effect && (
+          <>
+            <Snowfall snowflakeCount={75} />
+            <EffectToggle
+              name="snow-switch"
+              init={this.effect}
+              tooltip="Toggle snow"
+              toggle={this.onToggle}
+              label={<FontAwesomeIcon icon={faSnowflake} />}
+            />
+          </>
+        )}
       </footer>
     );
   }

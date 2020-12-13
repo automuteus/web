@@ -7,12 +7,15 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/client";
-import { faSignOutAlt, faTachometerAlt } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCheckCircle,
+  faTachometerAlt,
+} from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const [session, loading] = useSession();
 
-  console.log(session);
+  // console.log(session);
 
   return (
     <Navbar bg="transparent" variant="dark" expand="lg">
@@ -48,29 +51,19 @@ export default function Header() {
           </Nav.Link>
         </Nav>
         <hr className="d-lg-none border border-white" />
-        <Nav className="align-items-center">
-          {!session && (
-            <>
-              <Nav.Link onClick={() => signIn("discord")}>
-                <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
-                Sign In
-              </Nav.Link>
-            </>
+        <Nav className="align-items-lg-center">
+          {loading && <Navbar.Text>Checking login...</Navbar.Text>}
+          {!loading && !session && (
+            <Nav.Link onClick={() => signIn("discord")}>
+              <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
+              Sign In
+            </Nav.Link>
           )}
-          {session && (
+          {!loading && session && (
             <>
-              <Nav.Link className="d-none">
-                <Link href="/dashboard">
-                  <>
-                    <FontAwesomeIcon
-                      icon={faTachometerAlt}
-                      size="lg"
-                      className="mr-2"
-                    />
-                    Dashboard
-                  </>
-                </Link>
-              </Nav.Link>
+              <Link href="/dashboard" passHref>
+                <Nav.Link>Dashboard</Nav.Link>
+              </Link>
               <Navbar.Text as="div" className="user-logged-in">
                 <img
                   src={session.user.image}
@@ -78,10 +71,15 @@ export default function Header() {
                   className="user-image mr-2"
                 />
                 <div className="user-details">
-                  <div className="user-name">{session.user.name}</div>
-                  <div className="user-signout" onClick={signOut} href="#">
-                    <em>Sign Out</em>
+                  <div className="user-name">
+                    {session.user.name}
+                    {session.user.verified && (
+                      <FontAwesomeIcon className="ml-2" icon={faCheckCircle} />
+                    )}
                   </div>
+                  <small className="user-signout" onClick={signOut}>
+                    Sign Out
+                  </small>
                 </div>
               </Navbar.Text>
             </>

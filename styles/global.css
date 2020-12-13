@@ -133,6 +133,12 @@ h6 {
   height: 100%;
 }
 
+.container-fluid > *,
+.container > * {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
 .sub-card {
   color: rgba(255, 255, 255, 0.863) !important;
   font-size: 17px;
@@ -263,8 +269,8 @@ h6 {
 }
 
 .user-logged-in .user-image {
-  max-width: 2.5rem;
-  max-height: 2.5rem;
+  width: 2.5rem;
+  height: 2.5rem;
   border-radius: 100px;
   margin-right: 0.5rem;
   border: solid 3px #7289da;
@@ -274,6 +280,13 @@ h6 {
   font-size: 0.75em;
   color: white;
   cursor: pointer;
+}
+
+.datapage {
+  background: #2c2f33;
+}
+.datapage ~ footer {
+  background: #23272a;
 }
 
 /* Small devices (landscape phones, 576px and up) */
