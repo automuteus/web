@@ -59,7 +59,7 @@ export default class App extends React.Component {
               Capture Software
             </Button>
 
-            <Link href="/premium">
+            <Link href="/premium/index.js">
               <Button className="btn btn-premium btn-lg">
                 <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
                 AutoMuteUs Premium
