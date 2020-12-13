@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../.."
+		},
+		{
+			"path": "../../../react-web-old"
+		},
+		{
+			"path": "../../../next-auth-example"
+		}
+	],
+	"settings": {}
+}

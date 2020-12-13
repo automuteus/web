@@ -1,5 +1,5 @@
 import { AnimatePresence } from "framer-motion";
-
+import { Provider } from "next-auth/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css"; // Import the CSS
@@ -10,7 +10,9 @@ import "../styles/global.css";
 export default function App({ Component, pageProps, router }) {
   return (
     <AnimatePresence exitBeforeEnter>
-      <Component {...pageProps} key={router.route} />
+      <Provider session={pageProps.session}>
+        <Component {...pageProps} key={router.route} />
+      </Provider>
     </AnimatePresence>
   );
 }
