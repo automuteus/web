@@ -4,8 +4,8 @@ import Head from "next/head";
 
 import { Row } from "react-bootstrap";
 
-import SubscriptionCard from "../components/subscription-card";
-import Layout from "../components/layout";
+import SubscriptionCard from "../../components/subscription-card";
+import Layout from "../../components/layout";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";

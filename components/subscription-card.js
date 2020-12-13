@@ -83,7 +83,6 @@ export default class SubscriptionCard extends React.Component {
                 "&custom=" +
                 this.state.guild_id
               }
-              target="_blank"
               className="btn btn-premium m-0"
               onClick={this.getGuild}
             >
