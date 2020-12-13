@@ -7,10 +7,12 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/client";
-import { faSignOutAlt } from "@fortawesome/free-solid-svg-icons";
+import { faSignOutAlt, faTachometerAlt } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header() {
   const [session, loading] = useSession();
+
+  console.log(session);
 
   return (
     <Navbar bg="transparent" variant="dark" expand="lg">
@@ -46,10 +48,10 @@ export default function Header() {
           </Nav.Link>
         </Nav>
         <hr className="d-lg-none border border-white" />
-        <Nav>
+        <Nav className="align-items-center">
           {!session && (
             <>
-              <Nav.Link onClick={() => signIn('discord')}>
+              <Nav.Link onClick={() => signIn("discord")}>
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Sign In
               </Nav.Link>
@@ -57,15 +59,31 @@ export default function Header() {
           )}
           {session && (
             <>
-              <Navbar.Text>{session.user.email}</Navbar.Text>
-              <Nav.Link onClick={signOut}>
-                <FontAwesomeIcon
-                  icon={faSignOutAlt}
-                  size="lg"
-                  className="mr-2"
-                />
-                Sign Out
+              <Nav.Link className="d-none">
+                <Link href="/dashboard">
+                  <>
+                    <FontAwesomeIcon
+                      icon={faTachometerAlt}
+                      size="lg"
+                      className="mr-2"
+                    />
+                    Dashboard
+                  </>
+                </Link>
               </Nav.Link>
+              <Navbar.Text as="div" className="user-logged-in">
+                <img
+                  src={session.user.image}
+                  alt={session.user.name}
+                  className="user-image mr-2"
+                />
+                <div className="user-details">
+                  <div className="user-name">{session.user.name}</div>
+                  <div className="user-signout" onClick={signOut} href="#">
+                    <em>Sign Out</em>
+                  </div>
+                </div>
+              </Navbar.Text>
             </>
           )}
         </Nav>

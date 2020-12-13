@@ -251,6 +251,31 @@ h6 {
   border: none;
 }
 
+.user-logged-in {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  color: #7289da !important;
+  /* background: rgba(255,255,255,0.1); */
+  padding: 0.5rem;
+  border-radius: 10px;
+  line-height: 1.15;
+}
+
+.user-logged-in .user-image {
+  max-width: 2.5rem;
+  max-height: 2.5rem;
+  border-radius: 100px;
+  margin-right: 0.5rem;
+  border: solid 3px #7289da;
+}
+
+.user-logged-in .user-signout {
+  font-size: 0.75em;
+  color: white;
+  cursor: pointer;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 }
