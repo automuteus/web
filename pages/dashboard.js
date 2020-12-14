@@ -1,7 +1,6 @@
 import { useSession, getSession } from "next-auth/client";
 import { motion } from "framer-motion";
 import Layout from "../components/layout";
-
 export default function Page() {
   const [session, loading] = useSession();
 
@@ -25,7 +24,11 @@ export default function Page() {
           initial={{ opacity: 0 }}
         >
           <h1>Bot Dashboard</h1>
-          <p>You can manage settings related to your bot here. As we make more settings, you'll have more options!</p>
+          <p>
+            You can manage settings related to your bot here. As we make more
+            settings, you'll have more options!
+          </p>
+          <pre style={{color: 'white'}}>{JSON.stringify(session, null, 2)}</pre>
         </motion.div>
       </Layout>
     </>

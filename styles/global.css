@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700&family=Roboto&display=swap");
 
+:root {
+  --blurple: #7289da;
+}
+
 html {
   scroll-behavior: smooth;
   overflow-y: scroll;
@@ -71,7 +75,7 @@ h6 {
 .stat_card .stat_data {
   font-size: 4em;
   font-weight: 700;
-  color: #7289da !important;
+  color: var(--blurple) !important;
   line-height: 1;
   min-width: 3em;
   text-shadow: 0 0 5px black;
@@ -113,7 +117,7 @@ h6 {
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background-color: #7289da;
+  background-color: var(--blurple);
   transition: background-color 200ms;
   border-radius: 50px;
 }
@@ -195,7 +199,7 @@ h6 {
 }
 
 .btn-primary {
-  background-color: #7289da;
+  background-color: var(--blurple);
 }
 
 .btn-secondary {
@@ -267,7 +271,7 @@ h6 {
   display: flex;
   flex-direction: row;
   align-items: center;
-  color: #7289da !important;
+  color: var(--blurple) !important;
   /* background: rgba(255,255,255,0.1); */
   padding: 0.5rem;
   border-radius: 10px;
@@ -279,7 +283,7 @@ h6 {
   height: 2.5rem;
   border-radius: 100px;
   margin-right: 0.5rem;
-  border: solid 3px #7289da;
+  border: solid 3px var(--blurple);
 }
 
 .user-logged-in .user-signout {
@@ -317,6 +321,11 @@ h6 {
 .premium-table tbody th {
   text-align: right;
   color: white;
+}
+
+.donation-table tbody td h5,
+.premium-table tbody th h5 {
+  color: var(--blurple) !important;
 }
 
 .premium-table tbody td {
