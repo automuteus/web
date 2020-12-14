@@ -29,6 +29,9 @@ export default class PaymentComplete extends React.Component {
               {this.props.children}
             </Card.Text>
           </Card.Body>
+          <Card.Footer>
+              {this.props.footer}
+          </Card.Footer>
         </Card>
       </Col>
     );

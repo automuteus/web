@@ -21,9 +21,9 @@ export default class App extends React.Component {
           <meta name="theme-color" content="#7289DA" />
 
           {/* Google / Search Engine Tags */}
-          <meta itemprop="name" content="AutoMuteUs" />
-          <meta itemprop="description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
-          <meta itemprop="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png" />
+          <meta itemProp="name" content="AutoMuteUs" />
+          <meta itemProp="description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
+          <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png" />
 
           {/* Discord/Facebook Meta Tags */}
           <meta property="og:url" content="http://wolfhound.xyz:42069" />
