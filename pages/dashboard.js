@@ -24,8 +24,8 @@ export default function Page() {
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
         >
-          <h1>Protected Page</h1>
-          <p>You can view this page because you are signed in.</p>
+          <h1>Bot Dashboard</h1>
+          <p>You can manage settings related to your bot here. As we make more settings, you'll have more options!</p>
         </motion.div>
       </Layout>
     </>

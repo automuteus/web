@@ -288,9 +288,68 @@ h6 {
   cursor: pointer;
 }
 
-.datapage {
+.donation-table {
+  border-radius: 15px;
+  max-width: 400px;
 }
-.datapage ~ footer {
+
+.premium-table-wrap {
+  margin-bottom: 2rem;
+  text-align: center;
+  max-width: 100%;
+}
+
+.premium-table-wrap:first-child {
+  margin-right: 2rem;
+}
+
+.premium-table {
+  border-radius: 15px;
+  max-width: 900px;
+}
+
+.premium-table p {
+  font-weight: 100;
+  font-size: 0.9rem;
+  margin-bottom: 0;
+}
+
+.premium-table tbody th {
+  text-align: right;
+  color: white;
+}
+
+.premium-table tbody td {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.premium-item {
+  padding: 0.25rem;
+  text-align: center;
+  padding: 1rem 0;
+  background-color: #23272a;
+  width: 175px;
+  border-radius: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.premium-item img {
+  width: 5em;
+  height: auto;
+}
+
+.premium-item h4 {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.premium-item .btn {
+  font-size: 0.85em !important;
 }
 
 /* Small devices (landscape phones, 576px and up) */
