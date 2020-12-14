@@ -15,7 +15,7 @@ class SuccessPayment extends React.Component {
 
     this.state = {
       color: "red",
-      tierText: false,
+      tierText: "false",
     };
 
     this.getTier = this.getTier.bind(this);
@@ -24,16 +24,18 @@ class SuccessPayment extends React.Component {
     const tier = new URL(window.location.href).searchParams.get("tier");
     switch (tier) {
       case "1":
-        this.setState({ color: "#71491E", tierText: "Bronze" });
+        this.setState({ color: "#71491E", tierText: "Bronze subscription " });
         break;
       case "2":
-        this.setState({ color: "#D6E0F0", tierText: "Silver" });
+        this.setState({ color: "#D6E0F0", tierText: "Silver subscription " });
         break;
       case "3":
-        this.setState({ color: "#F6F658", tierText: "Gold" });
+        this.setState({ color: "#F6F658", tierText: "Gold subscription " });
+        break;
+      case "donor":
+        this.setState({ color: "#38FEDC", tierText: "Donation" });
         break;
     }
-    console.log(tier);
   }
 
   componentDidMount() {
@@ -42,6 +44,7 @@ class SuccessPayment extends React.Component {
 
   render() {
     return (
+      console.log(this.state.tierText),
       <Layout>
         <div
           className="text-center"
@@ -60,31 +63,25 @@ class SuccessPayment extends React.Component {
 
           <h1 style={{ fontSize: "3em" }} className="mb-4">
             {this.state.tierText
-              ? `🎉 Your ${this.state.tierText} subscription was successful! ✨`
+              ? `🎉 Your ${this.state.tierText} was successful! ✨`
               : "（︶^︶）Seems like you didn't pay the price (* ￣︿￣)"}
           </h1>
-
+          
           <Row lg={1} className="justify-content-center">
             {this.state.tierText && (
               <PaymentComplete title="Instructions" color={this.state.color}>
                 <div>
-                  <ul>
-                    <p>
-                      Type{" "}
-                      <code
-                        style={{
-                          color: "#7289DA",
-                          backgroundColor: "black",
-                        }}
-                      >
-                        .au premium
-                      </code>{" "}
-                      in your server to check your premium status!
-                    </p>
-                  </ul>
+                  <p>
+                    Type{" "}
+                    <code style={{ color: "#7289DA", backgroundColor: "black", }}>
+                      .au premium
+                    </code>{" "}
+                    in your server to check your premium status!
+                  </p>
                 </div>
               </PaymentComplete>
             )}
+
             {!this.state.tierText && (
               <Link href="/premium">
                 <Button className="btn btn-premium btn-lg">
@@ -94,6 +91,9 @@ class SuccessPayment extends React.Component {
               </Link>
             )}
           </Row>
+          <h3 style={{ fontSize: "0.75em" }} className="mb-4">
+            {""}
+          </h3>
         </div>
       </Layout>
     );

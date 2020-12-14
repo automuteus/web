@@ -29,6 +29,20 @@ export default class PaymentComplete extends React.Component {
               {this.props.children}
             </Card.Text>
           </Card.Body>
+          <Card.Footer>
+            <p>
+              Paypal will send a reciept to email linked to your Paypal account soon!
+              <br />
+              This subscription can be canceled anytime on your{" "}
+              <a href="https://paypal.com" style={{ color: "#7289DA" }}>PayPal</a> account.
+            </p>
+            <p>
+              <small>
+                This page does not qualify as evidence of payment. Accessing
+                this page will not trigger any subscription.
+              </small>
+            </p>
+          </Card.Footer>
         </Card>
       </Col>
     );
