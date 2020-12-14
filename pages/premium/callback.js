@@ -15,7 +15,7 @@ class SuccessPayment extends React.Component {
 
     this.state = {
       color: "red",
-      tierText: "false",
+      tierText: false,
     };
 
     this.getTier = this.getTier.bind(this);
@@ -111,17 +111,25 @@ class SuccessPayment extends React.Component {
                 >
                   <div>
                     <p style={{ textAlign: "center" }}>
-                      {this.state.tierText == "Donation"
-                        ? "Keep being cool 😎"
-                        : "Type "}
-                      <code
-                        style={{ color: "#7289DA", backgroundColor: "black", paddingRight: "5px" }}
-                      >
-                        {this.state.tierText == "Donation" ? "" : ".au premium"}
-                      </code>{" "}
-                      {this.state.tierText == "Donation"
-                        ? ""
-                        : "in your server to check your premium status!"}
+                      {this.state.tierText == "Donation" ? (
+                        "Keep being cool 😎"
+                      ) : (
+                        <>
+                          {'Type '}
+                          <code
+                            style={{
+                              color: "#7289DA",
+                              backgroundColor: "black",
+                              paddingRight: "5px",
+                            }}
+                          >
+                            {this.state.tierText == "Donation"
+                              ? ""
+                              : ".au premium"}
+                          </code>
+                          {" in your server to check your premium status!"}{" "}
+                        </>
+                      )}
                     </p>
                   </div>
                 </PaymentComplete>
