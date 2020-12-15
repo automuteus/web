@@ -2,7 +2,7 @@ import React from "react";
 
 import styles from "./server-stats.module.css";
 
-const StatsURL = "https://stats.automute.us/stats/api"
+const StatsURL = "https://galactus.automute.us"
 
 export default class ServerStats extends React.Component {
   constructor(props) {
