@@ -77,7 +77,7 @@ class SuccessPayment extends React.Component {
                     <>
                       {" "}
                       <p style={{ lineHeight: "10px" }}>
-                        Paypal will send a receipt to email linked to your
+                        Paypal will send a receipt to the email linked to your
                         Paypal account soon!
                       </p>
                       <p style={{ lineHeight: "10px" }}>
