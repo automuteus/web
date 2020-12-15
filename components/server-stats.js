@@ -2,6 +2,7 @@ import React from "react";
 
 import styles from "./server-stats.module.css";
 
+const StatsURL = "https://stats.automute.us/stats/api"
 export default class ServerStats extends React.Component {
   constructor(props) {
     super(props);
@@ -17,7 +18,7 @@ export default class ServerStats extends React.Component {
 
   async fetchData() {
     try {
-      const response = await fetch("https://galactus.automute.us/");
+      const response = await fetch(StatsURL);
       const json = await response.json();
       this.setState({
         isLoaded: true,
