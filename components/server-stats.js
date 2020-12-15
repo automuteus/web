@@ -84,7 +84,7 @@ export default class ServerStats extends React.Component {
 
 function StatCard(props) {
   return (
-    <div className={`stat-card p-3 p-lg-5 pb-0 ${styles.stat_card}`}>
+    <div className={`stat-card p-3 pb-0 ${styles.stat_card}`}>
       <div className={styles.stat_data}>
         <div className={props.loaded ? styles.fadeIn : styles.fadeOut}>
           {props.stat}
