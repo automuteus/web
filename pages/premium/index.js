@@ -29,7 +29,7 @@ class Premium extends React.Component {
             <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
 
             {/* Discord/Facebook Facebook Meta Tags */}
-            <meta property="og:url" content="http://wolfhound.xyz:42069/premium" />
+            <meta property="og:url" content="https://automute.us/premium" />
             <meta property="og:type" content="website" />
             <meta property="og:title" content="AutoMuteUs Premium" />
             <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />

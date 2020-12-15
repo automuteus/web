@@ -26,7 +26,7 @@ export default class App extends React.Component {
           <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png" />
 
           {/* Discord/Facebook Meta Tags */}
-          <meta property="og:url" content="http://wolfhound.xyz:42069" />
+          <meta property="og:url" content="https://automute.us" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="AutoMuteUs" />
           <meta property="og:description" content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!" />
