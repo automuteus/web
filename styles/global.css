@@ -2,6 +2,9 @@
 
 :root {
   --blurple: #7289da;
+  --blurple2: #4e5d94;
+  --darker: #2c2f33;
+  --darkest: #23272a;
 }
 
 html {
@@ -20,12 +23,17 @@ body {
   display: flex;
   flex-direction: column;
   font-family: "Roboto", sans-serif !important;
-  background-color: #23272a;
+  background-color: var(--darkest);
   background-image: url("../public/assets/img/bg.png");
   background-position: center center;
   background-attachment: fixed;
   background-size: cover !important;
   color: white !important;
+}
+
+pre {
+  background-color: var(--darkest);
+  border-radius: 5px;
 }
 
 #__next {
@@ -124,7 +132,7 @@ h6 {
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #4e5d94;
+  background-color: var(--blurple2);
   transition: background-color 200ms;
 }
 
@@ -133,7 +141,7 @@ h6 {
 }
 
 #main-content {
-  background: #2c2f33;
+  background: var(--darker);
   height: 100%;
 }
 
@@ -203,7 +211,7 @@ h6 {
 }
 
 .btn-secondary {
-  background-color: #2c2f33;
+  background-color: var(--darker);
 }
 
 .btn-premium {
@@ -337,7 +345,7 @@ h6 {
   padding: 0.25rem;
   text-align: center;
   padding: 1rem 0;
-  background-color: #23272a;
+  background-color: var(--darkest);
   width: 175px;
   border-radius: 15px;
   display: flex;
@@ -359,6 +367,35 @@ h6 {
 
 .premium-item .btn {
   font-size: 0.85em !important;
+}
+
+.guild-container {
+  border-radius: 15px;
+  background-color: var(--darkest);
+  display: inline-flex;
+  min-width: calc(25% - 1rem);
+  align-items: center;
+  padding: 0.75rem;
+  margin: 0.5rem 0.5rem;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.guild-container .guild-icon {
+  width: 50px;
+  height: 50px;
+  border: none;
+  background: linear-gradient(to bottom right, #555, var(--darker));
+  margin-right: 1rem;
+  overflow: hidden;
+  border-radius: 100px;
+  object-fit: contain;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+}
+
+.guild-container .guild-icon img {
+  width: inherit;
+  height: inherit;
 }
 
 /* Small devices (landscape phones, 576px and up) */
