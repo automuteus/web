@@ -1,8 +1,9 @@
 import React from "react";
+import ReactTooltip from "react-tooltip";
 
 import styles from "./server-stats.module.css";
 
-const StatsURL = "https://galactus.automute.us"
+const StatsURL = "https://galactus.automute.us";
 
 export default class ServerStats extends React.Component {
   constructor(props) {
@@ -23,10 +24,13 @@ export default class ServerStats extends React.Component {
       const json = await response.json();
       this.setState({
         isLoaded: true,
-        guilds: json.totalGuilds,
+        guilds:json.totalGuilds,
         activeGames: json.activeGames,
         totalGames: json.totalGames,
         totalUsers: json.totalUsers,
+        totalGamesRounded: Math.round(json.totalGames / 1000) + "k",
+        totalGuildsRounded: Math.round(json.totalGuilds / 1000) + "k",
+        totalUsersRounded: Math.round(json.totalUsers / 1000) + "k",
       });
     } catch (error) {
       this.setState({
@@ -55,6 +59,9 @@ export default class ServerStats extends React.Component {
       activeGames,
       totalGames,
       totalUsers,
+      totalGuildsRounded,
+      totalUsersRounded,
+      totalGamesRounded,
     } = this.state;
 
     if (error) {
@@ -63,7 +70,8 @@ export default class ServerStats extends React.Component {
           id="home-stats"
           className={`home-stats-wrapper ${styles.home_stats}`}
         >
-          <StatCard label="Active Games" stat={"Very"} loaded={true} />
+          
+          <StatCard  label="Active Games" stat={"Very"} loaded={true} />
           <StatCard label="Servers" stat={"Such"} loaded={true} />
           <StatCard label="Users" stat={"Many"} loaded={true} />
           <StatCard label="Games Muted" stat={"Wow"} loaded={true} />
@@ -71,13 +79,18 @@ export default class ServerStats extends React.Component {
       );
     } else {
       return (
-        <div
-          className={`home-stats-wrapper ${styles.home_stats}`}
-        >
-          <StatCard label="Servers" stat={guilds} loaded={isLoaded} />
+        <div style={{cursor: "default"}} className={`home-stats-wrapper ${styles.home_stats}`}>
+          <div data-tip={this.state.guilds} data-offset="{'bottom': 25}">
+          <StatCard label="Servers" stat={totalGuildsRounded} loaded={isLoaded} />
+          </div>
           <StatCard label="Active Games" stat={activeGames} loaded={isLoaded} />
-          <StatCard label="Users" stat={totalUsers} loaded={isLoaded} />
-          <StatCard label="Games Muted" stat={totalGames} loaded={isLoaded} />
+          <div data-tip={this.state.totalUsers} data-offset="{'bottom': 25}">
+          <StatCard label="Users" stat={totalUsersRounded} loaded={isLoaded} />
+          </div>
+          <div data-place="bottom" data-tip={this.state.totalGames} data-offset="{'top': 25}">
+          <StatCard label="Games Muted" stat={totalGamesRounded} loaded={isLoaded} />
+          </div>
+          <ReactTooltip effect="solid" delayShow={500} />
         </div>
       );
     }
