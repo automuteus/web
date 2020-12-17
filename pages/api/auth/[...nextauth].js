@@ -1,6 +1,9 @@
 import NextAuth from "next-auth";
-import { encode, getToken } from "next-auth/jwt";
 import Providers from "next-auth/providers";
+
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const options = {
   debug: false,
@@ -14,28 +17,28 @@ const options = {
     }),
   ],
 
+  adapter: Adapters.Prisma.Adapter({ prisma }),
+
   session: {
-    jwt: true,
+    // jwt: true,
   },
 
   callbacks: {
-    jwt: async (token, user, account, profile, isNewUser) => {
-      console.clear();
-      console.log("\n\n");
-      if (account) {
-        profile.token = account.accessToken;
-        token.profile = profile;
-      }
-      return Promise.resolve(token);
-    },
+    // jwt: async (token, user, account, profile, isNewUser) => {
+    //   if (account) {
+    //     profile.token = account.accessToken;
+    //     token.profile = profile;
+    //   }
+    //   return Promise.resolve(token);
+    // },
 
-    session: async (session, user) => {
-      if (user.profile.token) {
-        session.guilds = await getUserGuilds(user.profile.token);
-      }
-      session.token = user.profile.token;
-      return Promise.resolve(session);
-    },
+    // session: async (session, user) => {
+    //   if (user.profile.token) {
+    //     session.guilds = await getUserGuilds(user.profile.token);
+    //   }
+    //   session.token = user.profile.token;
+    //   return Promise.resolve(session);
+    // },
   },
 
   // A database is optional, but required to persist accounts in a database

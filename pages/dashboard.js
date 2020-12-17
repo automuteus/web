@@ -1,15 +1,12 @@
-import { useSession, getSession } from "next-auth/client";
+export const thisIsAnUnusedExport =
+  "this export only exists to disable fast refresh for this file";
+
+import { getSession } from "next-auth/client";
 import { motion } from "framer-motion";
 import Layout from "../components/layout";
-import Guild from "../components/guild";
-import { useState } from "react";
+import { Col, Row, Spinner } from "react-bootstrap";
 
-export default function Page(props) {
-  const [session, loading] = useSession();
- const [guilds, setGuilds] = useState(session.guilds);
-
-  if (typeof window !== "undefined" && loading) return null;
-
+export default function Page({ content, session }) {
   if (!session) {
     return (
       <Layout innerClassName="justify-content-center">
@@ -19,38 +16,36 @@ export default function Page(props) {
     );
   }
 
-  let guild_render;
-  if (session && session.guilds && typeof session.guilds === "object") {
-    try {
-      guild_render = session.guilds
-        .map((g) => <Guild guild={g} type="card-sm" key={g.id} />)
-        .sort((a, b) => (a.name > b.name ? 1 : -1));
-      guild_render = (
-        <div className="d-flex flex-row flex-wrap">{guild_render}</div>
-      );
-    } catch (error) {
-      console.log("the fuck");
-    }
-  }
+  let guild_render = (
+    <Spinner animation="border" role="status">
+      <span className="sr-only">Loading...</span>
+    </Spinner>
+  );
+
+  guild_render = <pre style={{color: "white"}}>{JSON.stringify(content, null, 2)}</pre>;
+  
 
   return (
     <>
-      <Layout innerClassName="datapage" effect={false}>
+      <Layout effect={false}>
         <motion.div
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
         >
-          {/* <h1>Bot Dashboard</h1>
-          <p>
-            You can manage settings related to your bot here. As we make more
-            settings, you'll have more options!
-          </p> */}
-          <h3>Guilds</h3>
-          {guild_render}
-          {/* <pre style={{ color: "white", maxHeight: "10em" }}>
-            {JSON.stringify(session, null, 2)}
-          </pre> */}
+          <div className="dashboard-header">
+            <h1>Bot Dashboard</h1>
+            <p>
+              You can manage settings related to your bot here. As we make more
+              settings, you'll have more options!
+            </p>
+          </div>
+          <Row xs="1">
+            <Col lg="4">
+              <h3>Guilds</h3>
+            </Col>
+            <Col lg="8">{guild_render}</Col>
+          </Row>
         </motion.div>
       </Layout>
     </>
@@ -59,8 +54,13 @@ export default function Page(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const guilds = session.guilds;
+  let content = [];
+
+  if (session) {
+    content = session.guilds;
+  }
+
   return {
-    props: { session, guilds },
+    props: { session, content },
   };
 }

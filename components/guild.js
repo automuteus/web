@@ -12,7 +12,9 @@ export default class Guild extends React.Component {
         <div className="guild-icon">
           <img
             onError={(e) => {
-              e.target.style.opacity = '0'
+              let replacement = document.createElement('div');
+              replacement.innerHTML = guild.name.match(/\b\w/g).join('')
+              e.target.parentNode.replaceChild(replacement, e.target)
             }}
             src={`https://cdn.discordapp.com/icons/${guild.id}/${guild.icon}.png`}
             alt={guild.name}
