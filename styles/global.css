@@ -63,6 +63,24 @@ h6 {
   }
 }
 
+.tooltip-inner {
+  color: black;
+  font-size: 2em;
+  font-weight: bold;
+  background-color: #7289da;
+  border-radius: 15px;
+  outline-color: black;
+  border-style: solid;
+  outline-width: 20px;
+  opacity: 1;
+}
+.tooltip.show {
+  opacity: 1;
+}
+.bs-tooltip-bottom .arrow::before {
+  opacity: 0;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -88,7 +106,7 @@ h6 {
 }
 
 ::selection {
-  background-color: #7289DA !important;
+  background-color: #7289da !important;
 }
 
 #main-content {

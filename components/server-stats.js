@@ -121,9 +121,10 @@ function StatCard(props) {
   const tooltip = (
     <OverlayTrigger
       placement={props.placement || "bottom"}
-      delay={{ show: 0, hide: 0 }}
+      delay={{ show: 100, hide: 0 }}
       trigger={["hover", "focus"]}
-      overlay={<Tooltip id={props.label + "tooltip"}>{props.stat}</Tooltip>}
+      overlay={<Tooltip id={props.label + "tooltip"}
+      >{props.stat}</Tooltip>}
     >
       {content}
     </OverlayTrigger>
