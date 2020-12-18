@@ -1,5 +1,5 @@
 import React from "react";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 import styles from "./server-stats.module.css";
 
@@ -73,33 +73,35 @@ export default class ServerStats extends React.Component {
     } else {
       return (
         <div className={`home-stats-wrapper ${styles.home_stats}`}>
-          <StatCard
-            label="Servers"
-            stat={totalGuilds}
-            loaded={isLoaded}
-            rounded={true}
-            placement="bottom"
-          />
-          <StatCard
-            label="Active Games"
-            stat={activeGames}
-            loaded={isLoaded}
-            rounded={false}
-          />
-          <StatCard
-            label="Users"
-            stat={totalUsers}
-            loaded={isLoaded}
-            rounded={true}
-            placement="bottom"
-          />
-          <StatCard
-            label="Games Muted"
-            stat={totalGames}
-            loaded={isLoaded}
-            rounded={true}
-            placement="bottom"
-          />
+          <Row xl={2} md={2} lg={2} sm={2} xs={1}>
+            <StatCard
+              label="Servers"
+              stat={totalGuilds}
+              loaded={isLoaded}
+              rounded={true}
+              placement="bottom"
+            />
+            <StatCard
+              label="Active Games"
+              stat={activeGames}
+              loaded={isLoaded}
+              rounded={false}
+            />
+            <StatCard
+              label="Users"
+              stat={totalUsers}
+              loaded={isLoaded}
+              rounded={true}
+              placement="bottom"
+            />
+            <StatCard
+              label="Games Muted"
+              stat={totalGames}
+              loaded={isLoaded}
+              rounded={true}
+              placement="bottom"
+            />
+          </Row>
         </div>
       );
     }
