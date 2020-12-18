@@ -63,6 +63,24 @@ h6 {
   }
 }
 
+.tooltip-inner {
+  color: black;
+  font-size: 1.1em;
+  font-weight: bold;
+  background-color: #7289da;
+  border: none;
+  outline: none;
+  border-radius: 5px;
+  opacity: 1;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.tooltip.show {
+  opacity: 1;
+}
+.bs-tooltip-bottom .arrow::before {
+  opacity: 0;
+}
+
 /* width */
 ::-webkit-scrollbar {
   width: 10px;
@@ -88,7 +106,7 @@ h6 {
 }
 
 ::selection {
-  background-color: #7289DA !important;
+  background-color: #7289da !important;
 }
 
 #main-content {
@@ -213,6 +231,7 @@ h6 {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  cursor: default;
 }
 
 /* Small devices (landscape phones, 576px and up) */
