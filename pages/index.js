@@ -36,7 +36,7 @@ export default class App extends React.Component {
           />
 
           {/* Discord/Facebook Meta Tags */}
-          <meta property="og:url" content="http://wolfhound.xyz:42069" />
+          <meta property="og:url" content="http://automute.us" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="AutoMuteUs" />
           <meta
@@ -74,14 +74,14 @@ export default class App extends React.Component {
             <div id="home-links">
               <Button
                 href="https://add.automute.us/"
-                className="btn btn-primary btn-lg"
+                className="btn btn-primary btn-lg mr-2"
               >
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Add to Discord
               </Button>
               <Button
                 href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
-                className="btn btn-primary btn-lg"
+                className="btn btn-primary btn-lg mr-2"
               >
                 <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
                 Capture Software

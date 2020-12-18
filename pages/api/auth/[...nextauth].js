@@ -2,11 +2,21 @@ import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 import Adapters from "next-auth/adapters";
 
-import Models from "../../../models";
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
 
 const options = {
-  debug: false,
-  database: process.env.DATABASE_URL,
+  debug: process.env.NODE_ENV === "development",
+  // database: {
+  //   type: "postgres",
+  //   host: "172.29.14.130",
+  //   port: 5432,
+  //   username: "automuteus",
+  //   password: "password",
+  //   database: "automuteus",
+  //   synchronize: true,
+  // },
 
   providers: [
     Providers.Discord({
@@ -16,34 +26,48 @@ const options = {
     }),
   ],
 
-  adapter: Adapters.TypeORM.Adapter(process.env.DATABASE_URL, {
-    models: {
-      User: Models.User,
-    },
-  }),
+  adapter: Adapters.Prisma.Adapter({ prisma })
 
-  session: {
-    jwt: true,
-  },
+  // adapter: Adapters.TypeORM.Adapter(
+  //   {
+  //     type: "postgres",
+  //     host: "172.29.14.130",
+  //     port: 5432,
+  //     username: "automuteus",
+  //     password: "password",
+  //     database: "automuteus",
+  //     synchronize: true,
+  //   },
+  //   {
+  //     models: {
+  //       User: Models.User,
+  //     },
+  //   }
+  // ),
 
-  callbacks: {
-    jwt: async (token, user, account, profile, isNewUser) => {
-      if (account) {
-        console.log("user_jwt", user);
-        profile.token = account.accessToken;
-        token.profile = profile;
-      }
-      // console.log("profile", profile)
-      return Promise.resolve(token);
-    },
+  // session: {
+  //   jwt: true,
+  // },
 
-    session: async (session, user) => {
-      if (user.profile.hasOwnProperty("token")) {
-        session.token = user.profile.token;
-      }
-      return Promise.resolve(session);
-    },
-  },
+  // callbacks: {
+  //   jwt: async (token, user, account, profile, isNewUser) => {
+  //     if (account) {
+  //       console.log("user_jwt", user);
+  //       profile.token = account.accessToken;
+  //       token.profile = profile;
+  //     }
+  //     // console.log("profile", profile)
+  //     return Promise.resolve(token);
+  //   },
+
+  //   session: async (session, user) => {
+  //     // connection = await createConnection(options.database);
+  //     if (user.profile.hasOwnProperty("token")) {
+  //       session.token = user.profile.token;
+  //     }
+  //     return Promise.resolve(session);
+  //   },
+  // },
 
   // A database is optional, but required to persist accounts in a database
 };

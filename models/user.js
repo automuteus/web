@@ -1,11 +1,14 @@
-import Adapters from "next-auth/adapters";
-
-// Extend the built-in models using class inheritance
-export default class User extends Adapters.TypeORM.Models.User.model {
-  // You can extend the options in a model but you should not remove the base
-  // properties or change the order of the built-in options on the constructor
-  constructor(name, email, image, emailVerified, accessToken) {
-    super(name, email, image, emailVerified);
+export default class User {
+  constructor(name, email, image, accessToken) {
+    if (name) {
+      this.name = name;
+    }
+    if (email) {
+      this.email = email;
+    }
+    if (image) {
+      this.image = image;
+    }
     if (accessToken) {
       this.accessToken = accessToken;
     }
@@ -16,10 +19,35 @@ export const UserSchema = {
   name: "User",
   target: User,
   columns: {
-    ...Adapters.TypeORM.Models.User.schema.columns,
+    id: {
+      primary: true,
+      type: "int",
+      generated: true,
+    },
+    name: {
+      type: "varchar",
+      nullable: true,
+    },
+    email: {
+      type: "varchar",
+      unique: true,
+      nullable: true,
+    },
     accessToken: {
       type: "varchar",
       nullable: true,
+    },
+    image: {
+      type: "varchar",
+      nullable: true,
+    },
+    createdAt: {
+      type: "timestamp",
+      createDate: true,
+    },
+    updatedAt: {
+      type: "timestamp",
+      updateDate: true,
     },
   },
 };

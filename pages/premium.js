@@ -1,31 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import { motion } from "framer-motion";
-import { useSession, getSession } from "next-auth/client";
+import { getSession, signIn } from "next-auth/client";
+import { useRouter } from "next/router";
 
-import { Table, Image, Button } from "react-bootstrap";
-
-import Layout from "../components/layout";
+import { Table, Image, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPaypal } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord, faPaypal } from "@fortawesome/free-brands-svg-icons";
 import {
   faCheckCircle,
-  faPlus,
-  faPlusCircle,
   faTimes,
+  faTimesCircle,
 } from "@fortawesome/free-solid-svg-icons";
+
+import Layout from "../components/layout";
+import * as util from "../components/utilities";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
 const crewmate_yellow = "/assets/img/crewmate_yellow.png";
 const crewmate_cyan = "/assets/img/crewmate_cyan.png";
 
-export default function Premium() {
-  const [session, loading] = useSession();
+export default function Premium({ content, session }) {
+  const router = useRouter();
+  const [guild, setGuild] = useState(router.query.guild);
+
+  let guilds = {};
+  if (Array.isArray(content)) {
+    guilds = content.sort(util.compareGuilds).map((g) => (
+      <option key={g.id} value={g.id}>
+        {g.name}
+      </option>
+    ));
+  } else {
+    guilds = "Please wait as Discord rate limits us...";
+  }
+
   return (
     <Layout effect={true}>
       <Head>
-        {/* HTML Meta Tags */}
         <title>AutoMuteUs Premium</title>
         <meta
           name="description"
@@ -33,7 +46,6 @@ export default function Premium() {
         />
         <meta name="theme-color" content="#7289DA" />
 
-        {/* Google / Search Engine Tag */}
         <meta itemProp="name" content="AutoMuteUs Premium" />
         <meta
           itemProp="description"
@@ -44,8 +56,7 @@ export default function Premium() {
           content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
         />
 
-        {/* Discord/Facebook Facebook Meta Tags */}
-        <meta property="og:url" content="http://wolfhound.xyz:42069/premium" />
+        <meta property="og:url" content="http://automute.us/premium" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="AutoMuteUs Premium" />
         <meta
@@ -57,7 +68,6 @@ export default function Premium() {
           content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
         />
 
-        {/* Twitter Meta Tags */}
         <meta name="twitter:title" content="AutoMuteUs Premium" />
         <meta
           name="twitter:description"
@@ -85,213 +95,201 @@ export default function Premium() {
           >
             <thead>
               <tr>
-                <th></th>
                 <th>
-                  <div className="premium-item">
-                    <Image className="th-crewmate" src={crewmate_brown} />
-                    <h4 style={{ color: "brown" }}>Bronze</h4>
-                    <Button
-                      href={
-                        "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-                        "M8D39PF5ADGJW" +
-                        "&custom=" +
-                        "this.state.guild_id"
-                      }
-                      target="_blank"
-                      className="btn btn-premium m-0"
-                      disabled={!session && true}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPaypal}
-                        size="lg"
-                        className="mr-2"
-                      />{" "}
-                      Select Tier
-                    </Button>
+                  <div>
+                    {session && (
+                      <Form>
+                        <Form.Group controlId="guild_select" className="mb-0">
+                          <Form.Label>Select a Discord Server:</Form.Label>
+                          <Form.Control
+                            as="select"
+                            custom
+                            onChange={(e) => setGuild(e.target.value)}
+                          >
+                            <option key="0" value="0" selected disabled>
+                              Select your server
+                            </option>
+                            {guilds}
+                          </Form.Control>
+                        </Form.Group>
+                      </Form>
+                    )}
+
+                    {!session && (
+                      <div className="text-center">
+                        <strong>To get premium for your bot,</strong>
+
+                        <div
+                          className="d-block btn btn-primary mr-0 mt-2 mb-2"
+                          onClick={() =>
+                            signIn("discord", {
+                              callbackUrl: "http://localhost:3000/premium",
+                            })
+                          }
+                        >
+                          <FontAwesomeIcon
+                            icon={faDiscord}
+                            size="lg"
+                            className="mr-2"
+                          />
+                          Sign In
+                        </div>
+                        <strong>or enter a Guild ID here</strong>
+                        <Form.Group className="m-0 mt-2">
+                          <Form.Control
+                            type="text"
+                            className="text-center guild-input"
+                            placeholder="17-20 digit ID"
+                            value={guild}
+                            onChange={(e) => setGuild(e.target.value)}
+                            minLength="17"
+                            maxLength="20"
+                          />
+                        </Form.Group>
+                      </div>
+                    )}
                   </div>
                 </th>
                 <th>
-                  <div className="premium-item">
-                    <Image className="th-crewmate" src={crewmate_white} />
-                    <h4 style={{ color: "white" }}>Silver</h4>
-                    <Button
-                      href={
-                        "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-                        "CPZMEL7ZA6PHN" +
-                        "&custom=" +
-                        "this.state.guild_id"
-                      }
-                      target="_blank"
-                      className="btn btn-premium m-0"
-                      disabled={!session && true}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPaypal}
-                        size="lg"
-                        className="mr-2"
-                      />{" "}
-                      Select Tier
-                    </Button>
-                  </div>
+                  <PremiumItem
+                    icon={crewmate_brown}
+                    title="Bronze"
+                    color="#71491e"
+                    pp_target="M8D39PF5ADGJW"
+                    guild_id={guild}
+                  />
                 </th>
                 <th>
-                  <div className="premium-item">
-                    <Image className="th-crewmate" src={crewmate_yellow} />
-                    <h4 style={{ color: "yellow" }}>Gold</h4>
-                    <Button
-                      href={
-                        "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-                        "PYFCA7562KHB6" +
-                        "&custom=" +
-                        "this.state.guild_id"
-                      }
-                      target="_blank"
-                      className="btn btn-premium m-0"
-                      disabled={!session && true}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPaypal}
-                        size="lg"
-                        className="mr-2"
-                      />{" "}
-                      Select Tier
-                    </Button>
-                  </div>
+                  <PremiumItem
+                    icon={crewmate_white}
+                    title="Silver"
+                    color="#d6e0f0"
+                    pp_target="CPZMEL7ZA6PHN"
+                    guild_id={guild}
+                  />
+                </th>
+                <th>
+                  <PremiumItem
+                    icon={crewmate_yellow}
+                    title="Gold"
+                    color="#ffd700"
+                    pp_target="PYFCA7562KHB6"
+                    guild_id={guild}
+                  />
                 </th>
               </tr>
             </thead>
             <tbody className="text-success">
-              <tr>
-                <th>
-                  <h5 className="mb-0">Price</h5>
-                  <p>
-                    <em>Includes 50¢ paypal processing fee</em>
-                  </p>
-                </th>
-                <td>
-                  <strong>$ 1.50</strong>
-                  <small> / month</small>
-                </td>
-                <td>
-                  <strong>$ 3.50</strong>
-                  <small> / month</small>
-                </td>
-                <td>
-                  <strong>$ 5.50</strong>
-                  <small> / month</small>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>Priority Game Access</h5>
-                  <p>
-                    Always be able to make new games, even when the bot is under
-                    high load!
-                  </p>
-                </th>
-                <td>
+              <FeatureRow
+                title="Price"
+                subtitle="Includes 50¢ PayPal txn fee"
+                tier1={
+                  <>
+                    <strong>$ 1.50</strong>
+                    <small> / month</small>
+                  </>
+                }
+                tier2={
+                  <>
+                    <strong>$ 3.50</strong>
+                    <small> / month</small>
+                  </>
+                }
+                tier3={
+                  <>
+                    <strong>$ 5.50</strong>
+                    <small> / month</small>
+                  </>
+                }
+              />
+              <FeatureRow
+                title="Priority Game Access"
+                subtitle="Always be able to make new games, even when the bot is under high load!"
+                tier1={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier2={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier3={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>Stats and Leaderboards</h5>
-                  <p>
-                    View Among Us stats and leaderboards for the players on your
-                    server!
-                  </p>
-                </th>
-                <td>
+                }
+              />
+              <FeatureRow
+                title="Stats and Leaderboards"
+                subtitle="View Among Us stats and leaderboards for the players on your
+                server!"
+                tier1={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier2={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier3={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>Discord Role</h5>
-                  <p>
+                }
+              />
+              <FeatureRow
+                title="Discord Role"
+                subtitle={
+                  <>
                     You'll receive the{" "}
                     <span className="badge badge-success badge-pill badge">
                       Supporter
                     </span>{" "}
                     role within the AutoMuteUs Discord!
-                  </p>
-                </th>
-                <td>
+                  </>
+                }
+                tier1={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier2={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier3={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>General Support</h5>
-                  <p>
-                    Access to Premium-Only channels and chats in our Official
-                    Discord!
-                  </p>
-                </th>
-                <td></td>
-                <td>
+                }
+              />
+              <FeatureRow
+                title="General Support"
+                subtitle="Access to Premium-Only channels and chats in our Official Discord!"
+                tier1=""
+                tier2={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-                <td>
+                }
+                tier3={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>Priority Muting Bots</h5>
-                  <p>
-                    Issues requests alongside the main bot; this drastically
-                    improves the speed of mutes/deafens in your games!
-                  </p>
-                </th>
-                <td>
-                  <strong className="fa-lg"></strong>
-                </td>
-                <td>
-                  <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
-                  <strong className="fa-lg"> 1</strong>
-                </td>
-                <td>
-                  <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
-                  <strong className="fa-lg"> 3</strong>
-                </td>
-              </tr>
-              <tr>
-                <th>
-                  <h5>Premium Servers</h5>
-                  <p>
-                    Get your premium AutoMuteUs bot status in multiple servers!
-                  </p>
-                </th>
-                <td>
-                  <strong className="fa-lg"></strong>
-                </td>
-                <td>
-                  <strong className="fa-lg"></strong>
-                </td>
-                <td>
-                  <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
-                  <strong className="fa-lg"> 2</strong>
-                </td>
-              </tr>
+                }
+              />
+              <FeatureRow
+                title="Priority Muting Bots"
+                subtitle=" Issues requests alongside the main bot; this drastically improves the speed of mutes/deafens in your games!"
+                tier1=""
+                tier2={
+                  <>
+                    <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
+                    <strong className="fa-lg"> 1</strong>
+                  </>
+                }
+                tier3={
+                  <>
+                    <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
+                    <strong className="fa-lg"> 3</strong>
+                  </>
+                }
+              />
+              <FeatureRow
+                title="Premium Servers"
+                subtitle="Get your premium AutoMuteUs bot status in multiple servers!"
+                tier1=""
+                tier2=""
+                tier3={
+                  <>
+                    <FontAwesomeIcon as="i" size="lg" icon={faTimes} />
+                    <strong className="fa-lg"> 2</strong>
+                  </>
+                }
+              />
             </tbody>
           </Table>
         </div>
@@ -308,28 +306,14 @@ export default function Premium() {
             <thead>
               <tr>
                 <th>
-                  <div className="premium-item">
-                    <Image className="th-crewmate" src={crewmate_cyan} />
-                    <h4 style={{ color: "cyan" }}>Donation</h4>
-                    <Button
-                      href={
-                        "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-                        "YM72RY5TF6WZU" +
-                        "&custom=" +
-                        "this.state.guild_id"
-                      }
-                      target="_blank"
-                      className="btn btn-premium m-0"
-                      disabled={!session && true}
-                    >
-                      <FontAwesomeIcon
-                        icon={faPaypal}
-                        size="lg"
-                        className="mr-2"
-                      />{" "}
-                      Donate
-                    </Button>
-                  </div>
+                  <PremiumItem
+                    icon={crewmate_cyan}
+                    title="Donation"
+                    color="#38fedc"
+                    pp_target="YM72RY5TF6WZU"
+                    btn_text="Donate"
+                    guild_id="donation"
+                  />
                 </th>
               </tr>
             </thead>
@@ -356,4 +340,62 @@ export default function Premium() {
       </motion.div>
     </Layout>
   );
+}
+
+function FeatureRow(props) {
+  return (
+    <tr>
+      <th>
+        <h5>{props.title}</h5>
+        <p>{props.subtitle}</p>
+      </th>
+      <td>{props.tier1}</td>
+      <td>{props.tier2}</td>
+      <td>{props.tier3}</td>
+    </tr>
+  );
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+  let content = [];
+
+  if (session && session.guilds === undefined) {
+    content = await util.getUserGuilds(session.token);
+  }
+
+  return {
+    props: { session, content },
+  };
+}
+
+function PremiumItem(props) {
+  const guild_target = props.guild_id ? "&custom=" + props.guild_id : "";
+  const valid = validGuild(props.guild_id);
+
+  return (
+    <div className="premium-item">
+      <Image className="th-crewmate" src={props.icon} />
+      <h4 style={{ color: props.color }}>{props.title}</h4>
+      <div title={!valid ? "Please choose a server first" : ""}>
+        <Button
+          href={
+            "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
+            props.pp_target +
+            guild_target
+          }
+          target="_blank"
+          className="btn btn-premium m-0"
+          disabled={!valid && props.guild_id !== "donation"}
+        >
+          <FontAwesomeIcon icon={faPaypal} size="lg" className="mr-2" />{" "}
+          <span>{props.btn_text || "Select Tier"}</span>
+        </Button>
+      </div>
+    </div>
+  );
+}
+
+function validGuild(gid) {
+  return !isNaN(gid) && gid !== 0 && gid.length >= 17 && gid.length <= 20;
 }

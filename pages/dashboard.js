@@ -1,12 +1,15 @@
-export const thisIsAnUnusedExport =
-  "this export only exists to disable fast refresh for this file";
-
+import Head from "next/head";
 import { getSession } from "next-auth/client";
 import { motion } from "framer-motion";
-import Layout from "../components/layout";
 import { Col, Row, Spinner } from "react-bootstrap";
 
-export default function Page({ content, session }) {
+import Layout from "../components/layout";
+import Guild from "../components/guild";
+import * as util from "../components/utilities";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+
+export default function Dashboard({ content, session }) {
   if (!session) {
     return (
       <Layout innerClassName="justify-content-center">
@@ -22,12 +25,26 @@ export default function Page({ content, session }) {
     </Spinner>
   );
 
-  guild_render = <pre style={{color: "white"}}>{JSON.stringify(content, null, 2)}</pre>;
-  
+  // guild_render = <pre style={{color: "white"}}>{JSON.stringify(content, null, 2)}</pre>;
+  if (Array.isArray(content)) {
+    guild_render = content
+      .sort(util.compareGuilds)
+      .map((g) => <Guild key={g.id} guild={g}></Guild>);
+  } else {
+    guild_render = (
+      <div className="alert alert-warning">
+        <FontAwesomeIcon icon={faExclamationTriangle} /> Discord seems to be
+        rate limiting us - please refresh your page!
+      </div>
+    );
+  }
 
   return (
     <>
       <Layout effect={false}>
+        <Head>
+          <title>Bot Dashboard</title>
+        </Head>
         <motion.div
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -42,9 +59,10 @@ export default function Page({ content, session }) {
           </div>
           <Row xs="1">
             <Col lg="4">
-              <h3>Guilds</h3>
+              <h3>Manage Servers</h3>
+              <div style={{maxHeight: "100%", overflow: "auto"}}>{guild_render}</div>
             </Col>
-            <Col lg="8">{guild_render}</Col>
+            <Col lg="8"></Col>
           </Row>
         </motion.div>
       </Layout>
@@ -57,26 +75,10 @@ export async function getServerSideProps(context) {
   let content = [];
 
   if (session && session.guilds === undefined) {
-    console.log("Fetching guilds...")
-    content = await getUserGuilds(session.token);
+    content = await util.getUserGuilds(session.token);
   }
 
   return {
     props: { session, content },
   };
-}
-
-async function getUserGuilds(token) {
-  const bearer = `Bearer ${token}`;
-  const guild = await fetch("https://discordapp.com/api/users/@me/guilds", {
-    method: "GET",
-    withCredentials: true,
-    credentials: "include",
-    headers: {
-      Authorization: bearer,
-      "Content-Type": "application/json",
-    },
-  });
-
-  return guild.json();
 }
