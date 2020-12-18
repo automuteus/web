@@ -1,9 +1,8 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
+import Adapters from "next-auth/adapters";
 
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import Models from "../../../models";
 
 const options = {
   debug: false,
@@ -17,28 +16,33 @@ const options = {
     }),
   ],
 
-  adapter: Adapters.Prisma.Adapter({ prisma }),
+  adapter: Adapters.TypeORM.Adapter(process.env.DATABASE_URL, {
+    models: {
+      User: Models.User,
+    },
+  }),
 
   session: {
-    // jwt: true,
+    jwt: true,
   },
 
   callbacks: {
-    // jwt: async (token, user, account, profile, isNewUser) => {
-    //   if (account) {
-    //     profile.token = account.accessToken;
-    //     token.profile = profile;
-    //   }
-    //   return Promise.resolve(token);
-    // },
+    jwt: async (token, user, account, profile, isNewUser) => {
+      if (account) {
+        console.log("user_jwt", user);
+        profile.token = account.accessToken;
+        token.profile = profile;
+      }
+      // console.log("profile", profile)
+      return Promise.resolve(token);
+    },
 
-    // session: async (session, user) => {
-    //   if (user.profile.token) {
-    //     session.guilds = await getUserGuilds(user.profile.token);
-    //   }
-    //   session.token = user.profile.token;
-    //   return Promise.resolve(session);
-    // },
+    session: async (session, user) => {
+      if (user.profile.hasOwnProperty("token")) {
+        session.token = user.profile.token;
+      }
+      return Promise.resolve(session);
+    },
   },
 
   // A database is optional, but required to persist accounts in a database

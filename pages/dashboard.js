@@ -56,11 +56,27 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
   let content = [];
 
-  if (session) {
-    content = session.guilds;
+  if (session && session.guilds === undefined) {
+    console.log("Fetching guilds...")
+    content = await getUserGuilds(session.token);
   }
 
   return {
     props: { session, content },
   };
+}
+
+async function getUserGuilds(token) {
+  const bearer = `Bearer ${token}`;
+  const guild = await fetch("https://discordapp.com/api/users/@me/guilds", {
+    method: "GET",
+    withCredentials: true,
+    credentials: "include",
+    headers: {
+      Authorization: bearer,
+      "Content-Type": "application/json",
+    },
+  });
+
+  return guild.json();
 }
