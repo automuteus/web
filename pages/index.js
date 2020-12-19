@@ -43,7 +43,7 @@ export default class App extends React.Component {
             AutoMuteUs is a Discord Bot that collects Among Us game data to
             automatically mute/unmute players during games!
           </p>
-          <div id="home-links">
+          <div className="home-links">
             <Button
               href="https://add.automute.us/"
               className="btn btn-primary btn-lg"

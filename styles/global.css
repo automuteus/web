@@ -63,7 +63,7 @@ h6 {
   }
 }
 
-.tooltip-inner {
+.stats-tooltip .tooltip-inner {
   color: black;
   font-size: 1.1em;
   font-weight: bold;
@@ -72,12 +72,14 @@ h6 {
   outline: none;
   border-radius: 5px;
   opacity: 1;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
-.tooltip.show {
+
+.stats-tooltip .tooltip.show {
   opacity: 1;
 }
-.bs-tooltip-bottom .arrow::before {
+
+.stats-tooltip .arrow::before {
   opacity: 0;
 }
 
@@ -202,6 +204,10 @@ h6 {
   cursor: default;
 }
 
+.home-links .btn {
+  width: 100%;
+}
+
 .navbar {
   font-family: "Poppins", sans-serif !important;
   font-weight: 700 !important;
@@ -228,10 +234,42 @@ h6 {
 }
 
 .home-stats-wrapper {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
   cursor: default;
+  width: 100%;
+  margin: 0;
+}
+
+.stat-card {
+  text-align: center;
+  font-family: "Poppins";
+  cursor: default;
+  display: inline-block;
+}
+
+.stat-card .stat-data {
+  font-size: 4em;
+  font-weight: 700;
+  color: #7289da !important;
+  line-height: 1;
+  text-shadow: 0 0 5px black;
+}
+
+.stat-label {
+  font-size: 1.3em;
+  line-height: 1;
+  margin-top: 0;
+}
+
+.fadeOut {
+  opacity: 0;
+  width: 0;
+  transition: width 0.5s 0.5s, height 0.5s 0.5s, opacity 0.5s;
+}
+
+.fadeIn {
+  opacity: 1;
+  width: auto;
+  transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -240,6 +278,9 @@ h6 {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
+  .home-links .btn {
+    width: auto;
+  }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -255,4 +296,7 @@ h6 {
 
 /* Extra large devices (large desktops, 1200px and up) */
 @media (min-width: 1200px) {
+  .home-stats-wrapper {
+    max-width: 55%;
+  }
 }
