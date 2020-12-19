@@ -16,30 +16,52 @@ class Premium extends React.Component {
   render() {
     return (
       <Layout>
+        <Head>
+          {/* HTML Meta Tags */}
+          <title>AutoMuteUs Premium</title>
+          <meta
+            name="description"
+            content="Avoid the game cap and more with AutoMuteUs Premium"
+          />
+          <meta name="theme-color" content="#7289DA" />
+
+          {/* Google / Search Engine Tag */}
+          <meta itemProp="name" content="AutoMuteUs Premium" />
+          <meta
+            itemProp="description"
+            content="Avoid the game cap and more with AutoMuteUs Premium"
+          />
+          <meta
+            itemProp="image"
+            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          />
+
+          {/* Discord/Facebook Facebook Meta Tags */}
+          <meta property="og:url" content="https://automute.us/premium" />
+          <meta property="og:type" content="website" />
+          <meta property="og:title" content="AutoMuteUs Premium" />
+          <meta
+            property="og:description"
+            content="Avoid the game cap and more with AutoMuteUs Premium"
+          />
+          <meta
+            property="og:image"
+            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          />
+
+          {/* Twitter Meta Tags */}
+          <meta name="twitter:title" content="AutoMuteUs Premium" />
+          <meta
+            name="twitter:description"
+            content="Avoid the game cap and more with AutoMuteUs Premium"
+          />
+          <meta
+            name="twitter:image"
+            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          />
+        </Head>
+
         <div className="text-center">
-          <Head>
-            {/* HTML Meta Tags */}
-            <title>AutoMuteUs Premium</title>
-            <meta name="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta name="theme-color" content="#7289DA" />
-
-            {/* Google / Search Engine Tag */}
-            <meta itemProp="name" content="AutoMuteUs Premium" />
-            <meta itemProp="description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta itemProp="image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
-
-            {/* Discord/Facebook Facebook Meta Tags */}
-            <meta property="og:url" content="https://automute.us/premium" />
-            <meta property="og:type" content="website" />
-            <meta property="og:title" content="AutoMuteUs Premium" />
-            <meta property="og:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta property="og:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
-
-            {/* Twitter Meta Tags */}
-            <meta name="twitter:title" content="AutoMuteUs Premium" />
-            <meta name="twitter:description" content="Avoid the game cap and more with AutoMuteUs Premium" />
-            <meta name="twitter:image" content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png" />
-          </Head>
           <h1>⭐ Premium Tiers ⭐</h1>
           <h6 className="text-muted mb-4">
             Game cap is full, and you want faster muting? Try these!
