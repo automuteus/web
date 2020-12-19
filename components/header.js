@@ -19,7 +19,12 @@ export default function Header() {
   // console.log(session);
 
   return (
-    <Navbar as="header" variant="dark" expand="lg" className={`${styles.header}`}>
+    <Navbar
+      as="header"
+      variant="dark"
+      expand="lg"
+      className={`${styles.header}`}
+    >
       <Navbar.Toggle aria-controls="primary-navbar-nav" />
       <Navbar.Brand>
         <Link href="/" passHref>
@@ -55,7 +60,13 @@ export default function Header() {
         <Nav className="align-items-lg-center">
           {loading && <Navbar.Text>Checking login...</Navbar.Text>}
           {!loading && !session && (
-            <Nav.Link onClick={() => signIn("discord", { callbackUrl: 'http://localhost:3000/dashboard' })}>
+            <Nav.Link
+              onClick={() =>
+                signIn("discord", {
+                  callbackUrl: "http://localhost:3000/dashboard",
+                })
+              }
+            >
               <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
               Sign In
             </Nav.Link>

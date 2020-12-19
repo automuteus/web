@@ -105,9 +105,10 @@ export default function Premium({ content, session }) {
                             as="select"
                             custom
                             onChange={(e) => setGuild(e.target.value)}
+                            defaultValue="0"
                           >
-                            <option key="0" value="0" selected disabled>
-                              Select your server
+                            <option key="0" value="0" disabled>
+                              - Server List -
                             </option>
                             {guilds}
                           </Form.Control>
@@ -358,11 +359,11 @@ function FeatureRow(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  let content = [];
+  const guilds = await fetch(`http://localhost:3000/api/guilds`, {
+    method: "GET",
+  });
 
-  if (session && session.guilds === undefined) {
-    content = await util.getUserGuilds(session.token);
-  }
+  const content = await guilds.json();
 
   return {
     props: { session, content },

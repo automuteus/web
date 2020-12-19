@@ -4,19 +4,23 @@ import Adapters from "next-auth/adapters";
 
 import { PrismaClient } from "@prisma/client";
 
-const prisma = new PrismaClient();
+import * as util from "../../../components/utilities";
+
+let prisma;
+
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
+}
 
 const options = {
-  debug: process.env.NODE_ENV === "development",
-  // database: {
-  //   type: "postgres",
-  //   host: "172.29.14.130",
-  //   port: 5432,
-  //   username: "automuteus",
-  //   password: "password",
-  //   database: "automuteus",
-  //   synchronize: true,
-  // },
+  debug: false,
+
+  secret: process.env.SECRET,
 
   providers: [
     Providers.Discord({
@@ -26,65 +30,67 @@ const options = {
     }),
   ],
 
-  adapter: Adapters.Prisma.Adapter({ prisma })
-
-  // adapter: Adapters.TypeORM.Adapter(
-  //   {
-  //     type: "postgres",
-  //     host: "172.29.14.130",
-  //     port: 5432,
-  //     username: "automuteus",
-  //     password: "password",
-  //     database: "automuteus",
-  //     synchronize: true,
-  //   },
-  //   {
-  //     models: {
-  //       User: Models.User,
-  //     },
-  //   }
-  // ),
-
-  // session: {
-  //   jwt: true,
-  // },
-
-  // callbacks: {
-  //   jwt: async (token, user, account, profile, isNewUser) => {
-  //     if (account) {
-  //       console.log("user_jwt", user);
-  //       profile.token = account.accessToken;
-  //       token.profile = profile;
-  //     }
-  //     // console.log("profile", profile)
-  //     return Promise.resolve(token);
-  //   },
-
-  //   session: async (session, user) => {
-  //     // connection = await createConnection(options.database);
-  //     if (user.profile.hasOwnProperty("token")) {
-  //       session.token = user.profile.token;
-  //     }
-  //     return Promise.resolve(session);
-  //   },
-  // },
-
-  // A database is optional, but required to persist accounts in a database
-};
-
-async function getUserGuilds(token) {
-  const bearer = `Bearer ${token}`;
-  const guild = await fetch("https://discordapp.com/api/users/@me/guilds", {
-    method: "GET",
-    withCredentials: true,
-    credentials: "include",
-    headers: {
-      Authorization: bearer,
-      "Content-Type": "application/json",
+  adapter: Adapters.Prisma.Adapter({
+    prisma,
+    modelMapping: {
+      User: "user",
+      Account: "account",
+      Session: "session",
+      VerificationRequest: "verificationRequest",
+      Guild: "guild",
     },
-  });
+  }),
 
-  return guild.json();
-}
+  jwt: {
+    secret: process.env.SECRET,
+  },
+
+  session: {
+    jwt: true,
+  },
+
+  callbacks: {
+    jwt: async (token, user, account, profile, isNewUser) => {
+      if (user) {
+        token = {
+          id: user.id,
+          name: profile.username,
+          image:
+            "http://cdn.discordapp.com/avatars/" +
+            profile.id +
+            "/" +
+            profile.avatar +
+            ".png",
+          email: profile.email,
+        };
+
+        const guilds = await util.getUserDiscordGuilds(user.accessToken);
+        guilds.map(async (g) => {
+          const tmp = await prisma.guild.upsert({
+            where: { guild_id: g.id },
+            update: { name: g.name, icon: g.icon },
+            create: {
+              name: g.name,
+              guild_id: g.id,
+              icon: g.icon,
+              premium: 0,
+            },
+          });
+        });
+      }
+
+      return Promise.resolve(token);
+    },
+
+    session: async (session, user) => {
+      // console.log("user", user);
+      // console.log("session", session);
+      console.log("");
+
+      session.user = user;
+      return Promise.resolve(session);
+    },
+  },
+};
 
 export default (req, res) => NextAuth(req, res, options);

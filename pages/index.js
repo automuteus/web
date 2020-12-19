@@ -74,21 +74,21 @@ export default class App extends React.Component {
             <div id="home-links">
               <Button
                 href="https://add.automute.us/"
-                className="btn btn-primary btn-lg mr-2"
+                className="btn btn-primary btn-lg mb-2 mr-2"
               >
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Add to Discord
               </Button>
               <Button
                 href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
-                className="btn btn-primary btn-lg mr-2"
+                className="btn btn-primary btn-lg mb-2 mr-2"
               >
                 <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
                 Capture Software
               </Button>
 
               <Link href="/premium">
-                <Button className="btn btn-premium btn-lg">
+                <Button className="btn btn-premium btn-lg mb-2 mr-2">
                   <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
                   AutoMuteUs Premium
                 </Button>

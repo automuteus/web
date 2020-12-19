@@ -9,7 +9,11 @@ import * as util from "../components/utilities";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 
+import { PrismaClient } from "@prisma/client";
+
 export default function Dashboard({ content, session }) {
+  console.log(content);
+
   if (!session) {
     return (
       <Layout innerClassName="justify-content-center">
@@ -29,13 +33,12 @@ export default function Dashboard({ content, session }) {
   if (Array.isArray(content)) {
     guild_render = content
       .sort(util.compareGuilds)
-      .map((g) => <Guild key={g.id} guild={g}></Guild>);
+      .map((g) => <Guild key={g.id} guild={g} />);
   } else {
     guild_render = (
-      <div className="alert alert-warning">
-        <FontAwesomeIcon icon={faExclamationTriangle} /> Discord seems to be
-        rate limiting us - please refresh your page!
-      </div>
+      <pre style={{color: "white", height: "20em"}}>
+        {content}
+      </pre>
     );
   }
 
@@ -60,9 +63,11 @@ export default function Dashboard({ content, session }) {
           <Row xs="1">
             <Col lg="4">
               <h3>Manage Servers</h3>
-              <div style={{maxHeight: "100%", overflow: "auto"}}>{guild_render}</div>
+              <div style={{ maxHeight: "100%", overflow: "auto" }}>
+                {guild_render}
+              </div>
             </Col>
-            <Col lg="8"></Col>
+            <Col lg="8" />
           </Row>
         </motion.div>
       </Layout>
@@ -72,11 +77,11 @@ export default function Dashboard({ content, session }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  let content = [];
+  const guilds = await fetch(`http://localhost:3000/api/guilds`, {
+    method: "GET",
+  });
 
-  if (session && session.guilds === undefined) {
-    content = await util.getUserGuilds(session.token);
-  }
+  const content = await guilds.json();
 
   return {
     props: { session, content },

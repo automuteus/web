@@ -407,6 +407,18 @@ h6 {
   border-radius: 100px;
   box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
   background-size: 50px 50px;
+  flex: 0 0 auto;
+}
+
+.guild-container .guild-details {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+}
+
+.guild-container .guild-buttons {
+  flex: 0 0 auto;
 }
 
 .guild-container .guild-icon img {
@@ -420,6 +432,8 @@ h6 {
   justify-content: center;
   font-weight: 900;
   height: 100%;
+  max-width: 50px;
+  max-height: 50px;
 }
 
 .custom-select,

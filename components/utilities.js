@@ -1,5 +1,5 @@
-export async function getUserGuilds(token) {
-  console.log("Fetching guilds...");
+export async function getUserDiscordGuilds(token) {
+  console.log("Fetching guilds from Discord...");
   const bearer = `Bearer ${token}`;
   const guild = await fetch("https://discordapp.com/api/users/@me/guilds", {
     method: "GET",
@@ -12,6 +12,15 @@ export async function getUserGuilds(token) {
   });
 
   return guild.json();
+}
+
+export async function getStoredGuilds(db) {
+  console.log("Fetching cached guilds...");
+  // const guilds = await fetch(`http://localhost:3000/guilds`, {
+  //   method: "POST",
+  // });
+  
+  return guilds.json();
 }
 
 export function compareGuilds(a, b) {
