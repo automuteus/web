@@ -61,7 +61,7 @@ export default function Header() {
             <Nav.Link
               onClick={() =>
                 signIn("discord", {
-                  callbackUrl: "http://localhost/dashboard",
+                  callbackUrl: "http://localhost:3000/dashboard",
                 })
               }
             >
@@ -87,10 +87,7 @@ export default function Header() {
                       <FontAwesomeIcon className="ml-2" icon={faCheckCircle} />
                     )}
                   </div>
-                  <small
-                    className="user-signout"
-                    onClick={signOut}
-                  >
+                  <small className="user-signout" onClick={signOut}>
                     Sign Out
                   </small>
                 </div>

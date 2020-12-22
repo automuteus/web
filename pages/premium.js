@@ -124,7 +124,7 @@ export default function Premium({ content, session }) {
                           className="d-block btn btn-primary mr-0 mt-2 mb-2"
                           onClick={() =>
                             signIn("discord", {
-                              callbackUrl: "http://localhost/premium",
+                              callbackUrl: "http://localhost:3000/premium",
                             })
                           }
                         >

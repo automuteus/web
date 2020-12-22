@@ -12,8 +12,6 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { PrismaClient } from "@prisma/client";
 
 export default function Dashboard({ content, session }) {
-  console.log(content);
-
   if (!session) {
     return (
       <Layout innerClassName="justify-content-center">
