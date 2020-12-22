@@ -41,10 +41,6 @@ const options = {
     },
   }),
 
-  jwt: {
-    secret: process.env.SECRET,
-  },
-
   session: {
     jwt: true,
   },
@@ -85,7 +81,6 @@ const options = {
     session: async (session, user) => {
       // console.log("user", user);
       // console.log("session", session);
-      console.log("");
 
       session.user = user;
       return Promise.resolve(session);

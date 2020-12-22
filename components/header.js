@@ -89,9 +89,7 @@ export default function Header() {
                   </div>
                   <small
                     className="user-signout"
-                    onClick={signOut({
-                      callbackUrl: "http://localhost/",
-                    })}
+                    onClick={signOut}
                   >
                     Sign Out
                   </small>
