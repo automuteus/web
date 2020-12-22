@@ -1,8 +1,7 @@
 import React from "react";
+import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
-import styles from "./server-stats.module.css";
-
-const StatsURL = "https://galactus.automute.us"
+const StatsURL = "https://galactus.automute.us";
 
 export default class ServerStats extends React.Component {
   constructor(props) {
@@ -12,6 +11,8 @@ export default class ServerStats extends React.Component {
       isLoaded: false,
       guilds: 0,
       activeGames: 0,
+      totalGames: 0,
+      totalUsers: 0,
     };
   }
 
@@ -21,8 +22,10 @@ export default class ServerStats extends React.Component {
       const json = await response.json();
       this.setState({
         isLoaded: true,
-        guilds: json.totalGuilds,
+        totalGuilds: json.totalGuilds,
         activeGames: json.activeGames,
+        totalGames: json.totalGames,
+        totalUsers: json.totalUsers,
       });
     } catch (error) {
       this.setState({
@@ -36,7 +39,7 @@ export default class ServerStats extends React.Component {
     this.fetchData();
     this.interval = setInterval(() => {
       this.fetchData();
-    }, 7000);
+    }, 10000);
   }
 
   componentWillUnmount() {
@@ -44,38 +47,102 @@ export default class ServerStats extends React.Component {
   }
 
   render() {
-    const { error, isLoaded, guilds, activeGames } = this.state;
+    const {
+      error,
+      isLoaded,
+      totalGuilds,
+      activeGames,
+      totalGames,
+      totalUsers,
+    } = this.state;
 
     if (error) {
       return (
-        <div
-          id="home-stats"
-          className="d-flex align-content-center align-content-lg-start flex-column flex-lg-row"
-        >
-          <StatCard label="Servers" stat={"Such"} loaded={true} />
+        <div className="home-stats-wrapper">
           <StatCard label="Active Games" stat={"Very"} loaded={true} />
+          <StatCard label="Servers" stat={"Such"} loaded={true} />
+          <StatCard label="Users" stat={"Many"} loaded={true} />
+          <StatCard label="Games Muted" stat={"Wow"} loaded={true} />
         </div>
       );
     } else {
       return (
-        <div
-          className={`d-flex align-content-center align-content-lg-start flex-column flex-lg-row ${styles.home_stats}`}
-        >
-          <StatCard label="Servers" stat={guilds} loaded={isLoaded} />
-          <StatCard label="Active Games" stat={activeGames} loaded={isLoaded} />
-        </div>
+        <Row className="home-stats-wrapper">
+          <StatCard
+            label="Servers"
+            stat={totalGuilds}
+            loaded={isLoaded}
+            rounded={true}
+            placement="bottom"
+          />
+          <StatCard
+            label="Active Games"
+            stat={activeGames}
+            loaded={isLoaded}
+            rounded={false}
+          />
+          <StatCard
+            label="Users"
+            stat={totalUsers}
+            loaded={isLoaded}
+            rounded={true}
+            placement="bottom"
+          />
+          <StatCard
+            label="Games Muted"
+            stat={totalGames}
+            loaded={isLoaded}
+            rounded={true}
+            placement="bottom"
+          />
+        </Row>
       );
     }
   }
 }
 
 function StatCard(props) {
-  return (
-    <div className={`stat-card p-3 p-lg-5 pb-0 ${styles.stat_card}`}>
-      <div className={styles.stat_data}>
-        <div className={props.loaded ? styles.fadeIn : styles.fadeOut}>{props.stat}</div>
+  const content = (
+    <div>
+      <div className="stat-data">
+        <div className={props.loaded ? "fadeIn" : "fadeOut"}>
+          {props.rounded ? roundedThousands(props.stat) : props.stat}
+        </div>
       </div>
-      <div className={styles.stat_label}>{props.label}</div>
+      <div className="stat-label">{props.label}</div>
     </div>
   );
+
+  const tooltip = (
+    <OverlayTrigger
+      placement={props.placement || "bottom"}
+      delay={{ show: 100, hide: 0 }}
+      trigger={["hover", "focus"]}
+      overlay={
+        <Tooltip className="stats-tooltip" id={props.label + "tooltip"}>
+          {props.stat}
+        </Tooltip>
+      }
+    >
+      {content}
+    </OverlayTrigger>
+  );
+
+  if (props.rounded) {
+    return (
+      <Col xs={12} sm={6} className="stat-card p-4">
+        {tooltip}
+      </Col>
+    );
+  }
+
+  return (
+    <Col xs={12} sm={6} className="stat-card p-4">
+      {content}
+    </Col>
+  );
+}
+
+function roundedThousands(val) {
+  return Math.round(val / 1000) + "k";
 }

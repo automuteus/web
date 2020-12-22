@@ -1,5 +1,4 @@
 import React from "react";
-import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { Form, Tooltip, OverlayTrigger } from "react-bootstrap";
 
 export default class EffectToggle extends React.Component {
