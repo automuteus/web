@@ -11,8 +11,10 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
+    "@prisma/cli": "^2.13.1",
     "@prisma/client": "^2.13.1",
     "bootstrap": "^4.5.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "framer-motion": "^2.9.5",
     "next": "^10.0.3",
@@ -24,8 +26,5 @@
     "react-dom": "^17.0.1",
     "react-snowfall": "^1.0.2",
     "typeorm": "^0.2.29"
-  },
-  "devDependencies": {
-    "@prisma/cli": "^2.13.1"
   }
 }

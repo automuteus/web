@@ -16,7 +16,7 @@ export async function getUserDiscordGuilds(token) {
 
 export async function getStoredGuilds(db) {
   console.log("Fetching cached guilds...");
-  // const guilds = await fetch(`http://localhost:3000/guilds`, {
+  // const guilds = await fetch(`http://localhost/guilds`, {
   //   method: "POST",
   // });
   

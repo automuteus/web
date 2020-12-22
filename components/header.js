@@ -16,8 +16,6 @@ import styles from "./header.module.css";
 export default function Header() {
   const [session, loading] = useSession();
 
-  // console.log(session);
-
   return (
     <Navbar
       as="header"
@@ -63,7 +61,7 @@ export default function Header() {
             <Nav.Link
               onClick={() =>
                 signIn("discord", {
-                  callbackUrl: "http://localhost:3000/dashboard",
+                  callbackUrl: "http://localhost/dashboard",
                 })
               }
             >
@@ -89,7 +87,12 @@ export default function Header() {
                       <FontAwesomeIcon className="ml-2" icon={faCheckCircle} />
                     )}
                   </div>
-                  <small className="user-signout" onClick={signOut}>
+                  <small
+                    className="user-signout"
+                    onClick={signOut({
+                      callbackUrl: "http://localhost/",
+                    })}
+                  >
                     Sign Out
                   </small>
                 </div>
