@@ -4,17 +4,17 @@ import Adapters from "next-auth/adapters";
 
 import { PrismaClient } from "@prisma/client";
 
-import * as util from "../../../components/utilities";
+import * as util from "../../../components/server_utils";
 
 let prisma;
 
 // if (process.env.NODE_ENV === "production") {
 //   prisma = new PrismaClient();
 // } else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
-  }
-  prisma = global.prisma;
+if (!global.prisma) {
+  global.prisma = new PrismaClient();
+}
+prisma = global.prisma;
 // }
 
 const options = {
@@ -48,31 +48,24 @@ const options = {
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (user) {
-        token = {
-          id: user.id,
-          name: profile.username,
-          image:
-            "http://cdn.discordapp.com/avatars/" +
+        let img = profile.avatar
+          ? "http://cdn.discordapp.com/avatars/" +
             profile.id +
             "/" +
             profile.avatar +
-            ".png",
+            ".png"
+          : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
+
+        token = {
+          id: user.id,
+          name: profile.username,
+          image: img,
           email: profile.email,
         };
 
         const guilds = await util.getUserDiscordGuilds(user.accessToken);
-        guilds.map(async (g) => {
-          const tmp = await prisma.guild.upsert({
-            where: { guild_id: g.id },
-            update: { name: g.name, icon: g.icon },
-            create: {
-              name: g.name,
-              guild_id: g.id,
-              icon: g.icon,
-              premium: 0,
-            },
-          });
-        });
+        await util.updateGuilds(prisma, guilds);
+        await util.linkUserGuilds(prisma, user, guilds);
       }
 
       return Promise.resolve(token);

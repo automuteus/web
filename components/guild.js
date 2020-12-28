@@ -41,7 +41,18 @@ export default class Guild extends React.Component {
         <div className="guild-container">
           <div className="guild-icon">
             {guild.icon ? (
-              <img src={icon} alt={guild.name} />
+              <img
+                src={icon}
+                alt={guild.name}
+                onError={(e) => {
+                  e.target.onError = null;
+                  e.currentTarget.parentElement.innerHTML = (
+                    <div className="guild-abbr" style={{ fontSize: fs }}>
+                      {abbr}
+                    </div>
+                  );
+                }}
+              />
             ) : (
               <div className="guild-abbr" style={{ fontSize: fs }}>
                 {abbr}

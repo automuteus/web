@@ -14,7 +14,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import Layout from "../components/layout";
-import * as util from "../components/utilities";
+import * as util from "../components/client_utils";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
@@ -124,7 +124,8 @@ export default function Premium({ content, session }) {
                           className="d-block btn btn-primary mr-0 mt-2 mb-2"
                           onClick={() =>
                             signIn("discord", {
-                              callbackUrl: "http://localhost:3000/premium",
+                              callbackUrl:
+                                process.env.NEXTAUTH_URL + "/premium",
                             })
                           }
                         >
@@ -359,9 +360,7 @@ function FeatureRow(props) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const guilds = await fetch(`http://localhost:3000/api/guilds`, {
-    method: "GET",
-  });
+  const guilds = await util.getStoredGuilds(session);
 
   const content = await guilds.json();
 

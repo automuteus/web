@@ -1,13 +1,16 @@
 import Head from "next/head";
 import { getSession } from "next-auth/client";
 import { motion } from "framer-motion";
-import { Col, Row, Spinner } from "react-bootstrap";
+import { Button, Col, Row, Spinner } from "react-bootstrap";
 
 import Layout from "../components/layout";
 import Guild from "../components/guild";
-import * as util from "../components/utilities";
+import * as util from "../components/client_utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
+import {
+  faExclamationTriangle,
+  faSync,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { PrismaClient } from "@prisma/client";
 
@@ -33,11 +36,7 @@ export default function Dashboard({ content, session }) {
       .sort(util.compareGuilds)
       .map((g) => <Guild key={g.id} guild={g} />);
   } else {
-    guild_render = (
-      <pre style={{color: "white", height: "20em"}}>
-        {content}
-      </pre>
-    );
+    guild_render = <code>Could not fetch server list.</code>;
   }
 
   return (
@@ -61,6 +60,10 @@ export default function Dashboard({ content, session }) {
           <Row xs="1">
             <Col lg="4">
               <h3>Manage Servers</h3>
+              {/* <Button className="btn-secondary" onClick={alert()}>
+                <FontAwesomeIcon icon={faSync} className="mr-2" /> Refresh
+                Servers
+              </Button> */}
               <div style={{ maxHeight: "100%", overflow: "auto" }}>
                 {guild_render}
               </div>
@@ -75,11 +78,13 @@ export default function Dashboard({ content, session }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const guilds = await fetch(`http://localhost:3000/api/guilds`, {
-    method: "GET",
+  const guilds = await util.getStoredGuilds(session);
+
+  let content = await guilds.json().catch((e) => {
+    return null;
   });
 
-  const content = await guilds.json();
+  if (!Array.isArray(content)) content = null;
 
   return {
     props: { session, content },

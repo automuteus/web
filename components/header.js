@@ -61,7 +61,7 @@ export default function Header() {
             <Nav.Link
               onClick={() =>
                 signIn("discord", {
-                  callbackUrl: "http://localhost:3000/dashboard",
+                  callbackUrl: process.env.NEXTAUTH_URL + "/dashboard",
                 })
               }
             >
@@ -76,7 +76,7 @@ export default function Header() {
               </Link>
               <Navbar.Text as="div" className="user-logged-in">
                 <img
-                  src={session.user.image}
+                  src={session.user.image !== "" ? session.user.image : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp"}
                   alt={session.user.name}
                   className="user-image mr-2"
                 />
