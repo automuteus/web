@@ -16,6 +16,7 @@
     "next": "^10.0.3",
     "react": "^17.0.1",
     "react-bootstrap": "^1.4.0",
+    "react-confetti": "^6.0.0",
     "react-dom": "^17.0.1",
     "react-native-cli": "^2.0.1",
     "react-snowfall": "^1.0.2"

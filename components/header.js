@@ -15,7 +15,7 @@ class Header extends React.Component {
           <Link href="/" passHref>
             <a>
               <img
-                src="/assets/img/logo_embed.png"
+                src="/assets/img/logo_2021.png"
                 className="d-inline-block align-top"
                 alt="AutoMuteUs"
                 width="50"
