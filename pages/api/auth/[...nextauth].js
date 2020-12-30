@@ -4,18 +4,14 @@ import Adapters from "next-auth/adapters";
 
 import { PrismaClient } from "@prisma/client";
 
-import * as util from "../../../components/server_utils";
+import * as util from "../../../components/utility/server";
 
 let prisma;
 
-// if (process.env.NODE_ENV === "production") {
-//   prisma = new PrismaClient();
-// } else {
 if (!global.prisma) {
   global.prisma = new PrismaClient();
 }
 prisma = global.prisma;
-// }
 
 const options = {
   debug: false,
@@ -64,8 +60,7 @@ const options = {
         };
 
         const guilds = await util.getUserDiscordGuilds(user.accessToken);
-        await util.updateGuilds(prisma, guilds);
-        await util.linkUserGuilds(prisma, user, guilds);
+        await util.updateGuilds(prisma, user, guilds);
       }
 
       return Promise.resolve(token);

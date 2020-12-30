@@ -1,39 +1,35 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import { motion } from "framer-motion";
 import { getSession, signIn } from "next-auth/client";
 import { useRouter } from "next/router";
+import { motion } from "framer-motion";
 
 import { Table, Image, Button, Form } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faPaypal } from "@fortawesome/free-brands-svg-icons";
-import {
-  faCheckCircle,
-  faTimes,
-  faTimesCircle,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 
 import Layout from "../components/layout";
-import * as util from "../components/client_utils";
+import * as util from "../components/utility/client";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
 const crewmate_yellow = "/assets/img/crewmate_yellow.png";
 const crewmate_cyan = "/assets/img/crewmate_cyan.png";
 
-export default function Premium({ content, session }) {
+export default function Premium(session) {
   const router = useRouter();
   const [guild, setGuild] = useState(router.query.guild);
+  const { user_guilds, isLoading, isError } = util.listUserGuilds(session.user.id);
 
-  let guilds = {};
-  if (Array.isArray(content)) {
-    guilds = content.sort(util.compareGuilds).map((g) => (
-      <option key={g.id} value={g.id}>
-        {g.name}
+  let guilds = null;
+
+  if (Array.isArray(user_guilds)) {
+    guilds = user_guilds.sort(util.compareGuilds).map((g) => (
+      <option key={g.guild_id} value={g.guild_id}>
+        {g.guilds.name}
       </option>
     ));
-  } else {
-    guilds = "Please wait as Discord rate limits us...";
   }
 
   return (
@@ -106,6 +102,7 @@ export default function Premium({ content, session }) {
                             custom
                             onChange={(e) => setGuild(e.target.value)}
                             defaultValue="0"
+                            disabled={isLoading}
                           >
                             <option key="0" value="0" disabled>
                               - Server List -
@@ -358,17 +355,6 @@ function FeatureRow(props) {
   );
 }
 
-export async function getServerSideProps(context) {
-  const session = await getSession(context);
-  const guilds = await util.getStoredGuilds(session);
-
-  const content = await guilds.json();
-
-  return {
-    props: { session, content },
-  };
-}
-
 function PremiumItem(props) {
   const guild_target = props.guild_id ? "&custom=" + props.guild_id : "";
   const valid = validGuild(props.guild_id);
@@ -398,4 +384,12 @@ function PremiumItem(props) {
 
 function validGuild(gid) {
   return !isNaN(gid) && gid !== 0 && gid.length >= 17 && gid.length <= 20;
+}
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: session,
+  };
 }

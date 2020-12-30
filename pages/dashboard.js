@@ -1,27 +1,16 @@
 import Head from "next/head";
 import { getSession } from "next-auth/client";
 import { motion } from "framer-motion";
-import { Button, Col, Row, Spinner } from "react-bootstrap";
+import { Col, Row, Spinner } from "react-bootstrap";
 
 import Layout from "../components/layout";
 import Guild from "../components/guild";
-import * as util from "../components/client_utils";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faExclamationTriangle,
-  faSync,
-} from "@fortawesome/free-solid-svg-icons";
-
-import { PrismaClient } from "@prisma/client";
+import SigninRequired from "../components/signin-required";
+import * as util from "../components/utility/client";
 
 export default function Dashboard({ content, session }) {
   if (!session) {
-    return (
-      <Layout innerClassName="justify-content-center">
-        <h1>Access Denied</h1>
-        <p>Please sign in to view this page.</p>
-      </Layout>
-    );
+    return <SigninRequired rediret="/dashboard" />;
   }
 
   let guild_render = (
@@ -34,7 +23,7 @@ export default function Dashboard({ content, session }) {
   if (Array.isArray(content)) {
     guild_render = content
       .sort(util.compareGuilds)
-      .map((g) => <Guild key={g.id} guild={g} />);
+      .map((g) => <Guild key={g.guilds.id} guild={g.guilds} />);
   } else {
     guild_render = <code>Could not fetch server list.</code>;
   }
@@ -78,11 +67,15 @@ export default function Dashboard({ content, session }) {
 
 export async function getServerSideProps(context) {
   const session = await getSession(context);
-  const guilds = await util.getStoredGuilds(session);
 
-  let content = await guilds.json().catch((e) => {
-    return null;
-  });
+  let content = null;
+  if (session && session.user) {
+    const guilds = await util.getStoredGuilds(session);
+
+    content = await guilds.json().catch(() => {
+      return null;
+    });
+  }
 
   if (!Array.isArray(content)) content = null;
 

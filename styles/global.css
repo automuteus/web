@@ -34,6 +34,8 @@ body {
 pre {
   background-color: var(--darkest);
   border-radius: 5px;
+  color: white;
+  padding: 1rem;
 }
 
 #__next {
@@ -443,6 +445,15 @@ h6 {
   background-color: var(--darker);
   /* border: 1px solid var(--darker); */
   border: none;
+}
+
+.custom-select#guild_select {
+  cursor: pointer;
+}
+
+.custom-select#guild_select:disabled {
+  background-color: var(--darkest);
+  cursor: not-allowed;
 }
 
 .guild-input:focus,

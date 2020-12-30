@@ -1,7 +1,7 @@
 export default class Guild {
-  constructor(gid, name, icon) {
-    if (gid) {
-      this.gid = gid;
+  constructor(guild_id, name, icon) {
+    if (guild_id) {
+      this.guild_id = guild_id;
     }
     if (name) {
       this.name = name;
@@ -21,7 +21,7 @@ export const GuildSchema = {
       type: "int",
       generated: true,
     },
-    gid: {
+    guild_id: {
       type: "varchar",
       nullable: true,
     },
@@ -32,14 +32,6 @@ export const GuildSchema = {
     icon: {
       type: "varchar",
       nullable: true,
-    },
-    createdAt: {
-      type: "timestamp",
-      createDate: true,
-    },
-    updatedAt: {
-      type: "timestamp",
-      updateDate: true,
     },
   },
 };
