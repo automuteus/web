@@ -22,11 +22,11 @@ export default function Premium({ session }) {
   const [guild, setGuild] = useState(router.query.guild);
   let guilds = null;
 
-  if (session) {
-    const { user_guilds, isLoading, isError } = util.listUserGuilds(
-      session.user.id
-    );
+  const user_id = session ? session.user.id : "";
 
+  const { user_guilds, isLoading, isError } = util.listUserGuilds(user_id);
+
+  if (session) {
     if (Array.isArray(user_guilds)) {
       guilds = user_guilds.sort(util.compareGuilds).map((g) => (
         <option key={g.guild_id} value={g.guild_id}>
@@ -106,6 +106,7 @@ export default function Premium({ session }) {
                             custom
                             onChange={(e) => setGuild(e.target.value)}
                             defaultValue="0"
+                            disabled={isLoading || isError}
                           >
                             <option key="0" value="0" disabled>
                               - Server List -

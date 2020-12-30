@@ -16,10 +16,10 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
-      res.json([{ status: 200, message: "OK" }]);
+      res.json([{ status: 204, message: "OK" }]);
       break;
     case "POST":
-      res.json([{ status: 200, message: "OK" }]);
+      res.json([{ status: 204, message: "OK" }]);
       break;
     default:
       res.setHeader("Allow", ["GET", "POST"]);

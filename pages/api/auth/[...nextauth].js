@@ -69,9 +69,6 @@ const options = {
     },
 
     session: async (session, user) => {
-      // console.log("user", user);
-      // console.log("session", session);
-
       session.user = user;
       return Promise.resolve(session);
     },

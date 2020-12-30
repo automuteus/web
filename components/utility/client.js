@@ -2,7 +2,7 @@ import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 export async function getStoredGuilds(session) {
-  console.log("Fetching cached guilds...");
+  console.log("Fetching guilds...");
   return await fetch(process.env.NEXTAUTH_URL + `/api/guilds/`, {
     method: "POST",
     body: JSON.stringify(session),
@@ -34,6 +34,6 @@ export function listUserGuilds(uid) {
   return {
     user_guilds: data,
     isLoading: !error && !data,
-    isError: error,
+    isError: error || data === undefined,
   };
 }
