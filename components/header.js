@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 
-import { Navbar, Nav } from "react-bootstrap";
+import { Navbar, Nav, Badge } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
@@ -71,12 +71,21 @@ export default function Header() {
           )}
           {!loading && session && (
             <>
-              <Link href="/dashboard" passHref>
-                <Nav.Link>Dashboard</Nav.Link>
-              </Link>
+              {process.env.NODE_ENV === "development" && (
+                <>
+                  <Link href="/dashboard" passHref>
+                    <Nav.Link>Dashboard</Nav.Link>
+                  </Link>
+                  <Badge variant="danger">BETA</Badge>
+                </>
+              )}
               <Navbar.Text as="div" className="user-logged-in">
                 <img
-                  src={session.user.image !== "" ? session.user.image : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp"}
+                  src={
+                    session.user.image !== ""
+                      ? session.user.image
+                      : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp"
+                  }
                   alt={session.user.name}
                   className="user-image mr-2"
                 />

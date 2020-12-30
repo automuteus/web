@@ -43,7 +43,7 @@ const options = {
 
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
-      if (user) {
+      if (account && user) {
         let img = profile.avatar
           ? "http://cdn.discordapp.com/avatars/" +
             profile.id +
@@ -59,8 +59,10 @@ const options = {
           email: profile.email,
         };
 
-        const guilds = await util.getUserDiscordGuilds(user.accessToken);
-        await util.updateGuilds(prisma, user, guilds);
+        if (account) {
+          const guilds = await util.getUserDiscordGuilds(account.accessToken);
+          await util.updateGuilds(prisma, user, guilds);
+        }
       }
 
       return Promise.resolve(token);

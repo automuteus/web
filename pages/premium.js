@@ -17,19 +17,23 @@ const crewmate_white = "/assets/img/crewmate_white.png";
 const crewmate_yellow = "/assets/img/crewmate_yellow.png";
 const crewmate_cyan = "/assets/img/crewmate_cyan.png";
 
-export default function Premium(session) {
+export default function Premium({ session }) {
   const router = useRouter();
   const [guild, setGuild] = useState(router.query.guild);
-  const { user_guilds, isLoading, isError } = util.listUserGuilds(session.user.id);
-
   let guilds = null;
 
-  if (Array.isArray(user_guilds)) {
-    guilds = user_guilds.sort(util.compareGuilds).map((g) => (
-      <option key={g.guild_id} value={g.guild_id}>
-        {g.guilds.name}
-      </option>
-    ));
+  if (session) {
+    const { user_guilds, isLoading, isError } = util.listUserGuilds(
+      session.user.id
+    );
+
+    if (Array.isArray(user_guilds)) {
+      guilds = user_guilds.sort(util.compareGuilds).map((g) => (
+        <option key={g.guild_id} value={g.guild_id}>
+          {g.guilds.name}
+        </option>
+      ));
+    }
   }
 
   return (
@@ -102,7 +106,6 @@ export default function Premium(session) {
                             custom
                             onChange={(e) => setGuild(e.target.value)}
                             defaultValue="0"
-                            disabled={isLoading}
                           >
                             <option key="0" value="0" disabled>
                               - Server List -
@@ -390,6 +393,6 @@ export async function getServerSideProps(context) {
   const session = await getSession(context);
 
   return {
-    props: session,
+    props: { session },
   };
 }

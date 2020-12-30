@@ -65,12 +65,11 @@ model VerificationRequest {
 }
 
 model Guild {
-  id            Int          @id @default(autoincrement()) @db.Integer
   name          String       @db.VarChar(100)
   icon          String?      @db.Text
   premium       Int          @db.SmallInt
   txn_time_unix Int?         @db.Integer
-  guild_id      Decimal      @unique @db.Numeric
+  guild_id      String       @id @db.VarChar(20)
   last_updated  DateTime?    @default(now()) @db.Timestamp(6)
   users_guilds  UsersGuild[] @relation("guildsTousers_guilds")
 
@@ -79,7 +78,7 @@ model Guild {
 
 model UsersGuild {
   user_id  Int      @db.Integer
-  guild_id Decimal  @db.Numeric
+  guild_id String   @db.VarChar(20)
   active   Boolean? @db.Boolean
   guilds   Guild    @relation("guildsTousers_guilds", fields: [guild_id], references: [guild_id])
   users    User     @relation("usersTousers_guilds", fields: [user_id], references: [id])

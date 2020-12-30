@@ -8,24 +8,31 @@ import Guild from "../components/guild";
 import SigninRequired from "../components/signin-required";
 import * as util from "../components/utility/client";
 
-export default function Dashboard({ content, session }) {
+export default function Dashboard({ session }) {
   if (!session) {
     return <SigninRequired rediret="/dashboard" />;
   }
-
-  let guild_render = (
-    <Spinner animation="border" role="status">
-      <span className="sr-only">Loading...</span>
-    </Spinner>
+  const { user_guilds, isLoading, isError } = util.listUserGuilds(
+    session.user.id
   );
 
-  // guild_render = <pre style={{color: "white"}}>{JSON.stringify(content, null, 2)}</pre>;
-  if (Array.isArray(content)) {
-    guild_render = content
+  let loading_icon = (
+    <div className="d-flex align-items-center">
+      <Spinner animation="border" role="status">
+        <span className="sr-only">Loading...</span>
+      </Spinner>
+      <strong className="ml-2">Loading servers...</strong>
+    </div>
+  );
+
+  let guilds = null;
+
+  if (Array.isArray(user_guilds)) {
+    guilds = user_guilds
       .sort(util.compareGuilds)
-      .map((g) => <Guild key={g.guilds.id} guild={g.guilds} />);
+      .map((g) => <Guild key={g.guilds.guild_id} guild={g.guilds} type="list" />);
   } else {
-    guild_render = <code>Could not fetch server list.</code>;
+    guilds = <code>Could not fetch server list.</code>;
   }
 
   return (
@@ -49,13 +56,7 @@ export default function Dashboard({ content, session }) {
           <Row xs="1">
             <Col lg="4">
               <h3>Manage Servers</h3>
-              {/* <Button className="btn-secondary" onClick={alert()}>
-                <FontAwesomeIcon icon={faSync} className="mr-2" /> Refresh
-                Servers
-              </Button> */}
-              <div style={{ maxHeight: "100%", overflow: "auto" }}>
-                {guild_render}
-              </div>
+              <div>{isLoading && !isError ? loading_icon : guilds}</div>
             </Col>
             <Col lg="8" />
           </Row>
@@ -68,18 +69,7 @@ export default function Dashboard({ content, session }) {
 export async function getServerSideProps(context) {
   const session = await getSession(context);
 
-  let content = null;
-  if (session && session.user) {
-    const guilds = await util.getStoredGuilds(session);
-
-    content = await guilds.json().catch(() => {
-      return null;
-    });
-  }
-
-  if (!Array.isArray(content)) content = null;
-
   return {
-    props: { session, content },
+    props: { session },
   };
 }

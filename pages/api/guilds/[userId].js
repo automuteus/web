@@ -26,10 +26,7 @@ export default async function handler(req, res) {
           include: {
             guilds: true,
           },
-        });
-      // const guilds = await prisma.guild
-      //   .findMany()
-      //   .users_guilds({ where: { user_id: 8 } });
+      });
 
       res.json(guilds);
       break;
