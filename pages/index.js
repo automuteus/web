@@ -65,27 +65,27 @@ export default class App extends React.Component {
           initial={{ opacity: 0 }}
           className="d-flex flex-lg-row w-100  align-items-center"
         >
-          <div id="home-text">
-            <h2 className="title">Use AutoMuteUs for hands free muting</h2>
-            <p className="subtitle">
-              AutoMuteUs is a Discord Bot that collects Among Us game data to
-              automatically mute/unmute players during games!
-            </p>
-            <div id="home-links">
-              <Button
-                href="https://add.automute.us/"
-                className="btn btn-primary btn-lg mb-2 mr-2"
-              >
-                <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
-                Add to Discord
-              </Button>
-              <Button
-                href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
-                className="btn btn-primary btn-lg mb-2 mr-2"
-              >
-                <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
-                Capture Software
-              </Button>
+        <div id="home-text">
+          <h2 className="title">Use AutoMuteUs for hands free muting</h2>
+          <p className="subtitle">
+            AutoMuteUs is a Discord Bot that collects Among Us game data to
+            automatically mute/unmute players during games!
+          </p>
+          <div id="home-links">
+            <Button
+              href="https://add.automute.us/"
+              className="btn btn-primary btn-lg mb-2 mr-2"
+            >
+              <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
+              Add to Discord
+            </Button>
+            <Button
+              href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
+              className="btn btn-primary btn-lg mb-2 mr-2"
+            >
+              <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
+              Capture Software
+            </Button>
 
               <Link href="/premium">
                 <Button className="btn btn-premium btn-lg mb-2 mr-2">

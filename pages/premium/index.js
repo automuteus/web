@@ -9,8 +9,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { faCheckCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
 
-import Layout from "../components/layout";
-import * as util from "../components/utility/client";
+import * as util from "../../components/utility/client";
+import SubscriptionCard from "../../components/subscription-card";
+import Layout from "../../components/layout";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
@@ -232,7 +233,7 @@ export default function Premium({ session }) {
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
                 }
               />
-              <FeatureRow
+              {/* <FeatureRow
                 title="Discord Role"
                 subtitle={
                   <>
@@ -252,7 +253,7 @@ export default function Premium({ session }) {
                 tier3={
                   <FontAwesomeIcon as="i" size="lg" icon={faCheckCircle} />
                 }
-              />
+              /> */}
               <FeatureRow
                 title="General Support"
                 subtitle="Access to Premium-Only channels and chats in our Official Discord!"
@@ -328,7 +329,7 @@ export default function Premium({ session }) {
                     You won't get any special bot privileges, but you will get
                     our thanks for making this Open Source Project possible!
                   </p>
-                  <p>
+                  <p className="d-none">
                     Additionally, you will receive the{" "}
                     <span className="badge badge-success badge-pill badge">
                       Supporter
@@ -347,7 +348,7 @@ export default function Premium({ session }) {
 
 function FeatureRow(props) {
   return (
-    <tr>
+    <tr className={props.className}>
       <th>
         <h5>{props.title}</h5>
         <p>{props.subtitle}</p>

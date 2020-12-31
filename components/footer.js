@@ -4,7 +4,6 @@ import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EffectToggle from "./effect-toggle";
-
 import styles from "./footer.module.css";
 
 const Snowfall = dynamic(() => import("react-snowfall"), { ssr: false });
@@ -13,7 +12,7 @@ export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      effect: this.props.effect || false,
+      snowActive: true,
     };
 
     this.onToggle = this.onToggle.bind(this);
@@ -21,25 +20,22 @@ export default class Footer extends React.Component {
 
   onToggle(e) {
     this.setState({
-      effect: e.target.checked,
+      snowActive: e.target.checked,
     });
   }
 
   render() {
     return (
       <footer className={`${styles.footer} ${styles.muted_snow} text-right`}>
-        {this.state.effect && (
-          <>
-            <Snowfall snowflakeCount={75} />
-            <EffectToggle
-              name="snow-switch"
-              init={this.effect}
-              tooltip="Toggle snow"
-              toggle={this.onToggle}
-              label={<FontAwesomeIcon icon={faSnowflake} />}
-            />
-          </>
-        )}
+        {this.state.snowActive && <Snowfall snowflakeCount={75} />}
+
+        <EffectToggle
+          name="snow-switch"
+          init={this.snowActive}
+          tooltip="Toggle snow"
+          toggle={this.onToggle}
+          label={<FontAwesomeIcon icon={faSnowflake} />}
+        />
       </footer>
     );
   }
