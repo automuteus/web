@@ -15,33 +15,46 @@ export async function getUserDiscordGuilds(token) {
 
 export async function updateGuilds(prisma, user, guilds) {
   const uid = user.id;
+  console.log(uid);
 
   console.log("Updating guilds for user:", uid);
   guilds.map(async (g) => {
     try {
-      await prisma.usersGuild.upsert({
-        where: {
-          user_id_guild_id: {
-            user_id: uid,
-            guild_id: g.id,
-          },
+      await prisma.usersGuild.updateMany({
+        where: { user_id: uid },
+        data: {
+          active: false,
         },
-        create: {
-          users: { connect: { id: uid } },
-          guilds: {
+      });
+
+      await prisma.user.update({
+        where: { id: uid },
+        data: {
+          users_guilds: {
             connectOrCreate: {
-              where: { guild_id: g.id },
+              where: {
+                user_id_guild_id: {
+                  user_id: uid,
+                  guild_id: g.id,
+                },
+              },
               create: {
-                name: g.name,
-                guild_id: g.id,
-                icon: g.icon,
-                premium: 0,
+                active: true,
+                guilds: {
+                  connectOrCreate: {
+                    where: { guild_id: g.id },
+                    create: {
+                      guild_id: g.id,
+                      name: g.name,
+                      icon: g.icon,
+                      premium: 0,
+                    },
+                  },
+                },
               },
             },
           },
-          active: true,
         },
-        update: { active: true },
       });
     } catch (err) {
       console.log("--------------------");
