@@ -5,16 +5,16 @@ import { Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faGem } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
 
 import Layout from "../components/layout";
 import ServerStats from "../components/server-stats";
 import Link from "next/link";
 
+const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
 export default class App extends React.Component {
   render() {
     return (
-      <Layout outerClassName="theatric" innerClassName="justify-content-center" effect={true}>
+      <Layout className="theatric">
         <Head>
           {/* HTML Meta Tags */}
           <title>AutoMuteUs</title>
@@ -36,7 +36,7 @@ export default class App extends React.Component {
           />
 
           {/* Discord/Facebook Meta Tags */}
-          <meta property="og:url" content="http://automute.us" />
+          <meta property="og:url" content="https://automute.us" />
           <meta property="og:type" content="website" />
           <meta property="og:title" content="AutoMuteUs" />
           <meta
@@ -59,12 +59,6 @@ export default class App extends React.Component {
             content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
           />
         </Head>
-        <motion.div
-          exit={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-          className="d-flex flex-lg-row w-100  align-items-center"
-        >
         <div id="home-text">
           <h2 className="title">Use AutoMuteUs for hands free muting</h2>
           <p className="subtitle">
@@ -74,40 +68,39 @@ export default class App extends React.Component {
           <div id="home-links">
             <Button
               href="https://add.automute.us/"
-              className="btn btn-primary btn-lg mb-2 mr-2"
+              className="btn btn-primary btn-lg mb-2 mr-2 px-2 px-lg-5"
             >
               <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
               Add to Discord
             </Button>
             <Button
               href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
-              className="btn btn-primary btn-lg mb-2 mr-2"
+              className="btn btn-primary btn-lg mb-2 mr-2 px-2 px-lg-5"
             >
               <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
               Capture Software
             </Button>
 
-              <Link href="/premium">
-                <Button className="btn btn-premium btn-lg mb-2 mr-2">
-                  <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
-                  AutoMuteUs Premium
-                </Button>
-              </Link>
-            </div>
+            <Link href="/premium">
+              <Button className="btn btn-premium btn-lg mb-2 mr-2 px-2 px-lg-5">
+                <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
+                AutoMuteUs Premium
+              </Button>
+            </Link>
+          </div>
 
-            <ServerStats />
-          </div>
-          <div id="home-crewmate">
-            <object
-              id="crewmate"
-              alt=""
-              type="image/svg+xml"
-              data="/assets/img/svg/amus_crewmate_2021.svg"
-              className="floating"
-              aria-label="AutoMuteUs"
-            ></object>
-          </div>
-        </motion.div>
+          <ServerStats />
+        </div>
+        <div id="home-crewmate">
+          <object
+            id="crewmate"
+            alt=""
+            type="image/svg+xml"
+            data={amus_crewmate}
+            className="floating"
+            aria-label="AutoMuteUs"
+          />
+        </div>
       </Layout>
     );
   }

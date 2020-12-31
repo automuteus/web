@@ -73,9 +73,10 @@ export default function Header() {
               {process.env.NODE_ENV === "development" && (
                 <>
                   <Link href="/dashboard" passHref>
-                    <Nav.Link>Dashboard</Nav.Link>
+                    <Nav.Link>
+                      Dashboard <Badge variant="danger" className="ml-1">BETA</Badge>
+                    </Nav.Link>
                   </Link>
-                  <Badge variant="danger">BETA</Badge>
                 </>
               )}
               <Navbar.Text as="div" className="user-logged-in">

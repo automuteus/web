@@ -130,16 +130,19 @@ h6 {
   height: 100%;
 }
 
+#main-content,
+header,
+footer {
+  margin-left: -15px;
+  margin-right: -15px;
+}
+
 .theatric #main-content,
 .theatric header,
 .theatric footer {
   background: transparent !important;
-}
-
-.container-fluid > *,
-.container > * {
-  margin-left: -15px;
-  margin-right: -15px;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .sub-card {
@@ -236,7 +239,7 @@ h6 {
   cursor: default;
 }
 
-.home-links .btn {
+#home-links .btn {
   width: 100%;
 }
 
@@ -485,7 +488,7 @@ h6 {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .home-links .btn {
+  #home-links .btn {
     width: auto;
   }
 }
