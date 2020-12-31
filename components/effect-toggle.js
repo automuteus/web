@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Tooltip, OverlayTrigger } from "react-bootstrap";
-
 export default class EffectToggle extends React.Component {
   render() {
     return (

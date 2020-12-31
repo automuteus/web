@@ -2,7 +2,6 @@ import React from "react";
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
 
 const StatsURL = "https://galactus.automute.us";
-
 export default class ServerStats extends React.Component {
   constructor(props) {
     super(props);

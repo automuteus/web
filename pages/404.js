@@ -63,50 +63,10 @@ export default class App extends React.Component {
           exit={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           initial={{ opacity: 0 }}
-          className="d-flex flex-lg-row w-100  align-items-center"
+          className="d-flex flex-column w-100 justify-content-center align-items-center"
         >
-        <div id="home-text">
-          <h2 className="title">Use AutoMuteUs for hands free muting</h2>
-          <p className="subtitle">
-            AutoMuteUs is a Discord Bot that collects Among Us game data to
-            automatically mute/unmute players during games!
-          </p>
-          <div id="home-links">
-            <Button
-              href="https://add.automute.us/"
-              className="btn btn-primary btn-lg mb-2 mr-2"
-            >
-              <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
-              Add to Discord
-            </Button>
-            <Button
-              href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
-              className="btn btn-primary btn-lg mb-2 mr-2"
-            >
-              <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
-              Capture Software
-            </Button>
-
-              <Link href="/premium">
-                <Button className="btn btn-premium btn-lg mb-2 mr-2">
-                  <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
-                  AutoMuteUs Premium
-                </Button>
-              </Link>
-            </div>
-
-            <ServerStats />
-          </div>
-          <div id="home-crewmate">
-            <object
-              id="crewmate"
-              alt=""
-              type="image/svg+xml"
-              data="/assets/img/svg/amus_crewmate_santa.svg"
-              className="floating"
-              aria-label="AutoMuteUs"
-            ></object>
-          </div>
+          <h1>This page was an impostor.</h1>
+          <h5>(Sorry, but this page doesn't actually exist)</h5>
         </motion.div>
       </Layout>
     );

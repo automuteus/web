@@ -4,7 +4,6 @@ import { faSnowflake } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import EffectToggle from "./effect-toggle";
-
 import styles from "./footer.module.css";
 
 const Snowfall = dynamic(() => import("react-snowfall"), { ssr: false });
