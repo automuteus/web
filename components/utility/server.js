@@ -15,10 +15,9 @@ export async function getUserDiscordGuilds(token) {
 
 export async function updateGuilds(prisma, user, guilds) {
   const uid = user.id;
-  
-  console.log("Updating guilds for user:", uid);
 
-  for (const g of guilds) {
+  console.log("Updating guilds for user:", uid);
+  guilds.map(async (g) => {
     try {
       await prisma.usersGuild.upsert({
         where: {
@@ -49,7 +48,6 @@ export async function updateGuilds(prisma, user, guilds) {
       console.log("Error: ", err);
       console.log("guild", g);
       console.log("user", user);
-      break;
     }
-  }
+  });
 }
