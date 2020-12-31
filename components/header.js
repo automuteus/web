@@ -7,11 +7,10 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";
 
 import { signIn, signOut, useSession } from "next-auth/client";
-import {
-  faCheckCircle,
-  faTachometerAlt,
-} from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
+
+const site_logo = "/assets/img/logo_2021.png";
 
 export default function Header() {
   const [session, loading] = useSession();
@@ -28,7 +27,7 @@ export default function Header() {
         <Link href="/" passHref>
           <a>
             <img
-              src="/assets/img/logo_embed.png"
+              src={site_logo}
               className="d-inline-block align-top"
               alt="AutoMuteUs"
               width="50"

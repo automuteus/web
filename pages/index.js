@@ -102,7 +102,7 @@ export default class App extends React.Component {
               id="crewmate"
               alt=""
               type="image/svg+xml"
-              data="/assets/img/svg/amus_crewmate_santa.svg"
+              data="/assets/img/svg/amus_crewmate_2021.svg"
               className="floating"
               aria-label="AutoMuteUs"
             ></object>

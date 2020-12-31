@@ -4,8 +4,8 @@
   background: #23272a;
 }
 
-.muted_snow > canvas {
+.muted_effect > canvas {
   opacity: 0.75;
-  z-index: -1;
+  z-index: -1 !important;
   position: fixed !important;
 }
