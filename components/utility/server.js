@@ -20,13 +20,6 @@ export async function updateGuilds(prisma, user, guilds) {
   console.log("Updating guilds for user:", uid);
   guilds.map(async (g) => {
     try {
-      await prisma.usersGuild.updateMany({
-        where: { user_id: uid },
-        data: {
-          active: false,
-        },
-      });
-
       await prisma.user.update({
         where: { id: uid },
         data: {
