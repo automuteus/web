@@ -286,7 +286,7 @@ export default function Premium({ session }) {
               </Table>
             </div>
           </Col>
-          <Col style={{minWidth: "450px", maxWidth: "450px"}}>
+          <Col style={{maxWidth: "450px"}}>
             <div className="premium-table-wrap" id="donation-table-wrap">
               <h1>💎 Donator Tier 💎</h1>
 
