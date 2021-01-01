@@ -27,7 +27,7 @@ export default class Footer extends React.Component {
         {this.state.effectActive && (
           <Effect
             numberOfPieces={75}
-            opacity={0.5}
+            opacity={0.65}
             gravity={0.05}
             initialVelocityX={5}
             initialVelocityY={20}
