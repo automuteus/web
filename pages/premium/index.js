@@ -23,9 +23,9 @@ export default function Premium({ session }) {
   const [guild, setGuild] = useState(router.query.guild);
   let guilds = null;
 
-  const user_id = session ? session.user.id : "";
+  const uid = session ? session.user.id : "";
 
-  const { user_guilds, isLoading, isError } = util.listUserGuilds(user_id);
+  const { user_guilds, isLoading, isError } = util.listUserGuilds(uid);
 
   if (session) {
     if (Array.isArray(user_guilds)) {
@@ -38,7 +38,7 @@ export default function Premium({ session }) {
   }
 
   return (
-    <Layout innerClassName="align-items-start" effect={false}>
+    <Layout innerClassName="align-items-start flex-column flex-lg-row" effect={false}>
       <Head>
         <title>AutoMuteUs Premium</title>
         <meta
@@ -79,7 +79,7 @@ export default function Premium({ session }) {
           content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
         />
       </Head>
-      <div className="premium-table-wrap">
+      <div className="premium-table-wrap" id="premium-table-wrap">
         <h1>⭐ AutoMuteUs Premium ⭐</h1>
         <Table
           borderless
@@ -274,7 +274,7 @@ export default function Premium({ session }) {
           </tbody>
         </Table>
       </div>
-      <div className="premium-table-wrap">
+      <div className="premium-table-wrap" id="donation-table-wrap">
         <h1>💎 Donator Tier 💎</h1>
 
         <Table

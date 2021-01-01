@@ -162,6 +162,10 @@ footer {
 .theatric header,
 .theatric footer {
   background: transparent !important;
+}
+
+.theatric #main-content {
+  background: transparent !important;
   margin-left: 0;
   margin-right: 0;
 }
@@ -319,21 +323,27 @@ footer {
   cursor: pointer;
 }
 
+#donation-table-wrap {
+  flex: 1 0;
+}
+
+#premium-table-wrap {
+  flex: 2 0;
+}
+
 .donation-table {
   border-radius: 15px;
-  max-width: 400px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .premium-table-wrap {
   margin-bottom: 2rem;
   text-align: center;
-  max-width: 100%;
+  width: 100%;
 }
 
 .premium-table {
   border-radius: 15px;
-  max-width: 900px;
 }
 
 .premium-table p {
