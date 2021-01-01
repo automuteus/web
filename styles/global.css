@@ -328,7 +328,7 @@ footer {
 }
 
 #premium-table-wrap {
-  flex: 2 0;
+  flex: 1 0;
 }
 
 .donation-table {
@@ -532,6 +532,14 @@ footer {
 
   .premium-table-wrap:first-child {
     margin-right: 2rem;
+  }
+
+  #donation-table-wrap {
+    flex: 1 0;
+  }
+  
+  #premium-table-wrap {
+    flex: 2 0;
   }
 }
 
