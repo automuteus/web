@@ -1,20 +1,17 @@
 import React from "react";
 import Head from "next/head";
 
-import { Button } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDiscord } from "@fortawesome/free-brands-svg-icons";
-import { faCamera, faGem } from "@fortawesome/free-solid-svg-icons";
-import { motion } from "framer-motion";
 
 import Layout from "../components/layout";
-import ServerStats from "../components/server-stats";
-import Link from "next/link";
 
-export default class App extends React.Component {
+export default class ErrorPage extends React.Component {
   render() {
     return (
-      <Layout outerClassName="theatric" innerClassName="justify-content-center" effect={true}>
+      <Layout
+        className="theatric"
+        innerClassName="justify-content-center align-items-center flex-column"
+        effect={true}
+      >
         <Head>
           {/* HTML Meta Tags */}
           <title>AutoMuteUs</title>
@@ -59,15 +56,8 @@ export default class App extends React.Component {
             content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
           />
         </Head>
-        <motion.div
-          exit={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          initial={{ opacity: 0 }}
-          className="d-flex flex-column w-100 justify-content-center align-items-center"
-        >
-          <h1>This page was an impostor.</h1>
-          <h5>(Sorry, but this page doesn't actually exist)</h5>
-        </motion.div>
+        <h1>This page was an impostor.</h1>
+        <h5>(Sorry, but this page doesn't actually exist)</h5>
       </Layout>
     );
   }

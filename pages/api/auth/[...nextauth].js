@@ -8,10 +8,14 @@ import * as util from "../../../components/utility/server";
 
 let prisma;
 
-if (!global.prisma) {
-  global.prisma = new PrismaClient();
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
 }
-prisma = global.prisma;
 
 const options = {
   debug: false,
@@ -44,7 +48,9 @@ const options = {
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (account && user) {
-        let img = profile.avatar
+          const uid = isNewUser ? user.id : user.userId;
+          
+          let img = profile.avatar
           ? "http://cdn.discordapp.com/avatars/" +
             profile.id +
             "/" +
@@ -53,7 +59,7 @@ const options = {
           : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
 
         token = {
-          id: user.id,
+          id: uid,
           name: profile.username,
           image: img,
           email: profile.email,
@@ -61,7 +67,7 @@ const options = {
 
         if (account) {
           const guilds = await util.getUserDiscordGuilds(account.accessToken);
-          await util.updateGuilds(prisma, user, guilds);
+          await util.updateGuilds(prisma, uid, guilds);
         }
       }
 

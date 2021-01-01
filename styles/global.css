@@ -125,9 +125,37 @@ h6 {
   background-color: #7289da !important;
 }
 
+.main_container {
+  display: flex;
+  flex-direction: column;
+}
+
+.theatric.main_container {
+  background-image: url("../public/assets/img/svg/blurple-waves.svg");
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: 200%;
+  background-repeat: no-repeat;
+}
+
+.main_container > header {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 0;
+  box-shadow: none;
+}
+
 #main-content {
-  background: var(--darker);
+  /* background: rgba(0,0,0,0.55); */
+  background-color: var(--darker);
   height: 100%;
+}
+
+#main-content,
+header,
+footer {
+  margin-left: -15px;
+  margin-right: -15px;
 }
 
 .theatric #main-content,
@@ -136,10 +164,10 @@ h6 {
   background: transparent !important;
 }
 
-.container-fluid > *,
-.container > * {
-  margin-left: -15px;
-  margin-right: -15px;
+.theatric #main-content {
+  background: transparent !important;
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .sub-card {
@@ -236,7 +264,7 @@ h6 {
   cursor: default;
 }
 
-.home-links .btn {
+#home-links .btn {
   width: 100%;
 }
 
@@ -295,25 +323,27 @@ h6 {
   cursor: pointer;
 }
 
+#donation-table-wrap {
+  flex: 1 0;
+}
+
+#premium-table-wrap {
+  flex: 1 0;
+}
+
 .donation-table {
   border-radius: 15px;
-  max-width: 400px;
-  overflow: hidden;
+  overflow: auto;
 }
 
 .premium-table-wrap {
   margin-bottom: 2rem;
   text-align: center;
-  max-width: 100%;
-}
-
-.premium-table-wrap:first-child {
-  margin-right: 2rem;
+  width: 100%;
 }
 
 .premium-table {
   border-radius: 15px;
-  max-width: 900px;
 }
 
 .premium-table p {
@@ -485,7 +515,7 @@ h6 {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) {
-  .home-links .btn {
+  #home-links .btn {
     width: auto;
   }
 }
@@ -498,6 +528,18 @@ h6 {
 
   .navbar-dark .navbar-nav .nav-link:not(:first-child) {
     margin-left: 0.75rem;
+  }
+
+  .premium-table-wrap:first-child {
+    margin-right: 2rem;
+  }
+
+  #donation-table-wrap {
+    flex: 1 0;
+  }
+  
+  #premium-table-wrap {
+    flex: 2 0;
   }
 }
 

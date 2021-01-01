@@ -73,12 +73,14 @@ export default class ServerStats extends React.Component {
             loaded={isLoaded}
             rounded={true}
             placement="bottom"
+            minValue={0}
           />
           <StatCard
             label="Active Games"
             stat={activeGames}
             loaded={isLoaded}
             rounded={false}
+            minValue={0}
           />
           <StatCard
             label="Users"
@@ -86,6 +88,7 @@ export default class ServerStats extends React.Component {
             loaded={isLoaded}
             rounded={true}
             placement="bottom"
+            minValue={0}
           />
           <StatCard
             label="Games Muted"
@@ -93,6 +96,7 @@ export default class ServerStats extends React.Component {
             loaded={isLoaded}
             rounded={true}
             placement="bottom"
+            minValue={262000}
           />
         </Row>
       );
@@ -101,11 +105,13 @@ export default class ServerStats extends React.Component {
 }
 
 function StatCard(props) {
+  const stat = props.stat + props.minValue;
+
   const content = (
     <div>
       <div className="stat-data">
         <div className={props.loaded ? "fadeIn" : "fadeOut"}>
-          {props.rounded ? roundedThousands(props.stat) : props.stat}
+          {props.rounded ? roundedThousands(stat) : stat}
         </div>
       </div>
       <div className="stat-label">{props.label}</div>
@@ -119,7 +125,7 @@ function StatCard(props) {
       trigger={["hover", "focus"]}
       overlay={
         <Tooltip className="stats-tooltip" id={props.label + "tooltip"}>
-          {props.stat}
+          {stat}
         </Tooltip>
       }
     >

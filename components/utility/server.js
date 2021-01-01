@@ -13,10 +13,7 @@ export async function getUserDiscordGuilds(token) {
   return guild.json();
 }
 
-export async function updateGuilds(prisma, user, guilds) {
-  const uid = user.id;
-  console.log(uid);
-
+export async function updateGuilds(prisma, uid, guilds) {
   console.log("Updating guilds for user:", uid);
   guilds.map(async (g) => {
     try {

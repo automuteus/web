@@ -5,11 +5,14 @@ import { PrismaClient } from "@prisma/client";
 
 let prisma;
 
-if (!global.prisma) {
-  global.prisma = new PrismaClient();
+if (process.env.NODE_ENV === "production") {
+  prisma = new PrismaClient();
+} else {
+  if (!global.prisma) {
+    global.prisma = new PrismaClient();
+  }
+  prisma = global.prisma;
 }
-
-prisma = global.prisma;
 
 export default async function handler(req, res) {
   const {
@@ -20,13 +23,14 @@ export default async function handler(req, res) {
 
   switch (method) {
     case "GET":
+      console.log("Fetching guild list for user:", uid)
       const guilds = await prisma.user
         .findUnique({ where: { id: uid } })
         .users_guilds({
           include: {
             guilds: true,
           },
-      });
+        });
 
       res.json(guilds);
       break;
