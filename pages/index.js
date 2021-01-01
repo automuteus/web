@@ -14,7 +14,7 @@ const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
 export default class App extends React.Component {
   render() {
     return (
-      <Layout className="theatric">
+      <Layout className="theatric" effect={true} innerClassName="flex-column flex-lg-row align-items-center">
         <Head>
           {/* HTML Meta Tags */}
           <title>AutoMuteUs</title>
