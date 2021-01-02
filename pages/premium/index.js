@@ -12,6 +12,7 @@ import {
   Dropdown,
   DropdownButton,
   Form,
+  Image,
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
@@ -359,11 +360,11 @@ function PremiumItem(props) {
 
   return (
     <Card className="text-center shadow premium-card">
-      <Card.Img variant="top" src={props.image} />
       <Card.Body>
-        <Card.Title className="font-weight-bold font-family-title">
-          AutoMuteUs{" "}
-          <Badge style={{ backgroundColor: props.accentColor, color: "black" }}>
+        <Image src={props.image}/>
+        <Card.Title className="font-weight-bold font-family-title d-flex flex-row justify-content-center align-items-center">
+          <span className="text-ellipsis">AutoMuteUs</span>{" "}
+          <Badge style={{ backgroundColor: props.accentColor, color: "black" }} className="ml-2">
             {props.cardTitle}
           </Badge>
         </Card.Title>
@@ -393,7 +394,7 @@ function PremiumItem(props) {
               <ListGroupItem key={perk}>
                 <div className="d-flex justify-content-between align-items-center">
                   <strong
-                    className="d-inline mr-2 mb-0 font-family-title perk-text"
+                    className="d-inline mr-2 mb-0 font-family-title text-ellipsis"
                     title={perk}
                   >
                     {perk}
