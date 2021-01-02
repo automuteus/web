@@ -137,7 +137,7 @@ class SuccessPayment extends React.Component {
               <Link href="/premium">
                 <Button className="btn btn-premium btn-lg">
                   <FontAwesomeIcon icon={faGem} size="lg" className="mr-2" />
-                  Our Premium Tiers
+                  AutoMuteUs Premium
                 </Button>
               </Link>
             )}
