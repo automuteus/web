@@ -367,7 +367,7 @@ function PremiumItem(props) {
             {props.cardTitle}
           </Badge>
         </Card.Title>
-        <div title={!valid ? "Please choose a server first" : ""}>
+        <span title={(!valid && props.guild_id !== "donation") ? "Please choose a server first" : ""} className={(!valid && props.guild_id !== "donation") ? "disabled-wrap" : ""}>
           <Button
             variant="premium"
             size="sm"
@@ -381,7 +381,7 @@ function PremiumItem(props) {
             <FontAwesomeIcon icon={faPaypal} className="mr-2" />
             {props.buttonText}
           </Button>
-        </div>
+        </span>
         {props.description && (
           <Card.Text as="div">{props.description}</Card.Text>
         )}

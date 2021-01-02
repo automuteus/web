@@ -351,7 +351,6 @@ footer {
 
 .premium-perks {
   justify-content: center;
-  align-items: flex-start;
   flex-wrap: wrap;
   max-width: 100%;
 }
@@ -519,6 +518,10 @@ footer {
   vertical-align: middle;
   background-color: var(--darkest);
   border: none;
+}
+
+.disabled-wrap {
+  cursor: not-allowed;
 }
 
 .custom-select#guild_select {
