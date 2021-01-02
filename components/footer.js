@@ -10,7 +10,8 @@ export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      effectActive: this.props.effect,
+      effect: this.props.effect,
+      effectActive: this.props.effectActive && this.props.effect,
     };
 
     this.onToggle = this.onToggle.bind(this);
@@ -35,13 +36,15 @@ export default class Footer extends React.Component {
           />
         )}
 
-        <EffectToggle
-          name="effect-switch"
-          init={this.state.effectActive}
-          tooltip="Toggle confetti"
-          toggle={this.onToggle}
-          label={"🎉"}
-        />
+        {this.state.effect && (
+          <EffectToggle
+            name="effect-switch"
+            init={this.state.effectActive}
+            tooltip="Toggle confetti"
+            toggle={this.onToggle}
+            label={"🎉"}
+          />
+        )}
       </footer>
     );
   }
