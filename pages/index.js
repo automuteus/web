@@ -32,7 +32,7 @@ export default class App extends React.Component {
           />
           <meta
             itemProp="image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
+            content="http://automute.us/assets/img/logo_embed.png"
           />
 
           {/* Discord/Facebook Meta Tags */}
@@ -45,7 +45,7 @@ export default class App extends React.Component {
           />
           <meta
             property="og:image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
+            content="http://automute.us/assets/img/logo_embed.png"
           />
 
           {/* Twitter Meta Tags */}
@@ -56,7 +56,7 @@ export default class App extends React.Component {
           />
           <meta
             name="twitter:image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
+            content="http://automute.us/assets/img/logo_embed.png"
           />
         </Head>
         <div id="home-text">

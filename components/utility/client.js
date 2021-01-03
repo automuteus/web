@@ -1,6 +1,10 @@
 import useSWR from "swr";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
+export function validGuild(gid) {
+  return !isNaN(gid) && gid !== 0 && gid.length >= 17 && gid.length <= 20;
+}
+
 export async function getStoredGuilds(session) {
   console.log("Fetching guilds...");
   return await fetch(process.env.NEXTAUTH_URL + `/api/guilds/`, {

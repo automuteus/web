@@ -229,8 +229,15 @@ footer {
   margin: 0;
 }
 
-.btn:hover {
-  background-color: #5667a6;
+.btn-primary:hover,
+.btn-primary:not(:disabled):not(.disabled).active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.show > .btn-primary.dropdown-toggle,
+.btn-primary.focus,
+.btn-primary:focus {
+  background-color: var(--blurple2);
+  border-color: var(--blurple);
+  box-shadow: none !important;
 }
 
 .btn-lg {
@@ -375,7 +382,7 @@ footer {
 
 .premium-perk-card {
   margin: 0.5rem;
-  min-width: 350px;
+  cursor: default;
 }
 
 .premium-card:hover {
@@ -428,7 +435,7 @@ footer {
 }
 
 .guild-container .guild-icon,
-.premium-guild-select-dropdown .guild-icon,
+.guild-select-dropdown .guild-icon,
 .guild-dropdown-item .guild-icon {
   width: 50px;
   height: 50px;
@@ -443,7 +450,7 @@ footer {
   flex: 0 0 auto;
 }
 
-.premium-guild-select .dropdown-menu {
+.guild-select .dropdown-menu {
   background: var(--darker);
   color: white;
   max-height: 25em;
@@ -454,7 +461,7 @@ footer {
 }
 
 .guild-dropdown-item,
-.premium-guild-select-dropdown {
+.guild-select-dropdown {
   align-items: center;
   font-weight: bold;
   color: white;
@@ -477,13 +484,13 @@ footer {
   pointer-events: none;
 }
 
-.premium-guild-select-dropdown .guild-icon,
+.guild-select-dropdown .guild-icon,
 .guild-dropdown-item .guild-icon {
   width: 35px;
   height: 35px;
 }
 
-.premium-guild-select .dropdown-toggle::after {
+.guild-select .dropdown-toggle::after {
   margin-left: 0.75em;
 }
 
@@ -542,6 +549,7 @@ footer {
   color: white;
   background-color: var(--darkest);
 }
+
 .home-stats-wrapper {
   cursor: default;
   width: 100%;
@@ -579,6 +587,13 @@ footer {
   opacity: 1;
   width: auto;
   transition: width 0.5s, height 0.5s, opacity 0.5s 0.5s;
+}
+
+.page-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Small devices (landscape phones, 576px and up) */

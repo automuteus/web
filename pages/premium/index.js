@@ -9,9 +9,6 @@ import {
   Card,
   CardDeck,
   Container,
-  Dropdown,
-  DropdownButton,
-  Form,
   Image,
   ListGroup,
   ListGroupItem,
@@ -30,6 +27,7 @@ import {
 
 import * as util from "../../components/utility/client";
 import Layout from "../../components/layout";
+import GuildDropdown from "../../components/guild-dropdown";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
@@ -50,7 +48,7 @@ const current_perks = [
     icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faMedal} />,
   },
   {
-    perk: "General Support",
+    perk: "Premium Support",
     description:
       "Access to Premium-only channels and chats in our official Discord!",
     icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faLifeRing} />,
@@ -78,43 +76,9 @@ export default function Premium({ session }) {
   const { user_guilds, isLoading, isError } = util.listUserGuilds(uid);
 
   const handleGuildSelect = (key, e) => {
-    console.log(e.target);
     setGuild(key);
     setServerName(e.target.innerHTML);
   };
-
-  let guilds = null;
-  if (session) {
-    if (Array.isArray(user_guilds)) {
-      guilds = user_guilds.sort(util.compareGuilds).map((g) => {
-        const icon = `https://cdn.discordapp.com/icons/${g.guilds.guild_id}/${
-          g.guilds.icon
-        }.png`;
-        const abbr = g.guilds.name.match(/\b\w/g).join("");
-        const fs =
-          0.8 - Math.min(Math.max(abbr.length - 2, 0) * 0.1, 0.7) + "rem";
-        return (
-          <Dropdown.Item
-            key={g.guild_id}
-            eventKey={g.guild_id}
-            className="guild-dropdown-item"
-          >
-            <div className="guild-icon">
-              {g.guilds.icon ? (
-                <img src={icon} alt={g.guilds.name} />
-              ) : (
-                <div className="guild-abbr" style={{ fontSize: fs }}>
-                  {abbr}
-                </div>
-              )}
-            </div>
-
-            <span>{g.guilds.name}</span>
-          </Dropdown.Item>
-        );
-      });
-    }
-  }
 
   return (
     <Layout
@@ -136,7 +100,7 @@ export default function Premium({ session }) {
         />
         <meta
           itemProp="image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content="http://automute.us/assets/img/logo_premium.png"
         />
 
         <meta property="og:url" content="http://automute.us/premium" />
@@ -148,7 +112,7 @@ export default function Premium({ session }) {
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content="http://automute.us/assets/img/logo_premium.png"
         />
 
         <meta name="twitter:title" content="AutoMuteUs Premium" />
@@ -158,7 +122,7 @@ export default function Premium({ session }) {
         />
         <meta
           name="twitter:image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content="http://automute.us/assets/img/logo_premium.png"
         />
       </Head>
       <Container className="text-center" size="lg">
@@ -170,50 +134,27 @@ export default function Premium({ session }) {
           muting experience!
         </p>
 
-        <div className="premium-guild-select">
+        <div className="guild-select">
           {session && (
-            <Dropdown onSelect={handleGuildSelect}>
-              <Dropdown.Toggle
-                variant="dark"
-                className="premium-guild-select-dropdown"
-                dangerouslySetInnerHTML={{
-                  __html:
-                    !isLoading && !isError ? serverName : "Loading servers...",
-                }}
-                disabled={isLoading || isError}
-              />
-
-              <Dropdown.Menu>{guilds}</Dropdown.Menu>
-            </Dropdown>
+            <GuildDropdown
+              isLoading={isLoading}
+              isError={isError}
+              serverName={serverName}
+              guildList={user_guilds}
+              onSelect={handleGuildSelect}
+            />
           )}
 
           {!session && (
             <div className="text-center">
-              <strong>To get premium for your bot,</strong>
-
               <span
                 className="d-inline-block btn btn-primary m-2"
-                onClick={() =>
-                  signIn("discord", {
-                    callbackUrl: process.env.NEXTAUTH_URL + "/premium",
-                  })
-                }
+                onClick={() => signIn("discord")}
               >
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Sign In
               </span>
-              <strong>or </strong>
-              <Form.Group className="m-2 d-inline-block">
-                <Form.Control
-                  type="text"
-                  className="text-center guild-input"
-                  placeholder="enter a 17-20 digit Guild ID here"
-                  value={guild}
-                  onChange={(e) => setGuild(e.target.value)}
-                  minLength="17"
-                  maxLength="20"
-                />
-              </Form.Group>
+              <strong>to get premium for your bot.</strong>
             </div>
           )}
         </div>
@@ -236,7 +177,7 @@ export default function Premium({ session }) {
               "Stats and Leaderboards": (
                 <FontAwesomeIcon icon={faCheckCircle} />
               ),
-              "General Support": (
+              "Premium Support": (
                 <FontAwesomeIcon icon={faTimesCircle} className="text-muted" />
               ),
               "Priority Muting Bots": (
@@ -264,7 +205,7 @@ export default function Premium({ session }) {
               "Stats and Leaderboards": (
                 <FontAwesomeIcon icon={faCheckCircle} />
               ),
-              "General Support": <FontAwesomeIcon icon={faCheckCircle} />,
+              "Premium Support": <FontAwesomeIcon icon={faCheckCircle} />,
               "Priority Muting Bots": (
                 <>
                   <FontAwesomeIcon icon={faTimes} />
@@ -294,7 +235,7 @@ export default function Premium({ session }) {
               "Stats and Leaderboards": (
                 <FontAwesomeIcon icon={faCheckCircle} />
               ),
-              "General Support": <FontAwesomeIcon icon={faCheckCircle} />,
+              "Premium Support": <FontAwesomeIcon icon={faCheckCircle} />,
               "Priority Muting Bots": (
                 <>
                   <FontAwesomeIcon icon={faTimes} />
@@ -356,19 +297,31 @@ function PremiumPerk(props) {
 
 function PremiumItem(props) {
   const guild_target = props.guild_id ? "&custom=" + props.guild_id : "";
-  const valid = validGuild(props.guild_id);
+  const valid = util.validGuild(props.guild_id);
 
   return (
     <Card className="text-center shadow premium-card">
       <Card.Body>
-        <Image src={props.image}/>
+        <Image src={props.image} />
         <Card.Title className="font-weight-bold font-family-title d-flex flex-row justify-content-center align-items-center">
           <span className="text-ellipsis">AutoMuteUs</span>{" "}
-          <Badge style={{ backgroundColor: props.accentColor, color: "black" }} className="ml-2">
+          <Badge
+            style={{ backgroundColor: props.accentColor, color: "black" }}
+            className="ml-2"
+          >
             {props.cardTitle}
           </Badge>
         </Card.Title>
-        <span title={(!valid && props.guild_id !== "donation") ? "Please choose a server first" : ""} className={(!valid && props.guild_id !== "donation") ? "disabled-wrap" : ""}>
+        <span
+          title={
+            !valid && props.guild_id !== "donation"
+              ? "Please choose a server first"
+              : ""
+          }
+          className={
+            !valid && props.guild_id !== "donation" ? "disabled-wrap" : ""
+          }
+        >
           <Button
             variant="premium"
             size="sm"
@@ -415,8 +368,4 @@ export async function getServerSideProps(context) {
   return {
     props: { session },
   };
-}
-
-function validGuild(gid) {
-  return !isNaN(gid) && gid !== 0 && gid.length >= 17 && gid.length <= 20;
 }
