@@ -189,31 +189,16 @@ export default function Premium({ session }) {
 
           {!session && (
             <div className="text-center">
-              <strong>To get premium for your bot,</strong>
-
               <span
                 className="d-inline-block btn btn-primary m-2"
                 onClick={() =>
-                  signIn("discord", {
-                    callbackUrl: process.env.NEXTAUTH_URL + "/premium",
-                  })
+                  signIn("discord")
                 }
               >
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Sign In
               </span>
-              <strong>or </strong>
-              <Form.Group className="m-2 d-inline-block">
-                <Form.Control
-                  type="text"
-                  className="text-center guild-input"
-                  placeholder="enter a 17-20 digit Guild ID here"
-                  value={guild}
-                  onChange={(e) => setGuild(e.target.value)}
-                  minLength="17"
-                  maxLength="20"
-                />
-              </Form.Group>
+              <strong>to get premium for your bot!</strong>
             </div>
           )}
         </div>
@@ -361,14 +346,26 @@ function PremiumItem(props) {
   return (
     <Card className="text-center shadow premium-card">
       <Card.Body>
-        <Image src={props.image}/>
+        <Image src={props.image} />
         <Card.Title className="font-weight-bold font-family-title d-flex flex-row justify-content-center align-items-center">
           <span className="text-ellipsis">AutoMuteUs</span>{" "}
-          <Badge style={{ backgroundColor: props.accentColor, color: "black" }} className="ml-2">
+          <Badge
+            style={{ backgroundColor: props.accentColor, color: "black" }}
+            className="ml-2"
+          >
             {props.cardTitle}
           </Badge>
         </Card.Title>
-        <span title={(!valid && props.guild_id !== "donation") ? "Please choose a server first" : ""} className={(!valid && props.guild_id !== "donation") ? "disabled-wrap" : ""}>
+        <span
+          title={
+            !valid && props.guild_id !== "donation"
+              ? "Please choose a server first"
+              : ""
+          }
+          className={
+            !valid && props.guild_id !== "donation" ? "disabled-wrap" : ""
+          }
+        >
           <Button
             variant="premium"
             size="sm"

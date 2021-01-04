@@ -51,7 +51,7 @@ const options = {
           const uid = isNewUser ? user.id : user.userId;
           
           let img = profile.avatar
-          ? "http://cdn.discordapp.com/avatars/" +
+          ? "https://cdn.discordapp.com/avatars/" +
             profile.id +
             "/" +
             profile.avatar +

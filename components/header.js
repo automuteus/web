@@ -57,13 +57,7 @@ export default function Header() {
         <Nav className="align-items-lg-center">
           {loading && <Navbar.Text>Checking login...</Navbar.Text>}
           {!loading && !session && (
-            <Nav.Link
-              onClick={() =>
-                signIn("discord", {
-                  callbackUrl: process.env.NEXTAUTH_URL + "/dashboard",
-                })
-              }
-            >
+            <Nav.Link onClick={() => signIn("discord")}>
               <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
               Sign In
             </Nav.Link>
@@ -74,7 +68,10 @@ export default function Header() {
                 <>
                   <Link href="/dashboard" passHref>
                     <Nav.Link>
-                      Dashboard <Badge variant="danger" className="ml-1">BETA</Badge>
+                      Dashboard{" "}
+                      <Badge variant="danger" className="ml-1">
+                        BETA
+                      </Badge>
                     </Nav.Link>
                   </Link>
                 </>
