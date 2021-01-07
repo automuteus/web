@@ -4,10 +4,11 @@ import { motion } from "framer-motion";
 
 import Header from "./header";
 import Footer from "./footer";
+import styles from "./layout.module.css";
 
-export default function Layout(props) {
+export default function Layout({ children, home }) {
   return (
-    <Container fluid className={`main_container ${props.className}`}>
+    <Container fluid className={styles.main_container}>
       <Head>
         <link rel="icon" href="/favicon.ico" />
         <title>AutoMuteUs</title>
@@ -18,11 +19,11 @@ export default function Layout(props) {
         animate={{ opacity: 1 }}
         initial={{ opacity: 0 }}
         id="main-content"
-        className={`d-flex p-3 ${props.innerClassName}`}
+        className=" d-flex flex-lg-row flex-column align-items-center p-3"
       >
-        {props.children}
+        {children}
       </motion.main>
-      <Footer effect={props.effect} effectActive={props.effectActive} />
+      <Footer />
     </Container>
   );
 }
