@@ -3,6 +3,7 @@ FROM node:lts-alpine AS deps
 
 WORKDIR /opt/app
 COPY package.json yarn.lock ./
+COPY prisma prisma
 RUN yarn install --frozen-lockfile
 
 # Rebuild the source code only when needed
