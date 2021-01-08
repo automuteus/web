@@ -10,8 +10,6 @@ import {
   CardDeck,
   Container,
   Dropdown,
-  DropdownButton,
-  Form,
   Image,
   ListGroup,
   ListGroupItem,
@@ -122,33 +120,35 @@ export default function Premium({ session }) {
       effect={false}
     >
       <Head>
-        <title>AutoMuteUs Premium</title>
+        <title>Premium | AutoMuteUs</title>
         <meta
           name="description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
         />
-        <meta name="theme-color" content="#7289DA" />
 
-        <meta itemProp="name" content="AutoMuteUs Premium" />
+        <meta itemProp="name" content="Premium | AutoMuteUs" />
         <meta
           itemProp="description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
         />
         <meta
           itemProp="image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content={`${
+            process.env.NEXTAUTH_URL
+          }/public/assets/img/logo_premium.png`}
         />
 
-        <meta property="og:url" content="http://automute.us/premium" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="AutoMuteUs Premium" />
+        <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/premium`} />
+        <meta property="og:title" content="Premium | AutoMuteUs" />
         <meta
           property="og:description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
         />
         <meta
           property="og:image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content={`${
+            process.env.NEXTAUTH_URL
+          }/public/assets/img/logo_premium.png`}
         />
 
         <meta name="twitter:title" content="AutoMuteUs Premium" />
@@ -158,7 +158,9 @@ export default function Premium({ session }) {
         />
         <meta
           name="twitter:image"
-          content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_premium.png"
+          content={`${
+            process.env.NEXTAUTH_URL
+          }/public/assets/img/logo_premium.png`}
         />
       </Head>
       <Container className="text-center" size="lg">
@@ -191,9 +193,7 @@ export default function Premium({ session }) {
             <div className="text-center">
               <span
                 className="d-inline-block btn btn-primary m-2"
-                onClick={() =>
-                  signIn("discord")
-                }
+                onClick={() => signIn("discord")}
               >
                 <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
                 Sign In

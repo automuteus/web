@@ -14,51 +14,12 @@ const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
 export default class App extends React.Component {
   render() {
     return (
-      <Layout className="theatric" effect={true} effectActive={true} innerClassName="flex-column flex-lg-row align-items-center">
-        <Head>
-          {/* HTML Meta Tags */}
-          <title>AutoMuteUs</title>
-          <meta
-            name="description"
-            content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
-          />
-          <meta name="theme-color" content="#7289DA" />
-
-          {/* Google / Search Engine Tags */}
-          <meta itemProp="name" content="AutoMuteUs" />
-          <meta
-            itemProp="description"
-            content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
-          />
-          <meta
-            itemProp="image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
-          />
-
-          {/* Discord/Facebook Meta Tags */}
-          <meta property="og:url" content="https://automute.us" />
-          <meta property="og:type" content="website" />
-          <meta property="og:title" content="AutoMuteUs" />
-          <meta
-            property="og:description"
-            content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
-          />
-          <meta
-            property="og:image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
-          />
-
-          {/* Twitter Meta Tags */}
-          <meta name="twitter:title" content="AutoMuteUs" />
-          <meta
-            name="twitter:description"
-            content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
-          />
-          <meta
-            name="twitter:image"
-            content="http://raw.githubusercontent.com/automuteus/react-web/main/public/assets/img/logo_embed.png"
-          />
-        </Head>
+      <Layout
+        className="theatric"
+        effect={true}
+        effectActive={true}
+        innerClassName="flex-column flex-lg-row align-items-center"
+      >
         <div id="home-text">
           <h2 className="title">Use AutoMuteUs for hands free muting</h2>
           <p className="subtitle">
