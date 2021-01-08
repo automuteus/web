@@ -17,7 +17,7 @@ export async function updateGuilds(prisma, uid, guilds) {
   console.log("Updating guilds for user:", uid);
   const t0 = Date.now();
   const updateAll = () => {
-    return Promise.all(guilds.map((g) => updateGuild(g, uid)));
+    return Promise.all(guilds.map((g) => updateGuild(prisma, g, uid)));
   };
 
   updateAll().then(() => {
@@ -26,7 +26,7 @@ export async function updateGuilds(prisma, uid, guilds) {
   });
 }
 
-async function updateGuild(g, uid) {
+async function updateGuild(prisma, g, uid) {
   try {
     await prisma.guild.updateMany({
       where: { guild_id: g.id },
