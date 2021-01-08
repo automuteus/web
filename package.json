@@ -26,8 +26,7 @@
     "react-bootstrap": "^1.4.0",
     "react-confetti": "^6.0.0",
     "react-dom": "^17.0.1",
-    "swr": "^0.3.11",
-    "typeorm": "^0.2.29"
+    "swr": "^0.3.11"
   },
   "devDependencies": {}
 }
