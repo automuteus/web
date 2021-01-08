@@ -1,0 +1,16 @@
+.main_container {
+  background-image: url("../public/assets/img/svg/blurple-waves.svg");
+  background-attachment: fixed;
+  background-position: bottom;
+  background-size: 200%;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.main_container > nav {
+  margin-left: -15px;
+  margin-right: -15px;
+  margin-bottom: 0;
+  box-shadow: none;
+}
