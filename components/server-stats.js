@@ -1,5 +1,6 @@
 import React from "react";
 import { Col, OverlayTrigger, Row, Tooltip } from "react-bootstrap";
+import numeral from "numeral";
 
 const StatsURL = "https://galactus.automute.us";
 export default class ServerStats extends React.Component {
@@ -71,7 +72,7 @@ export default class ServerStats extends React.Component {
             label="Servers"
             stat={totalGuilds}
             loaded={isLoaded}
-            rounded={true}
+            tooltip={true}
             placement="bottom"
             minValue={0}
           />
@@ -79,14 +80,14 @@ export default class ServerStats extends React.Component {
             label="Active Games"
             stat={activeGames}
             loaded={isLoaded}
-            rounded={false}
+            tooltip={false}
             minValue={0}
           />
           <StatCard
             label="Users"
             stat={totalUsers}
             loaded={isLoaded}
-            rounded={true}
+            tooltip={true}
             placement="bottom"
             minValue={0}
           />
@@ -94,7 +95,7 @@ export default class ServerStats extends React.Component {
             label="Games Muted"
             stat={totalGames}
             loaded={isLoaded}
-            rounded={true}
+            tooltip={true}
             placement="bottom"
             minValue={262000}
           />
@@ -111,7 +112,7 @@ function StatCard(props) {
     <div>
       <div className="stat-data">
         <div className={props.loaded ? "fadeIn" : "fadeOut"}>
-          {props.rounded ? roundedThousands(stat) : stat}
+          {numeral(stat).format('0a')}
         </div>
       </div>
       <div className="stat-label">{props.label}</div>
@@ -133,7 +134,7 @@ function StatCard(props) {
     </OverlayTrigger>
   );
 
-  if (props.rounded) {
+  if (props.tooltip) {
     return (
       <Col xs={12} sm={6} className="stat-card p-4">
         {tooltip}
@@ -146,8 +147,4 @@ function StatCard(props) {
       {content}
     </Col>
   );
-}
-
-function roundedThousands(val) {
-  return Math.round(val / 1000) + "k";
 }

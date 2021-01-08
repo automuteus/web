@@ -1,6 +1,5 @@
 import React from "react";
 import { Form, Tooltip, OverlayTrigger } from "react-bootstrap";
-
 export default class EffectToggle extends React.Component {
   render() {
     return (
@@ -19,7 +18,7 @@ export default class EffectToggle extends React.Component {
             id={this.props.name}
             label={this.props.label}
             onClick={this.props.toggle}
-            defaultChecked={!this.props.init}
+            defaultChecked={this.props.init}
           ></Form.Switch>
         </div>
       </OverlayTrigger>
