@@ -15,50 +15,60 @@ export async function getUserDiscordGuilds(token) {
 
 export async function updateGuilds(prisma, uid, guilds) {
   console.log("Updating guilds for user:", uid);
-  guilds.map(async (g) => {
-    try {
-      await prisma.guild.updateMany({
-        where: { guild_id: g.id },
-        data: {
-          name: g.name,
-          icon: g.icon,
-        },
-      });
+  const t0 = Date.now();
+  const updateAll = () => {
+    return Promise.all(guilds.map((g) => updateGuild(g, uid)));
+  };
 
-      await prisma.user.update({
-        where: { id: uid },
-        data: {
-          users_guilds: {
-            connectOrCreate: {
-              where: {
-                user_id_guild_id: {
-                  user_id: uid,
-                  guild_id: g.id,
-                },
+  updateAll().then(() => {
+    const t1 = Date.now();
+    console.log("\t... guilds updated for user:", uid, "in", (t1 - t0), "ms");
+  });
+}
+
+async function updateGuild(g, uid) {
+  try {
+    await prisma.guild.updateMany({
+      where: { guild_id: g.id },
+      data: {
+        name: g.name,
+        icon: g.icon,
+      },
+    });
+
+    await prisma.user.update({
+      where: { id: uid },
+      data: {
+        users_guilds: {
+          connectOrCreate: {
+            where: {
+              user_id_guild_id: {
+                user_id: uid,
+                guild_id: g.id,
               },
-              create: {
-                active: true,
-                guilds: {
-                  connectOrCreate: {
-                    where: { guild_id: g.id },
-                    create: {
-                      guild_id: g.id,
-                      name: g.name,
-                      icon: g.icon,
-                      premium: 0,
-                    },
+            },
+            create: {
+              active: true,
+              guilds: {
+                connectOrCreate: {
+                  where: { guild_id: g.id },
+                  create: {
+                    guild_id: g.id,
+                    name: g.name,
+                    icon: g.icon,
+                    premium: 0,
                   },
                 },
               },
             },
           },
         },
-      });
-    } catch (err) {
-      console.log("--------------------");
-      console.log("Error: ", err);
-      console.log("guild", g);
-      console.log("user", user);
-    }
-  });
+      },
+    });
+  } catch (err) {
+    console.log("--------------------");
+    console.log("Error: ", err);
+    console.log("guild", g);
+    console.log("user", user);
+  }
 }
