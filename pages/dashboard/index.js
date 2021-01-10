@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import Head from "next/head";
 import { getSession } from "next-auth/client";
 
-import { Button, Container, Dropdown } from "react-bootstrap";
+import {
+  Button,
+  Container,
+  Dropdown,
+  OverlayTrigger,
+  Tooltip,
+} from "react-bootstrap";
 
 import * as util from "../../components/utility/client";
 import Layout from "../../components/layout";
@@ -32,7 +38,7 @@ export default function Premium({ session }) {
         <Head>
           <title>AutoMuteUs Bot Dashboard</title>
         </Head>
-        <Container className="" size="lg">
+        <Container className="" size="lg" fluid>
           <div className="page-header">
             <h1>Bot Dashboard</h1>
             <div className="d-flex align-items-center">
@@ -44,20 +50,31 @@ export default function Premium({ session }) {
                 onSelect={handleGuildSelect}
               />
               <div className="guild-invite-link text-right">
-                <Button
-                  href={`https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${guildId}`}
-                  target="_blank"
-                  className="ml-2"
-                  title="Invite bot to server"
-                  disabled={guildId == null}
+                <OverlayTrigger
+                  placement="top"
+                  delay={{ show: 100, hide: 0 }}
+                  trigger={["hover", "focus"]}
+                  overlay={
+                    <Tooltip id={"bot-add-tooltip"}>
+                      Invite Bot to Server
+                    </Tooltip>
+                  }
                 >
-                  <FontAwesomeIcon icon={faPlus} />
-                </Button>
+                  <Button
+                    href={`https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${guildId}`}
+                    target="_blank"
+                    className="ml-2"
+                    disabled={guildId == null}
+                  >
+                    <FontAwesomeIcon icon={faPlus} />
+                  </Button>
+                </OverlayTrigger>
               </div>
             </div>
           </div>
-          <pre>{guildId ?? "Select a guild to see ID"}</pre>
-          <div className="page-content" />
+          <div className="page-content">
+            <pre>{guildId ?? "Select a guild to see ID"}</pre>
+          </div>
         </Container>
       </Layout>
     );

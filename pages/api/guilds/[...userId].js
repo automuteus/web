@@ -28,6 +28,9 @@ export default async function handler(req, res) {
       const guilds = await prisma.user
         .findUnique({ where: { id: uid } })
         .users_guilds({
+          where: {
+            active: true
+          },
           include: {
             guilds: true,
           },
@@ -47,32 +50,4 @@ export default async function handler(req, res) {
       res.setHeader("Allow", ["GET", "POST"]);
       res.status(405).end(`Method ${method} Not Allowed`);
   }
-
-  // let body = null;
-  // if (req.method === "POST" && (body = JSON.parse(req.body))) {
-  //   const guilds = await prisma.usersGuild.findMany({
-  //     where: { user_id: body.user_id },
-  //     include: {
-  //       guilds: true,
-  //     },
-  //   });
-  //   res.json(guilds);
-  // }
-
-  // res.end();
 }
-
-// export default async (req, res) => {
-//   const session = await getSession({ req });
-
-//   if (session) {
-//     if (req.method === "GET") {
-//       const guilds = await prisma.guild.findMany();
-//       res.json(guilds);
-//     }
-//   } else {
-//     res.send({
-//       error: "You must be sign in to view the protected content on this page.",
-//     });
-//   }
-// };
