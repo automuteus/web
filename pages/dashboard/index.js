@@ -61,7 +61,14 @@ export default function Premium({ session }) {
                   }
                 >
                   <Button
-                    href={`https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${guildId}`}
+                    onClick={() =>
+                      util.popupCenter({
+                        url: `https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${guildId}`,
+                        title: "Add AutoMuteUs",
+                        w: 400,
+                        h: 600,
+                      })
+                    }
                     target="_blank"
                     className="ml-2"
                     disabled={guildId == null}

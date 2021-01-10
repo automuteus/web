@@ -11,10 +11,16 @@ import ServerStats from "../components/server-stats";
 import Link from "next/link";
 
 const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
+import * as util from "../components/utility/client";
 export default class App extends React.Component {
   render() {
     return (
-      <Layout className="theatric" effect={true} effectActive={true} innerClassName="flex-column flex-lg-row align-items-center">
+      <Layout
+        className="theatric"
+        effect={true}
+        effectActive={true}
+        innerClassName="flex-column flex-lg-row align-items-center"
+      >
         <Head>
           {/* HTML Meta Tags */}
           <title>AutoMuteUs</title>
@@ -67,7 +73,14 @@ export default class App extends React.Component {
           </p>
           <div id="home-links">
             <Button
-              href="https://add.automute.us/"
+              onClick={() =>
+                util.popupCenter({
+                  url: "https://add.automute.us/",
+                  title: "Add AutoMuteUs",
+                  w: 400,
+                  h: 600,
+                })
+              }
               className="btn btn-primary btn-lg mb-2 mr-2 px-2 px-lg-5"
             >
               <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />

@@ -325,10 +325,16 @@ function PremiumItem(props) {
           <Button
             variant="premium"
             size="sm"
-            href={
-              "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-              props.paypalId +
-              guild_target
+            onClick={() =>
+              util.popupCenter({
+                url:
+                  "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
+                  props.paypalId +
+                  guild_target,
+                title: "AutoMuteUs Premium",
+                w: 400,
+                h: 600,
+              })
             }
             disabled={!valid && props.guild_id !== "donation"}
           >
