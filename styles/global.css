@@ -334,7 +334,7 @@ footer {
 }
 
 .navbar-collapse {
-  padding: 0.25rem 0.75rem;
+  padding: 0 0.75rem;
 }
 
 .navbar .navbar-toggler {
