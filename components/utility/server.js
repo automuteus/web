@@ -26,14 +26,6 @@ export async function updateGuilds(prisma, uid, guilds) {
 
   guilds.map(async (g) => {
     try {
-      await prisma.guild.update({
-        where: { guild_id: g.id },
-        data: {
-          name: g.name,
-          icon: g.icon,
-        },
-      });
-
       await prisma.user.update({
         where: { id: uid },
         data: {
@@ -61,18 +53,15 @@ export async function updateGuilds(prisma, uid, guilds) {
                 },
               },
             },
-            update: {
-              where: {
-                user_id_guild_id: {
-                  user_id: uid,
-                  guild_id: g.id,
-                },
-              },
-              data: {
-                active: true,
-              },
-            },
           },
+        },
+      });
+      
+      await prisma.guild.update({
+        where: { guild_id: g.id },
+        data: {
+          name: g.name,
+          icon: g.icon,
         },
       });
     } catch (err) {

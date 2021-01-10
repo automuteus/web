@@ -47,7 +47,7 @@ export default function Header() {
         {!loading && !session && (
           <Nav.Link onClick={() => signIn("discord")}>
             <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
-            <span className="d-none d-sm-block">Sign In</span>
+            <span className="d-none d-sm-inline-block">Sign In</span>
           </Nav.Link>
         )}
         {!loading && session && (

@@ -50,10 +50,7 @@ const options = {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (account && user) {
         const uid = isNewUser ? user.id : user.userId;
-        const ext =
-          profile && profile.avatar.startsWith("a_")
-            ? ".gif"
-            : ".png";
+        const ext = ".png"; // Eventually check if an animated image exists and use .gif
 
         let img = profile.avatar
           ? "https://cdn.discordapp.com/avatars/" +

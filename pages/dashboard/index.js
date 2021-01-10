@@ -4,9 +4,12 @@ import { getSession } from "next-auth/client";
 
 import {
   Button,
+  Col,
   Container,
   Dropdown,
+  Nav,
   OverlayTrigger,
+  Row,
   Tooltip,
 } from "react-bootstrap";
 
@@ -16,6 +19,7 @@ import GuildDropdown from "../../components/guild-dropdown";
 import SigninRequired from "../../components/signin-required";
 import { faPlus, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 
 export default function Premium({ session }) {
   const uid = session ? session.user.id : "";
@@ -80,7 +84,22 @@ export default function Premium({ session }) {
             </div>
           </div>
           <div className="page-content">
-            <pre>{guildId ?? "Select a guild to see ID"}</pre>
+            <Row>
+              <Col xs={12} lg={2}>
+                <Nav
+                  variant="pills"
+                  defaultActiveKey="dashboard/server"
+                  className="flex-column dashboard-nav"
+                >
+                  <Nav.Link eventKey="/server">Server Details</Nav.Link>
+                  <Nav.Link eventKey="Bot Settings">Link</Nav.Link>
+                  <Nav.Link eventKey="Stats">Link</Nav.Link>
+                </Nav>
+              </Col>
+              <Col xs={12} lg={10}>
+                <pre>s</pre>
+              </Col>
+            </Row>
           </div>
         </Container>
       </Layout>
