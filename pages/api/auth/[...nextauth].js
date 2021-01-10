@@ -51,7 +51,7 @@ const options = {
       if (account && user) {
         const uid = isNewUser ? user.id : user.userId;
         const ext =
-          profile.avatar.startsWith("a_")
+          profile && profile.avatar.startsWith("a_")
             ? ".gif"
             : ".png";
 
