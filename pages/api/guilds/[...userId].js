@@ -19,11 +19,12 @@ export default async function handler(req, res) {
       method,
       query: { userId },
     } = req,
-    uid = parseInt(userId);
+    uid = parseInt(userId[0]),
+    type = userId[1] ?? "all";
 
   switch (method) {
     case "GET":
-      console.log("Fetching guild list for user:", uid)
+      console.log("Fetching guild list (type: " + type + ") for user:", uid);
       const guilds = await prisma.user
         .findUnique({ where: { id: uid } })
         .users_guilds({
@@ -32,7 +33,12 @@ export default async function handler(req, res) {
           },
         });
 
-      res.json(guilds);
+      const ret =
+        type == "admin"
+          ? guilds.filter((g) => (parseInt(g.permissions) & 0x8) == 0x8)
+          : guilds;
+
+      res.json(ret);
       break;
     case "POST":
       res.json({ message: "unimplemented POST" });

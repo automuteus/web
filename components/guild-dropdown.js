@@ -12,7 +12,7 @@ export default function GuildDropdown(props) {
       }.png`;
       const abbr = g.guilds.name.match(/\b\w/g).join("");
       const fs =
-        0.8 - Math.min(Math.max(abbr.length - 2, 0) * 0.1, 0.7) + "rem";
+        0.6 - Math.min(Math.max(abbr.length - 2, 0) * 0.1, 0.7) + "rem";
       return (
         <Dropdown.Item
           key={g.guild_id}

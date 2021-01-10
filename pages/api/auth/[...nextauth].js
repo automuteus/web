@@ -38,6 +38,7 @@ const options = {
       Session: "session",
       VerificationRequest: "verificationRequest",
       Guild: "guild",
+      UserGuild: "userGuild",
     },
   }),
 
@@ -48,14 +49,18 @@ const options = {
   callbacks: {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (account && user) {
-          const uid = isNewUser ? user.id : user.userId;
-          
-          let img = profile.avatar
+        const uid = isNewUser ? user.id : user.userId;
+        const ext =
+          profile.avatar.startsWith("a_")
+            ? ".gif"
+            : ".png";
+
+        let img = profile.avatar
           ? "https://cdn.discordapp.com/avatars/" +
             profile.id +
             "/" +
             profile.avatar +
-            ".png"
+            ext
           : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
 
         token = {

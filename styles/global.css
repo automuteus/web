@@ -228,6 +228,13 @@ footer {
   margin: 0;
 }
 
+.btn.disabled,
+.btn:disabled {
+  background-color: var(--darkest);
+  cursor: not-allowed;
+  pointer-events: painted !important;
+}
+
 .btn-primary:hover,
 .btn-primary:not(:disabled):not(.disabled).active,
 .btn-primary:not(:disabled):not(.disabled):active,
@@ -485,8 +492,8 @@ footer {
 
 .guild-select-dropdown .guild-icon,
 .guild-dropdown-item .guild-icon {
-  width: 35px;
-  height: 35px;
+  width: 23px;
+  height: 23px;
 }
 
 .guild-select .dropdown-toggle::after {

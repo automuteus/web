@@ -15,6 +15,14 @@ export async function getUserDiscordGuilds(token) {
 
 export async function updateGuilds(prisma, uid, guilds) {
   console.log("Updating guilds for user:", uid);
+
+  await prisma.usersGuild.updateMany({
+    where: { user_id: uid },
+    data: {
+      active: false
+    }
+  });
+
   guilds.map(async (g) => {
     try {
       await prisma.guild.updateMany({
@@ -38,6 +46,7 @@ export async function updateGuilds(prisma, uid, guilds) {
               },
               create: {
                 active: true,
+                permissions: g.permissions_new,
                 guilds: {
                   connectOrCreate: {
                     where: { guild_id: g.id },
@@ -54,11 +63,24 @@ export async function updateGuilds(prisma, uid, guilds) {
           },
         },
       });
+
+      await prisma.usersGuild.update({
+        where: {
+          user_id_guild_id: {
+            user_id: uid,
+            guild_id: g.id,
+          },
+        },
+        data: {
+          permissions: g.permissions_new,
+          active: true
+        }
+      });
     } catch (err) {
       console.log("--------------------");
       console.log("Error: ", err);
       console.log("guild", g);
-      console.log("user", user);
+      console.log("user", uid);
     }
   });
 }
