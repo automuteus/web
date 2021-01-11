@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 
       const ret =
         type == "admin"
-          ? guilds.filter((g) => (parseInt(g.permissions) & 0x8) == 0x8)
+          ? guilds.filter((g) => (parseInt(g.permissions) & 0x20) == 0x20)
           : guilds;
 
       res.json(ret);

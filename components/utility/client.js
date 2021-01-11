@@ -36,9 +36,9 @@ export function listUserGuilds(uid) {
   const { data, error } = useSWR("/api/guilds/" + uid, fetcher);
 
   return {
-    user_guilds: data,
-    isLoading: !error && !data,
-    isError: error || data === undefined,
+    userGuilds: data,
+    userGuildsLoading: !error && !data,
+    userGuildsError: error || data === undefined,
   };
 }
 
@@ -46,9 +46,9 @@ export function listUserGuildsAdmin(uid) {
   const { data, error } = useSWR("/api/guilds/" + uid + "/admin", fetcher);
 
   return {
-    user_guilds: data,
-    isLoading: !error && !data,
-    isError: error || data === undefined,
+    adminGuilds: data,
+    adminGuildsLoading: !error && !data,
+    adminGuildsError: error || data === undefined,
   };
 }
 

@@ -1,7 +1,7 @@
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { signIn } from "next-auth/client";
-import Layout from "./layout";
+import Layout from "../common/layout";
 
 export default function SigninRequired(props) {
   return (

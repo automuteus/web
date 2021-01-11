@@ -1,8 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-
-import Layout from "../components/layout";
+import Layout from "../components/common/layout";
 
 export default class ErrorPage extends React.Component {
   render() {

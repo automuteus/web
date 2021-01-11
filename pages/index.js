@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faGem } from "@fortawesome/free-solid-svg-icons";
 
-import Layout from "../components/layout";
-import ServerStats from "../components/server-stats";
+import Layout from "../components/common/layout";
+import ServerStats from "../components/common/server-stats";
 import Link from "next/link";
 
 const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";

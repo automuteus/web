@@ -26,8 +26,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 import * as util from "../../components/utility/client";
-import Layout from "../../components/layout";
-import GuildDropdown from "../../components/guild-dropdown";
+import Layout from "../../components/common/layout";
+import GuildDropdown from "../../components/common/guild-dropdown";
 
 const crewmate_brown = "/assets/img/crewmate_brown.png";
 const crewmate_white = "/assets/img/crewmate_white.png";
@@ -73,7 +73,11 @@ export default function Premium({ session }) {
   const [serverName, setServerName] = useState("Select Server");
 
   const uid = session ? session.user.id : "";
-  const { user_guilds, isLoading, isError } = util.listUserGuilds(uid);
+  const {
+    userGuilds,
+    userGuildsLoading,
+    userGuildsError,
+  } = util.listUserGuilds(uid);
 
   const handleGuildSelect = (key, e) => {
     setGuild(key);
@@ -137,10 +141,10 @@ export default function Premium({ session }) {
         <div className="guild-select">
           {session && (
             <GuildDropdown
-              isLoading={isLoading}
-              isError={isError}
+              isLoading={userGuildsLoading}
+              isError={userGuildsError}
               serverName={serverName}
-              guildList={user_guilds}
+              guildList={userGuilds}
               onSelect={handleGuildSelect}
             />
           )}
