@@ -5,6 +5,8 @@ WORKDIR /opt/app
 COPY package.json yarn.lock ./
 COPY prisma prisma
 RUN yarn install --frozen-lockfile
+RUN yarn prisma generate --schema prisma/ui.prisma
+RUN yarn prisma generate --schema prisma/bot.prisma
 
 # Rebuild the source code only when needed
 # This is where because may be the case that you would try
