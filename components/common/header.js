@@ -95,28 +95,28 @@ export default function Header() {
           {router.pathname !== "/" && (
             <Link href="/" passHref>
               <Nav.Link>
-                <FontAwesomeIcon icon={faHome} size="lg" className="mr-2" />
+                <FontAwesomeIcon icon={faHome} fixedWidth className="mr-2" />
                 Home
               </Nav.Link>
             </Link>
           )}
           <Nav.Link href="https://discord.gg/vwWXs8Z" target="_blank">
-            <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
+            <FontAwesomeIcon icon={faDiscord} fixedWidth className="mr-2" />
             Support Server
           </Nav.Link>
           <Nav.Link href="https://github.com/denverquane/automuteus#commands">
-            <FontAwesomeIcon icon={faCode} size="lg" className="mr-2" />
+            <FontAwesomeIcon icon={faCode} fixedWidth className="mr-2" />
             Commands
           </Nav.Link>
           <Nav.Link href="https://youtu.be/kO4cqMKV2yI">
-            <FontAwesomeIcon icon={faYoutube} size="lg" className="mr-2" />
+            <FontAwesomeIcon icon={faYoutube} fixedWidth className="mr-2" />
             Tutorials
           </Nav.Link>
           <Nav.Link
             href="https://github.com/denverquane/automuteus"
             target="_blank"
           >
-            <FontAwesomeIcon icon={faGithub} size="lg" className="mr-2" />
+            <FontAwesomeIcon icon={faGithub} fixedWidth className="mr-2" />
             GitHub
           </Nav.Link>
         </Nav>

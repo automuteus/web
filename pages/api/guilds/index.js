@@ -2,9 +2,11 @@ import { getSession } from "next-auth/client";
 import * as util from "../../../components/utility/server";
 
 import { PrismaClient } from "@prisma/client";
+import { PrismaClient as BotPrismaClient } from "../../../prisma/src/generated/bot";
+
+const bosma = new BotPrismaClient();
 
 let prisma;
-
 if (process.env.NODE_ENV === "production") {
   prisma = new PrismaClient();
 } else {

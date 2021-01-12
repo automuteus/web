@@ -29,11 +29,6 @@ export default function Dashboard({ session }) {
   const [guild, setGuild] = useState(null);
   const [serverName, setServerName] = useState("Select Server");
   const {
-    userGuilds,
-    userGuildsLoading,
-    userGuildsError,
-  } = util.listUserGuilds(uid);
-  const {
     adminGuilds,
     adminGuildsLoading,
     adminGuildsError,
@@ -134,46 +129,6 @@ export default function Dashboard({ session }) {
                     </div>
                   </Nav.Link>
                 </Nav>
-              </Col>
-              <Col className="d-none">
-                {userGuildsLoading && !userGuildsError && (
-                  <div className="d-flex flex-column align-items-center justify-content-center h-100">
-                    <Spinner
-                      animation="grow"
-                      role="status"
-                      style={{ width: "5em", height: "5em" }}
-                    >
-                      <span className="sr-only">Loading...</span>
-                    </Spinner>
-                    <h5 className="mt-3">Loading your guilds...</h5>
-                  </div>
-                )}
-                {!userGuildsLoading && !userGuildsError && (
-                  <div className="server-list">
-                    <CardDeck>
-                      {userGuilds.sort(util.compareGuilds).map((g, i) => {
-                        return (
-                          <>
-                            <GuildCard guild={g} />
-                            {(i + 1) % 2 == 0 && (
-                              <div class="w-100 d-none d-sm-block d-md-none" />
-                            )}
-                            {(i + 1) % 3 == 0 && (
-                              <div class="w-100 d-none d-sm-block d-lg-none" />
-                            )}
-                            {(i + 1) % 4 == 0 && (
-                              <div class="w-100 d-none d-lg-block d-xl-none" />
-                            )}
-                            {(i + 1) % 5 == 0 && (
-                              <div class="w-100 d-none d-xl-block" />
-                            )}
-                          </>
-                        );
-                      })}
-                    </CardDeck>
-                    <pre>{JSON.stringify(guild, null, 2)}</pre>
-                  </div>
-                )}
               </Col>
             </Row>
           </div>
