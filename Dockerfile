@@ -3,10 +3,9 @@ FROM node:lts-alpine AS deps
 
 WORKDIR /opt/app
 COPY package.json yarn.lock ./
-RUN yarn install --frozen-lockfile
-RUN yarn prisma generate --schema prisma/ui.prisma
-RUN yarn prisma generate --schema prisma/bot.prisma
 COPY prisma prisma
+RUN yarn install --frozen-lockfile
+RUN yarn prisma generate --schema prisma/bot.prisma
 
 # Rebuild the source code only when needed
 # This is where because may be the case that you would try
@@ -18,6 +17,7 @@ ENV NODE_ENV=production
 WORKDIR /opt/app
 COPY . .
 COPY --from=deps /opt/app/node_modules ./node_modules
+COPY --from=deps /opt/app/prisma ./prisma
 RUN yarn build
 
 # Production image, copy all the files and run next
