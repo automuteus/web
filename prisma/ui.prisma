@@ -1,7 +1,6 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["nativeTypes"]
-  output   = "./src/generated/ui"
 }
 
 datasource db {
