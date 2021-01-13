@@ -10,7 +10,8 @@ import Layout from "../components/layout";
 import ServerStats from "../components/server-stats";
 import Link from "next/link";
 
-const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
+const amus_crewmate = "/assets/img/svg/amus_crewmate&robo.svg";
+
 export default class App extends React.Component {
   render() {
     return (
@@ -20,6 +21,7 @@ export default class App extends React.Component {
         effectActive={true}
         innerClassName="flex-column flex-lg-row align-items-center"
       >
+
         <div id="home-text">
           <h2 className="title">Use AutoMuteUs for hands free muting</h2>
           <p className="subtitle">

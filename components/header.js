@@ -10,7 +10,7 @@ import { signIn, signOut, useSession } from "next-auth/client";
 import { faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
 
-const site_logo = "/assets/img/logo_2021.png";
+const site_logo = "/assets/img/logo_animated.gif";
 
 export default function Header() {
   const [session, loading] = useSession();
