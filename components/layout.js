@@ -69,7 +69,7 @@ export default function Layout(props) {
       >
         {props.children}
       </motion.main>
-      <Footer effect={props.effect} effectActive={props.effectActive} />
+      <Footer/>
     </Container>
   );
 }
