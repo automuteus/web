@@ -107,4 +107,3 @@ dist
 client/build
 api/build
 package-lock.json
-*:Zone.Identifier
