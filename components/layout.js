@@ -25,13 +25,11 @@ export default function Layout(props) {
         />
         <meta
           itemProp="image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
         />
 
         {/* Discord/Facebook Meta Tags */}
-        <meta property="og:url" content={process.env.NEXTAUTH_URL} />
+        <meta property="og:url" content="https://dev.automute.us" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="AutoMuteUs" />
         <meta
@@ -40,9 +38,7 @@ export default function Layout(props) {
         />
         <meta
           property="og:image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
         />
 
         {/* Twitter Meta Tags */}
@@ -53,9 +49,7 @@ export default function Layout(props) {
         />
         <meta
           name="twitter:image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
         />
       </Head>
 

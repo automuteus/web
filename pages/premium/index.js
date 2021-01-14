@@ -133,12 +133,10 @@ export default function Premium({ session }) {
         />
         <meta
           itemProp="image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_premium.png`}
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
         />
 
-        <meta property="og:url" content={`${process.env.NEXTAUTH_URL}/premium`} />
+        <meta property="og:url" content={`https://dev.automute.us/premium`} />
         <meta property="og:title" content="Premium | AutoMuteUs" />
         <meta
           property="og:description"
@@ -146,9 +144,7 @@ export default function Premium({ session }) {
         />
         <meta
           property="og:image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_premium.png`}
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
         />
 
         <meta name="twitter:title" content="AutoMuteUs Premium" />
@@ -158,9 +154,7 @@ export default function Premium({ session }) {
         />
         <meta
           name="twitter:image"
-          content={`${
-            process.env.NEXTAUTH_URL
-          }/public/assets/img/logo_premium.png`}
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
         />
       </Head>
       <Container className="text-center" size="lg">
