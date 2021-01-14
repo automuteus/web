@@ -18,27 +18,35 @@ export default function Layout(props) {
         <meta name="theme-color" content="#7289DA" />
 
         {/* Google / Search Engine Tags */}
-        <meta itemProp="name" content="AutoMuteUs" />
+        <meta itemProp="name" content="AutoMuteUs" key="google:name" />
         <meta
           itemProp="description"
           content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
+          key="google:description"
         />
         <meta
           itemProp="image"
           content={`https://dev.automute.us/assets/img/logo_embed.png`}
+          key="google:image"
         />
 
         {/* Discord/Facebook Meta Tags */}
-        <meta property="og:url" content="https://dev.automute.us" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="AutoMuteUs" />
+        <meta
+          property="og:url"
+          content="https://dev.automute.us"
+          key="og:url"
+        />
+        <meta property="og:type" content="website" key="og:type" />
+        <meta property="og:title" content="AutoMuteUs" key="og:title" />
         <meta
           property="og:description"
           content="AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
+          key="og:description"
         />
         <meta
           property="og:image"
           content={`https://dev.automute.us/assets/img/logo_embed.png`}
+          key="og:image"
         />
 
         {/* Twitter Meta Tags */}
@@ -63,7 +71,7 @@ export default function Layout(props) {
       >
         {props.children}
       </motion.main>
-      <Footer/>
+      <Footer />
     </Container>
   );
 }

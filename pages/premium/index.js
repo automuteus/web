@@ -126,25 +126,28 @@ export default function Premium({ session }) {
           content="Avoid the game cap and more with AutoMuteUs Premium"
         />
 
-        <meta itemProp="name" content="Premium | AutoMuteUs" />
+        <meta itemProp="name" content="Premium | AutoMuteUs" key="google:name" />
         <meta
           itemProp="description"
-          content="Avoid the game cap and more with AutoMuteUs Premium"
+          content="Avoid the game cap and more with AutoMuteUs Premium" key="google:description" 
         />
         <meta
           itemProp="image"
           content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          key="google:image" 
         />
 
-        <meta property="og:url" content={`https://dev.automute.us/premium`} />
-        <meta property="og:title" content="Premium | AutoMuteUs" />
+        <meta property="og:url" content={`https://dev.automute.us/premium`}  key="og:url"  />
+        <meta property="og:title" content="Premium | AutoMuteUs"  key="og:title"  />
         <meta
           property="og:description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
+          key="og:description" 
         />
         <meta
           property="og:image"
           content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          key="og:image" 
         />
 
         <meta name="twitter:title" content="AutoMuteUs Premium" />
