@@ -3,8 +3,8 @@
   margin-top: auto;
 }
 
-.muted_effect > canvas {
+.muted_snow > canvas {
   opacity: 0.75;
-  z-index: -1 !important;
+  z-index: -1;
   position: fixed !important;
 }
