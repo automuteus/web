@@ -659,3 +659,9 @@ footer {
   margin-right: 0.75em;
   margin-left: 0.75em;
 }
+
+.command-entry .anchor-left {
+  position: absolute;
+  margin-top: 1rem;
+  margin-left: -1.25rem;
+}

@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
   faGift,
+  faGrin,
+  faGrinAlt,
   faGrinHearts,
   faLink,
   faPlusCircle,
@@ -69,12 +71,6 @@ export default class ErrorPage extends React.Component {
                 />
               ))}
           </div>
-
-          <div>
-            <h2 id="all-settings">All Settings</h2>
-            <em>TODO</em>
-          </div>
-          
         </Container>
       </Layout>
     );
@@ -112,7 +108,7 @@ function CommandEntry(props) {
               <td>{a.description}</td>
               <td>
                 {a.values ? (
-                  a.values.map((v) => (
+                  a.values.map((v, i) => (
                     <code key={v} className="mr-2">
                       {v}
                     </code>
@@ -156,10 +152,10 @@ function CommandEntry(props) {
           <h5>Aliases</h5>
           <div className="mb-4">
             {command.alias.length ? (
-              command.alias.map((a) => (
+              command.alias.map((a, i) => (
                 <code
                   className="mr-2"
-                  key={`au-${a}`}
+                  key={i}
                   title={`.au ${a}`}
                   style={{ cursor: "default" }}
                 >
