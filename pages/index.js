@@ -10,7 +10,7 @@ import Layout from "../components/common/layout";
 import ServerStats from "../components/common/server-stats";
 import Link from "next/link";
 
-const amus_crewmate = "/assets/img/svg/amus_crewmate_2021.svg";
+const amus_crewmate = "/assets/img/svg/amus_crewmate_robo.svg";
 import * as util from "../components/utility/client";
 export default class App extends React.Component {
   render() {

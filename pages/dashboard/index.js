@@ -46,7 +46,7 @@ export default function Dashboard({ session }) {
         effect={false}
       >
         <Head>
-          <title>AutoMuteUs Bot Dashboard</title>
+          <title>Dashboard | AutoMuteUs</title>
         </Head>
         <Container className="d-flex flex-column flex-grow-1" size="lg" fluid>
           <Row xs={1} md={4} className="page-header mb-2 mb-lg-0">

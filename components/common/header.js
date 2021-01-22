@@ -19,7 +19,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import styles from "./header.module.css";
 
-const site_logo = "/assets/img/logo_2021.png";
+const site_logo = "/assets/img/logo_animated_sm.gif";
 
 export default function Header() {
   const router = useRouter();

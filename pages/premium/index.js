@@ -90,33 +90,47 @@ export default function Premium({ session }) {
       effect={false}
     >
       <Head>
-        <title>AutoMuteUs Premium</title>
+        <title>Premium | AutoMuteUs</title>
         <meta
           name="description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
         />
-        <meta name="theme-color" content="#7289DA" />
 
-        <meta itemProp="name" content="AutoMuteUs Premium" />
+        <meta
+          itemProp="name"
+          content="Premium | AutoMuteUs"
+          key="google:name"
+        />
         <meta
           itemProp="description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
+          key="google:description"
         />
         <meta
           itemProp="image"
-          content="http://automute.us/assets/img/logo_premium.png"
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          key="google:image"
         />
 
-        <meta property="og:url" content="http://automute.us/premium" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="AutoMuteUs Premium" />
+        <meta
+          property="og:url"
+          content={`https://dev.automute.us/premium`}
+          key="og:url"
+        />
+        <meta
+          property="og:title"
+          content="Premium | AutoMuteUs"
+          key="og:title"
+        />
         <meta
           property="og:description"
           content="Avoid the game cap and more with AutoMuteUs Premium"
+          key="og:description"
         />
         <meta
           property="og:image"
-          content="http://automute.us/assets/img/logo_premium.png"
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          key="og:image"
         />
 
         <meta name="twitter:title" content="AutoMuteUs Premium" />
@@ -126,7 +140,7 @@ export default function Premium({ session }) {
         />
         <meta
           name="twitter:image"
-          content="http://automute.us/assets/img/logo_premium.png"
+          content={`https://dev.automute.us/assets/img/logo_premium.png`}
         />
       </Head>
       <Container className="text-center" size="lg">
