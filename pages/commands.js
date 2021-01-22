@@ -130,7 +130,9 @@ function CommandEntry(props) {
   return (
     <div className="command-entry">
       <Link href={`#${unique}`}>
-        <FontAwesomeIcon icon={faLink} className="text-muted anchor-left" />
+        <span>
+          <FontAwesomeIcon icon={faLink} className="text-muted anchor-left" />
+        </span>
       </Link>
       <h2
         className="command-name"
