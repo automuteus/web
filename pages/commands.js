@@ -14,8 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
   faGift,
-  faGrin,
-  faGrinAlt,
   faGrinHearts,
   faLink,
   faPlusCircle,
@@ -94,7 +92,7 @@ function CommandEntry(props) {
   const opt_args = command.arguments.filter((c) => c.level == "optional");
 
   return (
-    <div className="command-entry">
+    <div className="command-entry" id={command.command}>
       <Link href={`#${command.command}`}>
         <span>
           <FontAwesomeIcon icon={faLink} className="text-muted anchor-left" />
@@ -102,7 +100,6 @@ function CommandEntry(props) {
       </Link>
       <h2
         className="command-name"
-        id={command.command}
         onClick={() => setOpen(!open)}
         aria-controls={`${command.command}-content`}
         aria-expanded={open}
@@ -126,7 +123,7 @@ function CommandEntry(props) {
           <h5>Aliases</h5>
           <div className="mb-4">
             {command.alias.length ? (
-              command.alias.map((a, i) => (
+              command.alias.map((a) => (
                 <code
                   className="mr-2"
                   key={`${command.command}-alias-${a}`}
@@ -161,7 +158,7 @@ function CommandEntry(props) {
           </div>
 
           <h5>Example</h5>
-          <div className="mb-4">
+          <div className="">
             <div className="mock-chatbar">
               <div>
                 <FontAwesomeIcon

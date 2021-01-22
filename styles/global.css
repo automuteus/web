@@ -617,6 +617,17 @@ footer {
   }
 }
 
+.command-entry {
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+.command-entry:target {
+  border-radius: 5px;
+  background: var(--darkest);
+  outline: none;
+}
+
 .command-entry code {
   background-color: var(--darkest);
   color: white;
@@ -624,25 +635,33 @@ footer {
   border-radius: 3px;
 }
 
+.command-entry:target code {
+  background-color: var(--dark);
+}
+
+.command-entry:target table code {
+  background-color: var(--darkest);
+}
+
 .command-entry .command-name {
-  background-color: var(--darker);
   font-size: 1.75rem;
   color: white;
   padding: 0.25rem 0.5rem;
   border-radius: 3px;
-  transition: background-color 200ms;
+  transition: all 200ms;
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 5px;
 }
 
-.command-entry .command-content {
-  padding-left: 0.75rem;
+.command-entry .command-name:hover {
+  background-color: var(--darkest);
+  transition: all 200ms;
 }
 
-.command-entry .command-name:hover {
-  background-color: var(--dark);
-  transition: background-color 200ms;
+.command-entry .command-content {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
 }
 
 .mock-chatbar {
@@ -668,6 +687,6 @@ footer {
 .command-entry .anchor-left {
   position: absolute;
   margin-top: 1rem;
-  margin-left: -1.25rem;
+  margin-left: -1.5rem;
   cursor: pointer;
 }
