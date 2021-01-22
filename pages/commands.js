@@ -43,6 +43,8 @@ export default class ErrorPage extends React.Component {
                 GitHub Reference
               </Button>
             </h1>
+          </div>
+          <div style={{ fontSize: "1.1rem" }}>
             <Alert variant="dark">
               The Discord Bot uses the <code>.au</code> prefix for any commands
               by default; if you change your prefix remember to replace{" "}
@@ -72,7 +74,7 @@ export default class ErrorPage extends React.Component {
             <h2 id="all-settings">All Settings</h2>
             <em>TODO</em>
           </div>
-
+          
         </Container>
       </Layout>
     );
