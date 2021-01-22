@@ -4,43 +4,48 @@ export const commands = [
   {
     command: "help",
     alias: ["", "h"],
-    description: "Display bot help message, or see more info about a command",
+    description: ["Display bot help message, or see more info about a command"],
     arguments: [
       {
         name: "command",
         type: "string",
-        description: "An AutoMuteUs command to see more info about",
+        description: ["An AutoMuteUs command to see more info about"],
         level: "optional",
       },
     ],
     example: ".au help",
+    image: true,
   },
   {
     command: "new",
     alias: ["start", "n"],
-    description: "Start a new game in the current text channel",
+    description: ["Start a new game in the current text channel"],
     arguments: [],
-    example: ".au n ZXLDFT eu",
+    example: ".au n",
+    image: true,
   },
   {
     command: "end",
     alias: ["stop", "e"],
-    description: "End the current game",
+    description: ["End the current game"],
     arguments: [],
     example: ".au e",
+    image: false,
   },
   {
     command: "refresh",
     alias: ["reload", "ref", "rel", "r"],
-    description:
+    description: [
       "Remake the bot's status message entirely, in case it ends up too far up in the chat.",
+    ],
     arguments: [],
     example: ".au r",
+    image: false,
   },
   {
     command: "link",
     alias: ["l"],
-    description: "Manually link a discord user to their in-game color",
+    description: ["Manually link a discord user to their in-game color"],
     arguments: [
       {
         name: "@name",
@@ -55,7 +60,7 @@ export const commands = [
       {
         name: "color",
         type: "string",
-        description: "A crewmate color name",
+        description: ["A crewmate color name"],
         values: [
           "red",
           "blue",
@@ -71,27 +76,31 @@ export const commands = [
         level: "required",
       },
     ],
-    example: ".au l @Soup cyan",
+    example: ".au l @Yoshirahh cyan",
+    image: false,
   },
   {
     command: "unlink",
     alias: ["un", "ul", "u"],
-    description: "Manually unlink a Discord User from their in-game player.",
+    description: ["Manually unlink a Discord User from their in-game player."],
     arguments: [],
-    example: ".au unlink @Soup",
+    example: ".au unlink @Yoshirahh",
+    image: false,
   },
   {
     command: "unmuteall",
     alias: ["unmute", "ua"],
-    description: "Force the bot to unmute all linked players.",
+    description: ["Force the bot to unmute all linked players."],
     arguments: [],
     example: ".au unmuteall",
+    image: false,
   },
   {
     command: "map",
     alias: [],
-    description:
+    description: [
       "Display an image of an in-game map in the text channel. Two supported versions: simple or detailed",
+    ],
     arguments: [
       {
         name: "name",
@@ -101,7 +110,7 @@ export const commands = [
         level: "required",
       },
       {
-        name: "name",
+        name: "detail",
         type: "string",
         description: [
           "Level of map detail (showing vents, sabotages, etc.). ",
@@ -113,11 +122,12 @@ export const commands = [
       },
     ],
     example: ".au map skeld",
+    image: true,
   },
   {
     command: "cache",
     alias: ["c"],
-    description: "View a player's cached in-game names, and/or clear them",
+    description: ["View a player's cached in-game names, and/or clear them"],
     arguments: [
       {
         name: "@name",
@@ -132,11 +142,12 @@ export const commands = [
       {
         name: "clear",
         type: "string",
-        description: "Will clear the mentioned user's cached names",
+        description: ["Will clear the mentioned user's cached names"],
         level: "optional",
       },
     ],
-    example: ".au cache @Soup",
+    example: ".au cache @Yoshirahh",
+    image: true,
   },
   {
     command: "privacy",
@@ -174,6 +185,7 @@ export const commands = [
       },
     ],
     example: ".au privacy showme",
+    image: true,
   },
   {
     command: "settings",
@@ -204,6 +216,7 @@ export const commands = [
       },
     ],
     example: ".au settings commandPrefix !",
+    image: true,
   },
   {
     command: "premium",
@@ -215,19 +228,22 @@ export const commands = [
     ],
     arguments: [],
     example: ".au premium",
+    image: true,
   },
   {
     command: "pause",
     alias: ["unpause", "p"],
-    description:
+    description: [
       "Pause the bot so it doesn't automute/deafen. Will unmute/undeafen all players!",
+    ],
     arguments: [],
     example: ".au pause",
+    image: true,
   },
   {
     command: "stats",
     alias: ["stat", "st"],
-    description: "View Player and Guild stats",
+    description: ["View Player and Guild stats"],
     arguments: [
       {
         name: "target",
@@ -241,15 +257,18 @@ export const commands = [
         level: "required",
       },
     ],
-    example: ".au stats @Soup",
+    example: ".au stats @Yoshirahh",
+    image: true,
   },
   {
     command: "info",
     alias: ["info", "inf", "in", "i"],
-    description:
+    description: [
       "View info about the bot, like total guild number, active games, etc.",
+    ],
     arguments: [],
     example: ".au info",
+    image: true,
   },
 ];
 
@@ -257,7 +276,7 @@ export const settings = [
   {
     command: "settings",
     alias: ["sett", "set", "s"],
-    description: "Adjust the bot settings.",
+    description: ["Adjust the bot settings."],
     arguments: [
       {
         name: "setting",
@@ -279,5 +298,6 @@ export const settings = [
       },
     ],
     example: ".au settings commandPrefix !",
+    image: true,
   },
 ];

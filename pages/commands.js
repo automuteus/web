@@ -2,7 +2,14 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 import Layout from "../components/common/layout";
-import { Alert, Button, Container, Table, Collapse } from "react-bootstrap";
+import {
+  Alert,
+  Button,
+  Container,
+  Table,
+  Collapse,
+  Image,
+} from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faExternalLinkAlt,
@@ -64,6 +71,7 @@ export default class ErrorPage extends React.Component {
                   description={cmd.description}
                   arguments={cmd.arguments}
                   example={cmd.example}
+                  image={cmd.image}
                   key={`cmd-${cmd.command
                     .replace(".", "")
                     .split(" ")
@@ -79,76 +87,40 @@ export default class ErrorPage extends React.Component {
 
 function CommandEntry(props) {
   const command = props;
-  const unique = command.command.replace(".", "").split(" ").join("_");
   const [open, setOpen] = useState(true);
-
-  const makeTable = (args) => {
-    if (!args.length)
-      return (
-        <div className="text-muted">
-          <em>None</em>
-        </div>
-      );
-
-    return (
-      <Table striped borderless variant="dark" responsive>
-        <thead>
-          <tr>
-            <th style={{ width: "10%" }}>Name</th>
-            <th style={{ width: "10%" }}>Type</th>
-            <th style={{ width: "50%" }}>Description</th>
-            <th>Values</th>
-          </tr>
-        </thead>
-        <tbody>
-          {args.map((a, i) => (
-            <tr key={i}>
-              <td className="text-monospace">{a.name}</td>
-              <td className="text-monospace">{a.type}</td>
-              <td>{a.description}</td>
-              <td>
-                {a.values ? (
-                  a.values.map((v, i) => (
-                    <code key={v} className="mr-2">
-                      {v}
-                    </code>
-                  ))
-                ) : (
-                  <span className="text-muted">-</span>
-                )}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    );
-  };
+  const [imgOpen, setImgOpen] = useState(!command.image);
 
   const req_args = command.arguments.filter((c) => c.level == "required");
   const opt_args = command.arguments.filter((c) => c.level == "optional");
 
   return (
     <div className="command-entry">
-      <Link href={`#${unique}`}>
+      <Link href={`#${command.command}`}>
         <span>
           <FontAwesomeIcon icon={faLink} className="text-muted anchor-left" />
         </span>
       </Link>
       <h2
         className="command-name"
-        id={unique}
+        id={command.command}
         onClick={() => setOpen(!open)}
-        aria-controls={`${unique}-content`}
+        aria-controls={`${command.command}-content`}
         aria-expanded={open}
       >
         <code>{command.command}</code>
       </h2>
 
       <Collapse in={open}>
-        <div id={`${unique}-content`} className="command-content">
+        <div
+          id={`${command.command}-content`}
+          key={`${command.command}-content`}
+          className="command-content"
+        >
           <h5>Description</h5>
           <div style={{ fontSize: "1.1rem" }} className="mb-4">
-            {command.description}
+            {command.description.map((e, i) => (
+              <span key={i}>{e}</span>
+            ))}
           </div>
 
           <h5>Aliases</h5>
@@ -157,7 +129,7 @@ function CommandEntry(props) {
               command.alias.map((a, i) => (
                 <code
                   className="mr-2"
-                  key={i}
+                  key={`${command.command}-alias-${a}`}
                   title={`.au ${a}`}
                   style={{ cursor: "default" }}
                 >
@@ -174,12 +146,16 @@ function CommandEntry(props) {
           <h5>Arguments</h5>
           <div className="mb-4">
             {(req_args.length || opt_args.length) > 0 && <h6>Required</h6>}
-            <div>{makeTable(req_args)}</div>
+            <div>
+              <ArgTable cmd={command.command} args={req_args} />
+            </div>
             {opt_args.length > 0 && (
               <>
                 <br />
                 <h6>Optional</h6>
-                <div>{makeTable(opt_args)}</div>
+                <div>
+                  <ArgTable cmd={command.command} args={opt_args} />
+                </div>
               </>
             )}
           </div>
@@ -196,7 +172,7 @@ function CommandEntry(props) {
                 />
               </div>
               <div className="cmd-text">{command.example}</div>
-              <div className="ml-auto">
+              <div className="ml-auto d-none d-md-block">
                 <FontAwesomeIcon
                   size="lg"
                   fontVariant="light"
@@ -212,10 +188,85 @@ function CommandEntry(props) {
                 />
               </div>
             </div>
+            {command.image && (
+              <div className="text-center">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="mt-2"
+                  onClick={() => setImgOpen(!imgOpen)}
+                  aria-controls={`${command.command}-result`}
+                  aria-expanded={imgOpen}
+                >
+                  Show output
+                </Button>
+                <Collapse in={imgOpen}>
+                  <div
+                    className="text-center pt-2"
+                    id={`${command.command}-result`}
+                  >
+                    <Image
+                      src={`/assets/img/commands/${command.command}_result.png`}
+                      rounded
+                      className="shadow"
+                      fluid
+                    />
+                  </div>
+                </Collapse>
+              </div>
+            )}
           </div>
           <br />
         </div>
       </Collapse>
     </div>
+  );
+}
+
+function ArgTable(props) {
+  const { cmd, args } = props;
+
+  if (!args.length)
+    return (
+      <div className="text-muted">
+        <em>None</em>
+      </div>
+    );
+
+  return (
+    <Table striped borderless variant="dark" responsive>
+      <thead>
+        <tr>
+          <th style={{ width: "10%" }}>Name</th>
+          <th style={{ width: "10%" }}>Type</th>
+          <th style={{ width: "50%" }}>Description</th>
+          <th>Values</th>
+        </tr>
+      </thead>
+      <tbody>
+        {args.map((a) => (
+          <tr key={`${cmd}-arg-${a.name}`}>
+            <td className="text-monospace">{a.name}</td>
+            <td className="text-monospace">{a.type}</td>
+            <td>
+              {a.description.map((e, i) => (
+                <span key={i}>{e}</span>
+              ))}
+            </td>
+            <td>
+              {a.values ? (
+                a.values.map((v) => (
+                  <code key={`${cmd}-arg-${a.name}-${v}`} className="mr-2">
+                    {v}
+                  </code>
+                ))
+              ) : (
+                <span className="text-muted">-</span>
+              )}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
   );
 }

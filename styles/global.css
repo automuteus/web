@@ -11,6 +11,7 @@
 
 html {
   scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
   overflow-y: scroll;
   height: 100%;
 }
@@ -653,6 +654,10 @@ footer {
   display: flex;
   color: #dcddde;
   cursor: default;
+}
+
+.mock-chatbar .cmd-text {
+  word-break: break-word;
 }
 
 .mock-chatbar .icon-muted {
