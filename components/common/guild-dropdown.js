@@ -5,7 +5,7 @@ import * as util from "../utility/client";
 import s from "./guild-dropdown.module.css";
 
 export default function GuildDropdown(props) {
-  const { isLoading, isError, serverName, guildList, onSelect } = props;
+  const { isLoading, isError, serverName, guildList, onSelect, style } = props;
   let guilds;
   if (Array.isArray(guildList)) {
     guilds = guildList.sort(util.compareGuilds).map((g) => {
@@ -44,7 +44,7 @@ export default function GuildDropdown(props) {
   }
 
   return (
-    <Dropdown onSelect={onSelect} className={`${s["guild-select"]}`}>
+    <Dropdown onSelect={onSelect} className={`${s["guild-select"]}`} style={style}>
       <Dropdown.Toggle
         variant="dark"
         className={s["guild-select-dropdown"]}

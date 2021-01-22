@@ -104,10 +104,12 @@ export default function Header() {
             <FontAwesomeIcon icon={faDiscord} fixedWidth className="mr-2" />
             Support Server
           </Nav.Link>
-          <Nav.Link href="https://github.com/denverquane/automuteus#commands">
-            <FontAwesomeIcon icon={faCode} fixedWidth className="mr-2" />
-            Commands
-          </Nav.Link>
+          <Link href="/commands" passHref>
+            <Nav.Link>
+              <FontAwesomeIcon icon={faCode} fixedWidth className="mr-2" />
+              Commands
+            </Nav.Link>
+          </Link>
           <Nav.Link href="https://youtu.be/kO4cqMKV2yI">
             <FontAwesomeIcon icon={faYoutube} fixedWidth className="mr-2" />
             Tutorials

@@ -146,6 +146,7 @@ export default function Premium({ session }) {
               serverName={serverName}
               guildList={userGuilds}
               onSelect={handleGuildSelect}
+              style={{ margin: "auto" }}
             />
           )}
 
@@ -316,6 +317,11 @@ function PremiumItem(props) {
             {props.cardTitle}
           </Badge>
         </Card.Title>
+        {props.price && (
+          <div className="mb-2" style={{ color: props.accentColor }}>
+            {props.price}
+          </div>
+        )}
         <span
           title={
             !valid && props.guild_id !== "donation"

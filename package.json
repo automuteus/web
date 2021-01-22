@@ -26,5 +26,6 @@
   },
   "devDependencies": {
     "@prisma/cli": "^2.14.0"
-  }
+  },
+  "license": "MIT"
 }

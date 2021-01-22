@@ -32,6 +32,25 @@ export function compareGuilds(a, b) {
   return cmp;
 }
 
+export function compareAlph(a, b, field) {
+  let ga, gb;
+  if (a[field]) {
+    ga = a[field].toUpperCase();
+    gb = b[field].toUpperCase();
+  } else {
+    ga = a.guilds[field].toUpperCase();
+    gb = b.guilds[field].toUpperCase();
+  }
+
+  let cmp = 0;
+  if (ga > gb) {
+    cmp = 1;
+  } else if (ga < gb) {
+    cmp = -1;
+  }
+  return cmp;
+}
+
 export function listUserGuilds(uid) {
   const { data, error } = useSWR("/api/guilds/" + uid, fetcher);
 

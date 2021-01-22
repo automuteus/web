@@ -3,6 +3,7 @@
 :root {
   --blurple: #7289da;
   --blurple2: #4e5d94;
+  --dark: #40444b;
   --darker: #2c2f33;
   --darkest: #23272a;
   --premium: #3b7bbf;
@@ -37,6 +38,21 @@ pre {
   border-radius: 5px;
   color: white;
   padding: 1rem;
+}
+
+a {
+  color: var(--premium);
+  font-weight: bold;
+  text-decoration: none;
+  background-color: transparent;
+  transition: color 200ms;
+}
+
+a:hover {
+  color: var(--blurple);
+  text-decoration: none;
+  background-color: transparent;
+  transition: color 200ms;
 }
 
 #__next {
@@ -183,7 +199,7 @@ footer {
 }
 
 .theatric #main-content {
-  background: transparent !important;
+  background-color: transparent !important;
   margin-left: 0;
   margin-right: 0;
 }
@@ -191,7 +207,7 @@ footer {
 .theatric #main-content,
 .theatric header,
 .theatric footer {
-  background: transparent !important;
+  background-color: transparent !important;
 }
 
 .sub-card {
@@ -224,7 +240,7 @@ footer {
   padding: 0;
   margin: 0;
   width: 100%;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 
 .disabled-wrap {
@@ -277,7 +293,11 @@ footer {
 }
 
 .btn-secondary {
-  background-color: var(--darker);
+  background-color: #5a6268;
+}
+
+.btn-secondary:hover {
+  background-color: #7d8890;
 }
 
 .btn-dark:hover {
@@ -356,6 +376,12 @@ footer {
   outline: 0;
   cursor: pointer;
   border: none;
+}
+
+.alert.alert-dark {
+  background: var(--darkest);
+  border: var(--darkest);
+  color: white;
 }
 
 .user-logged-in {
@@ -508,7 +534,7 @@ footer {
 .dashboard-item-desc {
   font-size: 1rem;
   font-weight: normal;
-  font-family: 'Roboto';
+  font-family: "Roboto";
 }
 
 .guild-abbr {
@@ -588,4 +614,48 @@ footer {
   .container-xl {
     max-width: 1550px;
   }
+}
+
+.command-entry code {
+  background-color: var(--darkest);
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+}
+
+.command-entry .command-name {
+  background-color: var(--darker);
+  font-size: 1.75rem;
+  color: white;
+  padding: 0.25rem 0.5rem;
+  border-radius: 3px;
+  transition: background-color 200ms;
+  cursor: pointer;
+  padding: 0.5rem;
+  border-radius: 5px;
+}
+
+.command-entry .command-content {
+  padding-left: 0.75rem;
+}
+
+.command-entry .command-name:hover {
+  background-color: var(--dark);
+  transition: background-color 200ms;
+}
+
+.mock-chatbar {
+  /* font-family: Whitney, Helvetica Neue, Helvetica, Arial, sans-serif; */
+  font-family: monospace;
+  padding: 0.75em 0;
+  border-radius: 8px;
+  background: #40444b;
+  display: flex;
+  color: #dcddde;
+  cursor: default;
+}
+
+.mock-chatbar .icon-muted {
+  margin-right: 0.75em;
+  margin-left: 0.75em;
 }
