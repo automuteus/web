@@ -54,20 +54,22 @@ export function compareAlph(a, b, field) {
 export function listUserGuilds(uid) {
   const { data, error } = useSWR("/api/guilds/" + uid, fetcher);
 
-  return {
-    userGuilds: data,
-    userGuildsLoading: !error && !data,
-    userGuildsError: error || data === undefined,
-  };
+  return [data, !error && !data, error || data === undefined];
 }
 
 export function listUserGuildsAdmin(uid) {
   const { data, error } = useSWR("/api/guilds/" + uid + "/admin", fetcher);
 
+  return [data, !error && !data, error || data === undefined];
+}
+
+export function getGuildSettings(gid) {
+  const { data, error } = useSWR("/api/settings/" + gid, fetcher);
+
   return {
-    adminGuilds: data,
-    adminGuildsLoading: !error && !data,
-    adminGuildsError: error || data === undefined,
+    data: data,
+    loading: !error && !data,
+    error: error || data === undefined,
   };
 }
 

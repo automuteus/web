@@ -73,11 +73,7 @@ export default function Premium({ session }) {
   const [serverName, setServerName] = useState("Select Server");
 
   const uid = session ? session.user.id : "";
-  const {
-    userGuilds,
-    userGuildsLoading,
-    userGuildsError,
-  } = util.listUserGuilds(uid);
+  const [guilds, guildsLoading, guildsError] = util.listUserGuilds(uid);
 
   const handleGuildSelect = (key, e) => {
     setGuild(key);
@@ -155,10 +151,10 @@ export default function Premium({ session }) {
         <div className="guild-select">
           {session && (
             <GuildDropdown
-              isLoading={userGuildsLoading}
-              isError={userGuildsError}
+              isLoading={guildsLoading}
+              isError={guildsError}
               serverName={serverName}
-              guildList={userGuilds}
+              guildList={guilds}
               onSelect={handleGuildSelect}
               style={{ margin: "auto" }}
             />

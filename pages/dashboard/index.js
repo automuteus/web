@@ -28,14 +28,11 @@ export default function Dashboard({ session }) {
   const uid = session ? session.user.id : "";
   const [guild, setGuild] = useState(null);
   const [serverName, setServerName] = useState("Select Server");
-  const {
-    adminGuilds,
-    adminGuildsLoading,
-    adminGuildsError,
-  } = util.listUserGuildsAdmin(uid);
+  const [guildA, guildALoading, guildAError] = util.listUserGuildsAdmin(uid);
+  const settings = util.getGuildSettings();
 
   const handleGuildSelect = (key, e) => {
-    setGuild(adminGuilds.filter((g) => g.guild_id === key)[0]);
+    setGuild(guildA.filter((g) => g.guild_id === key)[0]);
     setServerName(e.target.innerHTML);
   };
 
@@ -56,10 +53,10 @@ export default function Dashboard({ session }) {
             <Col>
               <div className="d-flex justify-content-start justify-content-sm-end align-items-center">
                 <GuildDropdown
-                  isLoading={adminGuildsLoading}
-                  isError={adminGuildsError}
+                  isLoading={guildALoading}
+                  isError={guildAError}
                   serverName={serverName}
-                  guildList={adminGuilds}
+                  guildList={guildA}
                   onSelect={handleGuildSelect}
                 />
                 <div className="guild-invite-link text-right">
@@ -74,9 +71,7 @@ export default function Dashboard({ session }) {
                     <Button
                       onClick={() =>
                         util.popupCenter({
-                          url: `https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${
-                            guild.guild_id
-                          }`,
+                          url: `https://discord.com/oauth2/authorize?client_id=753795015830011944&permissions=267746384&scope=bot&guild_id=${guild.guild_id}`,
                           title: "Add AutoMuteUs",
                           w: 400,
                           h: 600,
@@ -173,9 +168,7 @@ function GuildCard(props) {
       guild.guilds.icon +
       (guild.guilds.icon.startsWith("a_") ? ".gif" : ".png");
 
-    const icon_url = `https://cdn.discordapp.com/icons/${
-      guild.guilds.guild_id
-    }/${icon}`;
+    const icon_url = `https://cdn.discordapp.com/icons/${guild.guilds.guild_id}/${icon}`;
 
     guild_icon = <img src={icon_url} alt={guild.guilds.name} />;
   }
