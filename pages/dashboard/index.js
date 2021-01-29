@@ -3,20 +3,15 @@ import Head from "next/head";
 import { getSession } from "next-auth/client";
 
 import {
-  Badge,
   Button,
-  Card,
-  CardDeck,
   Col,
   Container,
-  Image,
   Nav,
   OverlayTrigger,
   Row,
-  Spinner,
   Tooltip,
 } from "react-bootstrap";
-import { faLink, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faLink } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as util from "../../components/utility/client";
@@ -29,7 +24,6 @@ export default function Dashboard({ session }) {
   const [guild, setGuild] = useState(null);
   const [serverName, setServerName] = useState("Select Server");
   const [guildA, guildALoading, guildAError] = util.listUserGuildsAdmin(uid);
-  const settings = util.getGuildSettings();
 
   const handleGuildSelect = (key, e) => {
     setGuild(guildA.filter((g) => g.guild_id === key)[0]);
@@ -141,56 +135,4 @@ export async function getServerSideProps(context) {
   return {
     props: { session },
   };
-}
-
-function GuildCard(props) {
-  const { guild } = props;
-  if (!guild) return <em>Select a guild to continue.</em>;
-
-  const premiums = {
-    0: { title: "Basic", bg: "#2f2f2f", color: "#bbbbbb" },
-    1: { title: "Bronze", bg: "#71491e", color: "black" },
-    2: { title: "Silver", bg: "#d6e0f0", color: "black" },
-    3: { title: "Gold", bg: "#ffd700", color: "black" },
-    4: { title: "Platinum", bg: "#38fedc", color: "black" },
-  };
-
-  const abbr = guild.guilds.name.match(/\b\w/g).join("");
-  const fs = 2 - Math.min(Math.max(abbr.length - 2, 0) * 0.1, 0.7) + "rem";
-  let guild_icon = (
-    <div className="guild-abbr" style={{ fontSize: fs }}>
-      {abbr}
-    </div>
-  );
-
-  if (guild.guilds.icon) {
-    const icon =
-      guild.guilds.icon +
-      (guild.guilds.icon.startsWith("a_") ? ".gif" : ".png");
-
-    const icon_url = `https://cdn.discordapp.com/icons/${guild.guilds.guild_id}/${icon}`;
-
-    guild_icon = <img src={icon_url} alt={guild.guilds.name} />;
-  }
-
-  return (
-    <Card bg="dark" className="shadow mb-3">
-      <Card.Body className="text-center">
-        <div className="guild-icon ml-auto mr-auto mb-3">{guild_icon}</div>
-        <Card.Title className="font-weight-bold font-family-title d-flex flex-column justify-content-center align-items-center">
-          <span className="text-ellipsis" />
-          <div className="mt-2" />
-          <Badge
-            style={{
-              backgroundColor: premiums[guild.guilds.premium].bg,
-              color: premiums[guild.guilds.premium].color,
-            }}
-            className="guild-badge"
-          >
-            {premiums[guild.guilds.premium].title}
-          </Badge>
-        </Card.Title>
-      </Card.Body>
-    </Card>
-  );
 }
