@@ -42,6 +42,10 @@ const options = {
     },
   }),
 
+  pages: {
+    error: "/auth/error",
+  },
+
   session: {
     jwt: true,
   },
