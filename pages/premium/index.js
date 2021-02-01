@@ -104,13 +104,13 @@ export default function Premium({ session }) {
         />
         <meta
           itemProp="image"
-          content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          content={`https://automute.us/assets/img/logo_premium.png`}
           key="google:image"
         />
 
         <meta
           property="og:url"
-          content={`https://dev.automute.us/premium`}
+          content={`https://automute.us/premium`}
           key="og:url"
         />
         <meta
@@ -125,7 +125,7 @@ export default function Premium({ session }) {
         />
         <meta
           property="og:image"
-          content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          content={`https://automute.us/assets/img/logo_premium.png`}
           key="og:image"
         />
 
@@ -136,7 +136,7 @@ export default function Premium({ session }) {
         />
         <meta
           name="twitter:image"
-          content={`https://dev.automute.us/assets/img/logo_premium.png`}
+          content={`https://automute.us/assets/img/logo_premium.png`}
         />
       </Head>
       <Container className="text-center" size="lg">
