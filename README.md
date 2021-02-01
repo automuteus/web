@@ -17,7 +17,7 @@ yarn build
 yarn start <PORT> # e.g. yarn start 8080
 ```
 
-## Environment Setup
+<!-- ## Environment Setup
 
 To properly run this application, you need the following services and files:
 
@@ -36,7 +36,7 @@ Additionally, you'll need to set up a valid callback URL in your Discord applica
 
 ```
 <NEXTAUTH_URL>/api/auth/callback/discord
-```
+``` -->
 
 ## Deployment
 
@@ -60,7 +60,7 @@ docker rm automuteus
 
 ### General Features
 
-- [x] **Discord sign-in**: sign in to the site with Discord OAuth2.
+- [ ] **Discord sign-in**: sign in to the site with Discord OAuth2.
 
 ### Web Dashboard
 
