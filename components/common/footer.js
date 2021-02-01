@@ -5,13 +5,14 @@ import EffectToggle from "./effect-toggle";
 import styles from "./footer.module.css";
 
 const Effect = dynamic(() => import("react-confetti"), { ssr: false });
+const global_enable = false;
 
 export default class Footer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      effect: this.props.effect,
-      effectActive: this.props.effectActive && this.props.effect,
+      effect: this.props.effect && global_enable,
+      effectActive: this.props.effectActive && this.props.effect && global_enable,
     };
 
     this.onToggle = this.onToggle.bind(this);
@@ -19,7 +20,7 @@ export default class Footer extends React.Component {
 
   onToggle(e) {
     this.setState({
-      effectActive: e.target.checked,
+      effectActive: e.target.checked && global_enable,
     });
   }
   render() {

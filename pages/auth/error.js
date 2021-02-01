@@ -1,7 +1,7 @@
 import React from "react";
 import Head from "next/head";
 
-import Layout from "../../components/layout";
+import Layout from "../../components/common/layout";
 import { Button } from "react-bootstrap";
 import { faHome } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

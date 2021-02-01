@@ -77,11 +77,12 @@ model Guild {
 }
 
 model UsersGuild {
-  user_id  Int      @db.Integer
-  guild_id String   @db.VarChar(20)
-  active   Boolean? @db.Boolean
-  users    User     @relation("usersTousers_guilds", fields: [user_id], references: [id])
-  guilds   Guild    @relation("guildsTousers_guilds", fields: [guild_id], references: [guild_id])
+  user_id     Int      @db.Integer
+  guild_id    String   @db.VarChar(20)
+  active      Boolean? @db.Boolean
+  permissions String?  @db.VarChar(32)
+  guilds      Guild    @relation("guildsTousers_guilds", fields: [guild_id], references: [guild_id])
+  users       User     @relation("usersTousers_guilds", fields: [user_id], references: [id])
 
   @@id([user_id, guild_id])
   @@map("users_guilds")

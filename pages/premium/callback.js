@@ -3,8 +3,8 @@ import Head from "next/head";
 
 import { Row, Button } from "react-bootstrap";
 
-import PaymentComplete from "../../components/payment-landing-page";
-import Layout from "../../components/layout";
+import PaymentComplete from "../../components/premium/payment-landing-page";
+import Layout from "../../components/common/layout";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGem } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";

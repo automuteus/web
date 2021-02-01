@@ -38,6 +38,7 @@ const options = {
       Session: "session",
       VerificationRequest: "verificationRequest",
       Guild: "guild",
+      UserGuild: "userGuild",
     },
   }),
 
@@ -53,13 +54,14 @@ const options = {
     jwt: async (token, user, account, profile, isNewUser) => {
       if (account && user) {
         const uid = isNewUser ? user.id : user.userId;
+        const ext = ".png"; // Eventually check if an animated image exists and use .gif
 
         let img = profile.avatar
           ? "https://cdn.discordapp.com/avatars/" +
             profile.id +
             "/" +
             profile.avatar +
-            ".png"
+            ext
           : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
 
         token = {

@@ -1,0 +1,110 @@
+.guild-container {
+  border-radius: 15px;
+  background-color: var(--darkest);
+  display: flex;
+  min-width: calc(25% - 1rem);
+  align-items: center;
+  padding: 0.75rem;
+  margin: 0.5rem 0.5rem;
+  justify-content: flex-start;
+  cursor: pointer;
+}
+
+.guild-icon {
+  border: none;
+  background: -moz-linear-gradient(top left, #555, var(--darker));
+  background: linear-gradient(to bottom right, #555, var(--darker));
+  margin-right: 0.75rem;
+  overflow: hidden;
+  border-radius: 100px;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+  background-size: 50px 50px;
+  width: 23px;
+  height: 23px;
+}
+
+.guild-icon img {
+  width: inherit;
+  height: inherit;
+}
+
+.guild-select {
+  width: 100%;
+  max-width: 500px;
+}
+
+.guild-select-dropdown {
+  display: flex;
+  flex-direction: row;
+  flex: 1 1 auto;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+}
+
+.guild-dropdown-item {
+  align-items: center;
+  font-weight: bold;
+  color: white;
+  display: flex;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 1rem;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+}
+
+.guild-select .guild-dropdown-item:hover,
+.guild-select .guild-dropdown-item:focus {
+  color: white;
+  background-color: initial;
+}
+
+.guild-dropdown-item:hover,
+.guild-dropdown-item:focus {
+  color: white;
+  background-color: var(--darkest);
+}
+
+.guild-dropdown-item > * {
+  pointer-events: none;
+}
+
+.guild-name {
+  margin-right: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 300px;
+}
+
+.guild-details {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 0 1 auto;
+}
+
+.guild-buttons {
+  flex: 0 0 auto;
+}
+
+.guild-abbr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  height: 100%;
+  max-width: 50px;
+  max-height: 50px;
+  font-family: "Roboto", sans-serif !important;
+  text-align: center;
+  font-weight: 700 !important;
+}
+
+.guild-input {
+  color: white;
+  vertical-align: middle;
+  background-color: var(--darkest);
+  border: none;
+}

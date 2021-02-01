@@ -27,5 +27,8 @@ export const UserGuildSchema = {
     active: {
       type: "boolean",
     },
+    permissions: {
+      type: "varchar",
+    },
   },
 };

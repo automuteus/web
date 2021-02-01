@@ -2,8 +2,8 @@ import Head from "next/head";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 
-import Header from "./header";
-import Footer from "./footer";
+import Header from "../common/header";
+import Footer from "../common/footer";
 
 export default function Layout(props) {
   return (
@@ -26,14 +26,14 @@ export default function Layout(props) {
         />
         <meta
           itemProp="image"
-          content={`https://automute.us/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
           key="google:image"
         />
 
         {/* Discord/Facebook Meta Tags */}
         <meta
           property="og:url"
-          content="https://automute.us"
+          content="https://dev.automute.us"
           key="og:url"
         />
         <meta property="og:type" content="website" key="og:type" />
@@ -45,7 +45,7 @@ export default function Layout(props) {
         />
         <meta
           property="og:image"
-          content={`https://automute.us/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
           key="og:image"
         />
 
@@ -57,7 +57,7 @@ export default function Layout(props) {
         />
         <meta
           name="twitter:image"
-          content={`https://automute.us/assets/img/logo_embed.png`}
+          content={`https://dev.automute.us/assets/img/logo_embed.png`}
         />
       </Head>
 
@@ -71,7 +71,7 @@ export default function Layout(props) {
       >
         {props.children}
       </motion.main>
-      <Footer />
+      <Footer effect={props.effect} effectActive={props.effectActive} />
     </Container>
   );
 }
