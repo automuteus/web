@@ -26,14 +26,14 @@ export default function Layout(props) {
         />
         <meta
           itemProp="image"
-          content={`https://dev.automute.us/assets/img/logo_embed.png`}
+          content={`https://automute.us/assets/img/logo_embed.png`}
           key="google:image"
         />
 
         {/* Discord/Facebook Meta Tags */}
         <meta
           property="og:url"
-          content="https://dev.automute.us"
+          content="https://automute.us"
           key="og:url"
         />
         <meta property="og:type" content="website" key="og:type" />
@@ -45,7 +45,7 @@ export default function Layout(props) {
         />
         <meta
           property="og:image"
-          content={`https://dev.automute.us/assets/img/logo_embed.png`}
+          content={`https://automute.us/assets/img/logo_embed.png`}
           key="og:image"
         />
 
@@ -57,7 +57,7 @@ export default function Layout(props) {
         />
         <meta
           name="twitter:image"
-          content={`https://dev.automute.us/assets/img/logo_embed.png`}
+          content={`https://automute.us/assets/img/logo_embed.png`}
         />
       </Head>
 
