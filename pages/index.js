@@ -37,7 +37,7 @@ export default class App extends React.Component {
               Add to Discord
             </Button>
             <Button
-              href="https://github.com/denverquane/amonguscapture/releases/latest/download/AmongUsCapture.zip"
+              href="https://github.com/automuteus/capture-install#readme"
               className="btn btn-primary btn-lg mb-2 mr-2 px-2 px-lg-5"
             >
               <FontAwesomeIcon icon={faCamera} size="lg" className="mr-2" />
