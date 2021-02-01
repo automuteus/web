@@ -52,18 +52,6 @@ export default function Header() {
         )}
         {!loading && session && (
           <>
-            <Link href="/dashboard" passHref>
-              <Nav.Link>
-                <span className="d-block d-sm-none mr-1">
-                  <FontAwesomeIcon
-                    size="lg"
-                    icon={faTachometerAlt}
-                    className=""
-                  />
-                </span>
-                <span className="d-none d-sm-block mr-1">Dashboard </span>
-              </Nav.Link>
-            </Link>
             <Navbar.Text as="div" className="user-logged-in">
               <img
                 src={
