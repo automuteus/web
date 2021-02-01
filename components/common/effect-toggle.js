@@ -6,7 +6,7 @@ export default class EffectToggle extends React.Component {
       <OverlayTrigger
         placement="top"
         delay={{ show: 0, hide: 0 }}
-        trigger={['hover', 'focus']}
+        trigger={["hover", "focus"]}
         overlay={
           <Tooltip id={this.props.name + "tooltip"}>
             {this.props.tooltip}
@@ -19,7 +19,7 @@ export default class EffectToggle extends React.Component {
             label={this.props.label}
             onClick={this.props.toggle}
             defaultChecked={this.props.init}
-          ></Form.Switch>
+          />
         </div>
       </OverlayTrigger>
     );

@@ -2,8 +2,8 @@ import Head from "next/head";
 import { Container } from "react-bootstrap";
 import { motion } from "framer-motion";
 
-import Header from "./header";
-import Footer from "./footer";
+import Header from "../common/header";
+import Footer from "../common/footer";
 
 export default function Layout(props) {
   return (
@@ -71,7 +71,7 @@ export default function Layout(props) {
       >
         {props.children}
       </motion.main>
-      <Footer />
+      <Footer effect={props.effect} effectActive={props.effectActive} />
     </Container>
   );
 }

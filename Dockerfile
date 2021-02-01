@@ -16,6 +16,7 @@ ENV NODE_ENV=production
 WORKDIR /opt/app
 COPY . .
 COPY --from=deps /opt/app/node_modules ./node_modules
+COPY --from=deps /opt/app/prisma ./prisma
 RUN yarn build
 
 # Production image, copy all the files and run next

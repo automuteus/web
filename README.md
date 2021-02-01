@@ -28,7 +28,7 @@ To properly run this application, you need the following services and files:
 DISCORD_CLIENT_ID= # the Discord Client ID (https://discord.com/developers)
 DISCORD_CLIENT_SECRET= # the Discord Client Secret (https://discord.com/developers)
 DATABASE_URL= # db connection string (i.e. postgres://<user>:<password>@<host>:<port>/<db>)
-NEXTAUTH_URL= # canonical URL of deploy instance (i.e. http://automute.us)
+NEXTAUTH_URL= # canonical URL of deploy instance (i.e. https://automute.us)
 SECRET= # an encryption secret for any JSON Web Tokens (local sign-in sessions)
 ```
 
