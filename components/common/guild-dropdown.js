@@ -9,7 +9,7 @@ export default function GuildDropdown(props) {
   let guilds;
   if (Array.isArray(guildList)) {
     guilds = guildList.sort(util.compareGuilds).map((g) => {
-      const abbr = g.guilds.name.match(/\b\w/g).join("");
+      const abbr = (g.guilds.name.match(/\b\w/g) || ["?"]).join("");
       const fs =
         0.6 - Math.min(Math.max(abbr.length - 2, 0) * 0.1, 0.7) + "rem";
       let guild_icon = (
