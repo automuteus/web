@@ -20,7 +20,7 @@ export default function GuildDropdown(props) {
 
       if (g.guilds.icon) {
         const icon =
-          g.guilds.icon + (g.guilds.icon.startsWith("a_") ? ".gif" : ".png");
+          g.guilds.icon + (g.guilds.icon.startsWith("a_") ? ".gif" : ".webp");
 
         const icon_url = `https://cdn.discordapp.com/icons/${
           g.guilds.guild_id
