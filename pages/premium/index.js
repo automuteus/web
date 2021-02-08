@@ -29,10 +29,10 @@ import * as util from "../../components/utility/client";
 import Layout from "../../components/common/layout";
 import GuildDropdown from "../../components/common/guild-dropdown";
 
-const crewmate_brown = "/assets/img/svg/audefault.svg";
-const crewmate_white = "/assets/img/svg/audefault.svg";
-const crewmate_yellow = "/assets/img/svg/audefault.svg";
-const crewmate_cyan = "/assets/img/svg/audefault.svg";
+const crewmate_brown = "/assets/img/svg/crewmate_brown.svg";
+const crewmate_white = "/assets/img/svg/crewmate_white.svg";
+const crewmate_yellow = "/assets/img/svg/crewmate_yellow.svg";
+const crewmate_cyan = "/assets/img/svg/crewmate_cyan.svg";
 
 const current_perks = [
   {

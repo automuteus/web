@@ -11,7 +11,7 @@ import Layout from "../components/common/layout";
 import * as util from "../components/utility/client";
 import ServerStats from "../components/common/server-stats";
 
-const amus_crewmate = "/assets/img/svg/amus_crewmate_robo.svg";
+const amus_crewmate = "/assets/img/svg/amus_crewmate_lovely.svg";
 export default class App extends React.Component {
   render() {
     return (
