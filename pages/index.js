@@ -11,7 +11,7 @@ import Layout from "../components/common/layout";
 import * as util from "../components/utility/client";
 import ServerStats from "../components/common/server-stats";
 
-const amus_crewmate = "/assets/img/svg/amus_crewmate_robo.svg";
+const amus_crewmate = "/assets/img/svg/amus_crewmate_lovely.svg";
 export default class App extends React.Component {
   render() {
     return (
@@ -21,7 +21,7 @@ export default class App extends React.Component {
         effectActive={true}
         innerClassName="flex-column flex-lg-row align-items-center"
       >
-        <div id="home-text">
+        <div id="home-text" style={{ cursor: "default" }}>
           <h2 className="title">Use AutoMuteUs for hands free muting</h2>
           <p className="subtitle">
             AutoMuteUs is a Discord Bot that collects Among Us game data to
