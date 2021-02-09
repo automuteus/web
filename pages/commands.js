@@ -12,11 +12,25 @@ import {
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faAngry,
+  faDizzy,
   faExternalLinkAlt,
+  faFlushed,
   faGift,
+  faGrimace,
   faGrinHearts,
+  faGrinStars,
+  faGrinTongue,
+  faLaughSquint,
   faLink,
+  faMeh,
+  faMehRollingEyes,
   faPlusCircle,
+  faSadCry,
+  faSmile,
+  faSmileBeam,
+  faSmileWink,
+  faSurprise,
 } from "@fortawesome/free-solid-svg-icons";
 
 import { commands } from "../components/data/commands";
@@ -90,6 +104,25 @@ function CommandEntry(props) {
 
   const req_args = command.arguments.filter((c) => c.level == "required");
   const opt_args = command.arguments.filter((c) => c.level == "optional");
+
+  const emoticon = [
+    faSmileWink,
+    faSmile,
+    faGrinHearts,
+    faMehRollingEyes,
+    faSadCry,
+    faSurprise,
+    faSmileBeam,
+    faLaughSquint,
+    faGrinTongue,
+    faGrimace,
+    faFlushed,
+    faDizzy,
+    faAngry,
+    faMeh,
+    faGrinStars
+  ];
+  const randomEmote = emoticon[Math.floor(Math.random() * emoticon.length)];
 
   return (
     <div className="command-entry" id={command.command}>
@@ -180,7 +213,7 @@ function CommandEntry(props) {
                 <FontAwesomeIcon
                   size="lg"
                   fontVariant="light"
-                  icon={faGrinHearts}
+                  icon={randomEmote}
                   className="icon-muted"
                 />
               </div>
