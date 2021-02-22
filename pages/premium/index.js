@@ -284,6 +284,23 @@ export default function Premium({ session }) {
           />
         </CardDeck>
 
+        <div className="cancel-notice">
+          <h6>Looking to cancel?</h6>
+          <div>
+            As per the email you received on purchase, you can{" "}
+            <a href="https://cancelprem.automute.us/" target="_blank">
+              manage your subscriptions via PayPal.
+            </a>
+            <br />
+            <small className="text-muted">
+              Still have questions?{" "}
+              <a href="https://discord.gg/vwWXs8Z" target="_blank">
+                Ask us on Discord.
+              </a>
+            </small>
+          </div>
+        </div>
+        
         <h2 className="mb-3 mt-5">Premium Perks</h2>
         <div className="d-flex flex-row premium-perks">
           {current_perks.map((perk) => {
