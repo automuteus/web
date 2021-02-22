@@ -568,6 +568,19 @@ footer {
   height: inherit;
 }
 
+.cancel-notice {
+  z-index: 1000;
+  display: flex;
+    background: black;
+  flex-direction: column;
+  border-radius: 5px;
+  font-size: 0.85em;
+  overflow: hidden;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  position: static;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) {
 }
@@ -576,6 +589,16 @@ footer {
 @media (min-width: 768px) {
   #home-links .btn {
     width: auto;
+  }
+
+  .cancel-notice {
+    background: black;
+    position: fixed;
+    max-width: 320px;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
+    margin-bottom: 0;
+    bottom: 1rem;
+    right: 1rem;
   }
 }
 
