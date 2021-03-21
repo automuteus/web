@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Head from "next/head";
+import Link from "next/link";
 
 import Layout from "../components/common/layout";
 import {
@@ -12,6 +13,7 @@ import {
 } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
+  faGem,
   faAngry,
   faDizzy,
   faExternalLinkAlt,
@@ -33,8 +35,11 @@ import {
   faSurprise,
 } from "@fortawesome/free-solid-svg-icons";
 
-import { commands } from "../components/data/commands";
-import Link from "next/link";
+import {
+  commands,
+  settings,
+  premiumSettings,
+} from "../components/data/commands";
 
 export default class ErrorPage extends React.Component {
   render() {
@@ -91,6 +96,42 @@ export default class ErrorPage extends React.Component {
                 />
               ))}
           </div>
+
+          <hr />
+
+          <div>
+            <h2 id="settings-list">Settings</h2>
+            <Alert variant="dark">
+              <p>
+                Available configurable settings for the bot and how it displays
+                your data. Access is controlled by appropriate settings listed.
+              </p>
+              <p className="mb-0">
+                Click on a setting to expand more details about it. Entries
+                listed with a{" "}
+                <FontAwesomeIcon className="text-premium" icon={faGem} /> are
+                for premium AutoMuteUs users only.
+              </p>
+            </Alert>
+            <hr />
+            {[...settings, ...premiumSettings]
+              .sort((a, b) => (a.command > b.command ? 1 : -1))
+              .map((cmd) => (
+                <CommandEntry
+                  command={cmd.command}
+                  alias={cmd.alias}
+                  description={cmd.description}
+                  arguments={cmd.arguments}
+                  example={cmd.example}
+                  image={cmd.image}
+                  isPremium={cmd?.isPremium ?? false}
+                  key={`cmd-${cmd.command
+                    .replace(".", "")
+                    .split(" ")
+                    .join("_")}`}
+                />
+              ))}
+          </div>
         </Container>
       </Layout>
     );
@@ -99,7 +140,7 @@ export default class ErrorPage extends React.Component {
 
 function CommandEntry(props) {
   const command = props;
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const [imgOpen, setImgOpen] = useState(!command.image);
 
   const req_args = command.arguments.filter((c) => c.level == "required");
@@ -120,7 +161,7 @@ function CommandEntry(props) {
     faDizzy,
     faAngry,
     faMeh,
-    faGrinStars
+    faGrinStars,
   ];
   const randomEmote = emoticon[Math.floor(Math.random() * emoticon.length)];
 
@@ -138,6 +179,20 @@ function CommandEntry(props) {
         aria-expanded={open}
       >
         <code>{command.command}</code>
+        <FontAwesomeIcon
+          icon={faGem}
+          className={`mx-2 text-premium ${command.isPremium ? "d-inline-block" : "d-none"}`}
+          style={{ fontSize: "1.1rem" }}
+        />
+        <span
+          className={`command-description-inline ${
+            open ? "d-none" : "d-inline-block"
+          }`}
+        >
+          {command.description.map((e, i) => (
+            <span key={i}>{e}</span>
+          ))}
+        </span>
       </h2>
 
       <Collapse in={open}>
