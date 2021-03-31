@@ -192,7 +192,7 @@ export const commands = [
     alias: ["sett", "set", "s"],
     description: [
       "Adjust the bot settings. See ",
-      <a href="#all-settings">All Settings</a>,
+      <a href="#settings-list">Settings</a>,
       " for more details.",
     ],
     arguments: [
@@ -274,30 +274,359 @@ export const commands = [
 
 export const settings = [
   {
-    command: "settings",
-    alias: ["sett", "set", "s"],
-    description: ["Adjust the bot settings."],
+    command: "commandPrefix",
+    alias: ["prefix", "pref", "cp"],
+    description: ["Change the prefix that the bot uses to detect commands."],
     arguments: [
       {
-        name: "setting",
+        name: "prefix",
         type: "string",
-        description: ["Which setting to modify."],
+        description: ["The desired command prefix."],
         level: "required",
-      },
-      {
-        name: "value",
-        type: "string",
-        description: ["What to set the mentioned setting to."],
-        level: "required",
-      },
-      {
-        name: " ",
-        type: "empty",
-        description: ["Provide no arguments to see available settings."],
-        level: "optional",
       },
     ],
     example: ".au settings commandPrefix !",
-    image: true,
+    image: false,
+  },
+  {
+    command: "language",
+    alias: ["local", "lang", "l"],
+    description: ["Change the bot messages language."],
+    arguments: [
+      {
+        name: "language",
+        type: "string",
+        description: ["The language code to change to."],
+        level: "required",
+      },
+      {
+        name: "'reload'",
+        type: "exact",
+        description: ["Reloads current language settings."],
+        level: "optional",
+      },
+    ],
+    example: ".au settings language ru",
+    image: false,
+  },
+  {
+    command: "adminUserIDs",
+    alias: ["admins", "admin", "auid", "aui", "a"],
+    description: ["Specify which individual users have admin bot permissions."],
+    arguments: [
+      {
+        name: "@names",
+        type: "[string]",
+        description: [
+          "A space separated list of at least one Discord user mentions (requires the",
+          <code className="ml-1">@</code>,
+          ")",
+        ],
+        level: "required",
+      },
+    ],
+    example: ".au settings adminUserIDs @Soup @Bob",
+    image: false,
+  },
+  {
+    command: "operatorRoles",
+    alias: ["operators", "operator", "oproles", "roles", "role", "ops", "op"],
+    description: ["Specify which roles have permissions to invoke the bot."],
+    arguments: [
+      {
+        name: "@role",
+        type: "string",
+        description: [
+          "A Discord role mention (requires the",
+          <code className="ml-1">@</code>,
+          ")",
+        ],
+        level: "required",
+      },
+      {
+        name: "role",
+        type: "string",
+        description: ["A AutoMuteUs user role"],
+        values: ["Admins", "Mods"],
+        level: "required",
+      },
+    ],
+    example: ".au settings operatorRoles @Bot Admins @Bot Mods",
+    image: false,
+  },
+  {
+    command: "unmuteDeadDuringTasks",
+    alias: ["unmutedead", "unmute", "uddt", "ud"],
+    description: [
+      "Specify if the bot should immediately unmute players when they die. ",
+      <strong className="text-danger">CAUTION: Leaks information!</strong>,
+    ],
+    arguments: [
+      {
+        name: "setting",
+        type: "boolean",
+        description: ["Whether or not dead are unmuted during tasks."],
+        level: "required",
+        values: ["true", "false"],
+      },
+    ],
+    example: ".au settings unmuteDeadDuringTasks false",
+    image: false,
+  },
+  {
+    command: "delays",
+    alias: ["delays", "d"],
+    description: [
+      "Specify the delays for automute/deafen between stages of the game, like lobby->tasks.",
+    ],
+    arguments: [
+      {
+        name: "start_phase",
+        type: "string",
+        description: ["Which phase triggers this delay stage."],
+        level: "required",
+        values: ["lobby", "tasks", "discussion", "menu", "gameover"],
+      },
+      {
+        name: "end_phase",
+        type: "string",
+        description: ["Which phase ends this delay stage."],
+        level: "required",
+        values: ["lobby", "tasks", "discussion", "menu", "gameover"],
+      },
+      {
+        name: "delay",
+        type: "string",
+        description: ["Time of delay in seconds."],
+        level: "required",
+      },
+    ],
+    example: ".au settings delays lobby tasks 5",
+    image: false,
+  },
+  {
+    command: "voiceRules",
+    alias: ["voice", "vr"],
+    description: [
+      "Specify mute/deafen rules for the game, depending on the stage and the alive/deadness of players. Example given would mute dead players during the tasks stage.",
+    ],
+    arguments: [
+      {
+        name: "rule",
+        type: "string",
+        description: ["Which voice rule to modify."],
+        level: "required",
+        values: ["mute", "deaf"],
+      },
+      {
+        name: "game_phase",
+        type: "string",
+        description: ["Which phase to invoke this voice rule in."],
+        level: "required",
+        values: ["lobby", "tasks", "discussion", "menu", "gameover"],
+      },
+      {
+        name: "liveness",
+        type: "string",
+        description: [
+          "Whether the player needs to be alive or dead for this rule.",
+        ],
+        level: "required",
+        values: ["dead", "alive"],
+      },
+      {
+        name: "enabled",
+        type: "boolean",
+        description: ["Whether this voice rule is in effect."],
+        level: "required",
+        values: ["true", "false"],
+      },
+    ],
+    example: ".au settings voiceRules mute tasks dead true",
+    image: false,
+  },
+  {
+    command: "mapVersion",
+    alias: ["map"],
+    description: [
+      "Specify the default map version (simple, detailed) used by 'map' command.",
+    ],
+    arguments: [
+      {
+        name: "version",
+        type: "string",
+        description: ["Which version of the map to display by default."],
+        level: "required",
+        values: ["simple", "detailed"],
+      },
+    ],
+    example: ".au settings mapVersion detailed",
+    image: false,
+  },
+  {
+    command: "show",
+    alias: [],
+    description: ["Output a JSON of all current bot settings."],
+    arguments: [],
+    example: ".au settings show",
+    image: false,
+  },
+  {
+    command: "reset",
+    alias: [],
+    description: [
+      "Reset all bot settings. ",
+      <strong className="text-danger">
+        CAUTION: this will take effect immediately, without confirmation.
+      </strong>,
+    ],
+    arguments: [],
+    example: ".au settings reset",
+    image: false,
+  },
+];
+
+export const premiumSettings = [
+  {
+    command: "matchSummary",
+    isPremium: true,
+    alias: ["matchsumm", "matchsum", "summary", "match", "summ", "sum"],
+    description: [
+      "Specify minutes before the match summary message is deleted. 0 for instant deletion, -1 for never delete.",
+    ],
+    arguments: [
+      {
+        name: "minutes",
+        type: "number",
+        description: ["How long before match summary message is deleted."],
+        level: "required",
+        values: ["0 (instant)", "-1 (never)", "# > 0"],
+      },
+    ],
+    example: ".au settings matchSummary 5",
+    image: false,
+  },
+  {
+    command: "matchSummaryChannel",
+    isPremium: true,
+    alias: [
+      "matchsummchan",
+      "matchsumchan",
+      "summarychannel",
+      "matchchannel",
+      "summchan",
+      "sumchan",
+    ],
+    description: [
+      "Specify the text channel name where Match Summaries should be posted.",
+    ],
+    arguments: [
+      {
+        name: "channel",
+        type: "string",
+        description: ["Text channel name."],
+        level: "required",
+      },
+    ],
+    example: ".au settings matchSummaryChannel general",
+    image: false,
+  },
+  {
+    command: "autoRefresh",
+    isPremium: true,
+    alias: ["refresh", "auto", "ar"],
+    description: [
+      "Specify if the bot should auto-refresh the status message after a match ends.",
+    ],
+    arguments: [
+      {
+        name: "setting",
+        type: "boolean",
+        description: [
+          "Whether or not the bot auto-refreshes the status message.",
+        ],
+        level: "required",
+        values: ["true", "false"],
+      },
+    ],
+    example: ".au settings autoRefresh true",
+    image: false,
+  },
+  {
+    command: "leaderboardMention",
+    isPremium: true,
+    alias: ["lboardmention", "leadermention", "mention", "ment"],
+    description: [
+      "If players should be mentioned with @ on the leaderboard. ",
+      <strong className="text-warning">Disable this for large servers!</strong>,
+    ],
+    arguments: [
+      {
+        name: "setting",
+        type: "boolean",
+        description: ["Whether players are @ mentioned on the leaderboard."],
+        level: "required",
+        values: ["true", "false"],
+      },
+    ],
+    example: ".au settings leaderboardMention true",
+    image: false,
+  },
+  {
+    command: "leaderboardSize",
+    isPremium: true,
+    alias: ["lboardsize", "boardsize", "leadersize", "size"],
+    description: ["Specify the size of the player leaderboard."],
+    arguments: [
+      {
+        name: "size",
+        type: "number",
+        description: ["Size of the player leaderboard."],
+        level: "required",
+      },
+    ],
+    example: ".au settings leaderboardSize 5",
+    image: false,
+  },
+  {
+    command: "leaderboardMin",
+    isPremium: true,
+    alias: ["lboardmin", "boardmin", "leadermin", "min"],
+    description: [
+      "Minimum amount of games before a player is displayed on the leaderboard.",
+    ],
+    arguments: [
+      {
+        name: "value",
+        type: "number",
+        description: ["The minimum number of games required."],
+        level: "required",
+      },
+    ],
+    example: ".au settings leaderboardMin 3",
+    image: false,
+  },
+  {
+    command: "muteSpectators",
+    isPremium: true,
+    alias: ["mutespectator", "mutespec", "spectators", "spectator", "spec"],
+    description: [
+      "Whether or not the bot should treat spectators like dead players (respecting your voice rules). ",
+      <strong className="text-warning">
+        Note, this can cause delays or slowdowns when not self-hosting, or using
+        a Premium worker bot!
+      </strong>,
+    ],
+    arguments: [
+      {
+        name: "setting",
+        type: "boolean",
+        description: ["Whether to treat spectators like dead players."],
+        level: "required",
+        values: ["true", "false"],
+      },
+    ],
+    example: ".au settings muteSpectators true",
+    image: false,
   },
 ];
