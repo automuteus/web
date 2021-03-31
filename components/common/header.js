@@ -98,7 +98,7 @@ export default function Header() {
               Commands
             </Nav.Link>
           </Link>
-          <Nav.Link href="https://youtu.be/kO4cqMKV2yI">
+          <Nav.Link href="https://youtu.be/VYx6kM1O4FM">
             <FontAwesomeIcon icon={faYoutube} fixedWidth className="mr-2" />
             Tutorials
           </Nav.Link>
