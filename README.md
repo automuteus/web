@@ -1,41 +1,74 @@
-# TypeScript Next.js example
+# AutoMute.us Web Application
 
-This is a really simple project that shows the usage of Next.js with TypeScript.
+## Getting Started
 
-## Deploy your own
-
-Deploy the example using [Vercel](https://vercel.com?utm_source=github&utm_medium=readme&utm_campaign=next-example):
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
-
-## How to use it?
-
-Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
+To run this application in development:
 
 ```bash
-npx create-next-app --example with-typescript with-typescript-app
-# or
-yarn create next-app --example with-typescript with-typescript-app
+yarn install
+yarn dev
 ```
 
-Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
+To run this application in production:
 
-## Notes
-
-This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
-
-```
-npm install --save-dev typescript
+```bash
+yarn install
+yarn build
+yarn start <PORT> # e.g. yarn start 8080
 ```
 
-To enable TypeScript's features, we install the type declarations for React and Node.
+## Environment Setup
+
+To properly run this application, you need the following services and files:
+
+- A PostgreSQL database with the schema defined in `prisma/schema.prisma` (TODO: have an `.sql` structure file here)
+- A dot-env file configured in the root folder as `.env` containing the variables as outlined in `.env.sample`:
+
+```bash
+DISCORD_CLIENT_ID= # the Discord Client ID (https://discord.com/developers)
+DISCORD_CLIENT_SECRET= # the Discord Client Secret (https://discord.com/developers)
+DATABASE_URL= # db connection string (i.e. postgres://<user>:<password>@<host>:<port>/<db>)
+NEXTAUTH_URL= # canonical URL of deploy instance (i.e. https://automute.us)
+SECRET= # an encryption secret for any JSON Web Tokens (local sign-in sessions)
+```
+
+Additionally, you'll need to set up a valid callback URL in your Discord application registration (https://discord.com/developers) under "OAuth2" settings to match the pattern
 
 ```
-npm install --save-dev @types/react @types/react-dom @types/node
+<NEXTAUTH_URL>/api/auth/callback/discord
 ```
 
-When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
+## Deployment
 
-Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
+This application is deployed using Docker. To build and run this application:
 
-A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.
+```bash
+docker build -t automuteus .
+docker run --name automuteus -dp <PORT>:3000 automuteus:latest
+```
+
+You can stop and remove this application container with
+
+```bash
+docker stop automuteus
+docker rm automuteus
+```
+
+**Note:** The name `automuteus` in the above commands can be substituted with any name you prefer.
+
+## Planned Features
+
+### General Features
+
+- [x] **Discord sign-in**: sign in to the site with Discord OAuth2.
+
+### Web Dashboard
+
+The web dashboard will allow configuration and control of instances of the hosted AutoMuteUs bot.
+
+- [ ] **Discord server invites**: invite bot with specific link to servers that the user has admin permissions on
+- [ ] **Premium status checking**: check to see if a guild you're in has premium.
+- [ ] **Settings management**: edit bot configuration online and have it save, per server
+  - [ ] Shareable settings: add ability to publish popular bot configs and share them
+- [ ] **Stats and leaderboards**: view server stats and leaderboards in a more user-friendly manner than Discord embeds.
+  - [ ] Raw stats exports: export files (permissively) of game data so that people can create their own visualizations and metrics.
