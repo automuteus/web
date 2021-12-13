@@ -112,7 +112,7 @@ export const commands = [
         name: "name",
         type: "string",
         description: ["Among Us map name"],
-        values: ["skeld", "mira_hq", "polus"],
+        values: ["skeld", "mira_hq", "polus", "airship"],
         level: "required",
       },
       {
