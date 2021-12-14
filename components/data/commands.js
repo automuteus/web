@@ -77,7 +77,7 @@ export const commands = [
           "banana",
           "gray",
           "tan",
-          "coral,
+          "coral",
         ],
         level: "required",
       },
