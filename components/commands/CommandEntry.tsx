@@ -22,9 +22,11 @@ function CommandEntry(props: Props): React.ReactElement {
   const { entry, hashRoute } = props;
   const [open, setOpen] = useState<boolean>(false);
   const [imgOpen, setImgOpen] = useState(!entry.image);
-  const myRef = useRef(null);
-  
-  const executeScroll = () => myRef.current.scrollIntoView();
+  const commandRef = useRef<HTMLDivElement>(null);
+
+  const executeScroll = () => {
+    if (commandRef.current) commandRef.current.scrollIntoView();
+  };
 
   useEffect(() => {
     setOpen(open === true || hashRoute === entry.command);
@@ -34,15 +36,17 @@ function CommandEntry(props: Props): React.ReactElement {
   const opt_args = entry.arguments.filter((c) => c.level == "optional");
 
   return (
-    <div className={`commandEntry`} id={entry.command} ref={myRef}>
+    <div className={`commandEntry`} id={entry.command} ref={commandRef}>
       <div
         className={`commandEntryTitle d-flex flex-row align-items-center`}
         onClick={() => setOpen(open !== true)}
       >
         <div className={`entryLabel mr-2`}>{entry.command}</div>
-        {entry?.isPremium && <div className="text-premium mr-2">
-          <FontAwesomeIcon icon={faGem} />
-        </div>}
+        {entry?.isPremium && (
+          <div className="text-premium mr-2">
+            <FontAwesomeIcon icon={faGem} />
+          </div>
+        )}
         <div className={`entryDescription ${open ? "d-none" : ""}`}>
           {entry.description.map((e) => (
             <span key={uuid()}>{e}</span>
