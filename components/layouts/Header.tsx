@@ -1,12 +1,11 @@
 import React from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, signOut, useSession } from "next-auth/react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { IconProp } from "@fortawesome/fontawesome-svg-core";
 import {
   faBars,
-  faCheckCircle,
   faCode,
   faGem,
   faHome,
@@ -16,9 +15,6 @@ import {
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import { Navbar } from "react-bootstrap";
 
-interface Props {
-  theatric?: boolean;
-}
 interface HeaderLink {
   text: string;
   link: string;
@@ -57,13 +53,14 @@ const navs: Array<HeaderLink> = [
   },
 ];
 
-const dash: HeaderLink = {
-  text: "Dashboard",
-  link: "/dashboard",
-};
+// const dash: HeaderLink = {
+//   text: "Dashboard",
+//   link: "/dashboard",
+// };
 
 const Header = (): React.ReactElement => {
-  const [session, loading] = useSession();
+  const { data: session, status } = useSession();
+  const loading = status === "loading";
 
   return (
     <Navbar as="header" className={`mb-3`} expand="lg">
@@ -89,28 +86,20 @@ const Header = (): React.ReactElement => {
                 <span className="invisible">Checking login...</span>
               </div>
             </div>
-          ) : !session ? (
-            <li className="nav-item">
-              <div className="nav-link" onClick={() => signIn("discord")}>
-                <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
-                <span className="d-none d-sm-inline-block">Sign In</span>
-              </div>
-            </li>
-          ) : (
+          ) : session && session.user ? (
             <>
-              <HeaderLink {...dash} />
+              {/* <HeaderLink {...dash} /> */}
               <div className="navbar-text user-logged-in">
                 <img
-                  src={session.user.image ?? "assets/img/discord_placeholder.png"}
-                  alt={session.user.name ?? "No username"}
+                  src={
+                    session.user.image ?? "assets/img/discord_placeholder.png"
+                  }
+                  alt={session.user.name ?? "<No Name>"}
                   className="user-image mr-2"
                 />
                 <div className="user-details d-none d-sm-block">
                   <div className="user-name">
                     {session.user.name}
-                    {session.user.verified && (
-                      <FontAwesomeIcon className="ml-2" icon={faCheckCircle} />
-                    )}
                   </div>
                   <small className="user-signout" onClick={() => signOut()}>
                     Sign Out
@@ -127,6 +116,13 @@ const Header = (): React.ReactElement => {
                 </div>
               </div>
             </>
+          ) : (
+            <li className="nav-item">
+              <div className="nav-link" onClick={() => signIn("discord")}>
+                <FontAwesomeIcon icon={faDiscord} size="lg" className="mr-2" />
+                <span className="d-none d-sm-inline-block">Sign In</span>
+              </div>
+            </li>
           )}
         </div>
 

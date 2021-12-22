@@ -23,7 +23,7 @@ function CommandEntry(props: Props): React.ReactElement {
   const [open, setOpen] = useState<boolean>(false);
   const [imgOpen, setImgOpen] = useState(!entry.image);
   const myRef = useRef(null);
-  // @ts-ignore
+  
   const executeScroll = () => myRef.current.scrollIntoView();
 
   useEffect(() => {

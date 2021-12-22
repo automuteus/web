@@ -1,33 +1,26 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { PrismaClient } from "@prisma/client";
-
-let prisma: PrismaClient;
-
-if (process.env.NODE_ENV === "production") {
-  prisma = new PrismaClient();
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
-  }
-  prisma = global.prisma;
-}
+import { prisma } from "../../../db";
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const {
       method,
       query: { userId },
     } = req,
-    uid = parseInt(userId[0]),
+    uid = userId[0],
     type = userId[1] ?? "all";
 
   switch (method) {
     case "GET":
       console.log("Fetching guild list (type: " + type + ") for user:", uid);
-      const guilds = await prisma.usersGuild.findMany({
-        where: { user_id: uid, active: false },
-        include: {
-          guilds: true
-        }
+      const guilds = await prisma.guild.findMany({
+        where: {
+          users: {
+            every: {
+              userId: uid,
+              active: true,
+            },
+          },
+        },
       });
 
       const ret =

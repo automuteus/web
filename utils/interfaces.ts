@@ -18,7 +18,7 @@ export interface Guild {
   icon: string | null;
   premium: number;
   txn_time_unix: number | null;
-  guild_id: string;
+  id: string;
   last_updated: Date | null;
 }
 

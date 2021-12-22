@@ -1,7 +1,7 @@
 import * as AMUS from "./interfaces";
 
 export async function getStoredGuilds(session: any) {
-  console.log("Fetching guilds...");
+  // console.log("Fetching guilds...");
   return await fetch(process.env.NEXTAUTH_URL + `/api/guilds/`, {
     method: "POST",
     body: JSON.stringify(session),
@@ -11,7 +11,7 @@ export async function getStoredGuilds(session: any) {
 export const listUserGuilds = async (
   uid: string,
   filter?: string
-): Promise<Array<AMUS.PrismaGuilds>> => {
+): Promise<Array<AMUS.Guild>> => {
   const route = "/api/guilds/" + uid + (filter ? "?" + filter : "");
   const res = await fetch(route);
   const data = await res.json();

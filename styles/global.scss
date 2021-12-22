@@ -111,6 +111,16 @@ main {
   z-index: 10;
 }
 
+.intense {
+  font-weight: 900;
+  transition: 100ms;
+
+  &:hover {
+    background-color: var(--primary);
+    color: white;
+  }
+}
+
 h1,
 h2,
 h3,
@@ -602,7 +612,7 @@ div#home-stats {
 $shadows-small: multiple-box-shadow(1000);
 
 .stars {
-  position: fixed; 
+  position: fixed;
   opacity: 0.85;
   z-index: 1;
   background: transparent;
@@ -615,8 +625,8 @@ $shadows-small: multiple-box-shadow(1000);
     content: " ";
     transform: scale((random(200) + 150) / 100);
     transform-origin: center;
-    position: absolute; 
-    background: transparent; 
+    position: absolute;
+    background: transparent;
     width: 1px;
     height: 1px;
     box-shadow: $shadows-small;

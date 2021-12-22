@@ -1,0 +1,88 @@
+generator client {
+  provider        = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Account {
+  id                 Int       @id @default(autoincrement()) @db.Integer
+  compoundId         String    @unique @map("compound_id") @db.VarChar(255)
+  userId             Int       @map("user_id") @db.Integer
+  providerType       String    @map("provider_type") @db.VarChar(255)
+  providerId         String    @map("provider_id") @db.VarChar(255)
+  providerAccountId  String    @map("provider_account_id") @db.VarChar(255)
+  refreshToken       String?   @map("refresh_token") @db.Text
+  accessToken        String?   @map("access_token") @db.Text
+  accessTokenExpires DateTime? @map("access_token_expires") @db.Timestamptz(6)
+  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@index([providerAccountId], name: "provider_account_id")
+  @@index([providerId], name: "provider_id")
+  @@index([userId], name: "user_id")
+  @@map("accounts")
+}
+
+model Session {
+  id           Int      @id @default(autoincrement()) @db.Integer
+  userId       Int      @map("user_id") @db.Integer
+  expires      DateTime @db.Timestamptz(6)
+  sessionToken String   @unique @map("session_token") @db.VarChar(255)
+  accessToken  String   @unique @map("access_token") @db.VarChar(255)
+  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@map("sessions")
+}
+
+model User {
+  id            Int          @id @default(autoincrement()) @db.Integer
+  name          String?      @db.VarChar(255)
+  email         String?      @unique @db.VarChar(255)
+  emailVerified DateTime?    @map("email_verified") @db.Timestamptz(6)
+  image         String?      @db.VarChar(255)
+  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt     DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
+  accessToken   String?      @map("access_token") @db.Text
+  users_guilds  UsersGuild[] @relation("usersTousers_guilds")
+
+  @@map("users")
+}
+
+model VerificationRequest {
+  id         Int      @id @default(autoincrement()) @db.Integer
+  identifier String   @db.VarChar(255)
+  token      String   @unique @db.VarChar(255)
+  expires    DateTime @db.Timestamptz(6)
+  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+
+  @@map("verification_requests")
+}
+
+model Guild {
+  name          String       @db.VarChar(100)
+  icon          String?      @db.Text
+  premium       Int          @db.SmallInt
+  txn_time_unix Int?         @db.Integer
+  guild_id      Decimal      @id @db.Decimal
+  last_updated  DateTime?    @default(now()) @db.Timestamp(6)
+  users_guilds  UsersGuild[] @relation("guildsTousers_guilds")
+
+  @@map("guilds")
+}
+
+model UsersGuild {
+  user_id     Int      @db.Integer
+  guild_id    Decimal  @db.Decimal
+  active      Boolean? @db.Boolean
+  permissions String?  @db.VarChar(32)
+  guilds      Guild    @relation("guildsTousers_guilds", fields: [guild_id], references: [guild_id])
+  users       User     @relation("usersTousers_guilds", fields: [user_id], references: [id])
+
+  @@id([user_id, guild_id])
+  @@map("users_guilds")
+}

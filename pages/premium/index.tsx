@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { GetServerSideProps } from "next";
-// import { getSession, signIn } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 
@@ -22,21 +22,21 @@ const crewmate_yellow = "/assets/img/svg/crewmate_yellow.svg";
 const crewmate_cyan = "/assets/img/svg/crewmate_cyan.svg";
 
 import Layout from "../../components/layouts/MainLayout";
+import { Guild } from "../../utils/interfaces";
 import * as util from "../../utils/functions";
 import GuildSelect from "../../components/dashboard/GuildSelect";
+import { Session } from "next-auth";
 import useUserGuilds from "../../components/hooks/useUserGuilds";
-import { getSession } from "next-auth/client";
-import * as AMUS from "../../utils/interfaces";
-
 interface Props {
-  session: any;
+  session: Session;
 }
 
 const PremiumPage = ({ session }: Props) => {
   const router = useRouter();
-  const guilds = session ? useUserGuilds(session) : null;
   const [guild, setGuild] = useState<string>();
   const [open, setOpen] = useState<boolean>(false);
+  const guildQuery = session ? useUserGuilds(session) : null;
+  let guilds: Guild[] = [];
 
   useEffect(() => {
     if (router.query.guild && util.validGuild(router.query.guild)) {
@@ -55,21 +55,18 @@ const PremiumPage = ({ session }: Props) => {
 
   const closeModal = () => setOpen(false);
 
-  let guildData: Array<AMUS.Guild> = [];
-  if (guilds && guilds.isSuccess) {
-    guildData = guilds.data.map((v) => v.guilds as AMUS.Guild);
-  }
+  if (guildQuery && guildQuery.isSuccess) guilds = guildQuery.data;
 
   return (
     <Layout>
       <div className="container pb-4">
         <div className="d-block d-md-flex align-items-center justify-content-between">
           <h1>AutoMuteUs Premium</h1>
-          {session && guilds && (
+          {session && guildQuery && (
             <GuildSelect
-              guilds={guildData}
-              loading={guilds.isLoading}
-              error={guilds.isError}
+              guilds={guilds}
+              loading={guildQuery.isLoading}
+              error={guildQuery.isError}
               onSelect={handleGuildSelect}
             />
           )}
@@ -90,19 +87,26 @@ const PremiumPage = ({ session }: Props) => {
         </div>
 
         <div className="cancel-notice text-center">
-          <h6>Looking to cancel?</h6>
+          <h6 className="text-danger">Looking to cancel?</h6>
           <div>
             As per the email you received on purchase, you can{" "}
-            <a href="https://cancelprem.automute.us/" target="_blank">
+            <a
+              href="https://cancelprem.automute.us/"
+              target="_blank"
+              className="intense"
+            >
               manage your subscriptions via PayPal.
             </a>
             <br />
-            <small className="text-muted">
-              Still have questions?{" "}
-              <a href="https://discord.gg/vwWXs8Z" target="_blank">
-                Ask us on Discord.
-              </a>
-            </small>
+            If you checked out with a PayPal guest account, or otherwise need
+            help,{" "}
+            <a
+              href="https://forms.gle/pSy1GkUtQwZKdcNEA"
+              target="_blank"
+              className="intense"
+            >
+              please use this form.
+            </a>
           </div>
         </div>
 

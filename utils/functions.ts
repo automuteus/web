@@ -82,6 +82,6 @@ export const popupCenter = ({
     `
   );
 
-  // @ts-ignore
+  
   if (window.focus) newWindow.focus();
 };

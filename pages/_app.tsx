@@ -1,4 +1,4 @@
-import { Provider } from "next-auth/client";
+import { SessionProvider } from "next-auth/react";
 import { AnimatePresence } from "framer-motion";
 import { QueryClient, QueryClientProvider } from "react-query";
 import "reflect-metadata";
@@ -18,11 +18,11 @@ function App({ Component, pageProps, router }: AppProps) {
   return (
     <QueryClientProvider client={queryClient}>
       <div className="stars"></div>
-      <Provider session={pageProps.session}>
+      <SessionProvider session={pageProps.session}>
         <AnimatePresence exitBeforeEnter initial={false}>
           <Component {...pageProps} key={router.route} />
         </AnimatePresence>
-      </Provider>
+      </SessionProvider>
     </QueryClientProvider>
   );
 }

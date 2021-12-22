@@ -1,11 +1,15 @@
 import { faExclamationCircle } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { BaseSyntheticEvent, SyntheticEvent, useEffect, useState } from "react";
-import { Dropdown } from "react-bootstrap";
+import React, { BaseSyntheticEvent, useEffect, useState } from "react";
+import {  Dropdown } from "react-bootstrap";
 import { Guild } from "../../utils/interfaces";
 
+
+interface GExtended extends Guild {
+  guild_id?: string;
+}
 interface Props {
-  guilds: Array<Guild>;
+  guilds: Array<GExtended>;
   onSelect: any;
   loading: boolean;
   error: boolean;
@@ -22,7 +26,6 @@ const GuildSelect = (props: Props): React.ReactElement => {
 
   const handleSelect = (key: any, e: BaseSyntheticEvent) => {
     setBtnText((e.target as HTMLElement).innerHTML);
-    console.log((e.target as HTMLElement).innerHTML)
     onSelect(key);
   };
 
@@ -43,37 +46,46 @@ const GuildSelect = (props: Props): React.ReactElement => {
   }, [loading, error]);
 
   return (
-    <Dropdown className="mb-2 guild-dropdown" onSelect={handleSelect}>
-      {!error ? (
-        <Dropdown.Toggle
-          variant="premium"
-          disabled={loading}
-          className="text-sentence-case"
-        >
-          <span
-            dangerouslySetInnerHTML={{
-              __html: btnText,
-            }}
-          ></span>
-        </Dropdown.Toggle>
-      ) : (
-        <div className="text-danger">
-          <FontAwesomeIcon icon={faExclamationCircle} className="mr-2" />
-          <strong>Unable to load servers!</strong>
-        </div>
-      )}
-      <Dropdown.Menu className="text-white shadow" alignRight>
-        {Array.isArray(guilds) &&
-          guilds.length > 0 &&
-          [...guilds]
-            .sort((a, b) => (a.name <= b.name ? -1 : 1))
-            .map((g) => <GuildEntry {...g} key={g.guild_id} />)}
-      </Dropdown.Menu>
-    </Dropdown>
+    <div className="d-flex align-items-center text-right mb-2 ">
+      {/* <Button size="sm" variant="dark" className="mr-2" onClick={reloadServers}>
+        <FontAwesomeIcon
+          fontVariant="light"
+          icon={faSync}
+          className="icon-muted"
+        />
+      </Button> */}
+      <Dropdown className="guild-dropdown" onSelect={handleSelect}>
+        {!error ? (
+          <Dropdown.Toggle
+            variant="premium"
+            disabled={loading}
+            className="text-sentence-case"
+          >
+            <span
+              dangerouslySetInnerHTML={{
+                __html: btnText,
+              }}
+            ></span>
+          </Dropdown.Toggle>
+        ) : (
+          <div className="text-danger">
+            <FontAwesomeIcon icon={faExclamationCircle} className="mr-2" />
+            <strong>Unable to load servers!</strong>
+          </div>
+        )}
+        <Dropdown.Menu className="text-white shadow" alignRight>
+          {Array.isArray(guilds) &&
+            guilds.length > 0 &&
+            [...guilds]
+              .sort((a, b) => (a.name <= b.name ? -1 : 1))
+              .map((g) => <GuildEntry {...g} key={g.guild_id} />)}
+        </Dropdown.Menu>
+      </Dropdown>
+    </div>
   );
 };
 
-const GuildEntry = (props: Guild): React.ReactElement => {
+const GuildEntry = (props: GExtended): React.ReactElement => {
   const g = props;
   let icon: React.ReactFragment;
   if (g.icon) {

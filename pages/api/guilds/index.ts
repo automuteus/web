@@ -1,13 +1,15 @@
-import { PrismaClient } from "@prisma/client";
-
-if (process.env.NODE_ENV === "production") {
-} else {
-  if (!global.prisma) {
-    global.prisma = new PrismaClient();
+export default async function handler(
+  req: { method: any },
+  res: {
+    json: (arg0: { status: number; message: string }[]) => void;
+    setHeader: (arg0: string, arg1: string[]) => void;
+    status: (arg0: number) => {
+      (): any;
+      new (): any;
+      end: { (arg0: string): void; new (): any };
+    };
   }
-}
-
-export default async function handler(req, res) {
+) {
   const { method } = req;
 
   switch (method) {
