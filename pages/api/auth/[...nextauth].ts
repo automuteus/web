@@ -34,9 +34,22 @@ export default NextAuth({
   },
 
   callbacks: {
-    async jwt({ token, account, user }) {
-      if (account && user) {
+    async jwt({ token, account, user, profile }) {
+      if (account && user && profile) {
         token.accessToken = account.access_token;
+
+        const ext = ".png"; // Eventually check if an animated image exists and use .gif
+
+        let img = profile.avatar
+          ? "https://cdn.discordapp.com/avatars/" +
+            profile.id +
+            "/" +
+            profile.avatar +
+            ext
+          : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
+
+        token.picture = img;
+
         if (token.accessToken && typeof token.accessToken === "string") {
           const accessToken: string = token.accessToken;
           const guilds = await fetchDiscordGuilds(accessToken);
@@ -48,8 +61,11 @@ export default NextAuth({
     },
 
     async session({ session, token }) {
-      if (token) session.userId = token.sub;
-      if (token) session.guilds = token.guilds;
+      if (token) {
+        session.userId = token.sub;
+        session.guilds = token.guilds;
+        if(session.user) session.user.image = token.picture;
+      }
 
       return session;
     },
