@@ -16,33 +16,17 @@ export async function fetchDiscordGuilds(token: string) {
 
 export async function updateCachedGuilds(userId: string, guilds: any[]) {
   const gids = guilds.map((g) => g.id);
+  console.log("Updating guilds for user:", userId);
 
-  // Mark current user-guild associations as inactive
   await prisma.guildsOnUsers.updateMany({
-    where: { userId, guildId: { notIn: gids } },
+    where: { userId: userId, guildId: { notIn: gids } },
     data: {
       active: false,
     },
   });
 
-  try {
-    guilds.map(async (g) => {
-      // Update guild details
-      await prisma.guild.upsert({
-        where: { guild_id: g.id },
-        update: {
-          name: g.name,
-          icon: g.icon,
-        },
-        create: {
-          guild_id: g.id,
-          name: g.name,
-          icon: g.icon,
-          premium: 0,
-        },
-      });
-
-      // Update association
+  const done = guilds.map(async (g: any) => {
+    try {
       await prisma.user.update({
         where: { id: userId },
         data: {
@@ -73,11 +57,21 @@ export async function updateCachedGuilds(userId: string, guilds: any[]) {
           },
         },
       });
-    });
-  } catch {
-    return false;
-  }
 
+      await prisma.guild.update({
+        where: { guild_id: g.id },
+        data: {
+          name: g.name,
+          icon: g.icon,
+        },
+      });
+    } catch (err) {
+      console.log("--------------------");
+      console.log("Error: ", err);
+      console.log("guild", g);
+      console.log("user", userId);
+    }
+  });
   return guilds;
 }
 
