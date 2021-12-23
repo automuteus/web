@@ -25,7 +25,7 @@ export async function updateCachedGuilds(userId: string, guilds: any[]) {
     },
   });
 
-  const done = guilds.map(async (g: any) => {
+  guilds.map(async (g) => {
     try {
       await prisma.user.update({
         where: { id: userId },
