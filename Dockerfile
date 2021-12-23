@@ -1,5 +1,5 @@
 # Install dependencies only when needed
-FROM node:14.18.2-alpine AS deps
+FROM node:16.13.1-alpine AS deps
 
 WORKDIR /opt/app
 COPY package.json yarn.lock ./
@@ -10,7 +10,7 @@ RUN yarn install --frozen-lockfile
 # This is where because may be the case that you would try
 # to build the app based on some `X_TAG` in my case (Git commit hash)
 # but the code hasn't changed.
-FROM node:14.18.2-alpine AS builder
+FROM node:16.13.1-alpine AS builder
 
 ENV NODE_ENV=production
 WORKDIR /opt/app
@@ -20,7 +20,7 @@ COPY --from=deps /opt/app/prisma ./prisma
 RUN yarn build
 
 # Production image, copy all the files and run next
-FROM node:14.18.2-alpine AS runner
+FROM node:16.13.1-alpine AS runner
 
 ARG X_TAG
 WORKDIR /opt/app
