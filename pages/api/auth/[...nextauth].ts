@@ -2,6 +2,7 @@ import NextAuth from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 
+const default_img = "/assets/img/discord_placeholder.png";
 import { prisma } from "../../../db";
 import { fetchDiscordGuilds, updateCachedGuilds } from "../../../utils/server";
 
@@ -46,7 +47,7 @@ export default NextAuth({
             "/" +
             profile.avatar +
             ext
-          : "https://upload.wikimedia.org/wikipedia/commons/9/90/Discord-512.webp";
+          : default_img;
 
         token.picture = img;
 
