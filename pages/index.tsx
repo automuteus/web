@@ -2,16 +2,17 @@ import React from "react";
 import { GetStaticProps } from "next";
 import AppLayout from "../components/layout/AppLayout";
 import prisma from "../lib/prisma";
+import { User } from "@prisma/client";
 
 export const getStaticProps: GetStaticProps = async () => {
-    const user = await prisma.user.findMany();
+    const user = await prisma.user.findMany({ include: { guilds: true } });
     return {
         props: { user },
     };
 };
 
 type Props = {
-    user: any;
+    user: Array<User>;
 };
 
 export default function Home(props: Props): React.ReactElement {

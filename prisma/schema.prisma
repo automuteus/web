@@ -45,6 +45,7 @@ model User {
     image         String?
     accounts      Account[]
     sessions      Session[]
+    guilds        Guild[]
 }
 
 model VerificationToken {
@@ -55,6 +56,11 @@ model VerificationToken {
     @@unique([identifier, token])
 }
 
-// model Guild {
-//     id String 
-// }
+model Guild {
+    id          String   @id @unique
+    name        String
+    permissions String
+    icon        String?
+    lastUpdated DateTime @default(now()) @db.Timestamp(6)
+    users       User[]
+}
