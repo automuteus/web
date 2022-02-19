@@ -6,13 +6,13 @@ import style from "../styles/commands.module.scss";
 
 import * as data from "../data/commands.js";
 
-import { faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import CommandEntry from "../components/commands/CommandEntry";
 import { Command } from "../types/Command";
 
-const CommandsPage = () => {
+export default function CommandsPage() {
     const commands = data.commands as Array<Command>;
     const settings = data.settings as Array<Command>;
     const premiumSettings = data.premiumSettings as Array<Command>;
@@ -37,6 +37,14 @@ const CommandsPage = () => {
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>Commands</h1>
                 </div>
+
+                <Alert variant="transparent" className="text-danger" style={{background: "var(--dark)"}}>
+                    <h5 className="mb-2">
+                        <FontAwesomeIcon icon={faCode} className="me-2" fixedWidth />
+                        Slash commands are coming!
+                    </h5>
+                    <div style={{marginLeft: "2.1rem"}}><a style={{fontWeight: "bold", color: "inherit"}} href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ" target={"_blank"}> Discord slash commands </a> are coming to AutoMuteUs. Stay tuned in our support Discord for more information closer to their release.</div>
+                </Alert>
 
                 <div className="row">
                     <div
@@ -119,7 +127,10 @@ const CommandsPage = () => {
 
                             <div className="mt-4">
                                 <h3 id="settings-list">Settings</h3>
-                                <Alert className="bg-dark">
+                                <Alert
+                                    className="bg-dark text-light border-primary"
+                                    style={{ lineHeight: 1 }}
+                                >
                                     <p>
                                         Available configurable settings for the
                                         bot and how it displays your data.
@@ -150,6 +161,4 @@ const CommandsPage = () => {
             </div>
         </AppLayout>
     );
-};
-
-export default CommandsPage;
+}

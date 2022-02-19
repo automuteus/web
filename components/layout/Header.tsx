@@ -123,7 +123,7 @@ export default function Header(): React.ReactElement {
     return (
         <Navbar as="header" className={`mb-3`} expand="lg">
             <div className="container-fluid">
-                <div className="navbar-brand d-none d-lg-inline-block">
+                <div className="navbar-brand ms-3 d-none d-lg-inline-block">
                     <img
                         src={site_logo.src}
                         alt="AutoMuteUs logo"

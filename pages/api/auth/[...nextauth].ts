@@ -1,5 +1,5 @@
 import { NextApiHandler } from "next";
-import NextAuth from "next-auth";
+import NextAuth, { Session } from "next-auth";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import DiscordProvider from "next-auth/providers/discord";
 import prisma from "../../../lib/prisma";
@@ -27,7 +27,6 @@ const options = {
                     profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`;
                 }
 
-                process.stdout.write(`[DEBUG] Fetching user guilds...`);
                 const startTime = Date.now();
                 prisma.account
                     .findFirst({
@@ -74,9 +73,11 @@ const options = {
                         });
 
                         process.stdout.write(
-                            `\tdone for ${profile.username}. (${
-                                guilds.length
-                            } guilds/${(Date.now() - startTime) / 1000}s)\n`
+                            `[DEBUG@${startTime}] Fetching guilds done for ${
+                                profile.username
+                            }. (${guilds.length} guilds/${
+                                (Date.now() - startTime) / 1000
+                            }s)\n`
                         );
                     });
 
@@ -85,11 +86,18 @@ const options = {
                     name: profile.username,
                     email: profile.email,
                     image: profile.image_url,
-                    me: "oh"
                 };
             },
         }),
     ],
     adapter: PrismaAdapter(prisma),
+
     secret: process.env.SECRET,
+
+    callbacks: {
+        async session({ session, user }) {
+            session.user = user ?? session.user
+            return session;
+        },
+    },
 };
