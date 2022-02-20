@@ -25,11 +25,25 @@ To properly run this application, you need the following services and files:
 - A dot-env file configured in the root folder as `.env` containing the variables as outlined in `.env.sample`:
 
 ```bash
-DISCORD_CLIENT_ID= # the Discord Client ID (https://discord.com/developers)
-DISCORD_CLIENT_SECRET= # the Discord Client Secret (https://discord.com/developers)
-DATABASE_URL= # db connection string (i.e. postgres://<user>:<password>@<host>:<port>/<db>)
-NEXTAUTH_URL= # canonical URL of deploy instance (i.e. https://automute.us)
-SECRET= # an encryption secret for any JSON Web Tokens (local sign-in sessions)
+# JWT Secret
+SECRET=
+
+# NextAuth route base(s)
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_URL_INTERNAL=http://localhost:3000
+NEXTAUTH_SECRET=
+
+# Discord oAuth
+DISCORD_CLIENT_ID=
+DISCORD_CLIENT_SECRET=
+
+# Prisma DB connections
+DATABASE_URL=
+#SHADOW_DATABASE_URL=
+
+# AutoMuteUs stats
+GALACTUS_API=http://localhost:5858/api
+
 ```
 
 Additionally, you'll need to set up a valid callback URL in your Discord application registration (https://discord.com/developers) under "OAuth2" settings to match the pattern

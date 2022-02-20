@@ -1,6 +1,7 @@
 import { SessionProvider } from "next-auth/react";
+import { AppProps } from "next/app";
 import { AnimatePresence } from "framer-motion";
-import { QueryClient, QueryClientProvider } from "react-query";
+import SSRProvider from "react-bootstrap/SSRProvider";
 import "reflect-metadata";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -10,21 +11,21 @@ config.autoAddCss = false;
 
 import "../styles/global.scss";
 
-import type { AppProps } from "next/app";
-
-function App({ Component, pageProps, router }: AppProps) {
-  const queryClient = new QueryClient();
-
-  return (
-    <QueryClientProvider client={queryClient}>
-      <div className="stars"></div>
-      <SessionProvider session={pageProps.session}>
-        <AnimatePresence exitBeforeEnter initial={false}>
-          <Component {...pageProps} key={router.route} />
-        </AnimatePresence>
-      </SessionProvider>
-    </QueryClientProvider>
-  );
-}
+const App = ({
+    Component,
+    pageProps: { session, ...pageProps },
+    router,
+}: AppProps) => {
+    return (
+        <SSRProvider>
+            <div className="stars"></div>
+            <SessionProvider session={session}>
+                <AnimatePresence exitBeforeEnter initial={false}>
+                    <Component {...pageProps} key={router.route} />
+                </AnimatePresence>
+            </SessionProvider>
+        </SSRProvider>
+    );
+};
 
 export default App;

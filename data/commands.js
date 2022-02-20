@@ -52,7 +52,7 @@ export const commands = [
         type: "string",
         description: [
           "A Discord user mention (requires the",
-          <code className="ml-1">@</code>,
+          <code className="ms-1">@</code>,
           ")",
         ],
         level: "required",
@@ -140,7 +140,7 @@ export const commands = [
         type: "string",
         description: [
           "A Discord user mention (requires the",
-          <code className="ml-1">@</code>,
+          <code className="ms-1">@</code>,
           ")",
         ],
         level: "required",
@@ -325,7 +325,7 @@ export const settings = [
         type: "[string]",
         description: [
           "A space separated list of at least one Discord user mentions (requires the",
-          <code className="ml-1">@</code>,
+          <code className="ms-1">@</code>,
           ")",
         ],
         level: "required",
@@ -344,7 +344,7 @@ export const settings = [
         type: "string",
         description: [
           "A Discord role mention (requires the",
-          <code className="ml-1">@</code>,
+          <code className="ms-1">@</code>,
           ")",
         ],
         level: "required",

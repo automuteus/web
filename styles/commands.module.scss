@@ -1,38 +1,38 @@
 .commandsPage {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  
-  .fixedCol {
-    margin-bottom: 1.5rem;
-  }
-
-  .sidebar {
+    display: flex;
     flex: 1;
+    flex-direction: column;
 
-    .sidebarBox {
-      border-radius: 5px;
-      background-color: var(--dark);
-      padding: 1rem;
-      margin-bottom: 1rem;
-
-      .commandMenu {
-        a {
-          color: inherit;
-          font-size: 1.1rem;
-          padding: 0.25rem 0.5rem;
-        }
-      }
-
-      h5 {
-        margin-bottom: 0.5rem;
-      }
-
-      &:last-child {
-        margin-bottom: 0;
-      }
+    .fixedCol {
+        margin-bottom: 1.5rem;
     }
-  }
+
+    .sidebar {
+        flex: 1;
+
+        .sidebarBox {
+            border-radius: 5px;
+            background-color: var(--dark);
+            padding: 1rem;
+            margin-bottom: 1rem;
+
+            .commandMenu {
+                a {
+                    color: inherit;
+                    font-size: 1.1rem;
+                    padding: 0.25rem 0.5rem;
+                }
+            }
+
+            h5 {
+                margin-bottom: 0.5rem;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
 }
 
 // Small devices (landscape phones, 576px and up)
@@ -41,12 +41,12 @@
 
 // Medium devices (tablets, 768px and up)
 @media (min-width: 768px) {
-  .fixedCol {
-    margin-bottom: 0;
-    width: 350px;
-    max-width: 350px;
-    min-width: 350px;
-  }
+    .fixedCol {
+        margin-bottom: 0;
+        width: 350px;
+        max-width: 350px;
+        min-width: 350px;
+    }
 }
 
 // Large devices (desktops, 992px and up)
