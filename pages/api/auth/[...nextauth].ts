@@ -23,6 +23,10 @@ const options: NextAuthOptions = {
         strategy: "jwt",
     },
 
+    pages: {
+        error: "/auth/error",
+    },
+
     secret: process.env.SECRET,
 
     callbacks: {

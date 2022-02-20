@@ -18,7 +18,9 @@
     "scripts": {
         "dev": "next",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "prisma:generate": "yarn prisma generate",
+        "prisma:migrate": "yarn prisma migrate dev"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.3.0",

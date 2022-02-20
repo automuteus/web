@@ -1,32 +1,30 @@
-# Install dependencies only when needed
-FROM node:16.13.1-alpine AS deps
+FROM node:16-buster-slim AS base
+RUN apt-get update && apt-get install libssl-dev ca-certificates -y
+WORKDIR /app
 
-WORKDIR /opt/app
 COPY package.json yarn.lock ./
-COPY prisma prisma
-RUN yarn install --frozen-lockfile
 
-# Rebuild the source code only when needed
-# This is where because may be the case that you would try
-# to build the app based on some `X_TAG` in my case (Git commit hash)
-# but the code hasn't changed.
-FROM node:16.13.1-alpine AS builder
+FROM base as build 
+RUN export NODE_ENV=production
+RUN yarn
 
-ENV NODE_ENV=production
-WORKDIR /opt/app
 COPY . .
-COPY --from=deps /opt/app/node_modules ./node_modules
-COPY --from=deps /opt/app/prisma ./prisma
+RUN yarn run prisma:generate
 RUN yarn build
 
-# Production image, copy all the files and run next
-FROM node:16.13.1-alpine AS runner
+FROM base as prod-build
 
-ARG X_TAG
-WORKDIR /opt/app
-ENV NODE_ENV=production
-# COPY --from=builder /opt/app/next.config.js ./
-COPY --from=builder /opt/app/public ./public
-COPY --from=builder /opt/app/.next ./.next
-COPY --from=builder /opt/app/node_modules ./node_modules
-CMD ["node_modules/.bin/next", "start"]
+RUN yarn install --production
+COPY prisma prisma
+RUN yarn run prisma:generate
+RUN cp -R node_modules prod_node_modules
+
+FROM base as prod
+
+COPY --from=prod-build /app/prod_node_modules /app/node_modules
+COPY --from=build  /app/.next /app/.next
+COPY --from=build  /app/public /app/public
+COPY --from=build  /app/prisma /app/prisma
+
+EXPOSE 3000
+CMD ["yarn", "start"]
