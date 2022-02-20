@@ -9,7 +9,7 @@ import { Guild } from "@prisma/client";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import {
     faGamepad,
-    faLifeRing,
+    faHeadset,
     faMedal,
     faRobot,
 } from "@fortawesome/free-solid-svg-icons";
@@ -27,18 +27,17 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
         (session: any) => session?.user?.id ?? undefined
     );
 
-    let guilds;
+    let guilds: Guild[];
     if (userId) {
-        guilds = await prisma.user
-            .findUnique({
-                where: {
-                    id: userId,
-                },
-                include: {
-                    guilds: true,
-                },
-            })
-            .then((user) => user.guilds);
+        const user = await prisma.user.findUnique({
+            where: {
+                id: userId,
+            },
+            include: {
+                guilds: true,
+            },
+        });
+        guilds = user ? user.guilds ?? [] : [];
     }
 
     return {
@@ -209,7 +208,7 @@ const current_perks = [
         perk: "Premium Support",
         description:
             "Access to Premium-only channels and chats in our official Discord!",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faLifeRing} />,
+        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faHeadset} />,
     },
     {
         perk: "Priority Muting Bots",

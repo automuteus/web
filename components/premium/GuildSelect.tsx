@@ -24,6 +24,11 @@ export default function GuildSelect(props: Props): React.ReactElement {
         onSelect(key);
     };
 
+    if (guilds.length <= 0)
+        return (
+            <div className="d-flex align-items-center text-right mb-2 " title="Try reloading the page."><button className="btn btn-dark" disabled>No servers found.</button></div>
+        );
+
     return (
         <div className="d-flex align-items-center text-right mb-2 ">
             <Dropdown className="guild-dropdown" onSelect={handleSelect}>

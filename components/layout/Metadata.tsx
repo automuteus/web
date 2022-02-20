@@ -20,7 +20,7 @@ const Metadata = ({ metaImg }: Props): React.ReactElement => {
       />
       <meta
         itemProp="image"
-        content={metaImg ?? `https://automute.us/assets/img/logo_embed.png`}
+        content={metaImg ?? `https://automute.us/public/images/logo_embed.png`}
         key="google:image"
       />
 
@@ -35,7 +35,7 @@ const Metadata = ({ metaImg }: Props): React.ReactElement => {
       />
       <meta
         property="og:image"
-        content={metaImg ?? `https://automute.us/assets/img/logo_embed.png`}
+        content={metaImg ?? `https://automute.us/public/images/logo_embed.png`}
         key="og:image"
       />
 
@@ -47,7 +47,7 @@ const Metadata = ({ metaImg }: Props): React.ReactElement => {
       />
       <meta
         name="twitter:image"
-        content={metaImg ?? `https://automute.us/assets/img/logo_embed.png`}
+        content={metaImg ?? `https://automute.us/public/images/logo_embed.png`}
       />
     </>
   );

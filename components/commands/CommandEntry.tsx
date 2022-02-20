@@ -159,7 +159,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                             id={`${entry.command}-result`}
                                         >
                                             <Image
-                                                src={`/assets/img/commands/${entry.command}_result.png`}
+                                                src={`images/commands/${entry.command}_result.png`}
                                                 rounded
                                                 className="shadow"
                                                 fluid
