@@ -1,4 +1,3 @@
-# Install dependencies only when needed
 FROM node:16-buster-slim AS base
 RUN apt-get update && apt-get install libssl-dev ca-certificates -y
 WORKDIR /app
