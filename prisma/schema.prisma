@@ -1,89 +1,66 @@
-generator client {
-  provider        = "prisma-client-js"
-  previewFeatures = ["nativeTypes"]
+datasource db {
+    provider          = "postgresql"
+    url               = env("DATABASE_URL")
+    shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
 }
 
-datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+generator client {
+    provider = "prisma-client-js"
 }
 
 model Account {
-  id                 Int       @id @default(autoincrement()) @db.Integer
-  compoundId         String    @unique @map("compound_id") @db.VarChar(255)
-  userId             Int       @map("user_id") @db.Integer
-  providerType       String    @map("provider_type") @db.VarChar(255)
-  providerId         String    @map("provider_id") @db.VarChar(255)
-  providerAccountId  String    @map("provider_account_id") @db.VarChar(255)
-  refreshToken       String?   @map("refresh_token") @db.Text
-  accessToken        String?   @map("access_token") @db.Text
-  accessTokenExpires DateTime? @map("access_token_expires") @db.Timestamptz(6)
-  createdAt          DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt          DateTime  @default(now()) @map("updated_at") @db.Timestamptz(6)
+    id                 String  @id @default(cuid())
+    userId             String
+    type               String
+    provider           String
+    providerAccountId  String
+    refresh_token      String? @db.Text
+    access_token       String? @db.Text
+    expires_at         Int?
+    token_type         String?
+    scope              String?
+    id_token           String? @db.Text
+    session_state      String?
+    oauth_token_secret String?
+    oauth_token        String?
 
-  @@index([providerAccountId], name: "provider_account_id")
-  @@index([providerId], name: "provider_id")
-  @@index([userId], name: "user_id")
-  @@map("accounts")
+    user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+    @@unique([provider, providerAccountId])
 }
 
 model Session {
-  id           Int      @id @default(autoincrement()) @db.Integer
-  userId       Int      @map("user_id") @db.Integer
-  expires      DateTime @db.Timestamptz(6)
-  sessionToken String   @unique @map("session_token") @db.VarChar(255)
-  accessToken  String   @unique @map("access_token") @db.VarChar(255)
-  createdAt    DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt    DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
-
-  @@map("sessions")
+    id           String   @id @default(cuid())
+    sessionToken String   @unique
+    userId       String
+    expires      DateTime
+    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model User {
-  id            Int          @id @default(autoincrement()) @db.Integer
-  name          String?      @db.VarChar(255)
-  email         String?      @unique @db.VarChar(255)
-  emailVerified DateTime?    @map("email_verified") @db.Timestamptz(6)
-  image         String?      @db.VarChar(255)
-  createdAt     DateTime     @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt     DateTime     @default(now()) @map("updated_at") @db.Timestamptz(6)
-  accessToken   String?      @map("access_token") @db.Text
-  users_guilds  UsersGuild[] @relation("usersTousers_guilds")
-
-  @@map("users")
+    id            String    @id @default(cuid())
+    name          String?
+    email         String?   @unique
+    emailVerified DateTime?
+    image         String?
+    accounts      Account[]
+    sessions      Session[]
+    guilds        Guild[]
 }
 
-model VerificationRequest {
-  id         Int      @id @default(autoincrement()) @db.Integer
-  identifier String   @db.VarChar(255)
-  token      String   @unique @db.VarChar(255)
-  expires    DateTime @db.Timestamptz(6)
-  createdAt  DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
-  updatedAt  DateTime @default(now()) @map("updated_at") @db.Timestamptz(6)
+model VerificationToken {
+    identifier String
+    token      String   @unique
+    expires    DateTime
 
-  @@map("verification_requests")
+    @@unique([identifier, token])
 }
 
 model Guild {
-  name          String       @db.VarChar(100)
-  icon          String?      @db.Text
-  premium       Int          @db.SmallInt
-  txn_time_unix Int?         @db.Integer
-  guild_id      String       @id @db.VarChar(20)
-  last_updated  DateTime?    @default(now()) @db.Timestamp(6)
-  users_guilds  UsersGuild[] @relation("guildsTousers_guilds")
-
-  @@map("guilds")
-}
-
-model UsersGuild {
-  user_id     Int      @db.Integer
-  guild_id    String   @db.VarChar(20)
-  active      Boolean? @db.Boolean
-  permissions String?  @db.VarChar(32)
-  guilds      Guild    @relation("guildsTousers_guilds", fields: [guild_id], references: [guild_id])
-  users       User     @relation("usersTousers_guilds", fields: [user_id], references: [id])
-
-  @@id([user_id, guild_id])
-  @@map("users_guilds")
+    id          String   @id @unique
+    name        String
+    permissions String
+    icon        String?
+    lastUpdated DateTime @default(now()) @db.Timestamp(6)
+    users       User[]
 }
