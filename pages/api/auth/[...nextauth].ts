@@ -98,12 +98,17 @@ async function updateGuilds(account: Account, user: User) {
                 disconnect: remGuilds.map((g) => ({
                     id: g.id,
                 })),
-                upsert: discordGuilds.map((g) => ({
+                connectOrCreate: discordGuilds.map((g) => ({
                     where: {
                         id: g.id,
                     },
                     create: g,
-                    update: g,
+                })),
+                updateMany: oldGuilds.map((g) => ({
+                    where: {
+                        id: g.id,
+                    },
+                    data: g,
                 })),
             },
         },
