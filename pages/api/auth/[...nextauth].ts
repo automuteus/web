@@ -104,7 +104,7 @@ async function updateGuilds(account: Account, user: User) {
                     },
                     create: g,
                 })),
-                updateMany: oldGuilds.map((g) => ({
+                updateMany: discordGuilds.map((g) => ({
                     where: {
                         id: g.id,
                     },
