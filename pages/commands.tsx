@@ -32,18 +32,40 @@ export default function CommandsPage() {
     );
 
     return (
-        <AppLayout title="AutoMuteUs - Commands">
+        <AppLayout
+            title="AutoMuteUs - Commands"
+            metaDesc="View all the available commands in the AutoMuteUs Discord muting bot."
+        >
             <div className={`container pb-4 ${style.commandsPage}`}>
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>Commands</h1>
                 </div>
 
-                <Alert variant="transparent" className="text-danger" style={{background: "var(--dark)"}}>
+                <Alert
+                    variant="transparent"
+                    className="text-danger"
+                    style={{ background: "var(--dark)" }}
+                >
                     <h5 className="mb-2">
-                        <FontAwesomeIcon icon={faCode} className="me-2" fixedWidth />
+                        <FontAwesomeIcon
+                            icon={faCode}
+                            className="me-2"
+                            fixedWidth
+                        />
                         Slash commands are coming!
                     </h5>
-                    <div style={{marginLeft: "2.1rem"}}><a style={{fontWeight: "bold", color: "inherit"}} href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ" target={"_blank"}> Discord slash commands </a> are coming to AutoMuteUs. Stay tuned in our support Discord for more information closer to their release.</div>
+                    <div style={{ marginLeft: "2.1rem" }}>
+                        <a
+                            style={{ fontWeight: "bold", color: "inherit" }}
+                            href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ"
+                            target={"_blank"}
+                        >
+                            {" "}
+                            Discord slash commands{" "}
+                        </a>{" "}
+                        are coming to AutoMuteUs. Stay tuned in our support
+                        Discord for more information closer to their release.
+                    </div>
                 </Alert>
 
                 <div className="row">
