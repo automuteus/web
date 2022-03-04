@@ -9,6 +9,8 @@ type Props = {
     children?: ReactNode;
     title?: string;
     theatric?: boolean;
+    metaTitle?: string;
+    metaDesc?: string;
     metaImg?: string;
 };
 
@@ -16,6 +18,8 @@ export default function AppLayout({
     children,
     title,
     theatric,
+    metaTitle,
+    metaDesc,
     metaImg,
 }: Props): React.ReactElement {
     return (
@@ -24,7 +28,7 @@ export default function AppLayout({
                 <title>
                     {title ?? "AutoMuteUs - Hands Free Among Us Muting"}
                 </title>
-                <Metadata metaImg={metaImg} />
+                <Metadata metaImg={metaImg} metaDesc={metaDesc} metaTitle={metaTitle ?? title} />
             </Head>
             <div id="layout-container" className={theatric ? "theatric" : ""}>
                 <Header />

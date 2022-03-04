@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GetStaticProps } from "next";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
@@ -18,6 +18,7 @@ export const getStaticProps: GetStaticProps = async () => {
     const stats = await fetch(route).then((res) => res.json());
     return {
         props: { stats },
+        revalidate: 10,
     };
 };
 
@@ -33,25 +34,25 @@ export default function Home(props: Props): React.ReactElement {
             stat: props.stats.totalGuilds,
             base: 0,
             label: "Servers",
-            format: "0a"
+            format: "0a",
         },
         {
             stat: props.stats.activeGames,
             base: 0,
             label: "Active Games",
-            format: "0"
+            format: "0",
         },
         {
             stat: props.stats.totalUsers,
             base: 0,
             label: "Users",
-            format: "0a"
+            format: "0a",
         },
         {
             stat: props.stats.totalGames,
             base: 262000,
             label: "Games Muted",
-            format: "0.00a"
+            format: "0.00a",
         },
     ];
 

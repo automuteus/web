@@ -73,7 +73,11 @@ export default function PremiumPage(props: Props) {
     const closeModal = () => setOpen(false);
 
     return (
-        <AppLayout>
+        <AppLayout
+            title="AutoMuteUs - Premium"
+            metaImg="https://automute.us/images/logo_premium.png"
+            metaDesc="AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!"
+        >
             <div className="container pb-4">
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>AutoMuteUs Premium</h1>
