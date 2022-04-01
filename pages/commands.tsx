@@ -50,7 +50,9 @@ export default function CommandsPage() {
             <div className={`container pb-4 commandsPage`}>
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>Commands</h1>
-                    <span className="entryLabelSubcommands">Current as of v7.0.4</span>
+                    <span className="entryLabelSubcommands">
+                        Current as of v7.0.4
+                    </span>
                 </div>
 
                 <Alert
@@ -189,12 +191,12 @@ export default function CommandsPage() {
                                     </p>
                                 </Alert>
                                 {settingsSorted.map((cmd) => {
-                                    cmd.command = "settings " + cmd.command;
                                     return (
                                         <CommandEntry
                                             entry={cmd}
                                             hashRoute={hashRoute}
                                             key={uuid()}
+                                            parent={{ command: "settings" }}
                                         />
                                     );
                                 })}
