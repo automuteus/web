@@ -1,10 +1,8 @@
 import { v4 as uuid } from "uuid";
-import { Alert, Nav } from "react-bootstrap";
+import { Alert, Badge, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import style from "../styles/commands.module.scss";
-
-import * as data from "../data/commands.js";
+import * as data from "../data/commands";
 
 import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
@@ -12,18 +10,31 @@ import AppLayout from "../components/layout/AppLayout";
 import CommandEntry from "../components/commands/CommandEntry";
 import { Command } from "../types/Command";
 
+export const premium_icon = (
+    <FontAwesomeIcon
+        icon={faCrown}
+        className="text-white bg-premium mx-1"
+        style={{
+            verticalAlign: "text-bottom",
+            borderRadius: "50%",
+            fontSize: ".65rem",
+            padding: "0.35rem",
+        }}
+    />
+);
+
 export default function CommandsPage() {
     const commands = data.commands as Array<Command>;
     const settings = data.settings as Array<Command>;
     const premiumSettings = data.premiumSettings as Array<Command>;
 
-    const settingsSorted = [...settings, ...premiumSettings].sort((a, b) =>
-        a.command > b.command ? 1 : -1
-    );
+    const settingsSorted = [...settings, ...premiumSettings]
+        .sort((a, b) => (a.command > b.command ? 1 : -1))
+        .filter((cmd) => !cmd.isDisabled);
 
-    const commandsSorted = commands.sort((a, b) =>
-        a.command > b.command ? 1 : -1
-    );
+    const commandsSorted = commands
+        .sort((a, b) => (a.command > b.command ? 1 : -1))
+        .filter((cmd) => !cmd.isDisabled);
 
     const [hashRoute, setHashRoute] = useState<string>(
         typeof window !== "undefined"
@@ -36,14 +47,17 @@ export default function CommandsPage() {
             title="AutoMuteUs - Commands"
             metaDesc="View all the available commands in the AutoMuteUs Discord muting bot."
         >
-            <div className={`container pb-4 ${style.commandsPage}`}>
+            <div className={`container pb-4 commandsPage`}>
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>Commands</h1>
+                    <span className="entryLabelSubcommands">
+                        Current as of v7.0.4
+                    </span>
                 </div>
 
                 <Alert
                     variant="transparent"
-                    className="text-danger"
+                    className="text-success"
                     style={{ background: "var(--dark)" }}
                 >
                     <h5 className="mb-2">
@@ -52,29 +66,30 @@ export default function CommandsPage() {
                             className="me-2"
                             fixedWidth
                         />
-                        Slash commands are coming!
+                        Slash commands are here!
                     </h5>
                     <div style={{ marginLeft: "2.1rem" }}>
                         <a
-                            style={{ fontWeight: "bold", color: "inherit" }}
                             href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ"
                             target={"_blank"}
+                            className="bg-success"
                         >
                             {" "}
-                            Discord slash commands{" "}
+                            Discord slash commands
                         </a>{" "}
-                        are coming to AutoMuteUs. Stay tuned in our support
-                        Discord for more information closer to their release.
+                        have arrived in AutoMuteUs. To use AutoMuteUs, from now
+                        on use <code>/</code> to see all commands available to
+                        you!
                     </div>
                 </Alert>
 
                 <div className="row">
                     <div
-                        className={`col-12 col-md-auto d-none d-lg-flex ${style.fixedCol}`}
+                        className={`col-12 col-md-auto d-none d-lg-flex fixedCol`}
                     >
-                        <div className={`${style.sidebar}`}>
+                        <div className="sidebar">
                             <div className="sticky-top">
-                                <div className={`${style.sidebarBox}`}>
+                                <div className="sidebarBox">
                                     <Nav
                                         variant="pills"
                                         className="flex-column"
@@ -85,7 +100,7 @@ export default function CommandsPage() {
                                         {commandsSorted.map((cmd) => (
                                             <Nav.Item
                                                 key={`general-${cmd.command}`}
-                                                className={style.commandMenu}
+                                                className="commandMenu"
                                             >
                                                 <Nav.Link
                                                     href={`#${cmd.command}`}
@@ -95,7 +110,14 @@ export default function CommandsPage() {
                                                         )
                                                     }
                                                 >
-                                                    {cmd.command}
+                                                    <span
+                                                        style={{
+                                                            fontFamily:
+                                                                "monospace",
+                                                        }}
+                                                    >
+                                                        {cmd.command}
+                                                    </span>
                                                 </Nav.Link>
                                             </Nav.Item>
                                         ))}
@@ -105,7 +127,7 @@ export default function CommandsPage() {
                                         {settingsSorted.map((cmd) => (
                                             <Nav.Item
                                                 key={`setting-${cmd.command}`}
-                                                className={style.commandMenu}
+                                                className="commandMenu"
                                             >
                                                 <Nav.Link
                                                     href={`#${cmd.command}`}
@@ -116,16 +138,16 @@ export default function CommandsPage() {
                                                     }
                                                 >
                                                     {cmd.isPremium && (
-                                                        <FontAwesomeIcon
-                                                            icon={faCrown}
-                                                            className="me-2"
-                                                            style={{
-                                                                fontSize:
-                                                                    "0.9rem",
-                                                            }}
-                                                        />
+                                                        <>{premium_icon}</>
                                                     )}{" "}
-                                                    {cmd.command}
+                                                    <span
+                                                        style={{
+                                                            fontFamily:
+                                                                "monospace",
+                                                        }}
+                                                    >
+                                                        {cmd.command}
+                                                    </span>
                                                 </Nav.Link>
                                             </Nav.Item>
                                         ))}
@@ -137,7 +159,7 @@ export default function CommandsPage() {
                     <div className="col">
                         <div>
                             <div>
-                                <h3 id="settings-list">General Commands</h3>
+                                <h3 id="commands-list">General Commands</h3>
                                 {commandsSorted.map((cmd) => (
                                     <CommandEntry
                                         entry={cmd}
@@ -150,8 +172,12 @@ export default function CommandsPage() {
                             <div className="mt-4">
                                 <h3 id="settings-list">Settings</h3>
                                 <Alert
-                                    className="bg-dark text-light border-primary"
-                                    style={{ lineHeight: 1 }}
+                                    variant="transparent"
+                                    className="text-light"
+                                    style={{
+                                        background: "var(--dark)",
+                                        lineHeight: 1,
+                                    }}
                                 >
                                     <p>
                                         Available configurable settings for the
@@ -160,22 +186,20 @@ export default function CommandsPage() {
                                         settings listed.
                                     </p>
                                     <p className="mb-0">
-                                        Click on a setting to expand more
-                                        details about it. Entries listed with a{" "}
-                                        <FontAwesomeIcon
-                                            className="text-premium"
-                                            icon={faCrown}
-                                        />{" "}
-                                        are for premium AutoMuteUs users only.
+                                        Entries listed with a{premium_icon}are
+                                        for premium AutoMuteUs users only.
                                     </p>
                                 </Alert>
-                                {settingsSorted.map((cmd) => (
-                                    <CommandEntry
-                                        entry={cmd}
-                                        hashRoute={hashRoute}
-                                        key={uuid()}
-                                    />
-                                ))}
+                                {settingsSorted.map((cmd) => {
+                                    return (
+                                        <CommandEntry
+                                            entry={cmd}
+                                            hashRoute={hashRoute}
+                                            key={uuid()}
+                                            parent={{ command: "settings" }}
+                                        />
+                                    );
+                                })}
                             </div>
                         </div>
                     </div>

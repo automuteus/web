@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faCrown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import { Collapse } from "react-bootstrap";
 
 import AppLayout from "../components/layout/AppLayout";
 import ServerStat from "../components/index/ServerStat";
@@ -27,8 +26,6 @@ type Props = {
 };
 
 export default function Home(props: Props): React.ReactElement {
-    const [showDetails, _setShowDetails] = React.useState<boolean>(false);
-
     const stats = [
         {
             stat: props.stats.totalGuilds,
@@ -114,80 +111,6 @@ export default function Home(props: Props): React.ReactElement {
                             <ServerStat key={v.label} {...v} />
                         ))}
                     </div>
-
-                    <Collapse in={showDetails}>
-                        <div id="bot-info">
-                            <div className="embed d-inline-grid shadow">
-                                <div className="embed-inner">
-                                    <div className="embed-title">Bot Info</div>
-                                    <div className="embed-fields grid-row-3">
-                                        <div className="embed-field grid-col-1-3">
-                                            <div className="embed-field-name">
-                                                Version
-                                            </div>
-                                            <div className="embed-field-value">
-                                                {props.stats.version}
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-2-3">
-                                            <div className="embed-field-name">
-                                                Library
-                                            </div>
-                                            <div className="embed-field-value">
-                                                discordgo
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-3-3">
-                                            <div className="embed-field-name">
-                                                Creator
-                                            </div>
-                                            <div className="embed-field-value">
-                                                Soup#4222
-                                            </div>
-                                        </div>
-
-                                        <div className="embed-field grid-col-1-3">
-                                            <div className="embed-field-name">
-                                                Guilds
-                                            </div>
-                                            <div className="embed-field-value">
-                                                {props.stats.totalGuilds}
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-2-3">
-                                            <div className="embed-field-name">
-                                                Active Games
-                                            </div>
-                                            <div className="embed-field-value">
-                                                {props.stats.activeGames}
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-3-3"></div>
-
-                                        <div className="embed-field grid-col-1-3">
-                                            <div className="embed-field-name">
-                                                Total Games
-                                            </div>
-                                            <div className="embed-field-value">
-                                                {props.stats.totalGames +
-                                                    262000}
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-2-3">
-                                            <div className="embed-field-name">
-                                                Total Users
-                                            </div>
-                                            <div className="embed-field-value">
-                                                {props.stats.totalUsers}
-                                            </div>
-                                        </div>
-                                        <div className="embed-field grid-col-3-3"></div>
-                                    </div>
-                                    <div className="embed-footer"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </Collapse>
                 </div>
 
                 <div id="home-crewmate">
