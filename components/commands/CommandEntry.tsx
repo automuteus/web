@@ -1,56 +1,107 @@
 import { v4 as uuid } from "uuid";
 import { useEffect, useRef, useState } from "react";
-import { Button, Collapse, Image } from "react-bootstrap";
+import { Collapse } from "react-bootstrap";
 import {
     faChevronDown,
-    faCrown,
     faGift,
     faPlusCircle,
     faSmileBeam,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Command } from "../../types/Command";
+import { Command, CommandArg } from "../../types/Command";
 import ArgTable from "./ArgTable";
+import { premium_icon } from "../../pages/commands";
+import { prefix } from "../../data/commands";
 
 interface Props {
     entry: Command;
     hashRoute: string;
+    className?: string;
+    parent?: Command;
 }
 
 export default function CommandEntry(props: Props): React.ReactElement {
-    const { entry, hashRoute } = props;
+    const { entry, hashRoute, className, parent } = props;
     const [open, setOpen] = useState<boolean>(false);
-    const [imgOpen, setImgOpen] = useState(!entry.image);
     const commandRef = useRef<HTMLDivElement>(null);
-
-    const executeScroll = () => {
-        if (commandRef.current) commandRef.current.scrollIntoView();
-    };
 
     useEffect(() => {
         setOpen(open === true || hashRoute === entry.command);
     }, [hashRoute]);
 
-    const req_args = entry.arguments.filter((c) => c.level == "required");
-    const opt_args = entry.arguments.filter((c) => c.level == "optional");
+    const req_args = entry.arguments
+        ? entry.arguments.filter((c) => c.level == "required")
+        : [];
+    const opt_args = entry.arguments
+        ? entry.arguments.filter((c) => c.level == "optional")
+        : [];
 
     return (
-        <div className={`commandEntry`} id={entry.command} ref={commandRef}>
+        <div
+            className={`commandEntry ${className ?? ""}`.trim()}
+            id={entry.command}
+            ref={commandRef}
+        >
             <div
                 className={`commandEntryTitle d-flex flex-row align-items-center`}
                 onClick={() => setOpen(open !== true)}
             >
-                <div className={`entryLabel me-2`}>{entry.command}</div>
-                {entry?.isPremium && (
-                    <div className="text-premium me-2">
-                        <FontAwesomeIcon icon={faCrown} />
+                <div className={`entryLabel me-2`}>
+                    <div className="entryLabelSummary">
+                        <div className="entryLabelCommand bg-blurple-gradient">
+                            {prefix}
+                            {parent && parent.command + " "}
+                            {entry.command}
+                            {entry?.isPremium && (
+                                <div className="text-premium me-2">
+                                    {premium_icon}
+                                </div>
+                            )}
+                        </div>
+
+                        {entry.arguments && (
+                            <div
+                                className={`entryLabelArgs ${
+                                    open ? "opacity-0" : ""
+                                }`}
+                            >
+                                {req_args.length > 0 && (
+                                    <span className="entryLabelArgsReq">
+                                        {req_args.map((a) => (
+                                            <code key={uuid()}>{a.name}</code>
+                                        ))}
+                                    </span>
+                                )}
+                                {opt_args.length > 0 && (
+                                    <span className="entryLabelArgsOpt">
+                                        {<span className="optArgLabel">|</span>}
+                                        <span
+                                            className="optArgLabel"
+                                            style={{ fontSize: "0.8rem" }}
+                                        >
+                                            OPTIONAL
+                                        </span>
+                                        {opt_args.map((a: CommandArg) => (
+                                            <code key={uuid()}>{a.name}</code>
+                                        ))}
+                                    </span>
+                                )}
+                            </div>
+                        )}
+
+                        {entry.subcommands && (
+                            <span className="entryLabelSubcommands">
+                                + {entry.subcommands.length} sub-commands
+                            </span>
+                        )}
                     </div>
-                )}
-                <div className={`entryDescription ${open ? "d-none" : ""}`}>
-                    {entry.description.map((e) => (
-                        <span key={uuid()}>{e}</span>
-                    ))}
+                    <div className={`entryLabelDescription`}>
+                        {entry.description &&
+                            entry.description.map((e) => (
+                                <span key={uuid()}>{e}</span>
+                            ))}
+                    </div>
                 </div>
                 <div className="entryToggle ms-auto">
                     <FontAwesomeIcon
@@ -62,113 +113,87 @@ export default function CommandEntry(props: Props): React.ReactElement {
                     />
                 </div>
             </div>
-            <Collapse in={open} onEntered={() => executeScroll()}>
+            <Collapse in={open}>
                 <div className="m-0 p-0">
                     <div className="commandEntryBody">
-                        <h5>Description</h5>
-                        <div className="mb-4">
-                            {entry.description.map((e) => (
-                                <span key={uuid()}>{e}</span>
-                            ))}
-                        </div>
-
-                        <h5>Aliases</h5>
-                        <div className="mb-4">
-                            {entry.alias.length ? (
-                                entry.alias.map((a) => (
-                                    <code
-                                        className="me-2"
-                                        key={uuid()}
-                                        title={`.au ${a}`}
-                                        style={{ cursor: "default" }}
-                                    >
-                                        {a}
-                                    </code>
-                                ))
-                            ) : (
-                                <div className="text-muted">
-                                    <em>None</em>
+                        {entry.subcommands ? (
+                            <>
+                                <h5>Sub-commands</h5>
+                                <div>
+                                    {entry.subcommands.map((e) => (
+                                        <CommandEntry
+                                            entry={e}
+                                            hashRoute={hashRoute}
+                                            key={uuid()}
+                                            className="subcommand"
+                                            parent={entry}
+                                        />
+                                    ))}
                                 </div>
-                            )}
-                        </div>
-
-                        <h5>Arguments</h5>
-                        <div className="mb-4">
-                            {(req_args.length || opt_args.length) > 0 && (
-                                <h6>Required</h6>
-                            )}
-                            <div>
-                                <ArgTable cmd={entry.command} args={req_args} />
-                            </div>
-                            {opt_args.length > 0 && (
-                                <>
-                                    <br />
-                                    <h6>Optional</h6>
+                            </>
+                        ) : (
+                            <>
+                                <h5>Arguments</h5>
+                                <div className="mb-4">
+                                    {(req_args.length || opt_args.length) >
+                                        0 && <h6>Required</h6>}
                                     <div>
                                         <ArgTable
                                             cmd={entry.command}
-                                            args={opt_args}
+                                            args={req_args}
                                         />
                                     </div>
-                                </>
-                            )}
-                        </div>
+                                    {opt_args.length > 0 && (
+                                        <>
+                                            <br />
+                                            <h6>Optional</h6>
+                                            <div>
+                                                <ArgTable
+                                                    cmd={entry.command}
+                                                    args={opt_args}
+                                                />
+                                            </div>
+                                        </>
+                                    )}
+                                </div>
 
-                        <h5>Example</h5>
-                        <div className="">
-                            <div className="mock-chatbar">
-                                <div>
-                                    <FontAwesomeIcon
-                                        size="lg"
-                                        fontVariant="light"
-                                        icon={faPlusCircle}
-                                        className="icon-muted"
-                                    />
-                                </div>
-                                <div className="cmd-text">{entry.example}</div>
-                                <div className="ms-auto d-none d-md-block">
-                                    <FontAwesomeIcon
-                                        size="lg"
-                                        fontVariant="light"
-                                        icon={faGift}
-                                        className="icon-muted me-0"
-                                    />
-                                    <FontAwesomeIcon
-                                        size="lg"
-                                        fontVariant="light"
-                                        icon={faSmileBeam}
-                                        className="icon-muted"
-                                    />
-                                </div>
-                            </div>
-                            {entry.image && (
-                                <div className="text-center">
-                                    <Button
-                                        variant="secondary"
-                                        size="sm"
-                                        className="mt-2"
-                                        onClick={() => setImgOpen(!imgOpen)}
-                                        aria-controls={`${entry.command}-result`}
-                                        aria-expanded={imgOpen}
-                                    >
-                                        Show output
-                                    </Button>
-                                    <Collapse in={imgOpen}>
-                                        <div
-                                            className="text-center pt-2"
-                                            id={`${entry.command}-result`}
-                                        >
-                                            <Image
-                                                src={`images/commands/${entry.command}_result.png`}
-                                                rounded
-                                                className="shadow"
-                                                fluid
-                                            />
+                                {entry.example && (
+                                    <>
+                                        <h5>Example</h5>
+                                        <div className="">
+                                            <div className="mock-chatbar">
+                                                <div>
+                                                    <FontAwesomeIcon
+                                                        size="lg"
+                                                        fontVariant="light"
+                                                        icon={faPlusCircle}
+                                                        className="icon-muted"
+                                                    />
+                                                </div>
+                                                <div className="cmd-text">
+                                                    {prefix}
+                                                    {entry.example}
+                                                </div>
+                                                <div className="ms-auto d-none d-md-block">
+                                                    <FontAwesomeIcon
+                                                        size="lg"
+                                                        fontVariant="light"
+                                                        icon={faGift}
+                                                        className="icon-muted me-0"
+                                                    />
+                                                    <FontAwesomeIcon
+                                                        size="lg"
+                                                        fontVariant="light"
+                                                        icon={faSmileBeam}
+                                                        className="icon-muted"
+                                                    />
+                                                </div>
+                                            </div>
                                         </div>
-                                    </Collapse>
-                                </div>
-                            )}
-                        </div>
+                                    </>
+                                )}
+                            </>
+                        )}
                     </div>
                 </div>
             </Collapse>

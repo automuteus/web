@@ -33,7 +33,9 @@ export default function ArgTable(props: {
             <tbody>
                 {args.map((a) => (
                     <tr key={`${cmd}-arg-${a.name}`}>
-                        <td className="text-monospace">{a.name}</td>
+                        <td className="text-monospace" style={{whiteSpace: "nowrap"}}>
+                            <code>{a.name}</code>
+                        </td>
                         <td className="text-monospace">{a.type}</td>
                         <td>
                             {a.description.map((e, i) => (
@@ -42,14 +44,19 @@ export default function ArgTable(props: {
                         </td>
                         <td>
                             {a.values ? (
-                                a.values.map((v) => (
-                                    <code
-                                        key={`${cmd}-arg-${a.name}-${v}`}
-                                        className="me-2"
-                                    >
-                                        {v}
-                                    </code>
-                                ))
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        flexWrap: "wrap",
+                                        gap: "0.25rem",
+                                    }}
+                                >
+                                    {a.values.map((v) => (
+                                        <code key={`${cmd}-arg-${a.name}-${v}`}>
+                                            {v}
+                                        </code>
+                                    ))}
+                                </div>
                             ) : (
                                 <span className="text-muted">-</span>
                             )}
