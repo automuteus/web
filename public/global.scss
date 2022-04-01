@@ -93,6 +93,10 @@ body,
     z-index: 10;
 }
 
+.nprogress-custom-parent #content-container {
+    pointer-events: none;
+}
+
 #layout-container.theatric {
     background: radial-gradient(
             closest-side,
@@ -155,7 +159,7 @@ h6 {
     background: linear-gradient(
         to bottom right,
         var(--premium),
-        purple
+        #054d4e
     ) !important;
 }
 

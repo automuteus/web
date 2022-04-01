@@ -38,7 +38,7 @@ export default function AppLayout({
                     exit={{ opacity: 0 }}
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
-                    transition={{ duration: 0.35 }}
+                    transition={{ duration: 0.25 }}
                 >
                     {children}
                 </motion.main>
