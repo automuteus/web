@@ -63,7 +63,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                         {entry.arguments && (
                             <div
                                 className={`entryLabelArgs ${
-                                    open ? "opacity-0" : ""
+                                    open ? "opacity-md-0" : ""
                                 }`}
                             >
                                 {req_args.length > 0 && (
