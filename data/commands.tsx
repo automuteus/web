@@ -75,6 +75,8 @@ export const commands: Command[] = [
                     "yellow",
                     "black",
                     "white",
+                    "purple",
+                    "brown",
                     "cyan",
                     "lime",
                     "maroon",
@@ -174,7 +176,7 @@ export const commands: Command[] = [
                     {
                         name: "user",
                         level: "required",
-                        description: ["User to pull stats for"],
+                        description: ["User to clear stats for"],
                         type: "Discord @User",
                     },
                 ],
@@ -229,12 +231,12 @@ export const commands: Command[] = [
             {
                 command: "view user",
                 description: ["User cached names"],
-                example: "view user user:@Yoshirahh",
+                example: "debug view user user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
                         level: "required",
-                        description: ["User to pull stats for"],
+                        description: ["User to pull cache for"],
                         type: "Discord @User",
                     },
                 ],
@@ -242,12 +244,12 @@ export const commands: Command[] = [
             {
                 command: "clear",
                 description: ["Clear cached user names"],
-                example: "clear user:@Yoshirahh",
+                example: "debug clear user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
                         level: "required",
-                        description: ["User to pull stats for"],
+                        description: ["User to clear cache for"],
                         type: "Discord @User",
                     },
                 ],
@@ -255,12 +257,12 @@ export const commands: Command[] = [
             {
                 command: "unmute-all",
                 description: ["Unmute all players"],
-                example: "unmute-all",
+                example: "debug unmute-all",
             },
             {
                 command: "view game-state",
                 description: ["Print out the current game state"],
-                example: "view game-state",
+                example: "debug view game-state",
             },
         ],
     },
@@ -361,17 +363,17 @@ export const settings: Command[] = [
             {
                 command: "view",
                 description: ["View Admins"],
-                example: sprefix + "view",
+                example: sprefix + "admin-user-ids view",
             },
             {
                 command: "clear",
                 description: ["Clear Admins"],
-                example: sprefix + "clear",
+                example: sprefix + "admin-user-ids clear",
             },
             {
                 command: "user",
                 description: ["Set Discord user as an Admin"],
-                example: sprefix + "user user:@Yoshirahh",
+                example: sprefix + "admin-user-ids user user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
@@ -390,22 +392,22 @@ export const settings: Command[] = [
             {
                 command: "view",
                 description: ["View Operators"],
-                example: sprefix + "view",
+                example: sprefix + "operator-roles view",
             },
             {
                 command: "clear",
                 description: ["Clear Operators"],
-                example: sprefix + "clear",
+                example: sprefix + "operator-roles clear",
             },
             {
-                command: "user",
-                description: ["Set Discord user as an Operator"],
-                example: sprefix + "user user:@Yoshirahh",
+                command: "role",
+                description: ["Set Discord role as an Operator"],
+                example: sprefix + "operator-roles role role:@operators",
                 arguments: [
                     {
-                        name: "user",
-                        description: ["User to elevate"],
-                        type: "Discord @User",
+                        name: "role",
+                        description: ["Role to elevate"],
+                        type: "Discord @Role",
                         level: "required",
                     },
                 ],
@@ -447,7 +449,7 @@ export const settings: Command[] = [
         description: [
             "Game transition mute delays (between start and end phases)",
         ],
-        example: sprefix + "delays start-phase:LOBBY end-phase:TASKS delay:10 ",
+        example: sprefix + "delays start-phase:LOBBY end-phase:TASKS delay:10",
         arguments: [
             {
                 name: "start-phase",
