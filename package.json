@@ -37,6 +37,7 @@
         "log-symbols": "^5.1.0",
         "next": "12.1.0",
         "next-auth": "4.2.1",
+        "nprogress": "^0.2.0",
         "numeral": "^2.0.6",
         "react": "17.0.2",
         "react-bootstrap": "^2.1.2",

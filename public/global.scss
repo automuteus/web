@@ -26,6 +26,7 @@
 
 /* width */
 ::-webkit-scrollbar {
+    height: 10px;
     width: 10px;
 }
 
@@ -92,6 +93,10 @@ body,
     z-index: 10;
 }
 
+.nprogress-custom-parent #content-container {
+    pointer-events: none;
+}
+
 #layout-container.theatric {
     background: radial-gradient(
             closest-side,
@@ -154,7 +159,7 @@ h6 {
     background: linear-gradient(
         to bottom right,
         var(--premium),
-        purple
+        #054d4e
     ) !important;
 }
 
@@ -1006,7 +1011,7 @@ $shadows-small: multiple-box-shadow(1000);
         margin-left: 0.5rem;
         line-height: 1;
         padding: 0.5rem;
-        margin-left: auto;
+        margin-left: 0;
         margin-right: 0.5rem;
     }
 
@@ -1058,7 +1063,9 @@ $shadows-small: multiple-box-shadow(1000);
 
                 .entryLabelSummary {
                     display: flex;
-                    align-items: center;
+                    flex-direction: column;
+                    align-items: flex-start;
+                    gap: 0.25rem;
 
                     .entryLabelCommand {
                         padding: 0.25rem 0.5rem;
@@ -1076,11 +1083,19 @@ $shadows-small: multiple-box-shadow(1000);
                     .entryLabelArgs {
                         display: flex;
                         transition: opacity 150ms;
+                        flex-wrap: wrap;
 
                         .entryLabelArgsReq {
+                            display: block;
+                            margin: 0.35rem 0;
+
                             & > code {
                                 margin-left: 0.35rem;
                             }
+                        }
+
+                        .entryLabelArgsOpt {
+                            display: block;
                         }
 
                         .optArgLabel {
@@ -1095,9 +1110,6 @@ $shadows-small: multiple-box-shadow(1000);
                     font-size: 16px;
                     opacity: 0.75;
                     transition: opacity 150ms;
-                    white-space: nowrap;
-                    overflow: hidden;
-                    text-overflow: ellipsis;
                     flex: 0 1 auto;
                     min-width: 0;
                     font-weight: 300;
@@ -1145,5 +1157,34 @@ $shadows-small: multiple-box-shadow(1000);
                 margin-left: 0.75em;
             }
         }
+    }
+}
+
+@media (min-width: 768px) {
+    .commandsPage
+        .commandEntry
+        .commandEntryTitle
+        .entryLabel
+        .entryLabelSummary {
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .commandsPage .entryLabelSubcommands {
+        margin-left: auto;
+    }
+
+    .commandsPage
+        .commandEntry
+        .commandEntryTitle
+        .entryLabel
+        .entryLabelDescription {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .opacity-md-0 {
+        opacity: 0;
     }
 }
