@@ -165,6 +165,7 @@ export default function CommandsPage() {
                                         entry={cmd}
                                         hashRoute={hashRoute}
                                         key={uuid()}
+                                        prefix={data.prefix}
                                     />
                                 ))}
                             </div>
@@ -196,7 +197,7 @@ export default function CommandsPage() {
                                             entry={cmd}
                                             hashRoute={hashRoute}
                                             key={uuid()}
-                                            parent={{ command: "settings" }}
+                                            prefix={data.prefix + data.sprefix}
                                         />
                                     );
                                 })}
