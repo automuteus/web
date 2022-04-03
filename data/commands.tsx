@@ -1,7 +1,7 @@
-import Link from "next/link";
 import { Command } from "../types/Command";
 
 export const prefix = "/";
+export const sprefix = "settings ";
 
 export const commands: Command[] = [
     {
@@ -268,18 +268,16 @@ export const commands: Command[] = [
     },
 ];
 
-const sprefix = "settings ";
-
 export const settings: Command[] = [
     {
         command: "list",
         description: ["List all settings"],
-        example: sprefix + "list",
+        example: "list",
     },
     {
         command: "language",
         description: ["Bot language"],
-        example: sprefix + "language",
+        example: "language",
         arguments: [
             {
                 name: "language-code",
@@ -323,7 +321,6 @@ export const settings: Command[] = [
         command: "voice-rules",
         description: ["Bot round behavior"],
         example:
-            sprefix +
             "voice-rules deaf-or-muted:deafened phase:TASKS alive:alive value:True ",
         arguments: [
             {
@@ -363,17 +360,17 @@ export const settings: Command[] = [
             {
                 command: "view",
                 description: ["View Admins"],
-                example: sprefix + "admin-user-ids view",
+                example: "admin-user-ids view",
             },
             {
                 command: "clear",
                 description: ["Clear Admins"],
-                example: sprefix + "admin-user-ids clear",
+                example: "admin-user-ids clear",
             },
             {
                 command: "user",
                 description: ["Set Discord user as an Admin"],
-                example: sprefix + "admin-user-ids user user:@Yoshirahh",
+                example: "admin-user-ids user user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
@@ -392,17 +389,17 @@ export const settings: Command[] = [
             {
                 command: "view",
                 description: ["View Operators"],
-                example: sprefix + "operator-roles view",
+                example: "operator-roles view",
             },
             {
                 command: "clear",
                 description: ["Clear Operators"],
-                example: sprefix + "operator-roles clear",
+                example: "operator-roles clear",
             },
             {
                 command: "role",
                 description: ["Set Discord role as an Operator"],
-                example: sprefix + "operator-roles role role:@operators",
+                example: "operator-roles role role:@operators",
                 arguments: [
                     {
                         name: "role",
@@ -417,7 +414,7 @@ export const settings: Command[] = [
     {
         command: "unmute-dead",
         description: ["Bot unmutes deaths immediately"],
-        example: sprefix + "unmute-dead unmute:True",
+        example: "unmute-dead unmute:True",
         arguments: [
             {
                 name: "unmute",
@@ -433,7 +430,7 @@ export const settings: Command[] = [
     {
         command: "map-version",
         description: ["Map version"],
-        example: sprefix + "map-version detailed:True",
+        example: "map-version detailed:True",
         arguments: [
             {
                 name: "detailed",
@@ -449,7 +446,7 @@ export const settings: Command[] = [
         description: [
             "Game transition mute delays (between start and end phases)",
         ],
-        example: sprefix + "delays start-phase:LOBBY end-phase:TASKS delay:10",
+        example: "delays start-phase:LOBBY end-phase:TASKS delay:10",
         arguments: [
             {
                 name: "start-phase",
@@ -476,12 +473,12 @@ export const settings: Command[] = [
     {
         command: "show",
         description: ["Show all current settings as JSON"],
-        example: sprefix + "show",
+        example: "show",
     },
     {
         command: "reset",
         description: ["Reset bot settings to default values"],
-        example: sprefix + "reset",
+        example: "reset",
     },
 ];
 
@@ -490,7 +487,7 @@ export const premiumSettings: Command[] = [
         command: "match-summary-duration",
         description: ["How long the match summary message lasts"],
         isPremium: true,
-        example: sprefix + "match-summary-duration minutes-duration:10",
+        example: "match-summary-duration minutes-duration:10",
         arguments: [
             {
                 name: "minutes-duration",
@@ -506,7 +503,7 @@ export const premiumSettings: Command[] = [
         command: "match-summary-channel",
         description: ["Channel for match summary messages"],
         isPremium: true,
-        example: sprefix + "match-summary-channel channel:#general",
+        example: "match-summary-channel channel:#general",
         arguments: [
             {
                 name: "channel",
@@ -522,7 +519,7 @@ export const premiumSettings: Command[] = [
         command: "auto-refresh",
         description: ["Auto refresh status message"],
         isPremium: true,
-        example: sprefix + "auto-refresh autorefresh:True",
+        example: "auto-refresh autorefresh:True",
         arguments: [
             {
                 name: "autorefresh",
@@ -539,7 +536,7 @@ export const premiumSettings: Command[] = [
         command: "leaderboard-mention",
         description: ["Mention players in leaderboard"],
         isPremium: true,
-        example: sprefix + "leaderboard-mention use-mention:True",
+        example: "leaderboard-mention use-mention:True",
         arguments: [
             {
                 name: "use-mention",
@@ -556,7 +553,7 @@ export const premiumSettings: Command[] = [
         command: "leaderboard-size",
         description: ["Size of player leaderboard"],
         isPremium: true,
-        example: sprefix + "leaderboard-size size:10",
+        example: "leaderboard-size size:10",
         arguments: [
             {
                 name: "size",
@@ -570,7 +567,7 @@ export const premiumSettings: Command[] = [
         command: "leaderboard-min",
         description: ["Minimum games to be listed on player leaderboard"],
         isPremium: true,
-        example: sprefix + "leaderboard-min minimum:10",
+        example: "leaderboard-min minimum:10",
         arguments: [
             {
                 name: "minimum",
@@ -584,7 +581,7 @@ export const premiumSettings: Command[] = [
         command: "mute-spectators",
         description: ["Treat spectators like dead players"],
         isPremium: true,
-        example: sprefix + "mute-spectators mute:True",
+        example: "mute-spectators mute:True",
         arguments: [
             {
                 name: "mute",
@@ -601,7 +598,7 @@ export const premiumSettings: Command[] = [
         command: "display-room-code",
         description: ["Visibility of Among Us ROOM CODE"],
         isPremium: true,
-        example: sprefix + "display-room-code visibility:spoiler",
+        example: "display-room-code visibility:spoiler",
         arguments: [
             {
                 name: "visibility",

@@ -12,17 +12,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Command, CommandArg } from "../../types/Command";
 import ArgTable from "./ArgTable";
 import { premium_icon } from "../../pages/commands";
-import { prefix } from "../../data/commands";
 
 interface Props {
     entry: Command;
     hashRoute: string;
     className?: string;
     parent?: Command;
+    prefix?: string;
 }
 
 export default function CommandEntry(props: Props): React.ReactElement {
-    const { entry, hashRoute, className, parent } = props;
+    const { entry, hashRoute, className, parent, prefix } = props;
     const [open, setOpen] = useState<boolean>(false);
     const commandRef = useRef<HTMLDivElement>(null);
 
@@ -127,6 +127,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                             key={uuid()}
                                             className="subcommand"
                                             parent={entry}
+                                            prefix={prefix}
                                         />
                                     ))}
                                 </div>
