@@ -26,6 +26,8 @@ export const commands: Command[] = [
                     "map",
                     "stats",
                     "premium",
+                    "debug",
+                    "download",
                 ].sort(),
             },
         ],
