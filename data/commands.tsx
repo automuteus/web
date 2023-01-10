@@ -266,6 +266,26 @@ export const commands: Command[] = [
             },
         ],
     },
+    {
+        command: "download",
+        description: ["Download AutoMuteUs data"],
+        arguments: [
+            {
+                name: "category",
+                description: ["Data to download"],
+                type: "string",
+                level: "required",
+                values: [
+                    "guild",
+                    "users",
+                    "users_games",
+                    "games",
+                    "game_events",
+                ].sort(),
+            },
+        ],
+        example: "download category:games",
+    },
 ];
 
 export const settings: Command[] = [
