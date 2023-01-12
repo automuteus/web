@@ -271,6 +271,7 @@ export const commands: Command[] = [
     {
         command: "download",
         description: ["Download AutoMuteUs data"],
+        isPremium: true,
         arguments: [
             {
                 name: "category",

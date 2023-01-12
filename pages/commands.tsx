@@ -110,6 +110,9 @@ export default function CommandsPage() {
                                                         )
                                                     }
                                                 >
+                                                    {cmd.isPremium && (
+                                                        <>{premium_icon}</>
+                                                    )}{" "}
                                                     <span
                                                         style={{
                                                             fontFamily:
