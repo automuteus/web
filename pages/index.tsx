@@ -7,13 +7,13 @@ import Link from "next/link";
 
 import AppLayout from "../components/layout/AppLayout";
 import ServerStat from "../components/index/ServerStat";
-import { ServerStats } from "../types/ServerStats";
+import { BotInfo } from "../types/BotInfo";
 import { popupCenter } from "../utils/functions";
 
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
 
 export const getStaticProps: GetStaticProps = async () => {
-    const route = "https://api.automute.us/info";
+    const route = "https://api.automute.us/bot/info";
     const stats = await fetch(route).then((res) => res.json());
     return {
         props: { stats },
@@ -22,31 +22,31 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 type Props = {
-    stats: ServerStats;
+    info: BotInfo;
 };
 
 export default function Home(props: Props): React.ReactElement {
     const stats = [
         {
-            stat: props.stats.totalGuilds,
+            stat: props.info.TotalGuilds,
             base: 0,
             label: "Servers",
             format: "0a",
         },
         {
-            stat: props.stats.activeGames,
+            stat: props.info.ActiveGames,
             base: 0,
             label: "Active Games",
             format: "0",
         },
         {
-            stat: props.stats.totalUsers,
+            stat: props.info.TotalUsers,
             base: 0,
             label: "Users",
             format: "0a",
         },
         {
-            stat: props.stats.totalGames,
+            stat: props.info.TotalGames,
             base: 262000,
             label: "Games Muted",
             format: "0.00a",
