@@ -1,4 +1,4 @@
-export interface BotInfo {
+export interface ServerStats {
     activeGames: number;
     commit: string;
     totalGames: number;

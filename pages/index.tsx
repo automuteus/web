@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import AppLayout from "../components/layout/AppLayout";
 import ServerStat from "../components/index/ServerStat";
-import { BotInfo } from "../types/BotInfo";
+import { ServerStats } from "../types/ServerStats";
 import { popupCenter } from "../utils/functions";
 
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
@@ -22,31 +22,31 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 type Props = {
-    info: BotInfo;
+    stats: ServerStats;
 };
 
 export default function Home(props: Props): React.ReactElement {
     const stats = [
         {
-            stat: props.info.totalGuilds,
+            stat: props.stats.totalGuilds,
             base: 0,
             label: "Servers",
             format: "0a",
         },
         {
-            stat: props.info.activeGames,
+            stat: props.stats.activeGames,
             base: 0,
             label: "Active Games",
             format: "0",
         },
         {
-            stat: props.info.totalUsers,
+            stat: props.stats.totalUsers,
             base: 0,
             label: "Users",
             format: "0a",
         },
         {
-            stat: props.info.totalGames,
+            stat: props.stats.totalGames,
             base: 262000,
             label: "Games Muted",
             format: "0.00a",

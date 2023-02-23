@@ -41,7 +41,7 @@ DISCORD_CLIENT_SECRET=
 DATABASE_URL=
 #SHADOW_DATABASE_URL=
 
-# AutoMuteUs bot info
+# AutoMuteUs stats
 GALACTUS_API=http://localhost:5000/bot/info
 
 ```
