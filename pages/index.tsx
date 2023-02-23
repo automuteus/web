@@ -28,25 +28,25 @@ type Props = {
 export default function Home(props: Props): React.ReactElement {
     const stats = [
         {
-            stat: props.info.TotalGuilds,
+            stat: props.info.totalGuilds,
             base: 0,
             label: "Servers",
             format: "0a",
         },
         {
-            stat: props.info.ActiveGames,
+            stat: props.info.activeGames,
             base: 0,
             label: "Active Games",
             format: "0",
         },
         {
-            stat: props.info.TotalUsers,
+            stat: props.info.totalUsers,
             base: 0,
             label: "Users",
             format: "0a",
         },
         {
-            stat: props.info.TotalGames,
+            stat: props.info.totalGames,
             base: 262000,
             label: "Games Muted",
             format: "0.00a",
