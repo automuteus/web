@@ -42,7 +42,7 @@ DATABASE_URL=
 #SHADOW_DATABASE_URL=
 
 # AutoMuteUs stats
-GALACTUS_API=http://localhost:5858/api
+GALACTUS_API=http://localhost:5000/bot/info
 
 ```
 

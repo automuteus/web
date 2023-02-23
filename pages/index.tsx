@@ -13,7 +13,7 @@ import { popupCenter } from "../utils/functions";
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
 
 export const getStaticProps: GetStaticProps = async () => {
-    const route = "https://galactus.automute.us/";
+    const route = "https://api.automute.us/bot/info";
     const stats = await fetch(route).then((res) => res.json());
     return {
         props: { stats },
