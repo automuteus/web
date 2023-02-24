@@ -26,7 +26,7 @@
     --chakra-shadows-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
         0 10px 10px -5px rgba(0, 0, 0, 0.04);
     --chakra-shadows-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-    --chakra-shadows-outline: 0 0 0 3px rgba(66, 153, 225, 0.6);
+    --chakra-shadows-outline: 0 0 0 3px var(--blurple);
     --chakra-shadows-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
     --chakra-shadows-none: none;
     --chakra-shadows-dark-lg: rgba(0, 0, 0, 0.1) 0px 0px 0px 1px,
@@ -1219,5 +1219,53 @@ $shadows-small: multiple-box-shadow(1000);
 
     .opacity-md-0 {
         opacity: 0;
+    }
+}
+
+.apiPage {
+    .content {
+        .api-status {
+            border-radius: 0.5rem;
+            padding: 0.75rem;
+            background-color: var(--dark);
+
+            display: grid;
+            gap: 0.75rem;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+
+            @keyframes statCardUpdate {
+                0%, 100% {
+                    background-color: var(--darker);
+                    box-shadow: none;
+                }
+                
+                10% {
+                    background-color: var(--darkest);
+                    box-shadow: var(--chakra-shadows-outline);
+                }
+            }
+
+            .status-card {
+                background-color: var(--darker);
+                border-radius: 0.5rem;
+                padding: 0.5rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                animation: statCardUpdate 1s ease-out;
+
+                .metric {
+                    font-size: 1.75rem;
+                    font-weight: 500;
+                    font-family: monospace;
+                }
+
+                .label {
+                    font-size: 0.875rem;
+                    font-weight: 900;
+                    padding-bottom: 0.5rem;
+                }
+            }
+        }
     }
 }

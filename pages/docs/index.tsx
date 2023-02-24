@@ -38,10 +38,9 @@ const DocsPage: NextPage<Props> = (props) => {
                         by AutoMuteUs? Browse the API documentation for the
                         official bot.
                     </MyCard>
-                    <MyCard title={"Self-Hosting"} link={"/docs/self-hosting"}>
+                    <MyCard title={"Advanced Usage"} link={"/docs/advanced-usage"}>
                         Learn how increase responsiveness for high-player-count
-                        games using the additional capture bot or self-host
-                        features.
+                        games using the additional capture bot or other advanced options.
                     </MyCard>
                 </div>
             </div>
