@@ -7,7 +7,7 @@ import Link from "next/link";
 
 import AppLayout from "../components/layout/AppLayout";
 import ServerStat from "../components/index/ServerStat";
-import { ServerStats } from "../types/ServerStats";
+import { ServerStats } from "../types/client/ServerStats";
 import { popupCenter } from "../utils/functions";
 
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";

@@ -1,15 +1,14 @@
-import React from "react";
-import { signOut, signIn, useSession } from "next-auth/react";
-import { Navbar } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import {
     faBars,
-    faCode,
-    faCrown,
+    faBook, faCrown,
     faHome,
-    faSignOutAlt,
+    faSignOutAlt
 } from "@fortawesome/free-solid-svg-icons";
-import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { signIn, signOut, useSession } from "next-auth/react";
+import React from "react";
+import { Navbar } from "react-bootstrap";
 
 // Local imports
 import default_user from "../../public/images/discord_placeholder.png";
@@ -28,9 +27,9 @@ const navs: Array<HeaderLinkProps> = [
         icon: faCrown,
     },
     {
-        text: "Commands",
-        link: "/commands",
-        icon: faCode,
+        text: "Docs",
+        link: "/docs",
+        icon: faBook,
     },
     {
         text: "GitHub",

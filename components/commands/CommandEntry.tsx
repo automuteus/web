@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { Command, CommandArg } from "../../types/client/Command";
 import ArgTable from "./ArgTable";
-import { premium_icon } from "../../pages/commands";
+import { premium_icon } from "../../pages/docs/commands";
 
 interface Props {
     entry: Command;

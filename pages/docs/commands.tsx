@@ -2,13 +2,17 @@ import { v4 as uuid } from "uuid";
 import { Alert, Badge, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import * as data from "../data/commands";
+import * as data from "../../data/commands";
 
-import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
+import {
+    faAngleRight,
+    faCode,
+    faCrown,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
-import AppLayout from "../components/layout/AppLayout";
-import CommandEntry from "../components/commands/CommandEntry";
-import { Command } from "../types/client/Command";
+import AppLayout from "../../components/layout/AppLayout";
+import CommandEntry from "../../components/commands/CommandEntry";
+import { Command } from "../../types/client/Command";
 
 export const premium_icon = (
     <FontAwesomeIcon
@@ -49,11 +53,22 @@ export default function CommandsPage() {
         >
             <div className={`container pb-4 commandsPage`}>
                 <div className="d-block d-md-flex align-items-center justify-content-between">
-                    <h1>Commands</h1>
+                    <div className="d-flex align-items-center gap-3 mb-3">
+                        <h1 className="mb-0">Documentation</h1>
+                        <FontAwesomeIcon size="lg" icon={faAngleRight} />
+                        <h3 className="mb-0">Commands</h3>
+                    </div>
                     <span className="entryLabelSubcommands">
                         Current as of v7.0.4
                     </span>
                 </div>
+
+                <div>
+                    Browse the commands available to users when using the bot,
+                    and see what options AutoMuteUs Premium unlocks
+                </div>
+
+                <hr />
 
                 <div className="row">
                     <div
@@ -134,7 +149,7 @@ export default function CommandsPage() {
                     <div className="col">
                         <div>
                             <div>
-                                <h3 id="commands-list">General Commands</h3>
+                                <h4 id="commands-list">General Commands</h4>
                                 {commandsSorted.map((cmd) => (
                                     <CommandEntry
                                         entry={cmd}
@@ -146,7 +161,7 @@ export default function CommandsPage() {
                             </div>
 
                             <div className="mt-4">
-                                <h3 id="settings-list">Settings</h3>
+                                <h4 id="settings-list">Settings</h4>
                                 <Alert
                                     variant="transparent"
                                     className="text-light"
