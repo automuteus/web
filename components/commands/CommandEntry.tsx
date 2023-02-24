@@ -9,7 +9,7 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { Command, CommandArg } from "../../types/Command";
+import { Command, CommandArg } from "../../types/client/Command";
 import ArgTable from "./ArgTable";
 import { premium_icon } from "../../pages/commands";
 
@@ -173,7 +173,69 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                                 </div>
                                                 <div className="cmd-text">
                                                     {prefix}
-                                                    {entry.example}
+                                                    <div
+                                                        style={{
+                                                            display:
+                                                                "inline-flex",
+                                                            gap: "0.5em",
+                                                        }}
+                                                    >
+                                                        {entry.example
+                                                            .split(" ")
+                                                            .filter(
+                                                                (args) => !!args
+                                                            )
+                                                            .map((args, i) =>
+                                                                args.split(":")
+                                                                    .length >
+                                                                1 ? (
+                                                                    <span
+                                                                        style={{
+                                                                            fontWeight: 500,
+                                                                        }}
+                                                                    >
+                                                                        {args
+                                                                            .split(
+                                                                                /:(.*)/
+                                                                            )
+                                                                            .filter(
+                                                                                (args) => !!args
+                                                                            )
+                                                                            .map(
+                                                                                (
+                                                                                    opt,
+                                                                                    i
+                                                                                ) => (
+                                                                                    <span
+                                                                                        style={{
+                                                                                            padding:
+                                                                                                "4px 8px",
+                                                                                            borderRadius:
+                                                                                                i ===
+                                                                                                0
+                                                                                                    ? "4px 0 0 4px"
+                                                                                                    : "0 4px 4px 0",
+                                                                                            background:
+                                                                                                i ===
+                                                                                                0
+                                                                                                    ? "rgb(17, 18, 20)"
+                                                                                                    : "rgb(35, 36, 40)",
+                                                                                        }}
+                                                                                    >
+                                                                                        {
+                                                                                            opt
+                                                                                        }
+                                                                                    </span>
+                                                                                )
+                                                                            )}
+                                                                    </span>
+                                                                ) : (
+                                                                    <span>
+                                                                        {args}
+                                                                    </span>
+                                                                )
+                                                            )}
+                                                    </div>
                                                 </div>
                                                 <div className="ms-auto d-none d-md-block">
                                                     <FontAwesomeIcon

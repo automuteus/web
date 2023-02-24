@@ -8,7 +8,7 @@ import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import AppLayout from "../components/layout/AppLayout";
 import CommandEntry from "../components/commands/CommandEntry";
-import { Command } from "../types/Command";
+import { Command } from "../types/client/Command";
 
 export const premium_icon = (
     <FontAwesomeIcon
@@ -54,34 +54,6 @@ export default function CommandsPage() {
                         Current as of v7.0.4
                     </span>
                 </div>
-
-                <Alert
-                    variant="transparent"
-                    className="text-success"
-                    style={{ background: "var(--dark)" }}
-                >
-                    <h5 className="mb-2">
-                        <FontAwesomeIcon
-                            icon={faCode}
-                            className="me-2"
-                            fixedWidth
-                        />
-                        Slash commands are here!
-                    </h5>
-                    <div style={{ marginLeft: "2.1rem" }}>
-                        <a
-                            href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ"
-                            target={"_blank"}
-                            className="bg-success"
-                        >
-                            {" "}
-                            Discord slash commands
-                        </a>{" "}
-                        have arrived in AutoMuteUs. To use AutoMuteUs, from now
-                        on use <code>/</code> to see all commands available to
-                        you!
-                    </div>
-                </Alert>
 
                 <div className="row">
                     <div

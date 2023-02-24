@@ -1,5 +1,5 @@
 import { Table } from "react-bootstrap";
-import { CommandArg } from "../../types/Command";
+import { CommandArg } from "../../types/client/Command";
 
 export default function ArgTable(props: {
     cmd: string;

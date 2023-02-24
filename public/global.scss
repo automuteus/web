@@ -1086,8 +1086,8 @@ $shadows-small: multiple-box-shadow(1000);
                         flex-wrap: wrap;
 
                         .entryLabelArgsReq {
-                            display: block;
-                            margin: 0.35rem 0;
+                            display: flex;
+                            align-items: center;
 
                             & > code {
                                 margin-left: 0.35rem;
@@ -1095,7 +1095,8 @@ $shadows-small: multiple-box-shadow(1000);
                         }
 
                         .entryLabelArgsOpt {
-                            display: block;
+                            display: flex;
+                            align-items: center;
                         }
 
                         .optArgLabel {
