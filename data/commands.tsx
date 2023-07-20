@@ -262,6 +262,19 @@ export const commands: Command[] = [
                 example: "debug unmute-all",
             },
             {
+                command: "unmute",
+                description: ["Unmute myself, or a specific user"],
+                example: "debug unmute user:@Yoshirahh",
+                arguments: [
+                    {
+                        name: "user",
+                        level: "optional",
+                        description: ["User who should be unmuted/undeafened"],
+                        type: "Discord @User",
+                    },
+                ],
+            },
+            {
                 command: "view game-state",
                 description: ["Print out the current game state"],
                 example: "debug view game-state",
