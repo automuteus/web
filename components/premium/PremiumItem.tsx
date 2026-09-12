@@ -11,8 +11,8 @@ export interface Props {
     buttonText: string;
     paypalId: string;
     image: string;
-    price?: React.ReactFragment;
-    description?: React.ReactFragment;
+    price?: React.ReactNode;
+    description?: React.ReactNode;
     perks?: Array<PremiumItemPerk>;
     guildId?: number | string;
 }

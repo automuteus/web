@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { GetServerSideProps } from "next";
-import { getSession, signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Button, Modal } from "react-bootstrap";
-import prisma from "../../lib/prisma";
-import { Guild } from "@prisma/client";
+import { Button, Modal, Spinner } from "react-bootstrap";
+import { Guild } from "../../types/Guild";
 
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import {
@@ -23,38 +21,31 @@ import PremiumItem from "../../components/premium/PremiumItem";
 import { premium_items } from "../../data/premium_items";
 import PremiumPerk from "../../components/premium/PremiumPerk";
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-    const userId = await getSession(context).then(
-        (session: any) => session?.user?.id ?? undefined
-    );
-
-    let guilds: Guild[];
-    if (userId) {
-        const user = await prisma.user.findUnique({
-            where: {
-                id: userId,
-            },
-            include: {
-                guilds: true,
-            },
-        });
-        guilds = user ? user.guilds ?? [] : [];
-    }
-
-    return {
-        props: { guilds },
-    };
-};
-
-interface Props {
-    guilds: Guild[];
-}
-
-export default function PremiumPage(props: Props) {
+export default function PremiumPage() {
     const router = useRouter();
+    const { status } = useSession();
     const [guild, setGuild] = useState<string>();
     const [open, setOpen] = useState<boolean>(false);
-    const { guilds } = props;
+    // undefined = not loaded yet (or signed out); [] = signed in, nothing found
+    const [guilds, setGuilds] = useState<Guild[] | undefined>();
+
+    useEffect(() => {
+        if (status !== "authenticated") {
+            setGuilds(undefined);
+            return;
+        }
+
+        let cancelled = false;
+        fetch("/api/guilds")
+            .then((res) => (res.ok ? res.json() : []))
+            .catch(() => [])
+            .then((g: Guild[]) => {
+                if (!cancelled) setGuilds(g);
+            });
+        return () => {
+            cancelled = true;
+        };
+    }, [status]);
 
     useEffect(() => {
         if (router.query.guild && util.validGuild(router.query.guild)) {
@@ -82,18 +73,27 @@ export default function PremiumPage(props: Props) {
             <div className="container pb-4">
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>AutoMuteUs Premium</h1>
-                    {guilds ? (
+                    {status === "unauthenticated" ? (
+                        <button
+                            onClick={() => signIn("discord")}
+                            className="btn btn-sm btn-secondary"
+                        >
+                            Sign in to view your servers
+                        </button>
+                    ) : guilds ? (
                         <GuildSelect
                             guilds={guilds}
                             onSelect={handleGuildSelect}
                             initial={router.query.guild}
                         />
                     ) : (
-                        <button
-                            onClick={() => signIn("discord")}
-                            className="btn btn-sm btn-secondary"
-                        >
-                            Sign in to view your servers
+                        <button className="btn btn-sm btn-secondary" disabled>
+                            <Spinner
+                                animation="border"
+                                size="sm"
+                                className="me-2"
+                            />
+                            Loading your servers
                         </button>
                     )}
                 </div>

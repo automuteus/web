@@ -12,9 +12,18 @@ import { popupCenter } from "../utils/functions";
 
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
 
-export const getStaticProps: GetStaticProps = async () => {
-    const route = "https://api.automute.us/bot/info";
-    const stats = await fetch(route).then((res) => res.json());
+const API_URL = process.env.AUTOMUTEUS_API_URL || "https://api.automute.us";
+
+export const getStaticProps: GetStaticProps<Props> = async () => {
+    // If the API is unreachable (e.g. during a Docker build) render the page
+    // without numbers rather than failing the build; ISR will retry shortly.
+    let stats: ServerStats | null = null;
+    try {
+        const res = await fetch(`${API_URL}/bot/info`);
+        if (res.ok) stats = await res.json();
+    } catch (err) {
+        console.error("Failed to fetch bot info:", err);
+    }
     return {
         props: { stats },
         revalidate: 10,
@@ -22,31 +31,31 @@ export const getStaticProps: GetStaticProps = async () => {
 };
 
 type Props = {
-    stats: ServerStats;
+    stats: ServerStats | null;
 };
 
 export default function Home(props: Props): React.ReactElement {
     const stats = [
         {
-            stat: props.stats.totalGuilds,
+            stat: props.stats?.totalGuilds,
             base: 0,
             label: "Servers",
             format: "0a",
         },
         {
-            stat: props.stats.activeGames,
+            stat: props.stats?.activeGames,
             base: 0,
             label: "Active Games",
             format: "0",
         },
         {
-            stat: props.stats.totalUsers,
+            stat: props.stats?.totalUsers,
             base: 0,
             label: "Users",
             format: "0a",
         },
         {
-            stat: props.stats.totalGames,
+            stat: props.stats?.totalGames,
             base: 262000,
             label: "Games Muted",
             format: "0.00a",

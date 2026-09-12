@@ -1,52 +1,43 @@
 # AutoMute.us Web Application
 
+The public website for AutoMuteUs: landing page, command reference, and premium sign-up. It has no database of its own;
+signing in with Discord gives it a token it uses to list your servers, and everything else comes from the
+[AutoMuteUs API](https://github.com/automuteus/automuteus).
+
 ## Getting Started
 
-To run this application in development:
+Requires Node 20 or newer (`.nvmrc` pins 24) and Yarn 1.
 
 ```bash
 yarn install
 yarn dev
 ```
 
-To run this application in production:
+To run a production build:
 
 ```bash
-yarn install
 yarn build
-yarn start <PORT> # e.g. yarn start 8080
+yarn start -p <PORT> # e.g. yarn start -p 8080
 ```
 
 ## Environment Setup
 
-To properly run this application, you need the following services and files:
-
-- A PostgreSQL database with the schema defined in `prisma/schema.prisma` (TODO: have an `.sql` structure file here)
-- A dot-env file configured in the root folder as `.env` containing the variables as outlined in `.env.sample`:
+Create a `.env` file in the root folder:
 
 ```bash
-# JWT Secret
-SECRET=
-
-# NextAuth route base(s)
+# NextAuth: the public URL of this site and a random secret (e.g. `openssl rand -base64 32`)
 NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_URL_INTERNAL=http://localhost:3000
 NEXTAUTH_SECRET=
 
-# Discord oAuth
+# Discord OAuth application (https://discord.com/developers)
 DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 
-# Prisma DB connections
-DATABASE_URL=
-#SHADOW_DATABASE_URL=
-
-# AutoMuteUs stats
-GALACTUS_API=http://localhost:5000/bot/info
-
+# AutoMuteUs API used for the stats on the home page (optional, defaults to the public instance)
+AUTOMUTEUS_API_URL=https://api.automute.us
 ```
 
-Additionally, you'll need to set up a valid callback URL in your Discord application registration (https://discord.com/developers) under "OAuth2" settings to match the pattern
+In your Discord application, add a redirect under "OAuth2" matching
 
 ```
 <NEXTAUTH_URL>/api/auth/callback/discord
@@ -54,32 +45,26 @@ Additionally, you'll need to set up a valid callback URL in your Discord applica
 
 ## Deployment
 
-This application is deployed using Docker. To build and run this application:
+This application is deployed using Docker:
 
 ```bash
-docker build -t automuteus .
-docker run --name automuteus -dp <PORT>:3000 automuteus:latest
+docker build -t automuteus-web .
+docker run --name automuteus-web --env-file .env -dp <PORT>:3000 automuteus-web:latest
 ```
 
-You can stop and remove this application container with
+Stop and remove it with
 
 ```bash
-docker stop automuteus
-docker rm automuteus
+docker stop automuteus-web
+docker rm automuteus-web
 ```
-
-**Note:** The name `automuteus` in the above commands can be substituted with any name you prefer.
 
 ## Planned Features
 
-### General Features
+The web dashboard will allow configuration and control of instances of the hosted AutoMuteUs bot. All of it is meant to
+go through the AutoMuteUs API once it accepts Discord user tokens; the site itself stays stateless.
 
 - [x] **Discord sign-in**: sign in to the site with Discord OAuth2.
-
-### Web Dashboard
-
-The web dashboard will allow configuration and control of instances of the hosted AutoMuteUs bot.
-
 - [ ] **Discord server invites**: invite bot with specific link to servers that the user has admin permissions on
 - [ ] **Premium status checking**: check to see if a guild you're in has premium.
 - [ ] **Settings management**: edit bot configuration online and have it save, per server

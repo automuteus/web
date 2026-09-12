@@ -6,7 +6,7 @@ export interface PremiumItemPerk {
 export default function PremiumPerk(props: {
     perk: string;
     description: string;
-    icon: React.ReactFragment;
+    icon: React.ReactNode;
 }): React.ReactElement {
     const { perk, description, icon } = props;
     return (
