@@ -1,4 +1,4 @@
-import { Guild } from "@prisma/client";
+import { Guild } from "../../types/Guild";
 import React, { BaseSyntheticEvent, useState } from "react";
 import { Dropdown } from "react-bootstrap";
 import GuildEntry from "./GuildEntry";

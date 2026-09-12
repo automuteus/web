@@ -1,5 +1,4 @@
-import React, { useEffect } from "react";
-import { GetStaticProps } from "next";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faCrown } from "@fortawesome/free-solid-svg-icons";
@@ -12,41 +11,52 @@ import { popupCenter } from "../utils/functions";
 
 import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
 
-export const getStaticProps: GetStaticProps = async () => {
-    const route = "https://api.automute.us/bot/info";
-    const stats = await fetch(route).then((res) => res.json());
-    return {
-        props: { stats },
-        revalidate: 10,
-    };
-};
+const STATS_REFRESH_MS = 10_000;
 
-type Props = {
-    stats: ServerStats;
-};
+export default function Home(): React.ReactElement {
+    // Fetched in the browser rather than at build time so the numbers are
+    // always current and keep updating while the page is open.
+    const [live, setLive] = useState<ServerStats | undefined>();
 
-export default function Home(props: Props): React.ReactElement {
+    useEffect(() => {
+        let cancelled = false;
+        const load = () =>
+            fetch("/api/stats")
+                .then((res) => (res.ok ? res.json() : undefined))
+                .then((s: ServerStats | undefined) => {
+                    if (!cancelled && s) setLive(s);
+                })
+                .catch(() => {});
+
+        load();
+        const timer = setInterval(load, STATS_REFRESH_MS);
+        return () => {
+            cancelled = true;
+            clearInterval(timer);
+        };
+    }, []);
+
     const stats = [
         {
-            stat: props.stats.totalGuilds,
+            stat: live?.totalGuilds,
             base: 0,
             label: "Servers",
             format: "0a",
         },
         {
-            stat: props.stats.activeGames,
+            stat: live?.activeGames,
             base: 0,
             label: "Active Games",
             format: "0",
         },
         {
-            stat: props.stats.totalUsers,
+            stat: live?.totalUsers,
             base: 0,
             label: "Users",
             format: "0a",
         },
         {
-            stat: props.stats.totalGames,
+            stat: live?.totalGames,
             base: 262000,
             label: "Games Muted",
             format: "0.00a",

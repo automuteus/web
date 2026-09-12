@@ -1,5 +1,4 @@
-import { v4 as uuid } from "uuid";
-import { Alert, Badge, Nav } from "react-bootstrap";
+import { Alert, Nav } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as data from "../data/commands";
@@ -167,7 +166,7 @@ export default function CommandsPage() {
                                     <CommandEntry
                                         entry={cmd}
                                         hashRoute={hashRoute}
-                                        key={uuid()}
+                                        key={cmd.command}
                                         prefix={data.prefix}
                                     />
                                 ))}
@@ -199,7 +198,7 @@ export default function CommandsPage() {
                                         <CommandEntry
                                             entry={cmd}
                                             hashRoute={hashRoute}
-                                            key={uuid()}
+                                            key={cmd.command}
                                             prefix={data.prefix + data.sprefix}
                                         />
                                     );

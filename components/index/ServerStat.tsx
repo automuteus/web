@@ -28,8 +28,8 @@ export default function ServerStat({
         <OverlayTrigger
             placement={"bottom"}
             overlay={
-                <Tooltip id={`tooltip-${metric}`}>
-                    {stat ? stat + base : ""}
+                <Tooltip id={`tooltip-${label}`}>
+                    {stat !== undefined ? stat + base : ""}
                 </Tooltip>
             }
         >
