@@ -73,7 +73,3 @@ jobs:
           labels: ${{ steps.docker_meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-
-      - name: Update deployment
-        if: github.ref == 'refs/heads/main'
-        run: curl -d "${{ secrets.SIMPLE_UPDATE_TOKEN }}" -X POST https://simpleupdate.automute.us/v0/automuteus-ui/automuteus-ui
