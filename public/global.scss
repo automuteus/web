@@ -1,3 +1,4 @@
+@use "sass:math";
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&family=Lato:wght@400;700;800&display=swap");
 
 :root {
@@ -651,9 +652,9 @@ div#home-stats {
 }
 
 @function multiple-box-shadow($n) {
-    $value: "#{random(150)}vw #{random(150)}vh #FFF";
+    $value: "#{math.random(150)}vw #{math.random(150)}vh #FFF";
     @for $i from 2 through $n {
-        $value: "#{$value} , #{random(150)}vw #{random(150)}vh #FFF";
+        $value: "#{$value} , #{math.random(150)}vw #{math.random(150)}vh #FFF";
     }
 
     @return unquote($value);
@@ -666,14 +667,14 @@ $shadows-small: multiple-box-shadow(1000);
     opacity: 0.85;
     z-index: 1;
     background: transparent;
-    transform: translateY(-100%), scale((random(150) + 100) / 100);
+    transform: translateY(-100%), scale(math.div(math.random(150) + 100, 100));
     width: 1px;
     height: 1px;
     box-shadow: $shadows-small;
 
     &:after {
         content: " ";
-        transform: scale((random(200) + 150) / 100);
+        transform: scale(math.div(math.random(200) + 150, 100));
         transform-origin: center;
         position: absolute;
         background: transparent;

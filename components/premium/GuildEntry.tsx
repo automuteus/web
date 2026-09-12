@@ -1,4 +1,4 @@
-import { Guild } from "@prisma/client";
+import { Guild } from "../../types/Guild";
 import { Dropdown } from "react-bootstrap";
 
 interface Props extends Guild {
@@ -7,7 +7,7 @@ interface Props extends Guild {
 
 export default function GuildEntry(props: Props): React.ReactElement {
     const { unwrapped, ...g } = props;
-    let icon: React.ReactFragment;
+    let icon: React.ReactNode;
     if (g.icon) {
         const ext = g.icon.startsWith("a_") ? "gif" : "webp";
         const img_src = `https://cdn.discordapp.com/icons/${g.id}/${g.icon}.${ext}`;

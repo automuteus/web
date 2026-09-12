@@ -1,4 +1,3 @@
-import { v4 as uuid } from "uuid";
 import { useEffect, useRef, useState } from "react";
 import { Collapse } from "react-bootstrap";
 import {
@@ -69,7 +68,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                 {req_args.length > 0 && (
                                     <span className="entryLabelArgsReq">
                                         {req_args.map((a) => (
-                                            <code key={uuid()}>{a.name}</code>
+                                            <code key={a.name}>{a.name}</code>
                                         ))}
                                     </span>
                                 )}
@@ -83,7 +82,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                             OPTIONAL
                                         </span>
                                         {opt_args.map((a: CommandArg) => (
-                                            <code key={uuid()}>{a.name}</code>
+                                            <code key={a.name}>{a.name}</code>
                                         ))}
                                     </span>
                                 )}
@@ -98,8 +97,8 @@ export default function CommandEntry(props: Props): React.ReactElement {
                     </div>
                     <div className={`entryLabelDescription`}>
                         {entry.description &&
-                            entry.description.map((e) => (
-                                <span key={uuid()}>{e}</span>
+                            entry.description.map((e, i) => (
+                                <span key={i}>{e}</span>
                             ))}
                     </div>
                 </div>
@@ -124,7 +123,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                         <CommandEntry
                                             entry={e}
                                             hashRoute={hashRoute}
-                                            key={uuid()}
+                                            key={e.command}
                                             className="subcommand"
                                             parent={entry}
                                             prefix={prefix}

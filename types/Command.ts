@@ -1,7 +1,7 @@
 export interface Command {
     command: string;
     subcommands?: Command[];
-    description?: Array<string | React.ReactFragment>;
+    description?: Array<string | React.ReactNode>;
     arguments?: Array<CommandArg>;
     example?: string;
     image?: boolean;
@@ -12,7 +12,7 @@ export interface Command {
 export interface CommandArg {
     name: string;
     type: string;
-    description: Array<string | React.ReactFragment>;
+    description: Array<string | React.ReactNode>;
     values?: Array<any>;
     level: "required" | "optional";
 }

@@ -1,8 +1,6 @@
 import { SessionProvider } from "next-auth/react";
 import { AppProps } from "next/app";
 import { AnimatePresence } from "framer-motion";
-import SSRProvider from "react-bootstrap/SSRProvider";
-import "reflect-metadata";
 import NProgress from "nprogress";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -17,13 +15,10 @@ import { useEffect } from "react";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     const router = useRouter();
-    NProgress.configure({ parent: "#__next", trickleSpeed: 100 });
 
     useEffect(() => {
-        const handleStart = (url) => {
-            console.log(`Loading: ${url}`);
-            NProgress.start();
-        };
+        NProgress.configure({ parent: "#__next", trickleSpeed: 100 });
+        const handleStart = () => NProgress.start();
         const handleStop = () => {
             NProgress.done();
         };
@@ -40,14 +35,14 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     }, [router]);
 
     return (
-        <SSRProvider>
+        <>
             <div className="stars"></div>
             <SessionProvider session={session}>
-                <AnimatePresence exitBeforeEnter initial={false}>
+                <AnimatePresence mode="wait" initial={false}>
                     <Component {...pageProps} key={router.route} />
                 </AnimatePresence>
             </SessionProvider>
-        </SSRProvider>
+        </>
     );
 };
 
