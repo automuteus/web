@@ -9,11 +9,6 @@ FROM node:24-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-
-# The home page fetches bot stats at build time; point this at a reachable
-# API or leave it unset to fall back to the public one.
-ARG AUTOMUTEUS_API_URL
-ENV AUTOMUTEUS_API_URL=${AUTOMUTEUS_API_URL}
 ENV NEXT_TELEMETRY_DISABLED=1
 
 RUN yarn build
