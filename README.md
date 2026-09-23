@@ -66,7 +66,7 @@ The web dashboard will allow configuration and control of instances of the hoste
 go through the AutoMuteUs API using Discord user tokens; the site itself stays stateless.
 
 - [x] **Discord sign-in**: sign in to the site with Discord OAuth2.
-- [ ] **Discord server invites**: invite bot with specific link to servers that the user has admin permissions on
+- [x] **Discord server invites**: invite bot with specific link to servers that the user has admin permissions on
 - [ ] **Premium status checking**: check to see if a guild you're in has premium.
 - [ ] **Settings management**: edit bot configuration online and have it save, per server
   - [ ] Shareable settings: add ability to publish popular bot configs and share them
@@ -81,11 +81,15 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | --- | --- | --- |
 | `/api/guild/settings` | `/guild/settings` | `guildID` |
 | `/api/guild/premium` | `/guild/premium` | `guildID` |
+| `/api/guild/bot` | `/guild/bot` | `guildID` |
+| `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
 
 Example: `fetch("/api/guild/settings?guildID=123456789012345678")`.
-The `/settings` page uses the settings route. Writes and game discovery are not
+The `/settings` page uses the settings and bot routes. The bot route adds an
+`invite` URL when the bot is absent, built from `DISCORD_CLIENT_ID` and
+preselecting that server. Writes and game discovery are not
 yet implemented. The game endpoints still require a known
 capture connect code. Go returns a filtered member game view and verifies that
 room-code reads belong to the authorized guild.
@@ -126,9 +130,24 @@ and mocked upstream HTTP, including token rotation and cookie persistence.
 ## Server settings page
 
 Open `/settings` or use Settings in the navigation. Sign in, select a Discord
-server, and view its voice rules, transition delays, display preferences, match
-summaries, leaderboard settings, and configured bot access. A selection is
-shareable as `/settings?guild=<guild ID>`; each visitor still needs membership.
+server, and view its voice rules, transition delays, display preferences, and
+match summary options. Leaderboard settings and bot admin/operator IDs are not
+shown: stats are moving to this UI and those settings will be retired. Only servers the
+user owns or holds the Administrator permission in are listed, matching the Go
+API's rule for who may change settings. A selection is shareable as
+`/settings?guild=<guild ID>`; each visitor still needs to own or administer it.
+
+Values that differ from the bot's defaults carry a **Changed** badge whose
+tooltip shows the default, and each card counts its changed settings. Defaults
+come from the Go API's public `/bot/settings/defaults` route, so the two never
+drift; if that request fails the page just shows no markers. Settings the bot
+applies only on premium servers carry a gold **Premium** badge. That list is
+kept in the view, mirroring the Go settings package's premium snapshot.
+
+If the bot is not in the selected server, the page offers an invite link that
+preselects that server instead of showing settings. Membership comes from the
+guild join and leave events the bot has processed, so it may lag briefly after
+an invite or a removal; use the refresh button after inviting.
 
 This first version is read-only for everyone. Continue using Discord `/settings`
 to make changes, then use Refresh settings to reload. Missing response fields

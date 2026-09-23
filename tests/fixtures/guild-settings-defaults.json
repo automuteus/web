@@ -1,0 +1,64 @@
+{
+  "adminIDs": [],
+  "permissionRoleIDs": [],
+  "language": "en",
+  "voiceRules": {
+    "MuteRules": {
+      "DISCUSSION": {
+        "alive": false,
+        "dead": true
+      },
+      "LOBBY": {
+        "alive": false,
+        "dead": false
+      },
+      "TASKS": {
+        "alive": true,
+        "dead": false
+      }
+    },
+    "DeafRules": {
+      "DISCUSSION": {
+        "alive": false,
+        "dead": false
+      },
+      "LOBBY": {
+        "alive": false,
+        "dead": false
+      },
+      "TASKS": {
+        "alive": true,
+        "dead": false
+      }
+    }
+  },
+  "mapVersion": "simple",
+  "delays": {
+    "delays": {
+      "DISCUSSION": {
+        "DISCUSSION": 0,
+        "LOBBY": 6,
+        "TASKS": 7
+      },
+      "LOBBY": {
+        "DISCUSSION": 0,
+        "LOBBY": 0,
+        "TASKS": 7
+      },
+      "TASKS": {
+        "DISCUSSION": 0,
+        "LOBBY": 1,
+        "TASKS": 0
+      }
+    }
+  },
+  "deleteGameSummary": 0,
+  "unmuteDeadDuringTasks": false,
+  "autoRefresh": false,
+  "matchSummaryChannelID": "",
+  "leaderboardMention": true,
+  "leaderboardSize": 3,
+  "leaderboardMin": 3,
+  "muteSpectator": false,
+  "displayRoomCode": "always"
+}

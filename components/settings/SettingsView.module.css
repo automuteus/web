@@ -7,7 +7,9 @@
 .selector { flex: 1; min-width: 0; }
 .selector label { display: block; margin-bottom: 8px; font-size: .9rem; }
 .selector select { width: 100%; background: #171c23; color: #fff; border: 1px solid #67748b; padding: 12px; border-radius: 8px; }
-.button { border: 1px solid #7785a0; background: #343e53; color: #fff; padding: 11px 18px; border-radius: 8px; font-weight: 700; }
+.button { display: inline-block; border: 1px solid #7785a0; background: #343e53; color: #fff; padding: 11px 18px; border-radius: 8px; font-weight: 700; text-decoration: none; line-height: normal; }
+.state .button + .button { margin-left: 12px; }
+a.button:hover { color: #fff; text-decoration: none; }
 .button:hover { background: #445472; }
 .button:disabled { opacity: .5; cursor: not-allowed; }
 .button:focus-visible, .selector select:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 3px; }
@@ -56,3 +58,12 @@
 .voiceAllowed { color: #bce7db; background: #253e3b; }
 .headphoneIcon { display: inline-flex; position: relative; align-items: center; justify-content: center; width: 1.25em; }
 .iconSlash { position: absolute; width: 1.25em; height: 1.25em; }
+
+.cardHeading { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.changedCount { margin-left: auto; color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; border-radius: 30px; padding: 3px 10px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.premiumBadge, .changedBadge { border-radius: 30px; padding: 2px 9px; font-size: .7rem; font-weight: 700; margin-left: 8px; vertical-align: middle; white-space: nowrap; }
+.premiumBadge { color: #ffd98a; background: #3f341c; border: 1px solid #8a6a2c; }
+.changedBadge { color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; }
+.changedValue { color: #e6efff; }
+.changedCell { background: #262f42; }
+.table td .changedBadge { display: inline-flex; margin: 6px 0 0; }

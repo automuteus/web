@@ -22,6 +22,8 @@ const { getServerSession } = require("next-auth/next");
 const { authOptions } = require("../utils/server/auth.ts");
 const { createAPIReadHandler } = require("../utils/server/api-proxy.ts");
 const guildsHandler = require("../pages/api/guilds.ts").default;
+const { default: botHandler, inviteURL, BOT_PERMISSIONS } = require("../pages/api/guild/bot.ts");
+const defaultsHandler = require("../pages/api/settings/defaults.ts").default;
 const guild = "123456789012345678";
 
 function response() {
@@ -80,6 +82,71 @@ test("all four fixed routes forward only session credentials and approved parame
         assert.ok(res.getHeader("Set-Cookie"));
         assert.ok(!JSON.stringify(res.body).includes("discord-access"));
     }
+});
+
+test("bot presence route adds a server-specific invite only when the bot is absent", async (t) => {
+    process.env.DISCORD_CLIENT_ID = "753795015830011944";
+    t.after(() => { process.env.DISCORD_CLIENT_ID = "test-client"; });
+    mockFetch(t, async (url) => { assert.equal(url.pathname, "/guild/bot"); return json({ present: true, extra: "ignored" }); });
+    let res = response();
+    await botHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { present: true });
+
+    mockFetch(t, async () => json({ present: false }));
+    res = response();
+    await botHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.body.present, false);
+    const invite = new URL(res.body.invite);
+    assert.equal(invite.origin + invite.pathname, "https://discord.com/oauth2/authorize");
+    assert.equal(invite.searchParams.get("client_id"), "753795015830011944");
+    assert.equal(invite.searchParams.get("guild_id"), guild);
+    assert.equal(invite.searchParams.get("permissions"), BOT_PERMISSIONS);
+    assert.equal(invite.searchParams.get("scope"), "bot applications.commands");
+    assert.equal(invite.searchParams.get("disable_guild_select"), "true");
+    assert.ok(!res.body.invite.includes("discord-access"));
+
+    // Without a valid numeric client ID the page falls back to the generic invite; no half-built URL is sent.
+    assert.equal(inviteURL(undefined, guild), undefined);
+    assert.equal(inviteURL("test-client", guild), undefined);
+    for (const body of [{ present: "yes" }, {}, null, [true]]) {
+        mockFetch(t, async () => json(body));
+        res = response();
+        await botHandler(await request(), res);
+        assert.equal(res.statusCode, 502);
+    }
+});
+
+test("default settings route needs no session, sends no credentials, and is cacheable", async (t) => {
+    const anonymous = { method: "GET", headers: {}, cookies: {}, query: {} };
+    mockFetch(t, async (url, init) => {
+        assert.equal(url.origin, "https://go.example.test");
+        assert.equal(url.pathname, "/bot/settings/defaults");
+        assert.deepEqual(init.headers, { Accept: "application/json" });
+        assert.equal(init.redirect, "error");
+        return json({ language: "en", mapVersion: "simple" });
+    });
+    let res = response();
+    await defaultsHandler(anonymous, res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { language: "en", mapVersion: "simple" });
+    assert.equal(res.getHeader("Cache-Control"), "public, max-age=300");
+
+    for (const upstream of [async () => json({ nope: true }), async () => json([]), async () => json({}, 500), async () => { throw new Error("secret"); }]) {
+        mockFetch(t, upstream);
+        res = response();
+        await defaultsHandler(anonymous, res);
+        assert.equal(res.statusCode, 502);
+        assert.equal(res.getHeader("Cache-Control"), "no-store");
+        assert.ok(!JSON.stringify(res.body).includes("secret"));
+    }
+    let calls = 0;
+    mockFetch(t, async () => { calls++; throw new Error("unexpected fetch"); });
+    res = response();
+    await defaultsHandler({ ...anonymous, method: "POST" }, res);
+    assert.equal(res.statusCode, 405);
+    assert.equal(calls, 0);
 });
 
 test("missing session and failed refresh never contact the Go API", async (t) => {
@@ -197,7 +264,7 @@ test("guild picker keeps non-admin guilds and paginates Discord", async (t) => {
         assert.equal(url.origin, "https://discord.com");
         assert.equal(init.headers.Authorization, "Bearer discord-access");
         assert.equal(url.searchParams.get("limit"), "200");
-        const g = (id) => ({ id: String(id), name: "Guild", permissions: "0", icon: null });
+        const g = (id) => ({ id: String(id), name: "Guild", permissions: "0", owner: false, icon: null });
         if (calls === 1) return json(Array.from({ length: 200 }, (_, i) => g(123456789012345678n + BigInt(i))));
         assert.equal(url.searchParams.get("after"), "123456789012345877");
         return json([g(223456789012345678n)]);
@@ -206,8 +273,15 @@ test("guild picker keeps non-admin guilds and paginates Discord", async (t) => {
     await guildsHandler(await request(), res);
     assert.equal(res.statusCode, 200);
     assert.equal(res.body.length, 201);
-    assert.ok(res.body.every((g) => g.permissions === "0"));
+    assert.ok(res.body.every((g) => g.permissions === "0" && g.owner === false));
     assert.equal(res.getHeader("Cache-Control"), "no-store");
+});
+
+test("guild picker rejects Discord guilds without an owner flag", async (t) => {
+    mockFetch(t, async () => json([{ id: "123456789012345678", name: "Guild", permissions: "8", icon: null }]));
+    const res = response();
+    await guildsHandler(await request(), res);
+    assert.equal(res.statusCode, 502);
 });
 
 test("guild picker also refreshes before contacting Discord", async (t) => {

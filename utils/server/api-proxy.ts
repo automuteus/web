@@ -1,11 +1,28 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getDiscordAccessToken } from "./discord-session";
 
-type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/game/state" | "/game/roomcode";
-const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/game/state", "/game/roomcode"];
+type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/game/state" | "/game/roomcode";
+const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/game/state", "/game/roomcode"];
+
+/** Optional reshaping of a successful upstream body before it reaches the browser. Throwing means the upstream
+ * body was not what this route expects and the browser gets a 502 instead of a partial object. */
+export type ResponseShaper = (body: unknown, context: { guildID: string }) => unknown;
+
+/** Server-controlled Go API URL for one fixed endpoint. Credentials in the configured URL are rejected so a
+ * user's Discord token can never be forwarded to a different host. */
+export function upstreamURL(endpoint: string): URL {
+    const url = new URL(process.env.AUTOMUTEUS_API_URL || "https://api.automute.us");
+    if (!["https:", "http:"].includes(url.protocol) || url.username || url.password) {
+        throw new Error("Invalid API URL");
+    }
+    url.pathname = url.pathname.replace(/\/$/, "") + endpoint;
+    url.search = "";
+    url.hash = "";
+    return url;
+}
 
 /** Fixed, read-only routes. Go remains responsible for guild authorization. */
-export function createAPIReadHandler(endpoint: ReadEndpoint) {
+export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseShaper) {
     if (!endpoints.includes(endpoint)) throw new Error("Unsupported API endpoint");
     return async function handler(req: NextApiRequest, res: NextApiResponse) {
         res.setHeader("Cache-Control", "no-store");
@@ -26,19 +43,12 @@ export function createAPIReadHandler(endpoint: ReadEndpoint) {
             const token = await getDiscordAccessToken(req, res);
             if (!token) return res.status(401).json({ error: "Sign in with Discord again" });
 
-            // Only a server-controlled URL is used. Reject credentials and redirects
-            // so the user's Discord token cannot be forwarded to a different host.
-            const upstreamURL = new URL(process.env.AUTOMUTEUS_API_URL || "https://api.automute.us");
-            if (!["https:", "http:"].includes(upstreamURL.protocol) || upstreamURL.username || upstreamURL.password) {
-                throw new Error("Invalid API URL");
-            }
-            upstreamURL.pathname = upstreamURL.pathname.replace(/\/$/, "") + endpoint;
-            upstreamURL.search = "";
-            upstreamURL.hash = "";
-            upstreamURL.searchParams.set("guildID", guildID);
-            if (game) upstreamURL.searchParams.set("connectCode", connectCode as string);
+            // Only a server-controlled URL is used, and redirects are rejected below.
+            const target = upstreamURL(endpoint);
+            target.searchParams.set("guildID", guildID);
+            if (game) target.searchParams.set("connectCode", connectCode as string);
 
-            const upstream = await fetch(upstreamURL, {
+            const upstream = await fetch(target, {
                 headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
                 cache: "no-store",
                 redirect: "error",
@@ -57,7 +67,8 @@ export function createAPIReadHandler(endpoint: ReadEndpoint) {
                 // Do not reflect upstream error bodies, cookies, or headers.
                 return res.status(status).json({ error: messages[status] || "API request failed" });
             }
-            return res.status(200).json(await upstream.json());
+            const body = await upstream.json();
+            return res.status(200).json(shape ? shape(body, { guildID }) : body);
         } catch {
             return res.status(502).json({ error: "API request failed" });
         }

@@ -3,6 +3,21 @@ export interface Guild {
     id: string;
     name: string;
     icon: string | null;
+    /** True when the signed-in user owns the guild. */
+    owner: boolean;
     /** Permission bitfield as a decimal string, as Discord returns it. */
     permissions: string;
+}
+
+// Bit 3 of Discord's permission bitfield. BigInt() call form because tsconfig targets ES5.
+const ADMINISTRATOR = BigInt(8);
+
+/** Whether the user can change this guild's settings. Mirrors the Go API's
+ * WriteSettings policy: guild owner or Discord Administrator permission.
+ * The bitfield exceeds 53 bits, so it must be parsed as a BigInt.
+ */
+export function canManageGuild(guild: Pick<Guild, "owner" | "permissions">): boolean {
+    if (guild.owner === true) return true;
+    if (typeof guild.permissions !== "string" || !/^[0-9]+$/.test(guild.permissions)) return false;
+    return (BigInt(guild.permissions) & ADMINISTRATOR) !== BigInt(0);
 }

@@ -38,11 +38,11 @@ export default async function handler(
             for (const g of data) {
                 if (!g || typeof g.id !== "string" || !/^[0-9]{17,20}$/.test(g.id) ||
                     typeof g.name !== "string" || typeof g.permissions !== "string" ||
-                    !/^[0-9]+$/.test(g.permissions) ||
+                    !/^[0-9]+$/.test(g.permissions) || typeof g.owner !== "boolean" ||
                     (g.icon != null && typeof g.icon !== "string")) {
                     throw new Error("Invalid guild");
                 }
-                guilds.push({ id: g.id, name: g.name, icon: g.icon ?? null, permissions: g.permissions });
+                guilds.push({ id: g.id, name: g.name, icon: g.icon ?? null, owner: g.owner, permissions: g.permissions });
             }
             if (data.length < 200) return res.status(200).json(guilds);
             const next = data[data.length - 1].id;
