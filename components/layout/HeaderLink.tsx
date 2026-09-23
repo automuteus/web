@@ -20,18 +20,21 @@ export default function HeaderLink(props: Props): React.ReactElement {
                 props.link === router.pathname ? "active" : ""
             }`}
         >
-            <Link href={props.link}>
-                <a className="nav-link" target={props?.newtab ? "_blank" : ""}>
-                    {props.icon && (
-                        <FontAwesomeIcon
-                            icon={props.icon}
-                            fixedWidth
-                            size="1x"
-                            className="me-2"
-                        />
-                    )}
-                    {props.text}
-                </a>
+            <Link
+                href={props.link}
+                className="nav-link"
+                target={props.newtab ? "_blank" : undefined}
+                rel={props.newtab ? "noopener noreferrer" : undefined}
+            >
+                {props.icon && (
+                    <FontAwesomeIcon
+                        icon={props.icon}
+                        fixedWidth
+                        size="1x"
+                        className="me-2"
+                    />
+                )}
+                {props.text}
             </Link>
         </li>
     );

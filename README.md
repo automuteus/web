@@ -85,8 +85,8 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
 
 Example: `fetch("/api/guild/settings?guildID=123456789012345678")`.
-These routes are ready for dashboard callers; this change does not add dashboard
-screens, writes, or game discovery. The game endpoints still require a known
+The `/settings` page uses the settings route. Writes and game discovery are not
+yet implemented. The game endpoints still require a known
 capture connect code. Go returns a filtered member game view and verifies that
 room-code reads belong to the authorized guild.
 
@@ -122,3 +122,18 @@ shared refresh coordinator can be added if production traffic warrants it.
 Validation: `yarn test` exercises the routes with real encrypted NextAuth cookies
 and mocked upstream HTTP, including token rotation and cookie persistence.
 `yarn typecheck` checks TypeScript; `yarn build` checks the production build.
+
+## Server settings page
+
+Open `/settings` or use Settings in the navigation. Sign in, select a Discord
+server, and view its voice rules, transition delays, display preferences, match
+summaries, leaderboard settings, and configured bot access. A selection is
+shareable as `/settings?guild=<guild ID>`; each visitor still needs membership.
+
+This first version is read-only for everyone. Continue using Discord `/settings`
+to make changes, then use Refresh settings to reload. Missing response fields
+are shown as unavailable rather than silently substituted with defaults. Servers
+with no stored settings receive the API's defaults. Language codes and configured
+Discord user/role/channel IDs are shown as stored; Discord name lookup is future
+work. Server changes abort the previous request and hide its data immediately.
+No background polling is used.
