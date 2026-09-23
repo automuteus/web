@@ -24,6 +24,8 @@ const { createAPIReadHandler } = require("../utils/server/api-proxy.ts");
 const guildsHandler = require("../pages/api/guilds.ts").default;
 const { default: botHandler, inviteURL, BOT_PERMISSIONS } = require("../pages/api/guild/bot.ts");
 const defaultsHandler = require("../pages/api/settings/defaults.ts").default;
+const settingsHandler = require("../pages/api/guild/settings.ts").default;
+const { sanitizeFields } = require("../utils/server/settings-write.ts");
 const guild = "123456789012345678";
 
 function response() {
@@ -147,6 +149,164 @@ test("default settings route needs no session, sends no credentials, and is cach
     await defaultsHandler({ ...anonymous, method: "POST" }, res);
     assert.equal(res.statusCode, 405);
     assert.equal(calls, 0);
+});
+
+test("settings GET relays the version tag and PATCH forwards only whitelisted, valid fields with If-Match", async (t) => {
+    mockFetch(t, async () => new Response(JSON.stringify({ language: "en" }), { status: 200, headers: { ETag: '"7"' } }));
+    let res = response();
+    await settingsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.getHeader("ETag"), '"7"');
+
+    let seen;
+    mockFetch(t, async (url, init) => {
+        seen = { url, init };
+        return new Response(JSON.stringify({ language: "en", autoRefresh: true }), { status: 200, headers: { ETag: '"8"' } });
+    });
+    const patch = async (body, headers = {}) => {
+        const req = { ...await request(), method: "PATCH", body };
+        req.headers = { ...req.headers, ...headers };
+        const res = response();
+        await settingsHandler(req, res);
+        return res;
+    };
+    res = await patch({ autoRefresh: true, delays: { delays: { LOBBY: { LOBBY: 0, TASKS: 3, DISCUSSION: 0 }, TASKS: { LOBBY: 1, TASKS: 0, DISCUSSION: 0 }, DISCUSSION: { LOBBY: 6, TASKS: 7, DISCUSSION: 0 } } } }, { "if-match": '"7"' });
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { language: "en", autoRefresh: true });
+    assert.equal(res.getHeader("ETag"), '"8"');
+    assert.equal(seen.init.method, "PATCH");
+    assert.equal(seen.url.pathname, "/guild/settings");
+    assert.equal(seen.url.searchParams.get("guildID"), guild);
+    assert.equal(seen.init.headers.Authorization, "Bearer discord-access");
+    assert.equal(seen.init.headers["If-Match"], '"7"');
+    assert.equal(seen.init.headers["Content-Type"], "application/json");
+    assert.deepEqual(Object.keys(JSON.parse(seen.init.body)).sort(), ["autoRefresh", "delays"]);
+
+    // A malformed If-Match is dropped rather than forwarded.
+    seen = undefined;
+    res = await patch({ autoRefresh: false }, { "if-match": "<script>" });
+    assert.equal(res.statusCode, 200);
+    assert.equal(seen.init.headers["If-Match"], undefined);
+
+    // Locked, unknown, invalid, and empty bodies never reach upstream.
+    let calls = 0;
+    mockFetch(t, async () => { calls++; throw new Error("unexpected fetch"); });
+    for (const [body, field] of [[{ language: "xx" }, "language"], [{ matchSummaryChannelID: "general" }, "matchSummaryChannelID"], [{ adminIDs: [] }, "adminIDs"], [{ permissionRoleIDs: ["general"] }, "permissionRoleIDs[0]"], [{ evil: 1 }, "evil"],
+        [{ mapVersion: "3d" }, "mapVersion"], [{ deleteGameSummary: 61 }, "deleteGameSummary"], [{ autoRefresh: "yes" }, "autoRefresh"]]) {
+        res = await patch(body);
+        assert.equal(res.statusCode, 400, field);
+        assert.equal(res.body.fields[0].field, field);
+    }
+    for (const body of [{}, [], "text", null, undefined]) {
+        res = await patch(body);
+        assert.equal(res.statusCode, 400);
+    }
+    res = await patch({ autoRefresh: true }, {});
+    assert.equal(calls, 1, "only the valid body reached the (failing) upstream");
+    assert.equal(res.statusCode, 502);
+});
+
+test("settings PATCH relays upstream outcomes without reflecting arbitrary bodies", async (t) => {
+    const patch = async (upstream, headers = {}) => {
+        mockFetch(t, async () => upstream);
+        const req = { ...await request(), method: "PATCH", body: { autoRefresh: true } };
+        req.headers = { ...req.headers, ...headers };
+        const res = response();
+        await settingsHandler(req, res);
+        return res;
+    };
+    let res = await patch(json({ StatusCode: 400, Error: "2 invalid setting(s)", fields: [{ field: "delays.delays.LOBBY.TASKS", message: "must be between 0 and 10" }, { field: "<img>", message: "x" }, { field: "mapVersion", message: 5 }, "junk"] }, 400));
+    assert.equal(res.statusCode, 400);
+    assert.deepEqual(res.body, { error: "1 setting was rejected.", fields: [{ field: "delays.delays.LOBBY.TASKS", message: "must be between 0 and 10" }] });
+
+    res = await patch(json({ StatusCode: 403, Error: "premium required to change: autoRefresh", fields: [{ field: "autoRefresh", message: "changing this setting requires premium" }] }, 403));
+    assert.equal(res.statusCode, 403);
+    assert.equal(res.body.error, "Premium is required to change some of these settings.");
+    assert.equal(res.body.fields[0].field, "autoRefresh");
+
+    res = await patch(json({ StatusCode: 403, Error: "secret internal detail" }, 403));
+    assert.deepEqual(res.body, { error: "Access denied for this guild" });
+
+    res = await patch(new Response(JSON.stringify({ Error: "moved on" }), { status: 412, headers: { ETag: '"9"' } }));
+    assert.equal(res.statusCode, 412);
+    assert.equal(res.getHeader("ETag"), '"9"');
+    assert.match(res.body.error, /changed elsewhere/);
+    res = await patch(json({ Error: "conflict" }, 409));
+    assert.equal(res.statusCode, 409);
+    assert.match(res.body.error, /changed elsewhere/);
+
+    res = await patch(new Response("{}", { status: 429, headers: { "Retry-After": "42" } }));
+    assert.equal(res.statusCode, 429);
+    assert.equal(res.getHeader("Retry-After"), "42");
+
+    for (const [upstream, status] of [[json({ Error: "x" }, 401), 401], [json({ Error: "x" }, 413), 413], [json({ Error: "x" }, 501), 501], [json({ Error: "x" }, 503), 503], [json({ Error: "secret" }, 500), 502], [json({ nope: true }), 502]]) {
+        res = await patch(upstream);
+        assert.equal(res.statusCode, status);
+        assert.ok(!JSON.stringify(res.body).includes("secret"));
+        assert.ok(!JSON.stringify(res.body).includes("discord-access"));
+    }
+    assert.equal(sanitizeFields(undefined), undefined);
+    assert.equal(sanitizeFields([{ field: "a b", message: "x" }]), undefined);
+    assert.equal(sanitizeFields([{ field: "ok", message: "y".repeat(400) }])[0].message.length, 300);
+
+    // Other methods are refused with the full Allow list.
+    const other = response();
+    await settingsHandler({ ...await request(), method: "DELETE" }, other);
+    assert.equal(other.statusCode, 405);
+    assert.equal(other.getHeader("Allow"), "GET, PATCH");
+});
+
+test("channel check route requires a channel ID, forwards it, and returns only the expected shape", async (t) => {
+    const channelHandler = require("../pages/api/guild/channel.ts").default;
+    let seen;
+    mockFetch(t, async (url) => { seen = url; return json({ id: "223456789012345678", name: "match-summaries", ok: true, problems: [], extra: "dropped" }); });
+    let res = response();
+    await channelHandler(await request({}, { guildID: guild, channelID: "223456789012345678" }), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { id: "223456789012345678", name: "match-summaries", ok: true, problems: [] });
+    assert.equal(seen.pathname, "/guild/channel");
+    assert.equal(seen.searchParams.get("channelID"), "223456789012345678");
+
+    mockFetch(t, async () => json({ id: "223456789012345678", ok: false, problems: ["must be a channel in this guild"] }));
+    res = response();
+    await channelHandler(await request({}, { guildID: guild, channelID: "223456789012345678" }), res);
+    assert.deepEqual(res.body, { id: "223456789012345678", ok: false, problems: ["must be a channel in this guild"] });
+
+    let calls = 0;
+    mockFetch(t, async () => { calls++; throw new Error("unexpected fetch"); });
+    for (const query of [{ guildID: guild }, { guildID: guild, channelID: "general" }, { guildID: guild, channelID: ["223456789012345678"] }]) {
+        res = response();
+        await channelHandler(await request({}, query), res);
+        assert.equal(res.statusCode, 400);
+    }
+    assert.equal(calls, 0);
+    for (const [upstream, status] of [[json({ ok: true, problems: ["x"] }), 502], [json({ ok: "yes", problems: [] }), 502], [json({ Error: "no token" }, 501), 501], [json({}, 503), 503]]) {
+        mockFetch(t, async () => upstream);
+        res = response();
+        await channelHandler(await request({}, { guildID: guild, channelID: "223456789012345678" }), res);
+        assert.equal(res.statusCode, status);
+    }
+});
+
+test("roles route forwards the guild and returns a validated, trimmed role list", async (t) => {
+    const rolesHandler = require("../pages/api/guild/roles.ts").default;
+    mockFetch(t, async (url) => { assert.equal(url.pathname, "/guild/roles"); return json([
+        { id: "234567890123456789", name: "Mods", color: 16711680, position: 2, managed: false, extra: 1 },
+        { id: "999999999999999999", name: "x".repeat(200), color: -5, position: 1 },
+    ]); });
+    let res = response();
+    await rolesHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, [
+        { id: "234567890123456789", name: "Mods", color: 16711680, position: 2, managed: false },
+        { id: "999999999999999999", name: "x".repeat(100), color: 0, position: 1, managed: false },
+    ]);
+    for (const [upstream, status] of [[json({ not: "a list" }), 502], [json([{ id: "bad", name: "x", color: 0, position: 0 }]), 502], [json([{ id: "234567890123456789" }]), 502], [json({ Error: "gone" }, 404), 404], [json({}, 501), 501]]) {
+        mockFetch(t, async () => upstream);
+        res = response();
+        await rolesHandler(await request(), res);
+        assert.equal(res.statusCode, status);
+    }
 });
 
 test("missing session and failed refresh never contact the Go API", async (t) => {

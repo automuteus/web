@@ -60,10 +60,69 @@ a.button:hover { color: #fff; text-decoration: none; }
 .iconSlash { position: absolute; width: 1.25em; height: 1.25em; }
 
 .cardHeading { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
-.changedCount { margin-left: auto; color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; border-radius: 30px; padding: 3px 10px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
-.premiumBadge, .changedBadge { border-radius: 30px; padding: 2px 9px; font-size: .7rem; font-weight: 700; margin-left: 8px; vertical-align: middle; white-space: nowrap; }
+.counts { margin-left: auto; display: inline-flex; align-items: center; gap: 8px; color: #8b97ad; font-size: .72rem; }
+.customCount { color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; border-radius: 30px; padding: 3px 10px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.premiumBadge, .customBadge { border-radius: 30px; padding: 2px 9px; font-size: .7rem; font-weight: 700; margin-left: 8px; vertical-align: middle; white-space: nowrap; }
 .premiumBadge { color: #ffd98a; background: #3f341c; border: 1px solid #8a6a2c; }
-.changedBadge { color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; }
-.changedValue { color: #e6efff; }
-.changedCell { background: #262f42; }
-.table td .changedBadge { display: inline-flex; margin: 6px 0 0; }
+.customBadge { color: #cfe0ff; background: #2b3a5c; border: 1px solid #5670a8; }
+.customValue { color: #e6efff; }
+.customCell { background: #262f42; }
+.table td .customBadge { display: inline-flex; margin: 6px 0 0; }
+
+.primary { background: #4d5fd1; border-color: #7b8cf0; }
+.primary:hover { background: #5c6fe6; }
+.control { background: #171c23; color: #fff; border: 1px solid #67748b; border-radius: 8px; padding: 8px 10px; font-size: .95rem; max-width: 100%; }
+.control:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.control:disabled { opacity: .55; cursor: not-allowed; }
+.delayInput { width: 4.5em; text-align: center; }
+.controlGroup { display: inline-flex; flex-wrap: wrap; gap: 8px; align-items: center; justify-content: flex-end; }
+.inline { display: inline-flex; align-items: center; gap: 6px; margin: 0; font-weight: 400; }
+.inline input { width: 4.5em; }
+.switch { display: inline-flex; align-items: center; gap: 10px; margin: 0; cursor: pointer; font-weight: 400; }
+.switch input { appearance: none; width: 42px; height: 24px; border-radius: 24px; background: #3a4353; border: 1px solid #67748b; position: relative; cursor: pointer; margin: 0; transition: background .15s; }
+.switch input::before { content: ""; position: absolute; top: 3px; left: 3px; width: 16px; height: 16px; border-radius: 50%; background: #fff; transition: transform .15s; }
+.switch input:checked { background: #4d5fd1; border-color: #7b8cf0; }
+.switch input:checked::before { transform: translateX(18px); }
+.switch input:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.switch input:disabled { opacity: .55; cursor: not-allowed; }
+.voiceToggle { cursor: pointer; border: 1px solid transparent; font: inherit; }
+.voiceToggle:hover { border-color: #8b97ad; }
+.voiceToggle:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.voiceToggle:disabled { opacity: .55; cursor: not-allowed; }
+.fieldHint { display: block; color: #9aa6b8; font-size: .78rem; font-weight: 400; margin-top: 4px; }
+.fieldError { display: block; color: #ffb4b0; font-size: .8rem; font-weight: 400; margin-top: 4px; }
+.rowError dt { color: #ffb4b0; }
+.errorCell { box-shadow: inset 0 0 0 2px #b34a45; }
+.saveBar { position: sticky; bottom: 0; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 24px; padding: 16px 22px; background: #1b2028; border: 1px solid #3c4553; border-radius: 14px; box-shadow: 0 -8px 24px rgba(0, 0, 0, .35); }
+.saveStatus { font-weight: 700; }
+.saveOk { color: #bce7db; font-weight: 400; }
+.saveError { color: #ffb4b0; font-weight: 400; }
+.saveActions { display: flex; flex-wrap: wrap; gap: 10px; margin-left: auto; }
+.errorList { margin: 14px 0 0; padding: 14px 18px 14px 36px; background: #3b2626; border: 1px solid #7a3b38; border-radius: 10px; color: #ffd6d3; font-size: .88rem; font-weight: 400; line-height: 1.6; }
+.errorList code { color: #fff; }
+
+.unsavedCount { color: #ffd98a; background: #4a3a1e; border: 1px solid #8a6a2c; border-radius: 30px; padding: 3px 10px; font-size: .72rem; font-weight: 700; white-space: nowrap; }
+.values > .dirty { box-shadow: inset 3px 0 0 #e2a34d; padding-left: 12px; }
+.values > .dirty dt { color: #ffd98a; }
+.dirtyCell { box-shadow: inset 3px 0 0 #e2a34d; }
+.dirtyCell.errorCell { box-shadow: inset 3px 0 0 #e2a34d, inset 0 0 0 2px #b34a45; }
+
+.idInput { width: 15em; max-width: 100%; font-variant-numeric: tabular-nums; }
+.smallButton { border: 1px solid #67748b; background: #2b3340; color: #fff; padding: 7px 12px; border-radius: 8px; font-size: .85rem; font-weight: 700; }
+.smallButton:hover { background: #3a4353; }
+.smallButton:disabled { opacity: .5; cursor: not-allowed; }
+.smallButton:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.fieldOk { display: block; color: #bce7db; font-size: .8rem; font-weight: 400; margin-top: 4px; }
+
+.roleList { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+.chip { display: inline-flex; align-items: center; gap: 6px; background: #2b3340; border: 1px solid #67748b; border-radius: 30px; padding: 4px 6px 4px 12px; font-size: .85rem; }
+.chip code { color: #fff; font-variant-numeric: tabular-nums; }
+.chipError { border-color: #b34a45; }
+.chipRemove { border: none; background: #3a4353; color: #fff; width: 22px; height: 22px; border-radius: 50%; line-height: 1; font-size: 1rem; cursor: pointer; }
+.chipRemove:hover { background: #55617a; }
+.chipRemove:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.chipRemove:disabled { opacity: .5; cursor: not-allowed; }
+@media (max-width: 720px) { .roleList { align-items: flex-start; } }
+
+.swatch { display: inline-block; width: 12px; height: 12px; border-radius: 50%; flex: none; }
+.chipUnknown { border-color: #e2a34d; border-style: dashed; }

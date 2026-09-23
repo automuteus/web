@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getDiscordAccessToken } from "./discord-session";
 
-type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/game/state" | "/game/roomcode";
-const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/game/state", "/game/roomcode"];
+type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/roles" | "/game/state" | "/game/roomcode";
+const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/roles", "/game/state", "/game/roomcode"];
 
 /** Optional reshaping of a successful upstream body before it reaches the browser. Throwing means the upstream
  * body was not what this route expects and the browser gets a 502 instead of a partial object. */
@@ -30,13 +30,17 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             res.setHeader("Allow", "GET");
             return res.status(405).json({ error: "Method not allowed" });
         }
-        const { guildID, connectCode } = req.query;
+        const { guildID, connectCode, channelID } = req.query;
         if (typeof guildID !== "string" || !/^[0-9]{17,20}$/.test(guildID)) {
             return res.status(400).json({ error: "Invalid guild ID" });
         }
         const game = endpoint.startsWith("/game/");
         if (game && (typeof connectCode !== "string" || !/^[A-Za-z0-9]{8}$/.test(connectCode))) {
             return res.status(400).json({ error: "Invalid connect code" });
+        }
+        const channel = endpoint === "/guild/channel";
+        if (channel && (typeof channelID !== "string" || !/^[0-9]{17,20}$/.test(channelID))) {
+            return res.status(400).json({ error: "Invalid channel ID" });
         }
 
         try {
@@ -47,6 +51,7 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             const target = upstreamURL(endpoint);
             target.searchParams.set("guildID", guildID);
             if (game) target.searchParams.set("connectCode", connectCode as string);
+            if (channel) target.searchParams.set("channelID", channelID as string);
 
             const upstream = await fetch(target, {
                 headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
@@ -61,12 +66,16 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
                     403: "Access denied for this guild",
                     404: "Not found",
                     429: "Too many requests; try again later",
+                    501: "The API is not configured for this request",
                     503: "API authorization is temporarily unavailable",
                 };
                 const status = messages[upstream.status] ? upstream.status : 502;
                 // Do not reflect upstream error bodies, cookies, or headers.
                 return res.status(status).json({ error: messages[status] || "API request failed" });
             }
+            // The settings route's ETag is the row version a later PATCH sends back as If-Match.
+            const etag = upstream.headers.get("etag");
+            if (etag && /^(W\/)?"[0-9]{1,19}"$/.test(etag)) res.setHeader("ETag", etag);
             const body = await upstream.json();
             return res.status(200).json(shape ? shape(body, { guildID }) : body);
         } catch {

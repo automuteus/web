@@ -68,7 +68,7 @@ go through the AutoMuteUs API using Discord user tokens; the site itself stays s
 - [x] **Discord sign-in**: sign in to the site with Discord OAuth2.
 - [x] **Discord server invites**: invite bot with specific link to servers that the user has admin permissions on
 - [ ] **Premium status checking**: check to see if a guild you're in has premium.
-- [ ] **Settings management**: edit bot configuration online and have it save, per server
+- [x] **Settings management**: edit bot configuration online and have it save, per server 
   - [ ] Shareable settings: add ability to publish popular bot configs and share them
 - [ ] **Stats and leaderboards**: view server stats and leaderboards in a more user-friendly manner than Discord embeds.
   - [ ] Raw stats exports: export files (permissively) of game data so that people can create their own visualizations and metrics.
@@ -79,18 +79,23 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 
 | Web route | Go API route | Required query parameters |
 | --- | --- | --- |
-| `/api/guild/settings` | `/guild/settings` | `guildID` |
+| `/api/guild/settings` (GET, PATCH) | `/guild/settings` | `guildID` |
 | `/api/guild/premium` | `/guild/premium` | `guildID` |
 | `/api/guild/bot` | `/guild/bot` | `guildID` |
+| `/api/guild/channel` | `/guild/channel` | `guildID`, `channelID` |
+| `/api/guild/roles` | `/guild/roles` | `guildID` |
 | `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
 
 Example: `fetch("/api/guild/settings?guildID=123456789012345678")`.
-The `/settings` page uses the settings and bot routes. The bot route adds an
-`invite` URL when the bot is absent, built from `DISCORD_CLIENT_ID` and
-preselecting that server. Writes and game discovery are not
-yet implemented. The game endpoints still require a known
+The `/settings` page uses the settings, premium, and bot routes. The bot route
+adds an `invite` URL when the bot is absent, built from `DISCORD_CLIENT_ID` and
+preselecting that server. `PATCH /api/guild/settings` forwards a JSON object of
+changed fields with the caller's session and the `If-Match` tag from the GET;
+the site only accepts the fields it can edit, applies the API's range checks
+first, and relays the API's `fields` list on 400 and 403 so the page can point
+at the offending control. Game discovery is not yet implemented. The game endpoints still require a known
 capture connect code. Go returns a filtered member game view and verifies that
 room-code reads belong to the authorized guild.
 
@@ -131,14 +136,15 @@ and mocked upstream HTTP, including token rotation and cookie persistence.
 
 Open `/settings` or use Settings in the navigation. Sign in, select a Discord
 server, and view its voice rules, transition delays, display preferences, and
-match summary options. Leaderboard settings and bot admin/operator IDs are not
+match summary options. Leaderboard settings and bot admin user IDs are not
 shown: stats are moving to this UI and those settings will be retired. Only servers the
 user owns or holds the Administrator permission in are listed, matching the Go
 API's rule for who may change settings. A selection is shareable as
 `/settings?guild=<guild ID>`; each visitor still needs to own or administer it.
 
-Values that differ from the bot's defaults carry a **Changed** badge whose
-tooltip shows the default, and each card counts its changed settings. Defaults
+Values that differ from the bot's defaults carry a **Custom** badge whose
+tooltip shows the default, and unsaved edits get an amber highlight on the row
+or cell; each card header counts both ("3 custom · 1 unsaved"). Defaults
 come from the Go API's public `/bot/settings/defaults` route, so the two never
 drift; if that request fails the page just shows no markers. Settings the bot
 applies only on premium servers carry a gold **Premium** badge. That list is
@@ -149,8 +155,32 @@ preselects that server instead of showing settings. Membership comes from the
 guild join and leave events the bot has processed, so it may lag briefly after
 an invite or a removal; use the refresh button after inviting.
 
-This first version is read-only for everyone. Continue using Discord `/settings`
-to make changes, then use Refresh settings to reload. Missing response fields
+Owners and administrators can change most settings here: bot language, voice
+rules, delays, map style, room code visibility, auto refresh, spectator muting,
+dead-player unmuting, summary retention, the summary channel, and the operator
+role IDs. Operator roles gate who may start, pause, end, link, and unlink games
+(everyone, when the list is empty); the guild owner, Discord Administrators,
+and bot admin users always may, and when no bot admin user IDs are configured
+the roles also unlock admin-only commands such as `/settings`. The page loads the guild's roles through `/api/guild/roles` (the
+bot's view, in Discord order, without @everyone) and shows operator roles by
+name with their colour, with a picker to add more; if that request fails it
+falls back to raw IDs typed by hand. The API refuses a changed list that names a
+role the guild does not have, when it has bot credentials; without them IDs are
+accepted as typed. Bot admin user IDs and leaderboard options remain hidden. The language list, with names and
+flags, lives in `components/settings/settings-edit.ts` and mirrors the locale
+files embedded in the Go repo; the API validates the code on save, so a stale
+entry is rejected rather than stored. Edits are held locally until **Save changes**
+sends one PATCH with only the changed fields and the loaded version tag; a
+concurrent change elsewhere is reported and the page offers a reload. Premium
+gated settings are locked in the UI when the server has no premium, and the API
+refuses them regardless. The summary channel is a channel ID typed by hand (the
+page explains how to copy one from Discord). Once a well-formed ID is entered
+the page asks `/api/guild/channel` whether the bot can post there; the row shows
+the resolved channel name, or the problem, and Save waits for a good answer.
+The Go API repeats the same check when the setting is saved: the channel must
+exist and be visible to the bot, belong to the guild, be a text or announcement
+channel or a thread in one, and grant the bot View Channel, Embed Links, and
+Send Messages (Send Messages in Threads instead, for a thread). Missing response fields
 are shown as unavailable rather than silently substituted with defaults. Servers
 with no stored settings receive the API's defaults. Language codes and configured
 Discord user/role/channel IDs are shown as stored; Discord name lookup is future
