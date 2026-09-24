@@ -25,7 +25,7 @@ test("Go settings fixture displays voice rules, delays, and summary channel", ()
     for (const retired of ["Leaderboard", "leaderboard", "Bot access", "Bot admin user IDs", "123456789012345678"]) {
         assert.ok(!html.includes(retired), `Retired setting shown: ${retired}`);
     }
-    for (const kept of ["Bot operators", "Operator role IDs", "234567890123456789, 345678901234567890", "start, pause, end, link, and unlink games", "can no longer control games", "members with the Administrator permission always can"]) {
+    for (const kept of ["Bot operators", "Operator role IDs", "234567890123456789, 345678901234567890", "start, pause, end, link, and unlink games", "can no longer control games", "members with the Administrator or Manage Server permission always can"]) {
         assert.ok(html.includes(kept), `Missing ${kept}`);
     }
     assert.equal((html.match(/AutoMuteUs server-/g) || []).length, 0);
@@ -248,4 +248,40 @@ test("operator roles show names and colours, flag unknown IDs, and offer a picke
     // Every role listed: the picker says so and is disabled.
     const full = renderToStaticMarkup(React.createElement(SettingsView, { settings: { ...fixture, permissionRoleIDs: guildRoles.map((r) => r.id) }, onChange: () => undefined, roles: guildRoles }));
     assert.ok(full.includes("Every role is already listed"));
+});
+
+const guildChannels = [
+    { id: "223456789012345678", name: "general", type: 0, category: "", ok: true, problems: [] },
+    { id: "223456789012345680", name: "mod-chat", type: 0, category: "Staff", ok: false, problems: ["the bot is missing the View Channel, Send Messages permissions in this channel"] },
+    { id: "223456789012345681", name: "announcements", type: 5, category: "Games <b>", ok: true, problems: [] },
+];
+
+test("summary channel offers a picker of the bot's channels, greys out unusable ones, and keeps an ID fallback", () => {
+    const render = (settings, extra = {}) => renderToStaticMarkup(React.createElement(SettingsView, { settings, saved: defaults, onChange: () => undefined, channels: guildChannels, ...extra }));
+    const picked = render({ ...defaults, matchSummaryChannelID: "223456789012345678" });
+    assert.ok(picked.includes('aria-label="Summary channel"'));
+    assert.ok(!picked.includes('aria-label="Summary channel ID"'));
+    assert.ok(picked.includes('<option value="">None</option>'));
+    assert.match(picked, /<option(?=[^>]*selected="")(?=[^>]*value="223456789012345678")[^>]*>#general<\/option>/);
+    assert.ok(picked.includes('<optgroup label="Staff">'));
+    assert.match(picked, /<option(?=[^>]*disabled="")(?=[^>]*value="223456789012345680")[^>]*title="the bot is missing the View Channel, Send Messages permissions in this channel"[^>]*>#mod-chat \(bot can&#x27;t post here\)<\/option>/);
+    assert.ok(picked.includes('<optgroup label="Games &lt;b&gt;">') && !picked.includes("<b>"));
+    // The list's own verdict stands in for the live check.
+    assert.ok(picked.includes("#general: the bot can post match summaries here.") && picked.includes('role="status"'));
+    assert.ok(picked.includes("Enter an ID") && !picked.includes("Copy Channel ID"));
+    const bad = render({ ...defaults, matchSummaryChannelID: "223456789012345680" });
+    assert.ok(bad.includes("missing the View Channel, Send Messages permissions") && bad.includes('role="alert"'));
+    // An ID the list does not carry stays selected and is judged by the live check, as before.
+    const thread = render({ ...defaults, matchSummaryChannelID: "999999999999999999" }, { channelCheck: { id: "999999999999999999", state: "ok", name: "game-1" } });
+    assert.match(thread, /<option(?=[^>]*selected="")(?=[^>]*value="999999999999999999")[^>]*>999999999999999999 \(not in the list\)<\/option>/);
+    assert.ok(thread.includes("#game-1: the bot can post match summaries here."));
+    // Saved value: no verdict, just the picker's help.
+    const unchanged = renderToStaticMarkup(React.createElement(SettingsView, { settings: { ...defaults, matchSummaryChannelID: "223456789012345678" }, saved: { ...defaults, matchSummaryChannelID: "223456789012345678" }, onChange: () => undefined, channels: guildChannels }));
+    assert.ok(!unchanged.includes("#general:") && unchanged.includes("greyed out"));
+    // Without a channel list the ID box is the only control and there is nothing to pick from.
+    const typed = renderToStaticMarkup(React.createElement(SettingsView, { settings: defaults, saved: defaults, onChange: () => undefined }));
+    assert.ok(typed.includes('aria-label="Summary channel ID"') && !typed.includes("Pick from a list") && !typed.includes('aria-label="Summary channel"'));
+    // Read-only view: no picker at all.
+    const readOnly = renderToStaticMarkup(React.createElement(SettingsView, { settings: defaults, channels: guildChannels }));
+    assert.ok(!readOnly.includes("<select"));
 });

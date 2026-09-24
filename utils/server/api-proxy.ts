@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getDiscordAccessToken } from "./discord-session";
 
-type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/roles" | "/game/state" | "/game/roomcode";
-const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/roles", "/game/state", "/game/roomcode"];
+type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/channels" | "/guild/roles" | "/game/state" | "/game/roomcode";
+const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/channels", "/guild/roles", "/game/state", "/game/roomcode"];
 
 /** Optional reshaping of a successful upstream body before it reaches the browser. Throwing means the upstream
  * body was not what this route expects and the browser gets a 502 instead of a partial object. */

@@ -62,6 +62,16 @@ export interface GuildRole {
     position: number;
     managed: boolean;
 }
+/** A guild channel as /api/guild/channels reports it: text (0) or announcement (5), its category name (empty at the
+ * top level), and the bot's verdict as a summary destination. The list arrives in Discord's display order. */
+export interface GuildChannel {
+    id: string;
+    name: string;
+    type: number;
+    category: string;
+    ok: boolean;
+    problems: string[];
+}
 /** CSS colour for a role swatch; Discord shows uncoloured roles in its default grey. */
 export function roleColor(role: Pick<GuildRole, "color">): string {
     return role.color > 0 ? `#${role.color.toString(16).padStart(6, "0")}` : "#99aab5";

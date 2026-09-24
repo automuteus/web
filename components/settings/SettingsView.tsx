@@ -5,7 +5,7 @@ import { OverlayTrigger, Tooltip } from "react-bootstrap";
 import styles from "./SettingsView.module.css";
 import {
     Settings, PHASES, LIVES, MAP_VERSIONS, ROOM_CODE_OPTIONS, DELAY_RANGE, SUMMARY_RANGE,
-    LANGUAGES, SNOWFLAKE, MAX_ROLE_IDS, GuildRole, languageOf, roleColor, unknownRoleIDs, same, nested, setField, setVoiceRule, setDelay, addRoleID, removeRoleID,
+    LANGUAGES, SNOWFLAKE, MAX_ROLE_IDS, GuildRole, GuildChannel, languageOf, roleColor, unknownRoleIDs, same, nested, setField, setVoiceRule, setDelay, addRoleID, removeRoleID,
 } from "./settings-edit";
 
 /** Result of asking the API whether the bot can post into the channel currently typed in. */
@@ -16,6 +16,7 @@ export interface ChannelCheckState {
     problems?: string[];
 }
 const CHANNEL_HELP = "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.";
+const CHANNEL_PICK_HELP = "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.";
 const ROLE_HELP = "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).";
 const ROLE_PICK_HELP = "Roles are listed as the bot sees them in this server.";
 
@@ -205,12 +206,17 @@ export interface SettingsViewProps {
     channelCheck?: ChannelCheckState;
     /** The guild's roles, for names, colours, and a picker. Optional: without them IDs are shown and typed raw. */
     roles?: readonly GuildRole[];
+    /** The guild's text channels with the bot's verdict on each, for the summary channel picker. Optional: without
+     * them the channel is typed as an ID. */
+    channels?: readonly GuildChannel[];
 }
 
-export default function SettingsView({ settings: s, defaults, saved, onChange, disabled, errors = {}, premiumLocked, channelCheck, roles }: SettingsViewProps) {
+export default function SettingsView({ settings: s, defaults, saved, onChange, disabled, errors = {}, premiumLocked, channelCheck, roles, channels }: SettingsViewProps) {
     const editing = !!onChange;
     const change = onChange ?? (() => undefined);
     const [pendingRole, setPendingRole] = useState("");
+    // The picker cannot name a thread, so the ID box stays one click away even when the channel list is known.
+    const [typeChannelID, setTypeChannelID] = useState(false);
     const lockedFor = (key: string) => !!disabled || (!!premiumLocked && PREMIUM_ONLY.has(key));
     const premiumHint = (key: string) => premiumLocked && PREMIUM_ONLY.has(key) ? "Requires premium to change." : undefined;
 
@@ -256,18 +262,45 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
     function channelField() {
         const value = typeof s.matchSummaryChannelID === "string" ? s.matchSummaryChannelID : "";
         const locked = lockedFor("matchSummaryChannelID");
-        return <span className={styles.controlGroup}>
-            <input type="text" inputMode="numeric" autoComplete="off" spellCheck={false} className={`${styles.control} ${styles.idInput}`} value={value} disabled={locked}
-                aria-label="Summary channel ID" placeholder="Channel ID, or empty for none" maxLength={20}
-                onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value.trim()))} />
-            <button type="button" className={styles.smallButton} disabled={locked || value === ""} onClick={() => change(setField(s, "matchSummaryChannelID", ""))}>Clear</button>
+        if (!channels || typeChannelID) {
+            return <span className={classes(styles.controlGroup, styles.pickGroup)}>
+                <input type="text" inputMode="numeric" autoComplete="off" spellCheck={false} className={`${styles.control} ${styles.idInput}`} value={value} disabled={locked}
+                    aria-label="Summary channel ID" placeholder="Channel ID, or empty for none" maxLength={20}
+                    onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value.trim()))} />
+                <button type="button" className={styles.smallButton} disabled={locked || value === ""} onClick={() => change(setField(s, "matchSummaryChannelID", ""))}>Clear</button>
+                {channels && <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(false)}>Pick from a list</button>}
+            </span>;
+        }
+        // Options in the list's order: top-level channels first, then one group per category. A value the list
+        // does not carry (a thread, or a channel the bot has since lost) stays selectable so it is not silently lost.
+        const options: React.ReactNode[] = [];
+        let group: { label: string; items: React.ReactNode[] } | undefined;
+        const flush = () => { if (group) { options.push(<optgroup key={`group:${group.label}`} label={group.label}>{group.items}</optgroup>); group = undefined; } };
+        for (const ch of channels) {
+            const option = <option key={ch.id} value={ch.id} disabled={!ch.ok} title={ch.ok ? undefined : ch.problems.join("; ")}>#{ch.name}{ch.ok ? "" : " (bot can't post here)"}</option>;
+            if (ch.category === "") { flush(); options.push(option); continue; }
+            if (!group || group.label !== ch.category) { flush(); group = { label: ch.category, items: [] }; }
+            group.items.push(option);
+        }
+        flush();
+        return <span className={classes(styles.controlGroup, styles.pickGroup)}>
+            <select className={styles.control} value={value} disabled={locked} aria-label="Summary channel" onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value))}>
+                <option value="">None</option>
+                {value !== "" && !channels.some((ch) => ch.id === value) && <option value={value}>{value} (not in the list)</option>}
+                {options}
+            </select>
+            <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(true)}>Enter an ID</button>
         </span>;
     }
-    /** What to say under the channel box: the live check for the typed ID, else how to find an ID. */
+    /** What to say under the channel control: the list's verdict for a picked channel, the live check for a typed
+     * ID, else how to choose. */
     function channelStatus(): Pick<Row, "ok" | "hint" | "error"> {
         const value = typeof s.matchSummaryChannelID === "string" ? s.matchSummaryChannelID : "";
         const savedValue = typeof saved?.matchSummaryChannelID === "string" ? saved.matchSummaryChannelID : undefined;
-        if (!editing || value === "" || !SNOWFLAKE.test(value) || value === savedValue) return { hint: editing ? CHANNEL_HELP : undefined };
+        const help = channels && !typeChannelID ? CHANNEL_PICK_HELP : CHANNEL_HELP;
+        if (!editing || value === "" || !SNOWFLAKE.test(value) || value === savedValue) return { hint: editing ? help : undefined };
+        const listed = channels?.find((ch) => ch.id === value);
+        if (listed) return listed.ok ? { ok: `#${listed.name}: the bot can post match summaries here.` } : { error: listed.problems.join("; ") || "The bot can't post in this channel." };
         const check = channelCheck && channelCheck.id === value ? channelCheck : undefined;
         if (!check) return { hint: CHANNEL_HELP };
         switch (check.state) {
@@ -416,9 +449,9 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
             { ...row("matchSummaryChannelID", "Summary channel", channel, channelField()), ...channelStatus() },
         ]} />
         {/* Mirrors commandAccess in bot/slash_commands.go: operator roles control /new, /pause, /end, /link, and
-            /unlink; they also count as admins only when the guild has no bot admin user IDs; the guild owner and
-            Discord Administrators always pass. */}
-        <Group title="Bot operators" description="Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator permission always can, and if the bot has no admin user IDs configured for this server, these roles also unlock its admin-only commands such as /settings." rows={[
+            /unlink; the guild owner and members with Administrator or Manage Server always pass, and only they may
+            change settings (here or with /settings). */}
+        <Group title="Bot operators" description="Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings." rows={[
             (() => { const base = row("permissionRoleIDs", roles ? "Operator roles" : "Operator role IDs", (value) => roleIDs(value, roles), roleField()); return editing ? { ...base, ...roleStatus(), error: base.error ?? roleStatus().error } : base; })(),
         ]} />
     </div>;

@@ -309,6 +309,36 @@ test("roles route forwards the guild and returns a validated, trimmed role list"
     }
 });
 
+test("channels route forwards the guild and returns a validated, trimmed channel list", async (t) => {
+    const channelsHandler = require("../pages/api/guild/channels.ts").default;
+    mockFetch(t, async (url) => { assert.equal(url.pathname, "/guild/channels"); return json([
+        { id: "223456789012345678", name: "match-summaries", type: 0, category: "", ok: true, problems: [], extra: 1 },
+        { id: "223456789012345679", name: "x".repeat(200), type: 5, category: "y".repeat(200), ok: false, problems: ["the bot is missing the Embed Links permission in this channel", 7] },
+        { id: "223456789012345680", name: "no-category-field", type: 0, ok: true, problems: [] },
+    ]); });
+    let res = response();
+    await channelsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, [
+        { id: "223456789012345678", name: "match-summaries", type: 0, category: "", ok: true, problems: [] },
+        { id: "223456789012345679", name: "x".repeat(100), type: 5, category: "y".repeat(100), ok: false, problems: ["the bot is missing the Embed Links permission in this channel"] },
+        { id: "223456789012345680", name: "no-category-field", type: 0, category: "", ok: true, problems: [] },
+    ]);
+    for (const [upstream, status] of [
+        [json({ not: "a list" }), 502],
+        [json([{ id: "bad", name: "x", type: 0, ok: true, problems: [] }]), 502],
+        [json([{ id: "223456789012345678", name: "x", type: 0, ok: "yes", problems: [] }]), 502],
+        [json([{ id: "223456789012345678", name: "x", type: 0, ok: true }]), 502],
+        [json({ Error: "gone" }, 404), 404],
+        [json({}, 501), 501],
+    ]) {
+        mockFetch(t, async () => upstream);
+        res = response();
+        await channelsHandler(await request(), res);
+        assert.equal(res.statusCode, status);
+    }
+});
+
 test("missing session and failed refresh never contact the Go API", async (t) => {
     mockFetch(t, async () => { throw new Error("should not fetch"); });
     for (const req of [

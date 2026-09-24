@@ -83,6 +83,7 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | `/api/guild/premium` | `/guild/premium` | `guildID` |
 | `/api/guild/bot` | `/guild/bot` | `guildID` |
 | `/api/guild/channel` | `/guild/channel` | `guildID`, `channelID` |
+| `/api/guild/channels` | `/guild/channels` | `guildID` |
 | `/api/guild/roles` | `/guild/roles` | `guildID` |
 | `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
@@ -136,11 +137,12 @@ and mocked upstream HTTP, including token rotation and cookie persistence.
 
 Open `/settings` or use Settings in the navigation. Sign in, select a Discord
 server, and view its voice rules, transition delays, display preferences, and
-match summary options. Leaderboard settings and bot admin user IDs are not
-shown: stats are moving to this UI and those settings will be retired. Only servers the
-user owns or holds the Administrator permission in are listed, matching the Go
-API's rule for who may change settings. A selection is shareable as
-`/settings?guild=<guild ID>`; each visitor still needs to own or administer it.
+match summary options. Leaderboard settings are not shown, since stats are
+moving to this UI, and the legacy bot admin user ID list is not shown because
+the bot no longer uses it. Only servers the user owns or holds the Administrator
+or Manage Server permission in are listed, matching the Go API's rule for who
+may change settings. A selection is shareable as `/settings?guild=<guild ID>`;
+each visitor still needs to own or manage it.
 
 Values that differ from the bot's defaults carry a **Custom** badge whose
 tooltip shows the default, and unsaved edits get an amber highlight on the row
@@ -155,13 +157,14 @@ preselects that server instead of showing settings. Membership comes from the
 guild join and leave events the bot has processed, so it may lag briefly after
 an invite or a removal; use the refresh button after inviting.
 
-Owners and administrators can change most settings here: bot language, voice
-rules, delays, map style, room code visibility, auto refresh, spectator muting,
-dead-player unmuting, summary retention, the summary channel, and the operator
-role IDs. Operator roles gate who may start, pause, end, link, and unlink games
-(everyone, when the list is empty); the guild owner, Discord Administrators,
-and bot admin users always may, and when no bot admin user IDs are configured
-the roles also unlock admin-only commands such as `/settings`. The page loads the guild's roles through `/api/guild/roles` (the
+Owners, administrators, and members with Manage Server can change most
+settings here: bot language, voice rules, delays, map style, room code
+visibility, auto refresh, spectator muting, dead-player unmuting, summary
+retention, the summary channel, and the operator role IDs. Operator roles gate
+who may start, pause, end, link, and unlink games (everyone, when the list is
+empty); the guild owner and members with Administrator or Manage Server always
+may, and they alone can change settings, whether here or with `/settings`. The
+page loads the guild's roles through `/api/guild/roles` (the
 bot's view, in Discord order, without @everyone) and shows operator roles by
 name with their colour, with a picker to add more; if that request fails it
 falls back to raw IDs typed by hand. The API refuses a changed list that names a
@@ -173,11 +176,16 @@ entry is rejected rather than stored. Edits are held locally until **Save change
 sends one PATCH with only the changed fields and the loaded version tag; a
 concurrent change elsewhere is reported and the page offers a reload. Premium
 gated settings are locked in the UI when the server has no premium, and the API
-refuses them regardless. The summary channel is a channel ID typed by hand (the
-page explains how to copy one from Discord). Once a well-formed ID is entered
-the page asks `/api/guild/channel` whether the bot can post there; the row shows
-the resolved channel name, or the problem, and Save waits for a good answer.
-The Go API repeats the same check when the setting is saved: the channel must
+refuses them regardless. The summary channel is picked from the server's text
+and announcement channels, loaded through `/api/guild/channels` (the bot's
+view, in Discord's order and grouped by category); channels the bot cannot post
+in are greyed out with the reason, and the Go API requires the settings
+permission for that list because channel names can be private. **Enter an ID**
+switches to a typed channel ID, for a thread or when the list is unavailable
+(the page explains how to copy one from Discord). Once a well-formed ID is
+typed the page asks `/api/guild/channel` whether the bot can post there; the
+row shows the resolved channel name, or the problem, and Save waits for a good
+answer. The Go API repeats the same check when the setting is saved: the channel must
 exist and be visible to the bot, belong to the guild, be a text or announcement
 channel or a thread in one, and grant the bot View Channel, Embed Links, and
 Send Messages (Send Messages in Threads instead, for a thread). Missing response fields

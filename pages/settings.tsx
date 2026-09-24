@@ -5,6 +5,7 @@ import AppLayout from "../components/layout/AppLayout";
 import SettingsView, { ChannelCheckState } from "../components/settings/SettingsView";
 import { Settings, FieldError, GuildRole, SNOWFLAKE, countChanges, errorMap, patchBody, same, unknownRoleIDs, validateDraft } from "../components/settings/settings-edit";
 import type { ChannelCheck } from "./api/guild/channel";
+import type { GuildChannel } from "../components/settings/settings-edit";
 import styles from "../components/settings/SettingsView.module.css";
 import { Guild, canManageGuild } from "../types/Guild";
 import type { BotPresence } from "./api/guild/bot";
@@ -52,6 +53,8 @@ export default function SettingsPage() {
     const [channelCheck, setChannelCheck] = useState<ChannelCheckState & { key: string }>();
     // The guild's roles, for the operator picker. Optional: a failure just means IDs are typed and shown raw.
     const [roles, setRoles] = useState<Result<GuildRole[]>>({ key: "" });
+    // The guild's text channels with the bot's verdict on each, for the summary channel picker. Optional likewise.
+    const [channels, setChannels] = useState<Result<GuildChannel[]>>({ key: "" });
     const [guildRetry, setGuildRetry] = useState(0);
     const [refresh, setRefresh] = useState(0);
     const list = guilds.key === user ? guilds : { key: user };
@@ -77,9 +80,13 @@ export default function SettingsPage() {
     // channel the bot cannot post in never burns a write. The API repeats the check on save regardless.
     const channelValue = typeof working?.matchSummaryChannelID === "string" ? working.matchSummaryChannelID : "";
     const savedChannel = typeof saved?.matchSummaryChannelID === "string" ? saved.matchSummaryChannelID : "";
-    const channelPending = channelValue !== "" && channelValue !== savedChannel && SNOWFLAKE.test(channelValue);
+    // A channel picked from the list already carries the bot's verdict, so only a typed ID needs the live check.
+    const guildChannels = channels.key === key ? channels.data : undefined;
+    const listedChannel = guildChannels?.find((ch) => ch.id === channelValue);
+    const channelPending = channelValue !== "" && channelValue !== savedChannel && SNOWFLAKE.test(channelValue) && !listedChannel;
     const currentCheck = channelCheck && channelCheck.key === key && channelCheck.id === channelValue ? channelCheck : undefined;
-    const channelBlocked = channelPending && (!currentCheck || currentCheck.state === "checking" || currentCheck.state === "problem");
+    const channelBlocked = channelPending ? !currentCheck || currentCheck.state === "checking" || currentCheck.state === "problem"
+        : !!listedChannel && !listedChannel.ok && channelValue !== savedChannel;
     const guildRoles = roles.key === key ? roles.data : undefined;
     const rolesBlocked = !!working && unknownRoleIDs(working.permissionRoleIDs, guildRoles).length > 0 && !same(working.permissionRoleIDs, saved?.permissionRoleIDs);
 
@@ -92,7 +99,7 @@ export default function SettingsPage() {
                 if (!res.ok) { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = await res.json();
                 if (!Array.isArray(data) || !data.every((g) => g && typeof g.id === "string" && typeof g.name === "string")) throw new Error("Invalid guild list");
-                // Only servers the user can change: the Go API's write policy is owner or Administrator.
+                // Only servers the user can change: the Go API's write policy is owner, Administrator, or Manage Server.
                 if (!controller.signal.aborted) setGuilds({ key: user, data: data.filter(canManageGuild) });
             }).catch(() => { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(502) }); });
         return () => controller.abort();
@@ -165,6 +172,20 @@ export default function SettingsPage() {
                 if (!Array.isArray(data) || !data.every((r) => r && typeof r.id === "string" && typeof r.name === "string" && typeof r.color === "number")) throw new Error("Invalid roles");
                 if (!controller.signal.aborted) setRoles({ key, data: data as GuildRole[] });
             }).catch(() => { if (!controller.signal.aborted) setRoles({ key, error: errorMessage(502) }); });
+        return () => controller.abort();
+    }, [user, guild?.id, key, checkSettings]);
+
+    useEffect(() => {
+        if (!user || !guild || !checkSettings) return;
+        const controller = new AbortController();
+        setChannels({ key });
+        fetch(`/api/guild/channels?${new URLSearchParams({ guildID: guild.id })}`, { signal: controller.signal, cache: "no-store" })
+            .then(async (res) => {
+                if (!res.ok) { if (!controller.signal.aborted) setChannels({ key, error: errorMessage(res.status) }); return; }
+                const data: unknown = await res.json();
+                if (!Array.isArray(data) || !data.every((c) => c && typeof c.id === "string" && typeof c.name === "string" && typeof c.ok === "boolean" && Array.isArray(c.problems))) throw new Error("Invalid channels");
+                if (!controller.signal.aborted) setChannels({ key, data: data as GuildChannel[] });
+            }).catch(() => { if (!controller.signal.aborted) setChannels({ key, error: errorMessage(502) }); });
         return () => controller.abort();
     }, [user, guild?.id, key, checkSettings]);
 
@@ -257,7 +278,7 @@ export default function SettingsPage() {
                 <div className={styles.state}><h2>Choose how your crew plays</h2><p>Sign in with Discord to manage settings for the servers you own or administer.</p><button className={styles.button} onClick={login}>Sign in with Discord</button></div> :
                 <>
                     {list.error ? problem(list, () => setGuildRetry((n) => n + 1)) : !list.data ? <div className={styles.state} role="status">Loading your servers...</div> : list.data.length === 0 ?
-                        <div className={styles.state}><h2>No servers you can manage</h2><p>Only servers where you are the owner or have the Administrator permission are shown here. If you were just given that role, refresh your server list.</p><button className={styles.button} onClick={() => setGuildRetry((n) => n + 1)}>Refresh servers</button></div> : <>
+                        <div className={styles.state}><h2>No servers you can manage</h2><p>Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.</p><button className={styles.button} onClick={() => setGuildRetry((n) => n + 1)}>Refresh servers</button></div> : <>
                             <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="settings-guild">Discord server</label><select id="settings-guild" value={guild ? selected : ""} disabled={saveState.saving} onChange={(e) => { if (changes > 0 && !window.confirm("Discard your unsaved changes and switch servers?")) return; router.replace({ pathname: "/settings", query: e.target.value ? { guild: e.target.value } : {} }, undefined, { shallow: true }); }}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy || saveState.saving} onClick={reload}>Reload settings</button></div>
                             <p className={styles.notice}>Changes apply to the bot when you press <strong>Save changes</strong>. Servers that never saved settings start from the defaults. Values that differ from the bot&apos;s defaults are marked <strong>Custom</strong>, and edits you haven&apos;t saved yet are highlighted in amber; <strong>Premium</strong> marks settings the bot applies only on premium servers.</p>
                             {!guild ? <div className={styles.state}><h2>{selected ? "Server unavailable" : "Select your server"}</h2><p>{selected ? "This server isn't one you own or administer. Choose another server above." : "Choose a server to see and change its configuration."}</p></div> : <>
@@ -272,7 +293,7 @@ export default function SettingsPage() {
                                         {bot.error && <p className={styles.warning} role="status">We couldn&apos;t confirm that AutoMuteUs is in this server. If the bot hasn&apos;t joined, <a href={GENERIC_INVITE} target="_blank" rel="noopener noreferrer">invite it</a> and these settings will apply once it does.</p>}
                                         {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data || !working ? <div className={styles.state} role="status">Loading settings...</div> : <>
                                             {premiumState.data === true && <p className={styles.notice}>This server doesn&apos;t have AutoMuteUs premium, so settings marked <strong>Premium</strong> are shown but locked.</p>}
-                                            <SettingsView settings={working} saved={saved} defaults={defaults} disabled={saveState.saving} errors={errorMap(fieldErrors)} premiumLocked={premiumState.data === true} channelCheck={currentCheck} roles={guildRoles}
+                                            <SettingsView settings={working} saved={saved} defaults={defaults} disabled={saveState.saving} errors={errorMap(fieldErrors)} premiumLocked={premiumState.data === true} channelCheck={currentCheck} roles={guildRoles} channels={guildChannels}
                                                 onChange={(next) => { setDraft({ key, settings: next }); if (saveState.message && !saveState.saving) setSave({ key }); }} />
                                             <div className={styles.saveBar} role="region" aria-label="Save changes">
                                                 <span className={styles.saveStatus} aria-live="polite">{changes === 0 ? "No unsaved changes" : `${changes} unsaved change${changes === 1 ? "" : "s"}`}</span>

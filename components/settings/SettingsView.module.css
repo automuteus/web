@@ -114,7 +114,17 @@ a.button:hover { color: #fff; text-decoration: none; }
 .smallButton:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
 .fieldOk { display: block; color: #bce7db; font-size: .8rem; font-weight: 400; margin-top: 4px; }
 
-.roleList { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 8px; }
+/* Fills the definition cell so the picker is bounded by it; a select's natural width is its widest option, and
+   nothing shrinks it unless the containers above have a real width and the item may go below its content size. */
+.roleList { display: flex; flex-direction: column; align-items: flex-end; gap: 8px; max-width: 100%; }
+.roleList .controlGroup { display: flex; max-width: 100%; flex-wrap: nowrap; }
+.roleList select { flex: 1 1 0; min-width: 0; }
+.roleList .idInput { flex: 1 1 0; min-width: 0; width: auto; }
+/* The summary channel picker: same bounding as the role picker, but its buttons may wrap under a narrow select. */
+.pickGroup { display: flex; max-width: 100%; }
+.pickGroup select, .pickGroup .idInput { flex: 1 1 12em; min-width: 0; width: auto; }
+.chip { max-width: 100%; }
+.chip > span, .chip > code { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .chip { display: inline-flex; align-items: center; gap: 6px; background: #2b3340; border: 1px solid #67748b; border-radius: 30px; padding: 4px 6px 4px 12px; font-size: .85rem; }
 .chip code { color: #fff; font-variant-numeric: tabular-nums; }
 .chipError { border-color: #b34a45; }
