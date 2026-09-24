@@ -23,6 +23,10 @@
     --dark: hsl(206, 9%, 85%);
     --darker: hsl(214, 7%, 81%);
     --darkest: hsl(218, 8%, 73%);
+
+    .modal a {
+        color: #2f4ec2;
+    }
 }
 
 /* width */
@@ -183,6 +187,13 @@ h6 {
 
 .modal {
     color: var(--text);
+    // Bootstrap 5 colours .modal-content from this variable (its light-theme body colour), which beats the
+    // inherited theme colour above and leaves the body text unreadable on the dark surface.
+    --bs-modal-color: var(--text);
+
+    a {
+        color: #a9b8ff;
+    }
 
     .modal-content {
         background-color: var(--darker);

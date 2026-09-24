@@ -85,6 +85,7 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | `/api/guild/channel` | `/guild/channel` | `guildID`, `channelID` |
 | `/api/guild/channels` | `/guild/channels` | `guildID` |
 | `/api/guild/roles` | `/guild/roles` | `guildID` |
+| `/api/guild/stats` | `/guild/stats` | `guildID` |
 | `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
@@ -194,3 +195,30 @@ with no stored settings receive the API's defaults. Language codes and configure
 Discord user/role/channel IDs are shown as stored; Discord name lookup is future
 work. Server changes abort the previous request and hide its data immediately.
 No background polling is used.
+
+## Server stats page
+
+Open `/stats` or use Stats in the navigation. Sign in, select a Discord server
+you belong to, and the page shows what `/stats guild` reports in Discord: games
+played, crewmate and impostor wins, and, on servers with premium, the
+leaderboards (most games, winrates overall and by role, best and worst duos,
+first to die, killed by). Any member may view a server's stats, the same as the
+slash command, so the picker lists every server the user is in rather than
+only those they manage. A selection is shareable as `/stats?guild=<guild ID>`.
+
+The page loads `/api/guild/bot` first and offers an invite when the bot is
+absent, then `/api/guild/stats`. The Go API builds the document at most once a
+minute per server, so **Reload stats** within that window returns the same
+figures. The proxy validates the upstream document against the shape in
+`components/stats/guild-stats.ts` and drops anything else; a document that
+does not fit is a 502. The free tier receives no `leaderboards` key; the page
+then shows the same hall of fame and boards filled with made-up, blurred
+entries, under a prompt linking to `/premium?guild=<guild ID>` so the server
+arrives preselected. The blurred section is hidden from assistive technology. A self-hosted API always reports
+premium, so `/stats?guild=<guild ID>&preview=free` shows the free layout for
+that server instead; it only hides the boards on the client. Players are shown
+with the name and avatar the Go API resolved through Discord with the bot's
+token (nickname, else display name, else username), or with the name the bot
+cached for that server; IDs nothing knows are shown as-is. Avatars are only
+ever loaded from Discord's CDN, and a player without one gets the default
+Discord would show them.

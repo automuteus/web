@@ -339,6 +339,38 @@ test("channels route forwards the guild and returns a validated, trimmed channel
     }
 });
 
+test("stats route forwards the guild and returns a validated, trimmed document", async (t) => {
+    const statsHandler = require("../pages/api/guild/stats.ts").default;
+    const fixture = require("./fixtures/guild-stats.json");
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/stats");
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, secret: "upstream-only", players: { ...fixture.players, "__proto__": { username: "evil" } } });
+    });
+    let res = response();
+    await statsHandler(await request(), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    assert.equal(res.getHeader("Cache-Control"), "no-store");
+    // A document the page cannot trust is a 502, never a partial object.
+    mockFetch(t, async () => json({ ...fixture, summary: { gamesPlayed: "many" } }));
+    res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 502);
+    assert.deepEqual(res.body, { error: "API request failed" });
+    // The free tier document has no leaderboards and that is valid.
+    const { leaderboards, players, ...free } = fixture;
+    mockFetch(t, async () => json(free));
+    res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { ...free, players: {} });
+});
+
 test("missing session and failed refresh never contact the Go API", async (t) => {
     mockFetch(t, async () => { throw new Error("should not fetch"); });
     for (const req of [

@@ -4,6 +4,7 @@ import { Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faBars,
+    faChartSimple,
     faCode,
     faCrown,
     faHome,
@@ -32,6 +33,11 @@ const navs: Array<HeaderLinkProps> = [
         text: "Settings",
         link: "/settings",
         icon: faSlidersH,
+    },
+    {
+        text: "Stats",
+        link: "/stats",
+        icon: faChartSimple,
     },
     {
         text: "Commands",
