@@ -719,3 +719,46 @@ test("premium status rejects malformed records", () => {
         assert.throws(() => parsePremium(body), JSON.stringify(body));
     }
 });
+
+test("operators listed in ADMIN_USER_IDS read the stats routes with the admin credential", async (t) => {
+    const statsHandler = require("../pages/api/guild/stats.ts").default;
+    const { isAdminUser, adminAuthorization } = require("../utils/server/admin.ts");
+    const fixture = require("./fixtures/guild-stats.json");
+    process.env.ADMIN_USER_IDS = " 999999999999999999, 223456789012345678 ";
+    process.env.API_ADMIN_PASS = "hunter2";
+    t.after(() => { delete process.env.ADMIN_USER_IDS; delete process.env.API_ADMIN_PASS; });
+    assert.equal(isAdminUser("223456789012345678"), true);
+    assert.equal(isAdminUser("323456789012345678"), false);
+    assert.equal(isAdminUser(undefined), false);
+    assert.equal(adminAuthorization(), "Basic " + Buffer.from("admin:hunter2").toString("base64"));
+
+    const seen = [];
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    // An operator: Basic auth, and full=1 on the stats document only.
+    let res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), "admin");
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: "1", auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    const userHandler = require("../pages/api/guild/user.ts").default;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ ...require("./fixtures/user-stats.json") }); });
+    res = response();
+    await userHandler(await request({}, { guildID: guild, userID: "323456789012345678" }), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/user", full: null, auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    // Anyone else, and any write or settings route, keeps the Discord session.
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request({ sub: "323456789012345678" }), res);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), undefined);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ language: "en" }); });
+    res = response();
+    await createAPIReadHandler("/guild/settings")(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/settings", full: null, auth: "Bearer discord-access" });
+    // Without the API password there is no admin view at all.
+    delete process.env.API_ADMIN_PASS;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
+});

@@ -13,6 +13,13 @@ export interface Guild {
     hasStats: boolean;
 }
 
+/** A stand-in for a server an operator opened by ID without being a member of it. It carries no permissions, so
+ * nothing that changes the server is offered. */
+export function adminGuild(id: string): Guild | undefined {
+    if (!/^[0-9]{17,20}$/.test(id)) return undefined;
+    return { id, name: `Server ${id}`, icon: null, owner: false, permissions: "0", botPresent: true, hasStats: true };
+}
+
 /** Guilds whose stats page has something to show, or soon will because the bot is there to record games. */
 export function hasStatsPage(guild: Pick<Guild, "botPresent" | "hasStats">): boolean {
     return guild.hasStats || guild.botPresent;

@@ -36,6 +36,11 @@ DISCORD_CLIENT_SECRET=
 # Server-side AutoMuteUs API base URL for public stats and authenticated reads
 # Use a trusted HTTPS endpoint in production; local HTTP is supported for development.
 AUTOMUTEUS_API_URL=https://api.automute.us
+
+# Optional: operators who may open any server's stats pages by ID (Discord user IDs, comma-separated),
+# and the Go API's admin password those reads use. Leave both unset to disable admin views.
+ADMIN_USER_IDS=
+API_ADMIN_PASS=
 ```
 
 In your Discord application, add a redirect under "OAuth2" matching
@@ -112,8 +117,15 @@ captures the access token for the outgoing `Authorization: Bearer ...` header;
 the public `/api/auth/session` response never includes either Discord token.
 Browser Authorization headers and extra query parameters are not forwarded.
 
-Go independently enforces membership on each read. No platform admin credential
-is used, and the existing `identify guilds` OAuth scopes suffice. Configure
+Go independently enforces membership on each read, and the existing `identify guilds`
+OAuth scopes suffice. The one exception is the admin view: when `ADMIN_USER_IDS`
+and `API_ADMIN_PASS` are both set, a signed-in user listed there has the stats,
+match, player, and bot presence routes forwarded with the API's Basic admin
+credential instead of their Discord token, and `/guild/stats` is asked for
+`full=1` so the leaderboards come back whatever the server's premium. The
+response carries `X-AutoMuteUs-View: admin`, each such read is logged with the
+user and server, and every other route (settings, resets, premium) still uses
+the user's own session, so an operator can look but not change anything. Configure
 `AUTOMUTEUS_API_URL` to a trusted API running bearer authentication; tokens are
 sent only to that configured base URL, with redirects rejected. An unset URL
 uses `https://api.automute.us`, matching the existing public stats default.
@@ -210,6 +222,10 @@ played, crewmate and impostor wins, and, on servers with premium, the
 leaderboards (most games, winrates overall and by role, best and worst duos,
 first to die, killed by). Any member may view a server's stats, so the picker lists every server the user is in rather than
 only those they manage. A selection is shareable as `/stats?guild=<guild ID>`.
+An operator listed in `ADMIN_USER_IDS` may also open a server they are not in
+by ID; the pages show it as "Server <ID>" with an admin-view notice, offer no
+reset panel, and show the leaderboards regardless of premium (see the admin
+view under "Authenticated API reads").
 
 The page loads `/api/guild/bot` first and offers an invite when the bot is
 absent, then `/api/guild/stats`. The Go API builds the document at most once a

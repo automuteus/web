@@ -1,4 +1,5 @@
 import type { NextAuthOptions } from "next-auth";
+import { isAdminUser } from "./admin";
 import type { JWT } from "next-auth/jwt";
 import DiscordProvider from "next-auth/providers/discord";
 
@@ -79,6 +80,8 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             // `sub` is the Discord user ID when no adapter is configured.
             session.user.id = token.sub;
+            // Lets the stats pages offer any server by ID to an operator; the API routes check it again.
+            session.user.admin = isAdminUser(token.sub);
             session.error = token.error;
             return session;
         },

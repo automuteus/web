@@ -1,8 +1,12 @@
 import type { NextApiRequest, NextApiResponse } from "next";
-import { getDiscordAccessToken } from "./discord-session";
+import { getDiscordSession } from "./discord-session";
+import { adminAuthorization, isAdminUser } from "./admin";
 
 type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/channels" | "/guild/roles" | "/guild/stats" | "/guild/match" | "/guild/user" | "/game/state" | "/game/roomcode";
 const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/channels", "/guild/roles", "/guild/stats", "/guild/match", "/guild/user", "/game/state", "/game/roomcode"];
+/** Routes an operator listed in ADMIN_USER_IDS reads with the API's admin credential instead of their Discord
+ * membership: the stats pages and the bot presence check they start with. Nothing here can change a server. */
+const adminEndpoints: readonly string[] = ["/guild/stats", "/guild/match", "/guild/user", "/guild/bot"];
 
 /** Optional reshaping of a successful upstream body before it reaches the browser. Throwing means the upstream
  * body was not what this route expects and the browser gets a 502 instead of a partial object. */
@@ -53,8 +57,11 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
         }
 
         try {
-            const token = await getDiscordAccessToken(req, res);
-            if (!token) return res.status(401).json({ error: "Sign in with Discord again" });
+            const session = await getDiscordSession(req, res);
+            if (!session) return res.status(401).json({ error: "Sign in with Discord again" });
+            // Admin views are logged: who looked at which server through which route.
+            const admin = adminEndpoints.includes(endpoint) && isAdminUser(session.userId) ? adminAuthorization() : null;
+            if (admin) console.log(`admin view: user ${session.userId} read ${endpoint} for guild ${guildID}`);
 
             // Only a server-controlled URL is used, and redirects are rejected below.
             const target = upstreamURL(endpoint);
@@ -63,9 +70,11 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             if (channel) target.searchParams.set("channelID", channelID as string);
             if (match) target.searchParams.set("matchID", matchID as string);
             if (user) target.searchParams.set("userID", userID as string);
+            // Operators see the leaderboards whatever the server's premium; the API honours full only with Basic auth.
+            if (admin && endpoint === "/guild/stats") target.searchParams.set("full", "1");
 
             const upstream = await fetch(target, {
-                headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },
+                headers: { Authorization: admin ?? `Bearer ${session.accessToken}`, Accept: "application/json" },
                 cache: "no-store",
                 redirect: "error",
                 signal: AbortSignal.timeout(12_000),
@@ -88,6 +97,7 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             const etag = upstream.headers.get("etag");
             if (etag && /^(W\/)?"[0-9]{1,19}"$/.test(etag)) res.setHeader("ETag", etag);
             const body = await upstream.json();
+            if (admin) res.setHeader("X-AutoMuteUs-View", "admin");
             return res.status(200).json(shape ? shape(body, { guildID }) : body);
         } catch {
             return res.status(502).json({ error: "API request failed" });

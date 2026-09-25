@@ -9,7 +9,7 @@ import { GuildStats, parseGuildStats, previewFree } from "../components/stats/gu
 import { userStatsHref } from "../components/stats/user-stats";
 // The page shell (heading, server picker, state cards) is shared with the settings page so the two look alike.
 import styles from "../components/settings/SettingsView.module.css";
-import { Guild, canManageGuild, hasStatsPage } from "../types/Guild";
+import { adminGuild, Guild, canManageGuild, hasStatsPage } from "../types/Guild";
 import type { BotPresence } from "./api/guild/bot";
 
 /** Generic invite used when the API could not supply a server-specific one. */
@@ -39,7 +39,10 @@ export default function StatsPage() {
     // Set for the reload a reset starts, so it shows once over the emptied stats and goes on the next reload.
     const [resetNotice, setResetNotice] = useState<{ key: string; message: string }>();
     const list = guilds.key === user ? guilds : { key: user };
-    const guild = list.data?.find((g) => g.id === selected);
+    const admin = status === "authenticated" && !session.error && session.user.admin === true;
+    const listed = list.data?.find((g) => g.id === selected);
+    // Operators may open any server by ID; the API routes then use the admin credential instead of membership.
+    const guild = listed ?? (admin && list.data ? adminGuild(selected) : undefined);
     const key = `${user}:${selected}:${refresh}`;
     const bot = presence.key === key ? presence : { key };
     const current = stats.key === key ? stats : { key };
@@ -105,9 +108,10 @@ export default function StatsPage() {
                 <>
                     {list.error ? problem(list, () => setGuildRetry((n) => n + 1)) : !list.data ? <div className={styles.state} role="status">Loading your servers...</div> : list.data.length === 0 ?
                         <div className={styles.state}><h2>No servers found</h2><p>You don&apos;t seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.</p><button className={styles.button} onClick={() => setGuildRetry((n) => n + 1)}>Refresh servers</button></div> : <>
-                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button><Link className={styles.button} href={{ pathname: "/stats/match", query: { ...(guild ? { guild: guild.id } : {}), ...(preview ? { preview: "free" } : {}) } }}>Look up a match</Link>{guild && <Link className={styles.button} href={userStatsHref(guild.id, user, preview)}>My stats</Link>}</div>
+                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{guild && !listed && <option value={guild.id}>{guild.name}</option>}{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button><Link className={styles.button} href={{ pathname: "/stats/match", query: { ...(guild ? { guild: guild.id } : {}), ...(preview ? { preview: "free" } : {}) } }}>Look up a match</Link>{guild && <Link className={styles.button} href={userStatsHref(guild.id, user, preview)}>My stats</Link>}</div>
                             {!guild ? <div className={styles.state}><h2>{selected ? "Server unavailable" : "Select your server"}</h2><p>{selected ? "This server isn't one you're a member of. Choose another server above." : "Choose a server to see its stats."}</p></div> : <>
                                 <h2 className={styles.selected}>{guild.name}</h2>
+                                {admin && <p className={styles.notice} role="status">Admin view: loaded with the API&apos;s admin credential{listed ? "" : " for a server you're not in"}. Leaderboards are shown whatever the server's premium.</p>}
                                 {!bot.data && !bot.error ? <div className={styles.state} role="status">Checking for AutoMuteUs in this server...</div> : bot.data?.present === false ?
                                     <div className={styles.state}>
                                         <h2>AutoMuteUs isn&apos;t in this server yet</h2>
