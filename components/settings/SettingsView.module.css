@@ -6,13 +6,13 @@
 .toolbar { display: flex; align-items: flex-end; gap: 16px; padding: 22px; background: #222831; border: 1px solid #3c4553; border-radius: 14px; margin-bottom: 20px; }
 .selector { flex: 1; min-width: 0; }
 .selector label { display: block; margin-bottom: 8px; font-size: .9rem; }
-.selector select { width: 100%; background: #171c23; color: #fff; border: 1px solid #67748b; padding: 12px; border-radius: 8px; }
+.selector select, .selector input { width: 100%; background: #171c23; color: #fff; border: 1px solid #67748b; padding: 12px; border-radius: 8px; }
 .button { display: inline-block; border: 1px solid #7785a0; background: #343e53; color: #fff; padding: 11px 18px; border-radius: 8px; font-weight: 700; text-decoration: none; line-height: normal; }
 .state .button + .button { margin-left: 12px; }
 a.button:hover { color: #fff; text-decoration: none; }
 .button:hover { background: #445472; }
 .button:disabled { opacity: .5; cursor: not-allowed; }
-.button:focus-visible, .selector select:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 3px; }
+.button:focus-visible, .selector select:focus-visible, .selector input:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 3px; }
 .notice { border-left: 3px solid #8799ed; padding: 14px 18px; background: #272e3b; margin-bottom: 24px; color: #d2d9e5; font-weight: 400; line-height: 1.6; }
 .state { padding: 42px 24px; border: 1px solid #3c4553; background: #222831; border-radius: 14px; text-align: center; }
 .state p { font-weight: 400; color: #c4ccd9; }

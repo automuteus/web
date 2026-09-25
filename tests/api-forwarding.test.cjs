@@ -371,6 +371,43 @@ test("stats route forwards the guild and returns a validated, trimmed document",
     assert.deepEqual(res.body, { ...free, players: {} });
 });
 
+test("match route forwards only a canonical match ID and returns a validated, trimmed document", async (t) => {
+    const matchHandler = require("../pages/api/guild/match.ts").default;
+    const fixture = require("./fixtures/match-summary.json");
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/match");
+        assert.deepEqual([...url.searchParams.keys()].sort(), ["guildID", "matchID"]);
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.equal(url.searchParams.get("matchID"), "42");
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, connectCode: "ABCDEFGH" });
+    });
+    let res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42", connectCode: "ABCDEFGH" }), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    for (const matchID of [undefined, "", "0", "042", "-1", "4.2", "ABCDEFGH:42", "1234567890123456789", ["1", "2"]]) {
+        res = response();
+        await matchHandler(await request({}, { guildID: guild, matchID }), res);
+        assert.equal(res.statusCode, 400, String(matchID));
+        assert.deepEqual(res.body, { error: "Invalid match ID" });
+    }
+    assert.equal(calls, 1);
+    // A missing match is relayed as 404 so the page can say so; a malformed document is a 502.
+    mockFetch(t, async () => json({ error: "match not found" }, 404));
+    res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42" }), res);
+    assert.equal(res.statusCode, 404);
+    assert.deepEqual(res.body, { error: "Not found" });
+    mockFetch(t, async () => json({ ...fixture, roster: "everyone" }));
+    res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42" }), res);
+    assert.equal(res.statusCode, 502);
+});
+
 test("missing session and failed refresh never contact the Go API", async (t) => {
     mockFetch(t, async () => { throw new Error("should not fetch"); });
     for (const req of [

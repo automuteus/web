@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import Link from "next/link";
 import AppLayout from "../components/layout/AppLayout";
 import GuildStatsView from "../components/stats/GuildStatsView";
 import { GuildStats, parseGuildStats, previewFree } from "../components/stats/guild-stats";
@@ -100,7 +101,7 @@ export default function StatsPage() {
                 <>
                     {list.error ? problem(list, () => setGuildRetry((n) => n + 1)) : !list.data ? <div className={styles.state} role="status">Loading your servers...</div> : list.data.length === 0 ?
                         <div className={styles.state}><h2>No servers found</h2><p>You don&apos;t seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.</p><button className={styles.button} onClick={() => setGuildRetry((n) => n + 1)}>Refresh servers</button></div> : <>
-                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button></div>
+                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button><Link className={styles.button} href={{ pathname: "/stats/match", query: { ...(guild ? { guild: guild.id } : {}), ...(preview ? { preview: "free" } : {}) } }}>Look up a match</Link></div>
                             {!guild ? <div className={styles.state}><h2>{selected ? "Server unavailable" : "Select your server"}</h2><p>{selected ? "This server isn't one you're a member of. Choose another server above." : "Choose a server to see its stats."}</p></div> : <>
                                 <h2 className={styles.selected}>{guild.name}</h2>
                                 {!bot.data && !bot.error ? <div className={styles.state} role="status">Checking for AutoMuteUs in this server...</div> : bot.data?.present === false ?

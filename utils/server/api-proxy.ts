@@ -1,8 +1,8 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { getDiscordAccessToken } from "./discord-session";
 
-type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/channels" | "/guild/roles" | "/guild/stats" | "/game/state" | "/game/roomcode";
-const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/channels", "/guild/roles", "/guild/stats", "/game/state", "/game/roomcode"];
+type ReadEndpoint = "/guild/settings" | "/guild/premium" | "/guild/bot" | "/guild/channel" | "/guild/channels" | "/guild/roles" | "/guild/stats" | "/guild/match" | "/game/state" | "/game/roomcode";
+const endpoints: readonly string[] = ["/guild/settings", "/guild/premium", "/guild/bot", "/guild/channel", "/guild/channels", "/guild/roles", "/guild/stats", "/guild/match", "/game/state", "/game/roomcode"];
 
 /** Optional reshaping of a successful upstream body before it reaches the browser. Throwing means the upstream
  * body was not what this route expects and the browser gets a 502 instead of a partial object. */
@@ -30,7 +30,7 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             res.setHeader("Allow", "GET");
             return res.status(405).json({ error: "Method not allowed" });
         }
-        const { guildID, connectCode, channelID } = req.query;
+        const { guildID, connectCode, channelID, matchID } = req.query;
         if (typeof guildID !== "string" || !/^[0-9]{17,20}$/.test(guildID)) {
             return res.status(400).json({ error: "Invalid guild ID" });
         }
@@ -42,6 +42,11 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
         if (channel && (typeof channelID !== "string" || !/^[0-9]{17,20}$/.test(channelID))) {
             return res.status(400).json({ error: "Invalid channel ID" });
         }
+        // A match ID is a positive Postgres bigint, written without leading zeros as Go requires.
+        const match = endpoint === "/guild/match";
+        if (match && (typeof matchID !== "string" || !/^[1-9][0-9]{0,17}$/.test(matchID))) {
+            return res.status(400).json({ error: "Invalid match ID" });
+        }
 
         try {
             const token = await getDiscordAccessToken(req, res);
@@ -52,6 +57,7 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
             target.searchParams.set("guildID", guildID);
             if (game) target.searchParams.set("connectCode", connectCode as string);
             if (channel) target.searchParams.set("channelID", channelID as string);
+            if (match) target.searchParams.set("matchID", matchID as string);
 
             const upstream = await fetch(target, {
                 headers: { Authorization: `Bearer ${token}`, Accept: "application/json" },

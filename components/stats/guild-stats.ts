@@ -125,9 +125,15 @@ export function parseGuildStats(body: unknown): GuildStats {
             killedBy: list(b.killedBy, "leaderboards.killedBy", killedBy),
         };
     }
-    // Names are a convenience, so a malformed entry is dropped rather than failing the whole document. Only
-    // snowflake keys are kept, which also keeps prototype names out of the map.
-    const players = doc.players === undefined || doc.players === null ? {} : record(doc.players, "players");
+    stats.players = parsePlayers(doc.players === undefined || doc.players === null ? {} : record(doc.players, "players"));
+    return stats;
+}
+
+/** The user ID to name map shared by the stats and match documents. Names are a convenience, so a malformed entry
+ * is dropped rather than failing the whole document. Only snowflake keys are kept, which also keeps prototype
+ * names out of the map. */
+export function parsePlayers(players: Record<string, unknown>): Record<string, StatsPlayer> {
+    const parsed: Record<string, StatsPlayer> = {};
     for (const key of Object.keys(players)) {
         const p = players[key];
         if (!SNOWFLAKE.test(key) || !p || typeof p !== "object" || Array.isArray(p)) continue;
@@ -137,9 +143,9 @@ export function parseGuildStats(body: unknown): GuildStats {
         if (typeof nickname === "string" && nickname !== "") player.nickname = nickname;
         if (typeof globalName === "string" && globalName !== "") player.globalName = globalName;
         if (typeof avatar === "string" && AVATAR_URL.test(avatar)) player.avatar = avatar;
-        stats.players[key] = player;
+        parsed[key] = player;
     }
-    return stats;
+    return parsed;
 }
 
 /** The document as a server without premium would receive it: the summary only, and a free premium record.

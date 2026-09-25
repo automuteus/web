@@ -86,6 +86,7 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | `/api/guild/channels` | `/guild/channels` | `guildID` |
 | `/api/guild/roles` | `/guild/roles` | `guildID` |
 | `/api/guild/stats` | `/guild/stats` | `guildID` |
+| `/api/guild/match` | `/guild/match` | `guildID`, `matchID` |
 | `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
@@ -222,3 +223,30 @@ token (nickname, else display name, else username), or with the name the bot
 cached for that server; IDs nothing knows are shown as-is. Avatars are only
 ever loaded from Discord's CDN, and a player without one gets the default
 Discord would show them.
+
+## Match summary page
+
+Open `/stats/match`, or **Look up a match** on the stats page, and enter the
+match ID the bot posts at game over (`ABCDEFGH:42`, or just `42`). A lookup is
+shareable as `/stats/match?guild=<guild ID>&match=<match ID>`. Any member of
+the server may view its matches, as with the stats page, and an ID from another
+server is "not found".
+
+The page loads `/api/guild/match`; the proxy only forwards a positive match
+number without leading zeros and validates the upstream document against
+`components/stats/match-summary.ts`, dropping map, region, color, or event
+values it cannot name rather than failing the page. It shows the result, map,
+region, start time, and length, then both teams with each player's in-game
+name, color, and linked Discord user. Unlinked players come from the game's
+own game over report, which the bot keeps since the Go change that started
+recording it; older matches list linked players only, and the page says so.
+On servers with premium the timeline follows: rounds and meetings, who was
+killed or voted out and when, and each player's fate beside their name, with
+the bot's crewmate emoji standing or dead as they ended the match (small copies
+of `automuteus/assets/emojis` in `public/images/crewmates`). Without premium
+every player's sprite is the standing one, blurred so the color stays readable
+(a blurred body would still show its outline), and the timeline is a blurred
+sample under a prompt linking to
+`/premium?guild=<guild ID>`. As on the stats page, adding `&preview=free`
+shows a match as a server without premium sees it; it only hides the timeline
+on the client, and the flag is kept when moving between the two pages.
