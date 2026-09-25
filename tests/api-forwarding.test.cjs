@@ -694,8 +694,27 @@ test("premium status describes active, unexpiring, expired, and free servers", (
     assert.equal(tierName(9), "Premium");
 });
 
+test("premium status says whether a tracked subscription renews", () => {
+    const endsAt = Date.UTC(2026, 9, 24, 12) / 1000;
+    assert.deepEqual(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt } }, "Crew"),
+        { kind: "active", message: "Crew has AutoMuteUs Gold. Its PayPal subscription renews around Oct 24, 2026." });
+    assert.deepEqual(describePremium({ tier: 2, days: 29, subscription: { status: "cancelled", endsAt } }, "Crew"),
+        { kind: "ending", message: "Crew has AutoMuteUs Silver until Oct 24, 2026. Its PayPal subscription is cancelled and won't renew." });
+    assert.equal(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt, inherited: true } }, "Crew").message,
+        "Crew has AutoMuteUs Gold. The PayPal subscription of the server it inherits premium from renews around Oct 24, 2026.");
+    // No expiry outranks whatever the subscription says, and an expired tier never mentions one.
+    assert.equal(describePremium({ tier: 3, days: -9999, subscription: { status: "cancelled", endsAt } }, "Crew").kind, "active");
+    assert.equal(describePremium({ tier: 3, days: 0, subscription: { status: "active", endsAt } }, "Crew").kind, "expired");
+});
+
 test("premium status rejects malformed records", () => {
     assert.deepEqual(parsePremium({ tier: 3, days: 5, extra: true }), { tier: 3, days: 5 });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } }),
+        { tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "active", endsAt: 1793000000 } }).subscription, { status: "active", endsAt: 1793000000, inherited: false });
+    for (const subscription of [{ status: "paused", endsAt: 1 }, { status: "active" }, { status: "active", endsAt: "soon" }, { status: "active", endsAt: 1, inherited: "yes" }, "active"]) {
+        assert.throws(() => parsePremium({ tier: 3, days: 5, subscription }), JSON.stringify(subscription));
+    }
     for (const body of [null, [], {}, { tier: "3", days: 5 }, { tier: 3 }, { tier: -1, days: 5 }, { tier: 1.5, days: 5 }, { tier: 1, days: 0.5 }]) {
         assert.throws(() => parsePremium(body), JSON.stringify(body));
     }

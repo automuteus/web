@@ -20,7 +20,7 @@ import GuildSelect from "../../components/premium/GuildSelect";
 import PremiumItem from "../../components/premium/PremiumItem";
 import { premium_items } from "../../data/premium_items";
 import PremiumPerk from "../../components/premium/PremiumPerk";
-import { describePremium, parsePremium } from "../../components/premium/premium-status";
+import { GuildPremium, describePremium, parsePremium } from "../../components/premium/premium-status";
 import { PremiumRecord, premiumActive } from "../../components/stats/guild-stats";
 
 export default function PremiumPage() {
@@ -32,7 +32,7 @@ export default function PremiumPage() {
     const [guilds, setGuilds] = useState<Guild[] | undefined>();
     // The selected server's premium, keyed by server so a stale answer never shows under another one. Only
     // members can read it, so a server picked by ID the user is not in simply shows no status.
-    const [premium, setPremium] = useState<{ guild: string; record: PremiumRecord }>();
+    const [premium, setPremium] = useState<{ guild: string; record: GuildPremium }>();
     const record = premium && premium.guild === guild ? premium.record : undefined;
     const active = record && premiumActive(record) ? record : undefined;
     const serverName = guilds?.find((g) => g.id === guild)?.name || "This server";
@@ -129,7 +129,7 @@ export default function PremiumPage() {
                 {summary && (
                     <Alert
                         variant="transparent"
-                        className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : "text-light"}`}
+                        className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : summary.kind === "ending" ? "text-warning" : "text-light"}`}
                         style={{ background: "var(--dark)" }}
                     >
                         <div>{summary.message}</div>
