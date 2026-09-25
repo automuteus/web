@@ -1,0 +1,105 @@
+/* Series colors for the two sides, validated for CVD separation and contrast against the #222831 card surface.
+   "overall" is the site accent, for boards about neither side. */
+.crew { --side: #3987e5; }
+.impostor { --side: #d95926; }
+.overall { --side: #8799ed; }
+.none { --side: #39424e; }
+.swatch { display: inline-block; width: 10px; height: 10px; border-radius: 50%; flex: none; background: var(--side, #8b97ad); }
+
+.sectionTitle { font-size: 1.05rem; text-transform: uppercase; letter-spacing: .08em; color: #bac6db; margin: 28px 0 12px; }
+.sectionTitle:first-child { margin-top: 0; }
+
+.card { background: #222831; border: 1px solid #3c4553; padding: 24px; border-radius: 14px; min-width: 0; }
+.card h2 { font-size: 1.2rem; margin: 0 0 16px; }
+.cardHint { color: #9aa6b8; font-size: .82rem; font-weight: 400; margin: -8px 0 16px; line-height: 1.5; }
+
+/* Premium layout summary: one strip so the boards lead. */
+.strip { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 36px; padding: 18px 24px; margin-bottom: 24px; }
+.stripStats { display: flex; flex-wrap: wrap; gap: 12px 36px; }
+.stripStat { display: flex; align-items: baseline; gap: 10px; }
+.stripValue { font-size: 1.7rem; font-weight: 600; line-height: 1; }
+.stripLabel { display: inline-flex; align-items: center; gap: 7px; color: #bac6db; font-size: .85rem; font-weight: 400; }
+.stripBar { flex: 1 1 320px; min-width: 0; }
+.stripBar .legend { margin-top: 8px; }
+
+.shareBar { display: flex; gap: 2px; height: 14px; border-radius: 7px; overflow: hidden; background: #39424e; }
+.shareSegment { height: 100%; min-width: 0; background: var(--side); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 22px; margin: 12px 0 0; padding: 0; list-style: none; font-size: .88rem; font-weight: 400; color: #d2d9e5; }
+.legend li { display: inline-flex; align-items: center; gap: 8px; }
+.legend strong { font-variant-numeric: tabular-nums; }
+
+/* Hall of fame: the top entry of the boards people care about most. */
+.spotlight { margin-bottom: 8px; }
+.spotlightGrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; }
+.spotlightCard { position: relative; overflow: hidden; background: #222831; border: 1px solid #3c4553; border-radius: 14px; padding: 18px 16px 16px; text-align: center; min-width: 0; }
+.spotlightCard::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--side); }
+.spotlightCard::after { content: ""; position: absolute; left: 50%; top: -60px; width: 220px; height: 160px; transform: translateX(-50%); background: radial-gradient(closest-side, var(--side), transparent 70%); opacity: .18; pointer-events: none; }
+.spotlightLabel { position: relative; color: #bac6db; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+.spotlightAvatars { position: relative; display: flex; justify-content: center; margin-bottom: 10px; }
+.spotlightAvatars .avatar { width: 64px; height: 64px; border: 3px solid var(--side); box-shadow: 0 0 0 3px #222831; }
+.spotlightAvatars .avatar + .avatar { margin-left: -14px; }
+.spotlightName { position: relative; font-weight: 700; overflow-wrap: anywhere; line-height: 1.3; }
+.spotlightName .unknown { font-size: .75rem; }
+.amp { color: #8b97ad; font-weight: 400; }
+.spotlightValue { position: relative; font-size: 1.9rem; font-weight: 600; line-height: 1.15; margin-top: 6px; }
+.spotlightDetail { position: relative; color: #9aa6b8; font-size: .8rem; font-weight: 400; margin-top: 2px; line-height: 1.4; }
+
+/* Boards. */
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.scroll { overflow-x: auto; }
+.table { width: 100%; font-size: .9rem; border-collapse: collapse; }
+.table th, .table td { padding: 8px 10px; border-bottom: 1px solid #39424e; white-space: nowrap; text-align: left; vertical-align: middle; }
+.table thead { color: #bac6db; font-size: .75rem; text-transform: uppercase; letter-spacing: .04em; }
+.table thead th { padding-bottom: 10px; }
+.table tbody tr:last-child th, .table tbody tr:last-child td { border-bottom: none; }
+.table tbody th { font-weight: 400; white-space: normal; overflow-wrap: anywhere; min-width: 10em; }
+.table tbody tr:hover { background: #262e3a; }
+.table tbody tr.me { background: #2a3350; box-shadow: inset 3px 0 0 #8799ed; }
+.table tbody tr.me:hover { background: #303b5c; }
+.meBadge { display: inline-block; flex: none; color: #0f1430; background: #a9b8ff; border-radius: 30px; padding: 1px 8px; font-size: .68rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; margin-left: 6px; vertical-align: middle; }
+.spotlightMe { border-color: #a9b8ff; box-shadow: 0 0 0 1px #a9b8ff, 0 8px 28px rgba(137, 155, 255, .25); }
+.rank { width: 2.5em; }
+.rankBadge { display: inline-flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 50%; font-size: .8rem; font-weight: 700; color: #bac6db; background: #2b3340; font-variant-numeric: tabular-nums; }
+.gold { color: #2a2205; background: linear-gradient(160deg, #ffd977, #e0a81a); }
+.silver { color: #1e222a; background: linear-gradient(160deg, #e6ecf5, #a9b3c2); }
+.bronze { color: #2b1a0c; background: linear-gradient(160deg, #e0a172, #b4712f); }
+.table .num { text-align: right; font-variant-numeric: tabular-nums; }
+.table .rate { text-align: right; font-variant-numeric: tabular-nums; font-weight: 700; width: 7em; }
+.rateCell { display: inline-flex; flex-direction: column; align-items: flex-end; gap: 4px; min-width: 5em; }
+.bar { display: block; width: 100%; height: 4px; border-radius: 2px; background: #39424e; overflow: hidden; }
+.barFill { display: block; height: 100%; border-radius: 2px; background: var(--side); }
+
+.player { display: inline-flex; align-items: center; gap: 10px; min-width: 0; max-width: 100%; }
+.avatar { width: 28px; height: 28px; border-radius: 50%; flex: none; background: #2b3340; object-fit: cover; }
+.name { min-width: 0; overflow-wrap: anywhere; }
+.nameLink { color: inherit; text-decoration: none; min-width: 0; }
+.nameLink:hover { color: #c3ceff; text-decoration: underline; }
+.pair { display: inline-flex; align-items: center; gap: 10px; min-width: 0; }
+.pairAvatars { display: inline-flex; flex: none; }
+.pairAvatars .avatar + .avatar { margin-left: -8px; box-shadow: 0 0 0 2px #222831; }
+.pairNames { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.pairNames > * + *::before { content: "& "; color: #8b97ad; }
+.unknown { color: #bac6db; font-variant-numeric: tabular-nums; font-size: .8rem; }
+.empty { color: #9aa6b8; font-style: italic; font-weight: 400; margin: 0; line-height: 1.55; }
+
+/* Locked premium section: the same layout with made-up entries, blurred, under a prompt that follows the reader
+   while the section is in view. */
+.locked { position: relative; }
+.lockedContent { filter: blur(7px); opacity: .8; pointer-events: none; user-select: none; }
+.lockOverlay { position: sticky; top: 22vh; z-index: 2; height: 0; display: flex; justify-content: center; align-items: flex-start; padding: 0 12px; }
+.lockCard { background: #1b2028; border: 1px solid #7b8cf0; border-radius: 16px; padding: 30px 28px; max-width: 34em; text-align: center; box-shadow: 0 16px 48px rgba(0, 0, 0, .55); }
+.lockCard h2 { font-size: 1.3rem; margin: 0 0 12px; }
+.lockCard p { font-weight: 400; color: #c4ccd9; margin: 0 0 20px; line-height: 1.6; }
+.lockCard a { display: inline-block; border: 1px solid #7b8cf0; background: #4d5fd1; color: #fff; padding: 12px 20px; border-radius: 8px; font-weight: 700; text-decoration: none; }
+.lockCard a:hover { background: #5c6fe6; color: #fff; text-decoration: none; }
+.lockCard a:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 3px; }
+
+.meta { color: #8b97ad; font-size: .8rem; font-weight: 400; margin: 12px 0 16px; line-height: 1.55; }
+
+@media (max-width: 720px) {
+    .grid { grid-template-columns: 1fr; }
+    .card { padding: 18px; }
+    .lockCard { padding: 22px 18px; }
+    .strip { padding: 16px 18px; }
+    .spotlightGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}

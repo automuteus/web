@@ -1,0 +1,15 @@
+/* A reset: a red-edged card whose button opens an inline confirmation. Buttons come from SettingsView.module.css. */
+.panel { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: 16px 24px; margin-top: 28px; padding: 22px 24px; background: #262126; border: 1px solid #6b3a3d; border-radius: 14px; }
+.text { flex: 1 1 320px; min-width: 0; }
+.text h2 { font-size: 1.1rem; margin: 0 0 8px; color: #ffd0cf; }
+.body { color: #c4ccd9; font-size: .9rem; font-weight: 400; line-height: 1.55; }
+.body p { margin: 0; }
+.confirm { flex: 1 1 100%; display: flex; flex-direction: column; gap: 12px; border-top: 1px solid #4f3336; padding-top: 16px; }
+.warning { margin: 0; color: #ffe2b8; font-weight: 400; line-height: 1.55; }
+.typed { display: flex; flex-direction: column; gap: 8px; max-width: 320px; font-size: .9rem; font-weight: 400; }
+.typed input { background: #171c23; color: #fff; border: 1px solid #67748b; padding: 10px 12px; border-radius: 8px; }
+.typed input:focus-visible { outline: 3px solid #a4b4ff; outline-offset: 2px; }
+.error { margin: 0; color: #ffb4b0; font-size: .88rem; font-weight: 400; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.danger { background: #7a2e32; border-color: #b4565b; }
+.danger:hover { background: #923a3f; }

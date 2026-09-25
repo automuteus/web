@@ -1,0 +1,236 @@
+{
+    "guildId": "123456789012345678",
+    "userId": "400000000000000001",
+    "premium": {
+        "tier": 2,
+        "days": -9999
+    },
+    "generatedAt": 1758650000,
+    "summary": {
+        "games": 8,
+        "wins": 5,
+        "winrate": 62.5,
+        "crewmate": {
+            "games": 6,
+            "wins": 4,
+            "winrate": 66.7
+        },
+        "impostor": {
+            "games": 2,
+            "wins": 1,
+            "winrate": 50
+        },
+        "firstGame": 1757000000,
+        "lastGame": 1758600000
+    },
+    "recentMatches": [
+        {
+            "matchId": "42",
+            "startTime": 1758600000,
+            "endTime": 1758600600,
+            "result": "impostorSabotage",
+            "map": "airship",
+            "name": "Bo",
+            "color": "cyan",
+            "role": "impostor",
+            "won": true
+        },
+        {
+            "matchId": "41",
+            "startTime": 1758500000,
+            "endTime": 1758500500,
+            "result": "unknown",
+            "name": "Bo",
+            "color": "lime",
+            "role": "crewmate",
+            "won": false
+        },
+        {
+            "matchId": "40",
+            "startTime": 1758400000,
+            "endTime": 1758400700,
+            "result": "crewmateTasks",
+            "map": "skeld",
+            "name": "Bobo",
+            "color": "lime",
+            "role": "crewmate",
+            "won": true
+        }
+    ],
+    "details": {
+        "minGames": 2,
+        "ranks": {
+            "games": {
+                "position": 2,
+                "players": 4
+            },
+            "winrate": {
+                "position": 1,
+                "players": 3
+            },
+            "crewmateWinrate": {
+                "position": 2,
+                "players": 3
+            }
+        },
+        "streaks": {
+            "current": 1,
+            "bestWin": 3,
+            "bestLoss": 2
+        },
+        "survival": {
+            "games": 6,
+            "survived": 3,
+            "rate": 50
+        },
+        "fates": {
+            "killedAsCrewmate": {
+                "times": 2,
+                "games": 6,
+                "rate": 33.3,
+                "wins": 1,
+                "winrate": 50
+            },
+            "votedOutAsCrewmate": {
+                "times": 1,
+                "games": 6,
+                "rate": 16.7,
+                "wins": 0,
+                "winrate": 0
+            },
+            "votedOutAsImpostor": {
+                "times": 1,
+                "games": 2,
+                "rate": 50,
+                "wins": 0,
+                "winrate": 0
+            }
+        },
+        "firstTarget": {
+            "firstDeaths": 1,
+            "crewmateGames": 6,
+            "rate": 16.7
+        },
+        "colors": [
+            {
+                "color": "lime",
+                "games": 5,
+                "share": 62.5
+            },
+            {
+                "color": "cyan",
+                "games": 3,
+                "share": 37.5
+            }
+        ],
+        "names": [
+            {
+                "name": "Bo",
+                "games": 6,
+                "share": 75
+            },
+            {
+                "name": "Bobo",
+                "games": 2,
+                "share": 25
+            }
+        ],
+        "playedWith": [
+            {
+                "userId": "400000000000000002",
+                "games": 6,
+                "share": 75
+            },
+            {
+                "userId": "400000000000000003",
+                "games": 5,
+                "share": 62.5
+            }
+        ],
+        "bestCrewmateTeammates": [
+            {
+                "userId": "400000000000000002",
+                "wins": 3,
+                "games": 4,
+                "winrate": 75
+            }
+        ],
+        "worstCrewmateTeammates": [
+            {
+                "userId": "400000000000000003",
+                "wins": 1,
+                "games": 3,
+                "winrate": 33.3
+            }
+        ],
+        "bestImpostorTeammates": [
+            {
+                "userId": "400000000000000004",
+                "wins": 1,
+                "games": 2,
+                "winrate": 50
+            }
+        ],
+        "worstImpostorTeammates": [
+            {
+                "userId": "400000000000000004",
+                "wins": 1,
+                "games": 2,
+                "winrate": 50
+            }
+        ],
+        "killedBy": [
+            {
+                "impostorId": "400000000000000004",
+                "deaths": 2,
+                "games": 3,
+                "rate": 66.7
+            }
+        ],
+        "activity": {
+            "until": 1758650000,
+            "weeks": [
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                0,
+                1,
+                2,
+                0,
+                5
+            ]
+        },
+        "maps": [
+            {
+                "map": "skeld",
+                "games": 3,
+                "wins": 2,
+                "winrate": 66.7
+            },
+            {
+                "map": "airship",
+                "games": 2,
+                "wins": 1,
+                "winrate": 50
+            }
+        ]
+    },
+    "players": {
+        "400000000000000001": {
+            "username": "bo",
+            "globalName": "Bo",
+            "avatar": "https://cdn.discordapp.com/avatars/400000000000000001/abc.png?size=64"
+        },
+        "400000000000000002": {
+            "username": "alice"
+        },
+        "400000000000000003": {
+            "username": "bob",
+            "nickname": "Bobby"
+        }
+    }
+}

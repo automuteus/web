@@ -1,0 +1,42 @@
+{
+    "guildId": "123456789012345678",
+    "premium": { "tier": 3, "days": 12 },
+    "generatedAt": 1758600000,
+    "summary": { "gamesPlayed": 8, "crewmateWins": 5, "impostorWins": 2, "crewmateWinrate": 62.5, "impostorWinrate": 25 },
+    "leaderboards": {
+        "minGames": 3,
+        "mostGames": [
+            { "userId": "223456789012345678", "games": 8 },
+            { "userId": "323456789012345678", "games": 6 },
+            { "userId": "423456789012345678", "games": 2 }
+        ],
+        "winrate": [
+            { "userId": "223456789012345678", "wins": 6, "games": 8, "winrate": 75 },
+            { "userId": "323456789012345678", "wins": 4, "games": 6, "winrate": 66.7 }
+        ],
+        "crewmateWinrate": [
+            { "userId": "223456789012345678", "wins": 5, "games": 6, "winrate": 83.3 }
+        ],
+        "impostorWinrate": [],
+        "bestImpostorDuo": [
+            { "userId": "223456789012345678", "teammateId": "323456789012345678", "wins": 1, "games": 2, "winrate": 50 }
+        ],
+        "worstImpostorDuo": [
+            { "userId": "223456789012345678", "teammateId": "323456789012345678", "wins": 1, "games": 2, "winrate": 50 }
+        ],
+        "bestCrewmateDuo": [
+            { "userId": "223456789012345678", "teammateId": "323456789012345678", "wins": 3, "games": 4, "winrate": 75 }
+        ],
+        "worstCrewmateDuo": [],
+        "firstTarget": [
+            { "userId": "323456789012345678", "firstDeaths": 3, "crewmateGames": 4, "rate": 75 }
+        ],
+        "killedBy": [
+            { "userId": "323456789012345678", "impostorId": "223456789012345678", "deaths": 2, "games": 3, "rate": 66.7 }
+        ]
+    },
+    "players": {
+        "223456789012345678": { "username": "alice", "globalName": "Alice", "nickname": "Al", "avatar": "https://cdn.discordapp.com/avatars/223456789012345678/0123456789abcdef0123456789abcdef.png?size=128" },
+        "323456789012345678": { "username": "bob" }
+    }
+}

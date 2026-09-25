@@ -5,6 +5,7 @@ import * as data from "../data/commands";
 
 import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import Link from "next/link";
 import AppLayout from "../components/layout/AppLayout";
 import CommandEntry from "../components/commands/CommandEntry";
 import { Command } from "../types/Command";
@@ -24,13 +25,6 @@ export const premium_icon = (
 
 export default function CommandsPage() {
     const commands = data.commands as Array<Command>;
-    const settings = data.settings as Array<Command>;
-    const premiumSettings = data.premiumSettings as Array<Command>;
-
-    const settingsSorted = [...settings, ...premiumSettings]
-        .sort((a, b) => (a.command > b.command ? 1 : -1))
-        .filter((cmd) => !cmd.isDisabled);
-
     const commandsSorted = commands
         .sort((a, b) => (a.command > b.command ? 1 : -1))
         .filter((cmd) => !cmd.isDisabled);
@@ -126,33 +120,11 @@ export default function CommandsPage() {
                                         <Nav.Item>
                                             <h5 className="mt-3">Settings</h5>
                                         </Nav.Item>
-                                        {settingsSorted.map((cmd) => (
-                                            <Nav.Item
-                                                key={`setting-${cmd.command}`}
-                                                className="commandMenu"
-                                            >
-                                                <Nav.Link
-                                                    href={`#${cmd.command}`}
-                                                    onSelect={() =>
-                                                        setHashRoute(
-                                                            cmd.command
-                                                        )
-                                                    }
-                                                >
-                                                    {cmd.isPremium && (
-                                                        <>{premium_icon}</>
-                                                    )}{" "}
-                                                    <span
-                                                        style={{
-                                                            fontFamily:
-                                                                "monospace",
-                                                        }}
-                                                    >
-                                                        {cmd.command}
-                                                    </span>
-                                                </Nav.Link>
-                                            </Nav.Item>
-                                        ))}
+                                        <Nav.Item className="commandMenu">
+                                            <Nav.Link href="#settings-list">
+                                                Managed on the web
+                                            </Nav.Link>
+                                        </Nav.Item>
                                     </Nav>
                                 </div>
                             </div>
@@ -177,32 +149,20 @@ export default function CommandsPage() {
                                 <Alert
                                     variant="transparent"
                                     className="text-light"
-                                    style={{
-                                        background: "var(--dark)",
-                                        lineHeight: 1,
-                                    }}
+                                    style={{ background: "var(--dark)" }}
                                 >
-                                    <p>
-                                        Available configurable settings for the
-                                        bot and how it displays your data.
-                                        Access is controlled by appropriate
-                                        settings listed.
-                                    </p>
                                     <p className="mb-0">
-                                        Entries listed with a{premium_icon}are
-                                        for premium AutoMuteUs users only.
+                                        Settings are no longer changed with
+                                        commands. Open the{" "}
+                                        <Link href="/settings">settings page</Link>{" "}
+                                        and sign in with Discord to view and
+                                        change them. The server owner and
+                                        members with Administrator or Manage
+                                        Server can make changes. In Discord,{" "}
+                                        <code>/settings</code> links to the same
+                                        page.
                                     </p>
                                 </Alert>
-                                {settingsSorted.map((cmd) => {
-                                    return (
-                                        <CommandEntry
-                                            entry={cmd}
-                                            hashRoute={hashRoute}
-                                            key={cmd.command}
-                                            prefix={data.prefix + data.sprefix}
-                                        />
-                                    );
-                                })}
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,37 @@
+{
+    "guildId": "123456789012345678",
+    "matchId": "42",
+    "premium": { "tier": 3, "days": 12 },
+    "status": "finished",
+    "startTime": 1758600000,
+    "endTime": 1758600845,
+    "result": "crewmateVote",
+    "winner": "crewmate",
+    "map": "airship",
+    "region": "na",
+    "roster": [
+        { "userId": "323456789012345678", "name": "Bo", "color": "coral", "role": "impostor", "won": false },
+        { "name": "Kiwi", "color": "", "role": "impostor", "won": false },
+        { "userId": "223456789012345678", "name": "Al", "color": "cyan", "role": "crewmate", "won": true },
+        { "userId": "423456789012345678", "name": "Cy", "color": "red", "role": "crewmate", "won": true },
+        { "name": "Mochi", "color": "lime", "role": "crewmate", "won": true }
+    ],
+    "rosterComplete": true,
+    "timeline": {
+        "meetings": 2, "deaths": 2, "exiles": 1, "disconnects": 1,
+        "events": [
+            { "offset": 4, "type": "tasks" },
+            { "offset": 50, "type": "death", "name": "Al", "color": "cyan", "userId": "223456789012345678" },
+            { "offset": 60, "type": "discussion" },
+            { "offset": 120, "type": "tasks" },
+            { "offset": 121, "type": "exile", "name": "Mochi", "color": "lime" },
+            { "offset": 300, "type": "death", "name": "Cy", "color": "red", "userId": "423456789012345678" },
+            { "offset": 310, "type": "disconnect", "name": "Bo", "color": "coral", "userId": "323456789012345678" },
+            { "offset": 400, "type": "discussion" }
+        ]
+    },
+    "players": {
+        "223456789012345678": { "username": "alice", "globalName": "Alice", "nickname": "Al", "avatar": "https://cdn.discordapp.com/avatars/223456789012345678/0123456789abcdef0123456789abcdef.png?size=64" },
+        "323456789012345678": { "username": "bob" }
+    }
+}

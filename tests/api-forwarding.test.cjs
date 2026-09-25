@@ -339,6 +339,107 @@ test("channels route forwards the guild and returns a validated, trimmed channel
     }
 });
 
+test("stats route forwards the guild and returns a validated, trimmed document", async (t) => {
+    const statsHandler = require("../pages/api/guild/stats.ts").default;
+    const fixture = require("./fixtures/guild-stats.json");
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/stats");
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, secret: "upstream-only", players: { ...fixture.players, "__proto__": { username: "evil" } } });
+    });
+    let res = response();
+    await statsHandler(await request(), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    assert.equal(res.getHeader("Cache-Control"), "no-store");
+    // A document the page cannot trust is a 502, never a partial object.
+    mockFetch(t, async () => json({ ...fixture, summary: { gamesPlayed: "many" } }));
+    res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 502);
+    assert.deepEqual(res.body, { error: "API request failed" });
+    // The free tier document has no leaderboards and that is valid.
+    const { leaderboards, players, ...free } = fixture;
+    mockFetch(t, async () => json(free));
+    res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, { ...free, players: {} });
+});
+
+test("match route forwards only a canonical match ID and returns a validated, trimmed document", async (t) => {
+    const matchHandler = require("../pages/api/guild/match.ts").default;
+    const fixture = require("./fixtures/match-summary.json");
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/match");
+        assert.deepEqual([...url.searchParams.keys()].sort(), ["guildID", "matchID"]);
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.equal(url.searchParams.get("matchID"), "42");
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, connectCode: "ABCDEFGH" });
+    });
+    let res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42", connectCode: "ABCDEFGH" }), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    for (const matchID of [undefined, "", "0", "042", "-1", "4.2", "ABCDEFGH:42", "1234567890123456789", ["1", "2"]]) {
+        res = response();
+        await matchHandler(await request({}, { guildID: guild, matchID }), res);
+        assert.equal(res.statusCode, 400, String(matchID));
+        assert.deepEqual(res.body, { error: "Invalid match ID" });
+    }
+    assert.equal(calls, 1);
+    // A missing match is relayed as 404 so the page can say so; a malformed document is a 502.
+    mockFetch(t, async () => json({ error: "match not found" }, 404));
+    res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42" }), res);
+    assert.equal(res.statusCode, 404);
+    assert.deepEqual(res.body, { error: "Not found" });
+    mockFetch(t, async () => json({ ...fixture, roster: "everyone" }));
+    res = response();
+    await matchHandler(await request({}, { guildID: guild, matchID: "42" }), res);
+    assert.equal(res.statusCode, 502);
+});
+
+test("user route forwards only a snowflake user ID and returns a validated, trimmed document", async (t) => {
+    const userHandler = require("../pages/api/guild/user.ts").default;
+    const fixture = require("./fixtures/user-stats.json");
+    const user = "400000000000000001";
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/user");
+        assert.deepEqual([...url.searchParams.keys()].sort(), ["guildID", "userID"]);
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.equal(url.searchParams.get("userID"), user);
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, secret: "upstream-only" });
+    });
+    let res = response();
+    await userHandler(await request({}, { guildID: guild, userID: user, matchID: "42" }), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    for (const userID of [undefined, "", "42", "abc", `${user}x`, "123456789012345678901", [user, user]]) {
+        res = response();
+        await userHandler(await request({}, { guildID: guild, userID }), res);
+        assert.equal(res.statusCode, 400, String(userID));
+        assert.deepEqual(res.body, { error: "Invalid user ID" });
+    }
+    assert.equal(calls, 1);
+    mockFetch(t, async () => json({ ...fixture, recentMatches: "lots" }));
+    res = response();
+    await userHandler(await request({}, { guildID: guild, userID: user }), res);
+    assert.equal(res.statusCode, 502);
+});
+
 test("missing session and failed refresh never contact the Go API", async (t) => {
     mockFetch(t, async () => { throw new Error("should not fetch"); });
     for (const req of [
@@ -447,34 +548,50 @@ test("network failures, redirects rejected by fetch, and malformed success JSON 
     }
 });
 
-test("guild picker keeps non-admin guilds and paginates Discord", async (t) => {
+test("guild picker forwards the session token to the Go guild list and keeps every guild", async (t) => {
+    const g = (id, botPresent, hasStats) => ({ id, name: "Guild", icon: null, owner: false, permissions: "0", botPresent, hasStats });
     let calls = 0;
     mockFetch(t, async (url, init) => {
         calls++;
-        assert.equal(url.origin, "https://discord.com");
-        assert.equal(init.headers.Authorization, "Bearer discord-access");
-        assert.equal(url.searchParams.get("limit"), "200");
-        const g = (id) => ({ id: String(id), name: "Guild", permissions: "0", owner: false, icon: null });
-        if (calls === 1) return json(Array.from({ length: 200 }, (_, i) => g(123456789012345678n + BigInt(i))));
-        assert.equal(url.searchParams.get("after"), "123456789012345877");
-        return json([g(223456789012345678n)]);
+        assert.equal(url.origin, "https://go.example.test");
+        assert.equal(url.pathname, "/user/guilds");
+        assert.equal(url.search, "");
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        assert.equal(init.redirect, "error");
+        assert.equal(init.cache, "no-store");
+        return json([{ ...g("123456789012345678", true, false), extra: "dropped" }, g("223456789012345678", false, false)]);
     });
     const res = response();
     await guildsHandler(await request(), res);
+    assert.equal(calls, 1);
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body.length, 201);
-    assert.ok(res.body.every((g) => g.permissions === "0" && g.owner === false));
+    assert.deepEqual(res.body, [g("123456789012345678", true, false), g("223456789012345678", false, false)]);
     assert.equal(res.getHeader("Cache-Control"), "no-store");
 });
 
-test("guild picker rejects Discord guilds without an owner flag", async (t) => {
-    mockFetch(t, async () => json([{ id: "123456789012345678", name: "Guild", permissions: "8", icon: null }]));
-    const res = response();
-    await guildsHandler(await request(), res);
-    assert.equal(res.statusCode, 502);
+test("guild picker rejects guilds missing a field", async (t) => {
+    const full = { id: "123456789012345678", name: "Guild", permissions: "8", icon: null, owner: false, botPresent: true, hasStats: true };
+    for (const field of ["owner", "botPresent", "hasStats"]) {
+        const guild = { ...full };
+        delete guild[field];
+        mockFetch(t, async () => json([guild]));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, 502, field);
+    }
 });
 
-test("guild picker also refreshes before contacting Discord", async (t) => {
+test("guild picker relays upstream failures without their bodies", async (t) => {
+    for (const [upstream, want] of [[401, 401], [403, 403], [429, 429], [503, 503], [404, 502], [500, 502]]) {
+        mockFetch(t, async () => json({ error: "private upstream detail" }, upstream));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, want);
+        assert.deepEqual(res.body, { error: "Unable to load Discord guilds" });
+    }
+});
+
+test("guild picker also refreshes before contacting the API", async (t) => {
     mockFetch(t, async (url, init) => {
         if (String(url).endsWith("/oauth2/token")) return json({ access_token: "new-access", expires_in: 3600 });
         assert.equal(init.headers.Authorization, "Bearer new-access");
@@ -484,4 +601,164 @@ test("guild picker also refreshes before contacting Discord", async (t) => {
     await guildsHandler(await request({ expiresAt: 1 }), res);
     assert.equal(res.statusCode, 200);
     assert.ok(res.getHeader("Set-Cookie"));
+});
+
+const resetRoutes = { "/guild/stats/reset": { guildID: guild }, "/guild/user/reset": { guildID: guild, userID: "223456789012345678" }, "/guild/settings/reset": { guildID: guild } };
+async function resetRequest(endpoint, overrides = {}) {
+    const req = await request({}, { ...resetRoutes[endpoint], admin: "true" });
+    return { ...req, method: "POST", headers: { ...req.headers, "content-type": "application/json", "if-match": '"4"' }, body: {}, ...overrides };
+}
+
+test("reset routes POST only fixed targets with the session token, and relay a validated result", async (t) => {
+    for (const endpoint of Object.keys(resetRoutes)) {
+        let seen;
+        mockFetch(t, async (url, init) => {
+            seen = { url, init };
+            if (endpoint === "/guild/settings/reset") return new Response(JSON.stringify({ language: "en", extra: 1 }), { status: 200, headers: { ETag: '"5"' } });
+            return json({ guildId: guild, ...(endpoint === "/guild/user/reset" ? { userId: "223456789012345678" } : {}), games: 3, secret: "x" });
+        });
+        const res = response();
+        await require(`../pages/api${endpoint}.ts`).default(await resetRequest(endpoint), res);
+        assert.equal(res.statusCode, 200, endpoint);
+        assert.equal(seen.url.origin + seen.url.pathname, "https://go.example.test" + endpoint);
+        assert.deepEqual([...seen.url.searchParams.keys()].sort(), Object.keys(resetRoutes[endpoint]).sort());
+        assert.equal(seen.init.method, "POST");
+        assert.equal(seen.init.redirect, "error");
+        assert.equal(seen.init.headers.Authorization, "Bearer discord-access");
+        // Only the settings reset carries the version check.
+        assert.equal(seen.init.headers["If-Match"], endpoint === "/guild/settings/reset" ? '"4"' : undefined);
+        if (endpoint === "/guild/settings/reset") {
+            assert.equal(res.getHeader("ETag"), '"5"');
+            assert.equal(res.body.language, "en");
+        } else {
+            assert.equal(res.body.secret, undefined);
+            assert.equal(res.body.games, 3);
+        }
+    }
+});
+
+test("reset routes refuse non-POST, non-JSON, and malformed targets before contacting the API", async (t) => {
+    let calls = 0;
+    mockFetch(t, async () => { calls++; return json({}); });
+    const cases = [
+        ["/guild/stats/reset", { method: "GET" }, 405],
+        ["/guild/stats/reset", { headers: {} }, 415],
+        ["/guild/stats/reset", { headers: { "content-type": "application/x-www-form-urlencoded" } }, 415],
+        ["/guild/stats/reset", { query: { guildID: "abc" } }, 400],
+        ["/guild/user/reset", { query: { guildID: guild } }, 400],
+        ["/guild/user/reset", { query: { guildID: guild, userID: ["223456789012345678", "323456789012345678"] } }, 400],
+    ];
+    for (const [endpoint, overrides, status] of cases) {
+        const req = await resetRequest(endpoint);
+        if (overrides.headers) overrides.headers = { ...overrides.headers, cookie: req.headers.cookie };
+        const res = response();
+        await require(`../pages/api${endpoint}.ts`).default({ ...req, ...overrides }, res);
+        assert.equal(res.statusCode, status, `${endpoint} ${JSON.stringify(overrides)}`);
+    }
+    assert.equal(calls, 0);
+});
+
+test("reset routes relay refusals without upstream bodies, and reject malformed success bodies", async (t) => {
+    for (const status of [403, 409, 429, 500]) {
+        mockFetch(t, async () => new Response(JSON.stringify({ Error: "postgres: secret detail" }), { status, headers: { "Retry-After": "30" } }));
+        const res = response();
+        await require("../pages/api/guild/stats/reset.ts").default(await resetRequest("/guild/stats/reset"), res);
+        assert.equal(res.statusCode, status === 500 ? 502 : status);
+        assert.ok(!JSON.stringify(res.body).includes("postgres"));
+        assert.equal(res.getHeader("Retry-After"), status === 429 ? "30" : undefined);
+    }
+    for (const body of [{ guildId: guild, games: -1 }, { guildId: "1", games: 1 }, { guildId: guild, games: "3" }]) {
+        mockFetch(t, async () => json(body));
+        const res = response();
+        await require("../pages/api/guild/stats/reset.ts").default(await resetRequest("/guild/stats/reset"), res);
+        assert.equal(res.statusCode, 502, JSON.stringify(body));
+    }
+});
+
+test("a refused player reset explains that players may reset only themselves", async (t) => {
+    mockFetch(t, async () => new Response("", { status: 403 }));
+    const res = response();
+    await require("../pages/api/guild/user/reset.ts").default(await resetRequest("/guild/user/reset"), res);
+    assert.equal(res.statusCode, 403);
+    assert.match(res.body.error, /your own stats/);
+});
+
+const { describePremium, parsePremium, tierName } = require("../components/premium/premium-status.ts");
+
+test("premium status describes active, unexpiring, expired, and free servers", () => {
+    assert.deepEqual(describePremium({ tier: 3, days: 18 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Gold, with 18 days left on its latest payment." });
+    assert.equal(describePremium({ tier: 1, days: 1 }, "Crew").message, "Crew has AutoMuteUs Bronze, with 1 day left on its latest payment.");
+    assert.deepEqual(describePremium({ tier: 2, days: -9999 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Silver, with no expiry." });
+    assert.deepEqual(describePremium({ tier: 2, days: 0 }, "Crew"), { kind: "expired", message: "Crew's AutoMuteUs Silver has expired." });
+    assert.equal(describePremium({ tier: 0, days: -9999 }, "Crew").kind, "free");
+    assert.equal(tierName(9), "Premium");
+});
+
+test("premium status says whether a tracked subscription renews", () => {
+    const endsAt = Date.UTC(2026, 9, 24, 12) / 1000;
+    assert.deepEqual(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt } }, "Crew"),
+        { kind: "active", message: "Crew has AutoMuteUs Gold. Its PayPal subscription renews around Oct 24, 2026." });
+    assert.deepEqual(describePremium({ tier: 2, days: 29, subscription: { status: "cancelled", endsAt } }, "Crew"),
+        { kind: "ending", message: "Crew has AutoMuteUs Silver until Oct 24, 2026. Its PayPal subscription is cancelled and won't renew." });
+    assert.equal(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt, inherited: true } }, "Crew").message,
+        "Crew has AutoMuteUs Gold. The PayPal subscription of the server it inherits premium from renews around Oct 24, 2026.");
+    // No expiry outranks whatever the subscription says, and an expired tier never mentions one.
+    assert.equal(describePremium({ tier: 3, days: -9999, subscription: { status: "cancelled", endsAt } }, "Crew").kind, "active");
+    assert.equal(describePremium({ tier: 3, days: 0, subscription: { status: "active", endsAt } }, "Crew").kind, "expired");
+});
+
+test("premium status rejects malformed records", () => {
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, extra: true }), { tier: 3, days: 5 });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } }),
+        { tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "active", endsAt: 1793000000 } }).subscription, { status: "active", endsAt: 1793000000, inherited: false });
+    for (const subscription of [{ status: "paused", endsAt: 1 }, { status: "active" }, { status: "active", endsAt: "soon" }, { status: "active", endsAt: 1, inherited: "yes" }, "active"]) {
+        assert.throws(() => parsePremium({ tier: 3, days: 5, subscription }), JSON.stringify(subscription));
+    }
+    for (const body of [null, [], {}, { tier: "3", days: 5 }, { tier: 3 }, { tier: -1, days: 5 }, { tier: 1.5, days: 5 }, { tier: 1, days: 0.5 }]) {
+        assert.throws(() => parsePremium(body), JSON.stringify(body));
+    }
+});
+
+test("operators listed in ADMIN_USER_IDS read the stats routes with the admin credential", async (t) => {
+    const statsHandler = require("../pages/api/guild/stats.ts").default;
+    const { isAdminUser, adminAuthorization } = require("../utils/server/admin.ts");
+    const fixture = require("./fixtures/guild-stats.json");
+    process.env.ADMIN_USER_IDS = " 999999999999999999, 223456789012345678 ";
+    process.env.API_ADMIN_PASS = "hunter2";
+    t.after(() => { delete process.env.ADMIN_USER_IDS; delete process.env.API_ADMIN_PASS; });
+    assert.equal(isAdminUser("223456789012345678"), true);
+    assert.equal(isAdminUser("323456789012345678"), false);
+    assert.equal(isAdminUser(undefined), false);
+    assert.equal(adminAuthorization(), "Basic " + Buffer.from("admin:hunter2").toString("base64"));
+
+    const seen = [];
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    // An operator: Basic auth, and full=1 on the stats document only.
+    let res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), "admin");
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: "1", auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    const userHandler = require("../pages/api/guild/user.ts").default;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ ...require("./fixtures/user-stats.json") }); });
+    res = response();
+    await userHandler(await request({}, { guildID: guild, userID: "323456789012345678" }), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/user", full: null, auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    // Anyone else, and any write or settings route, keeps the Discord session.
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request({ sub: "323456789012345678" }), res);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), undefined);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ language: "en" }); });
+    res = response();
+    await createAPIReadHandler("/guild/settings")(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/settings", full: null, auth: "Bearer discord-access" });
+    // Without the API password there is no admin view at all.
+    delete process.env.API_ADMIN_PASS;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
 });
