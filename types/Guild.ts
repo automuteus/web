@@ -7,6 +7,15 @@ export interface Guild {
     owner: boolean;
     /** Permission bitfield as a decimal string, as Discord returns it. */
     permissions: string;
+    /** Whether AutoMuteUs is in the guild, as of the last join or leave the bot saw. */
+    botPresent: boolean;
+    /** Whether the guild has a finished game recorded, even if the bot has since left. */
+    hasStats: boolean;
+}
+
+/** Guilds whose stats page has something to show, or soon will because the bot is there to record games. */
+export function hasStatsPage(guild: Pick<Guild, "botPresent" | "hasStats">): boolean {
+    return guild.hasStats || guild.botPresent;
 }
 
 // Bits 3 (Administrator) and 5 (Manage Server) of Discord's permission bitfield. BigInt() call form because

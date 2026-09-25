@@ -100,8 +100,9 @@ export default function SettingsPage() {
                 if (!res.ok) { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = await res.json();
                 if (!Array.isArray(data) || !data.every((g) => g && typeof g.id === "string" && typeof g.name === "string")) throw new Error("Invalid guild list");
-                // Only servers the user can change: the Go API's write policy is owner, Administrator, or Manage Server.
-                if (!controller.signal.aborted) setGuilds({ key: user, data: data.filter(canManageGuild) });
+                // Only servers the bot is in and the user can change: the Go API's write policy is owner, Administrator,
+                // or Manage Server.
+                if (!controller.signal.aborted) setGuilds({ key: user, data: data.filter((g) => g.botPresent && canManageGuild(g)) });
             }).catch(() => { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(502) }); });
         return () => controller.abort();
     }, [user, guildRetry]);

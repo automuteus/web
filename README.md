@@ -125,10 +125,11 @@ A 401 means the UI should ask the user to sign in again; a 403 means insufficien
 access. Do not retry 429/503 aggressively: the Go API currently checks Discord on
 every read. API calls time out after 12 seconds; OAuth refresh after 8 seconds.
 
-`/api/guilds` continues to call Discord because Go has no guild-list endpoint. It
-now uses the same refresh-aware session helper and handles pagination. It keeps
-all of the user's guilds, including non-admin guilds and guilds without the bot,
-so the premium picker remains usable. Premium purchases and subscription
+`/api/guilds` forwards to the Go API's `GET /user/guilds`, which pages through
+Discord and tags each guild with `botPresent` and `hasStats`. It returns all of
+the user's guilds, including non-admin guilds and guilds without the bot, so the
+premium picker remains usable; the stats pages show guilds with stats or the bot,
+and settings shows guilds with the bot that the user can manage. Premium purchases and subscription
 ownership remain separate from guild-read authorization.
 
 Refresh tokens remain in encrypted cookies. Simultaneous refreshes across requests

@@ -548,34 +548,50 @@ test("network failures, redirects rejected by fetch, and malformed success JSON 
     }
 });
 
-test("guild picker keeps non-admin guilds and paginates Discord", async (t) => {
+test("guild picker forwards the session token to the Go guild list and keeps every guild", async (t) => {
+    const g = (id, botPresent, hasStats) => ({ id, name: "Guild", icon: null, owner: false, permissions: "0", botPresent, hasStats });
     let calls = 0;
     mockFetch(t, async (url, init) => {
         calls++;
-        assert.equal(url.origin, "https://discord.com");
-        assert.equal(init.headers.Authorization, "Bearer discord-access");
-        assert.equal(url.searchParams.get("limit"), "200");
-        const g = (id) => ({ id: String(id), name: "Guild", permissions: "0", owner: false, icon: null });
-        if (calls === 1) return json(Array.from({ length: 200 }, (_, i) => g(123456789012345678n + BigInt(i))));
-        assert.equal(url.searchParams.get("after"), "123456789012345877");
-        return json([g(223456789012345678n)]);
+        assert.equal(url.origin, "https://go.example.test");
+        assert.equal(url.pathname, "/user/guilds");
+        assert.equal(url.search, "");
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        assert.equal(init.redirect, "error");
+        assert.equal(init.cache, "no-store");
+        return json([{ ...g("123456789012345678", true, false), extra: "dropped" }, g("223456789012345678", false, false)]);
     });
     const res = response();
     await guildsHandler(await request(), res);
+    assert.equal(calls, 1);
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body.length, 201);
-    assert.ok(res.body.every((g) => g.permissions === "0" && g.owner === false));
+    assert.deepEqual(res.body, [g("123456789012345678", true, false), g("223456789012345678", false, false)]);
     assert.equal(res.getHeader("Cache-Control"), "no-store");
 });
 
-test("guild picker rejects Discord guilds without an owner flag", async (t) => {
-    mockFetch(t, async () => json([{ id: "123456789012345678", name: "Guild", permissions: "8", icon: null }]));
-    const res = response();
-    await guildsHandler(await request(), res);
-    assert.equal(res.statusCode, 502);
+test("guild picker rejects guilds missing a field", async (t) => {
+    const full = { id: "123456789012345678", name: "Guild", permissions: "8", icon: null, owner: false, botPresent: true, hasStats: true };
+    for (const field of ["owner", "botPresent", "hasStats"]) {
+        const guild = { ...full };
+        delete guild[field];
+        mockFetch(t, async () => json([guild]));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, 502, field);
+    }
 });
 
-test("guild picker also refreshes before contacting Discord", async (t) => {
+test("guild picker relays upstream failures without their bodies", async (t) => {
+    for (const [upstream, want] of [[401, 401], [403, 403], [429, 429], [503, 503], [404, 502], [500, 502]]) {
+        mockFetch(t, async () => json({ error: "private upstream detail" }, upstream));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, want);
+        assert.deepEqual(res.body, { error: "Unable to load Discord guilds" });
+    }
+});
+
+test("guild picker also refreshes before contacting the API", async (t) => {
     mockFetch(t, async (url, init) => {
         if (String(url).endsWith("/oauth2/token")) return json({ access_token: "new-access", expires_in: 3600 });
         assert.equal(init.headers.Authorization, "Bearer new-access");

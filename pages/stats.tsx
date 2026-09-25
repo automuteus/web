@@ -9,7 +9,7 @@ import { GuildStats, parseGuildStats, previewFree } from "../components/stats/gu
 import { userStatsHref } from "../components/stats/user-stats";
 // The page shell (heading, server picker, state cards) is shared with the settings page so the two look alike.
 import styles from "../components/settings/SettingsView.module.css";
-import { Guild, canManageGuild } from "../types/Guild";
+import { Guild, canManageGuild, hasStatsPage } from "../types/Guild";
 import type { BotPresence } from "./api/guild/bot";
 
 /** Generic invite used when the API could not supply a server-specific one. */
@@ -57,8 +57,8 @@ export default function StatsPage() {
                 if (!res.ok) { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = await res.json();
                 if (!Array.isArray(data) || !data.every((g) => g && typeof g.id === "string" && typeof g.name === "string")) throw new Error("Invalid guild list");
-                // Every server the user belongs to: any member may see a server's stats.
-                if (!controller.signal.aborted) setGuilds({ key: user, data });
+                // Servers with games recorded, or the bot there to record them. Any member may see a server's stats.
+                if (!controller.signal.aborted) setGuilds({ key: user, data: data.filter(hasStatsPage) });
             }).catch(() => { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(502) }); });
         return () => controller.abort();
     }, [user, guildRetry]);

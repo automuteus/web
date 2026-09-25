@@ -9,7 +9,7 @@ import { UserStats, parseUserStats, previewFree, userStatsHref } from "../../com
 // The page shell (heading, server picker, state cards) is shared with the settings and stats pages.
 import styles from "../../components/settings/SettingsView.module.css";
 import { playerName } from "../../components/stats/guild-stats";
-import { Guild, canManageGuild } from "../../types/Guild";
+import { Guild, canManageGuild, hasStatsPage } from "../../types/Guild";
 
 type Result<T> = { key: string; data?: T; error?: string; login?: boolean };
 
@@ -51,7 +51,8 @@ export default function UserStatsPage() {
                 if (!res.ok) { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = await res.json();
                 if (!Array.isArray(data) || !data.every((g) => g && typeof g.id === "string" && typeof g.name === "string")) throw new Error("Invalid guild list");
-                if (!controller.signal.aborted) setGuilds({ key: user, data });
+                // Servers with games recorded, or the bot there to record them. Any member may see a server's stats.
+                if (!controller.signal.aborted) setGuilds({ key: user, data: data.filter(hasStatsPage) });
             }).catch(() => { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(502) }); });
         return () => controller.abort();
     }, [user, guildRetry]);
