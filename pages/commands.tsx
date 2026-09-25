@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import * as data from "../data/commands";
 
-import { faCode, faCrown } from "@fortawesome/free-solid-svg-icons";
+import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Link from "next/link";
 import AppLayout from "../components/layout/AppLayout";
@@ -44,38 +44,11 @@ export default function CommandsPage() {
                 <div className="d-block d-md-flex align-items-center justify-content-between">
                     <h1>Commands</h1>
                     <span className="entryLabelSubcommands">
-                        Current as of v7.0.4
+                        Current as of v10.0.0
                     </span>
                 </div>
 
-                <Alert
-                    variant="transparent"
-                    className="text-success"
-                    style={{ background: "var(--dark)" }}
-                >
-                    <h5 className="mb-2">
-                        <FontAwesomeIcon
-                            icon={faCode}
-                            className="me-2"
-                            fixedWidth
-                        />
-                        Slash commands are here!
-                    </h5>
-                    <div style={{ marginLeft: "2.1rem" }}>
-                        <a
-                            href="https://support.discord.com/hc/en-us/articles/1500000368501-Slash-Commands-FAQ"
-                            target={"_blank"}
-                            className="bg-success"
-                        >
-                            {" "}
-                            Discord slash commands
-                        </a>{" "}
-                        have arrived in AutoMuteUs. To use AutoMuteUs, from now
-                        on use <code>/</code> to see all commands available to
-                        you!
-                    </div>
-                </Alert>
-
+                        Current as of v10.0.0
                 <div className="row">
                     <div
                         className={`col-12 col-md-auto d-none d-lg-flex fixedCol`}
