@@ -658,3 +658,11 @@ test("reset routes relay refusals without upstream bodies, and reject malformed 
         assert.equal(res.statusCode, 502, JSON.stringify(body));
     }
 });
+
+test("a refused player reset explains that players may reset only themselves", async (t) => {
+    mockFetch(t, async () => new Response("", { status: 403 }));
+    const res = response();
+    await require("../pages/api/guild/user/reset.ts").default(await resetRequest("/guild/user/reset"), res);
+    assert.equal(res.statusCode, 403);
+    assert.match(res.body.error, /your own stats/);
+});

@@ -31,7 +31,8 @@ const messages: Record<number, string> = {
     503: "AutoMuteUs is temporarily unavailable. Try again in a moment.",
 };
 
-/** POST /api/guild/.../reset: forwards one fixed reset route with the caller's session. Go decides who may reset;
+/** POST /api/guild/.../reset: forwards one fixed reset route with the caller's session. Go decides who may reset
+ * (managers anything, any member their own player stats);
  * this only checks the request's shape. A reset destroys data, so the request must be JSON, which a cross-site
  * form cannot send without a CORS preflight this app never answers. */
 export function createResetHandler(endpoint: ResetEndpoint) {
@@ -86,7 +87,9 @@ export function createResetHandler(endpoint: ResetEndpoint) {
             }
             // Do not reflect upstream error bodies.
             const status = messages[upstream.status] ? upstream.status : 502;
-            return res.status(status).json({ error: messages[status] || "API request failed" });
+            const error = status === 403 && user ? "You can reset your own stats; resetting another player's needs the server owner, Administrator, or Manage Server."
+                : messages[status] || "API request failed";
+            return res.status(status).json({ error });
         } catch {
             return res.status(502).json({ error: "API request failed" });
         }

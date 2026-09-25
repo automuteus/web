@@ -286,6 +286,9 @@ Manage Server) gets a red reset panel on three pages:
 - the player page resets that player's stats in this server;
 - the settings page resets every setting to the defaults.
 
+Every member also gets the panel on their own player page, to reset their own
+stats in that server.
+
 Each reset opens a confirmation step first. The server stats reset also asks
 for the word `reset` to be typed. After a stats reset the page reloads and says
 how many games were affected. A settings reset loads the defaults with their
@@ -294,6 +297,5 @@ new version tag, discarding any unsaved edits.
 The reset routes are in `utils/server/reset-proxy.ts`. They accept only
 JSON POSTs, which a cross-site form cannot send, forward the settings `If-Match` tag, and validate what
 comes back. The Go API makes the final permission check, against Discord, on
-every reset. Unlike `/stats user reset` in Discord, players cannot reset their
-own stats here without that permission. A player reset only affects this
-server; Discord's version clears the player from every server.
+every reset. A player reset, like `/stats user reset` in Discord, only affects
+the server it is run in.

@@ -99,7 +99,7 @@ export default function UserStatsPage() {
                                     {preview && <p className={styles.notice} role="status">Previewing this player as they would look <strong>without premium</strong>. The detailed sections are hidden, not missing.</p>}
                                     {resetNotice?.key === key && <p className={styles.notice} role="status">{resetNotice.message}</p>}
                                     <UserStatsView stats={preview ? previewFree(current.data) : current.data} currentUserId={user} preview={preview} />
-                                    {canManageGuild(guild) && <ResetPanel key={`${guild.id}/${target}`} title={target === user ? "Reset your stats" : "Reset this player's stats"}
+                                    {(target === user || canManageGuild(guild)) && <ResetPanel key={`${guild.id}/${target}`} title={target === user ? "Reset your stats" : "Reset this player's stats"}
                                         action={target === user ? "Reset my stats" : "Reset player stats"} disabled={current.data.summary.games === 0}
                                         url={`/api/guild/user/reset?${new URLSearchParams({ guildID: guild.id, userID: target })}`}
                                         confirm={<>{target === user ? "You" : <strong>{playerName(current.data.players, target) ?? target}</strong>} will be removed from every recorded game in <strong>{guild.name}</strong>.</>}
@@ -108,7 +108,9 @@ export default function UserStatsPage() {
                                             setResetNotice({ key: `${user}:${selected}:${target}:${refresh + 1}`, message: `Player stats reset.${typeof games === "number" ? ` Removed from ${games} game${games === 1 ? "" : "s"}.` : ""}` });
                                             setRefresh((n) => n + 1);
                                         }}>
-                                        <p>Remove this player from every game recorded in this server, like <code>/stats user reset</code>. The games stay, so everyone else&apos;s stats are unchanged, and their games in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.</p>
+                                        {target === user ?
+                                            <p>Remove yourself from every game recorded in this server and start your stats here over, like <code>/stats user reset</code>. The games stay, so everyone else&apos;s stats are unchanged, and your stats in other servers are kept.</p> :
+                                            <p>Remove this player from every game recorded in this server, like <code>/stats user reset</code>. The games stay, so everyone else&apos;s stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.</p>}
                                     </ResetPanel>}
                                 </>}
                             </>}
