@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import AppLayout from "../components/layout/AppLayout";
+import ResetPanel from "../components/layout/ResetPanel";
 import SettingsView, { ChannelCheckState } from "../components/settings/SettingsView";
 import { Settings, FieldError, GuildRole, SNOWFLAKE, countChanges, errorMap, patchBody, same, unknownRoleIDs, validateDraft } from "../components/settings/settings-edit";
 import type { ChannelCheck } from "./api/guild/channel";
@@ -306,6 +307,18 @@ export default function SettingsPage() {
                                                 </span>
                                             </div>
                                             {fieldErrors.length > 0 && <ul className={styles.errorList} aria-label="Settings that need attention">{fieldErrors.map((f) => <li key={f.field}><code>{f.field}</code> {f.message}</li>)}</ul>}
+                                            <ResetPanel key={guild.id} title="Reset settings" action="Reset to defaults" disabled={saveState.saving} ifMatch={current.data.etag}
+                                                url={`/api/guild/settings/reset?${new URLSearchParams({ guildID: guild.id })}`}
+                                                confirm={<>Every setting in <strong>{guild.name}</strong> goes back to the default, including the match summary channel and operator roles.{changes > 0 ? " Your unsaved changes will be discarded too." : ""}</>}
+                                                onReset={(data, headers) => {
+                                                    if (activeKey.current !== key) return;
+                                                    if (!isSettings(data)) { setRefresh((n) => n + 1); return; }
+                                                    setSettings({ key, data: { settings: data, etag: headers.get("etag") ?? undefined } });
+                                                    setDraft({ key, settings: data });
+                                                    setSave({ key, ok: true, message: "Settings reset to the defaults. The bot uses them from the next game." });
+                                                }}>
+                                                <p>Put every setting back to the bot&apos;s default, like <code>/settings reset</code>. Stats are kept.</p>
+                                            </ResetPanel>
                                         </>}
                                     </>}
                             </>}

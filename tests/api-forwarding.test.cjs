@@ -408,6 +408,38 @@ test("match route forwards only a canonical match ID and returns a validated, tr
     assert.equal(res.statusCode, 502);
 });
 
+test("user route forwards only a snowflake user ID and returns a validated, trimmed document", async (t) => {
+    const userHandler = require("../pages/api/guild/user.ts").default;
+    const fixture = require("./fixtures/user-stats.json");
+    const user = "400000000000000001";
+    let calls = 0;
+    mockFetch(t, async (url, init) => {
+        calls++;
+        assert.equal(url.pathname, "/guild/user");
+        assert.deepEqual([...url.searchParams.keys()].sort(), ["guildID", "userID"]);
+        assert.equal(url.searchParams.get("guildID"), guild);
+        assert.equal(url.searchParams.get("userID"), user);
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        return json({ ...fixture, secret: "upstream-only" });
+    });
+    let res = response();
+    await userHandler(await request({}, { guildID: guild, userID: user, matchID: "42" }), res);
+    assert.equal(calls, 1);
+    assert.equal(res.statusCode, 200);
+    assert.deepEqual(res.body, fixture);
+    for (const userID of [undefined, "", "42", "abc", `${user}x`, "123456789012345678901", [user, user]]) {
+        res = response();
+        await userHandler(await request({}, { guildID: guild, userID }), res);
+        assert.equal(res.statusCode, 400, String(userID));
+        assert.deepEqual(res.body, { error: "Invalid user ID" });
+    }
+    assert.equal(calls, 1);
+    mockFetch(t, async () => json({ ...fixture, recentMatches: "lots" }));
+    res = response();
+    await userHandler(await request({}, { guildID: guild, userID: user }), res);
+    assert.equal(res.statusCode, 502);
+});
+
 test("missing session and failed refresh never contact the Go API", async (t) => {
     mockFetch(t, async () => { throw new Error("should not fetch"); });
     for (const req of [
@@ -553,4 +585,76 @@ test("guild picker also refreshes before contacting Discord", async (t) => {
     await guildsHandler(await request({ expiresAt: 1 }), res);
     assert.equal(res.statusCode, 200);
     assert.ok(res.getHeader("Set-Cookie"));
+});
+
+const resetRoutes = { "/guild/stats/reset": { guildID: guild }, "/guild/user/reset": { guildID: guild, userID: "223456789012345678" }, "/guild/settings/reset": { guildID: guild } };
+async function resetRequest(endpoint, overrides = {}) {
+    const req = await request({}, { ...resetRoutes[endpoint], admin: "true" });
+    return { ...req, method: "POST", headers: { ...req.headers, "content-type": "application/json", "if-match": '"4"' }, body: {}, ...overrides };
+}
+
+test("reset routes POST only fixed targets with the session token, and relay a validated result", async (t) => {
+    for (const endpoint of Object.keys(resetRoutes)) {
+        let seen;
+        mockFetch(t, async (url, init) => {
+            seen = { url, init };
+            if (endpoint === "/guild/settings/reset") return new Response(JSON.stringify({ language: "en", extra: 1 }), { status: 200, headers: { ETag: '"5"' } });
+            return json({ guildId: guild, ...(endpoint === "/guild/user/reset" ? { userId: "223456789012345678" } : {}), games: 3, secret: "x" });
+        });
+        const res = response();
+        await require(`../pages/api${endpoint}.ts`).default(await resetRequest(endpoint), res);
+        assert.equal(res.statusCode, 200, endpoint);
+        assert.equal(seen.url.origin + seen.url.pathname, "https://go.example.test" + endpoint);
+        assert.deepEqual([...seen.url.searchParams.keys()].sort(), Object.keys(resetRoutes[endpoint]).sort());
+        assert.equal(seen.init.method, "POST");
+        assert.equal(seen.init.redirect, "error");
+        assert.equal(seen.init.headers.Authorization, "Bearer discord-access");
+        // Only the settings reset carries the version check.
+        assert.equal(seen.init.headers["If-Match"], endpoint === "/guild/settings/reset" ? '"4"' : undefined);
+        if (endpoint === "/guild/settings/reset") {
+            assert.equal(res.getHeader("ETag"), '"5"');
+            assert.equal(res.body.language, "en");
+        } else {
+            assert.equal(res.body.secret, undefined);
+            assert.equal(res.body.games, 3);
+        }
+    }
+});
+
+test("reset routes refuse non-POST, non-JSON, and malformed targets before contacting the API", async (t) => {
+    let calls = 0;
+    mockFetch(t, async () => { calls++; return json({}); });
+    const cases = [
+        ["/guild/stats/reset", { method: "GET" }, 405],
+        ["/guild/stats/reset", { headers: {} }, 415],
+        ["/guild/stats/reset", { headers: { "content-type": "application/x-www-form-urlencoded" } }, 415],
+        ["/guild/stats/reset", { query: { guildID: "abc" } }, 400],
+        ["/guild/user/reset", { query: { guildID: guild } }, 400],
+        ["/guild/user/reset", { query: { guildID: guild, userID: ["223456789012345678", "323456789012345678"] } }, 400],
+    ];
+    for (const [endpoint, overrides, status] of cases) {
+        const req = await resetRequest(endpoint);
+        if (overrides.headers) overrides.headers = { ...overrides.headers, cookie: req.headers.cookie };
+        const res = response();
+        await require(`../pages/api${endpoint}.ts`).default({ ...req, ...overrides }, res);
+        assert.equal(res.statusCode, status, `${endpoint} ${JSON.stringify(overrides)}`);
+    }
+    assert.equal(calls, 0);
+});
+
+test("reset routes relay refusals without upstream bodies, and reject malformed success bodies", async (t) => {
+    for (const status of [403, 409, 429, 500]) {
+        mockFetch(t, async () => new Response(JSON.stringify({ Error: "postgres: secret detail" }), { status, headers: { "Retry-After": "30" } }));
+        const res = response();
+        await require("../pages/api/guild/stats/reset.ts").default(await resetRequest("/guild/stats/reset"), res);
+        assert.equal(res.statusCode, status === 500 ? 502 : status);
+        assert.ok(!JSON.stringify(res.body).includes("postgres"));
+        assert.equal(res.getHeader("Retry-After"), status === 429 ? "30" : undefined);
+    }
+    for (const body of [{ guildId: guild, games: -1 }, { guildId: "1", games: 1 }, { guildId: guild, games: "3" }]) {
+        mockFetch(t, async () => json(body));
+        const res = response();
+        await require("../pages/api/guild/stats/reset.ts").default(await resetRequest("/guild/stats/reset"), res);
+        assert.equal(res.statusCode, 502, JSON.stringify(body));
+    }
 });

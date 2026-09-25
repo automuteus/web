@@ -87,6 +87,10 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 | `/api/guild/roles` | `/guild/roles` | `guildID` |
 | `/api/guild/stats` | `/guild/stats` | `guildID` |
 | `/api/guild/match` | `/guild/match` | `guildID`, `matchID` |
+| `/api/guild/user` | `/guild/user` | `guildID`, `userID` |
+| `/api/guild/stats/reset` (POST) | `/guild/stats/reset` | `guildID` |
+| `/api/guild/user/reset` (POST) | `/guild/user/reset` | `guildID`, `userID` |
+| `/api/guild/settings/reset` (POST) | `/guild/settings/reset` | `guildID` |
 | `/api/settings/defaults` | `/bot/settings/defaults` | none; no sign-in needed |
 | `/api/game/state` | `/game/state` | `guildID`, `connectCode` |
 | `/api/game/roomcode` | `/game/roomcode` | `guildID`, `connectCode` |
@@ -250,3 +254,46 @@ sample under a prompt linking to
 `/premium?guild=<guild ID>`. As on the stats page, adding `&preview=free`
 shows a match as a server without premium sees it; it only hides the timeline
 on the client, and the flag is kept when moving between the two pages.
+
+## Player stats page
+
+Open **My stats** on the stats page, or click a player's name on the server
+boards or a match roster. The page is `/stats/user?guild=<guild ID>&user=<user
+ID>`; without `user` it shows the signed-in user. Any member of the server may
+view any player, as with `/stats user` in Discord.
+
+The page loads `/api/guild/user`; the proxy only forwards a snowflake user ID
+and validates the upstream document against `components/stats/user-stats.ts`,
+dropping map, result, or color values it cannot name. Every server gets the
+player's games, wins and winrate by role, first and latest game, and their ten
+most recent matches with a form strip, each linking to the match page. With
+premium the page adds the current and best streaks, server ranks, crewmate
+survival and first-to-die rates, how often they were killed or voted out (and
+how often their side won anyway), games per week over twelve weeks, per-map
+winrates, favorite colors and names, most played with, best and worst
+teammates as crewmate and impostor, and the impostors they died most often
+with. Without premium those sections are a blurred sample under the premium
+prompt, and `&preview=free` shows that layout, as on the other stats pages. A
+player with no recorded games gets a short note rather than an error, so the
+page never reveals whether someone opted out.
+
+## Resets
+
+Anyone who can manage a server (its owner, or a member with Administrator or
+Manage Server) gets a red reset panel on three pages:
+
+- the stats page resets the whole server's stats;
+- the player page resets that player's stats in this server;
+- the settings page resets every setting to the defaults.
+
+Each reset opens a confirmation step first. The server stats reset also asks
+for the word `reset` to be typed. After a stats reset the page reloads and says
+how many games were affected. A settings reset loads the defaults with their
+new version tag, discarding any unsaved edits.
+
+The reset routes are in `utils/server/reset-proxy.ts`. They accept only
+JSON POSTs, which a cross-site form cannot send, forward the settings `If-Match` tag, and validate what
+comes back. The Go API makes the final permission check, against Discord, on
+every reset. Unlike `/stats user reset` in Discord, players cannot reset their
+own stats here without that permission. A player reset only affects this
+server; Discord's version clears the player from every server.

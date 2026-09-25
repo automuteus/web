@@ -107,7 +107,7 @@ export default function MatchPage() {
                                             : !current.data ? <div className={styles.state} role="status">Loading match {matchID}...</div>
                                                 : <>
                                                     {preview && <p className={styles.notice} role="status">Previewing this match as it would look <strong>without premium</strong>. The timeline is hidden, not missing.</p>}
-                                                    <MatchSummaryView match={preview ? previewFree(current.data) : current.data} currentUserId={user} />
+                                                    <MatchSummaryView match={preview ? previewFree(current.data) : current.data} currentUserId={user} preview={preview} />
                                                 </>}
                             </>}
                         </>}

@@ -1,0 +1,77 @@
+/* The player page. Side colors (--side), cards, tables, avatars, and the locked overlay come from GuildStatsView.module.css. */
+.hero { display: flex; align-items: center; gap: 18px; margin-bottom: 20px; }
+.heroText { min-width: 0; }
+.hero .heroName { font-size: 1.6rem; margin: 0 0 4px; overflow-wrap: anywhere; }
+.heroMeta { color: #9aa6b8; font-size: .88rem; font-weight: 400; margin: 0; }
+
+/* Stat tiles: a big number with a side-colored top edge. */
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.tile { position: relative; overflow: hidden; background: #222831; border: 1px solid #3c4553; border-radius: 14px; padding: 18px 16px 16px; min-width: 0; }
+.tile::before { content: ""; position: absolute; inset: 0 0 auto 0; height: 4px; background: var(--side); }
+.tileLabel { display: flex; align-items: center; gap: 7px; color: #bac6db; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+.tileValue { font-size: 1.9rem; font-weight: 600; line-height: 1.15; font-variant-numeric: tabular-nums; }
+.tileDetail { color: #9aa6b8; font-size: .8rem; font-weight: 400; margin-top: 4px; line-height: 1.4; }
+
+/* Form: the latest results as dots. */
+.form { display: flex; align-items: center; gap: 12px; margin: -4px 0 14px; }
+.formLabel { color: #bac6db; font-size: .75rem; text-transform: uppercase; letter-spacing: .08em; }
+.dots { display: flex; gap: 6px; list-style: none; margin: 0; padding: 0; }
+.dot { width: 14px; height: 14px; border-radius: 50%; background: var(--result); }
+.dotWin { --result: #4fbf73; }
+.dotLoss { --result: #d9534f; }
+.dotUnknown { --result: #5d6879; }
+
+.matches { list-style: none; margin: 0; padding: 0; }
+.matches li { border-bottom: 1px solid #39424e; }
+.matches li:last-child { border-bottom: none; }
+.matchRow { display: flex; align-items: center; gap: 12px; padding: 8px; border-radius: 6px; color: inherit; text-decoration: none; }
+.matchRow:hover { background: #262e3a; color: inherit; text-decoration: none; }
+.matchRow:focus-visible { outline: 2px solid #a4b4ff; outline-offset: 1px; }
+.matchWho { display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1; }
+.matchName { font-weight: 700; overflow-wrap: anywhere; }
+.matchSub { color: #9aa6b8; font-size: .8rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+.roleTag { flex: none; color: var(--side); border: 1px solid var(--side); border-radius: 30px; padding: 1px 9px; font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; }
+.outcome { flex: none; width: 5.5em; text-align: center; color: var(--result); font-size: .85rem; font-weight: 700; }
+.matchDate { flex: none; width: 7.5em; text-align: right; color: #9aa6b8; font-size: .8rem; font-weight: 400; }
+
+.link { color: inherit; text-decoration: none; }
+.link:hover { color: #c3ceff; text-decoration: underline; }
+
+.ranks { margin: 0; }
+.rankLine { display: flex; justify-content: space-between; align-items: baseline; padding: 9px 0; border-bottom: 1px solid #39424e; }
+.rankLine:last-child { border-bottom: none; }
+.rankLine dt { color: #d2d9e5; font-weight: 400; }
+.rankLine dd { margin: 0; font-variant-numeric: tabular-nums; }
+.rankLine dd strong { font-size: 1.15rem; }
+.rankLine dd span { color: #9aa6b8; font-size: .85rem; font-weight: 400; }
+.rankLine .unranked { font-style: italic; }
+
+.streakWin { color: #4fbf73; }
+.streakLoss { color: #d9534f; }
+
+.fates { list-style: none; margin: 0; padding: 0; }
+.fateRow { padding: 10px 0; border-bottom: 1px solid #39424e; }
+.fateRow:last-child { border-bottom: none; }
+.fateHead { display: flex; justify-content: space-between; align-items: baseline; font-weight: 400; }
+.fateHead strong { font-size: 1.15rem; font-variant-numeric: tabular-nums; }
+.fateDetail { color: #9aa6b8; font-size: .8rem; font-weight: 400; margin-top: 2px; }
+
+/* Games per week, as columns scaled to the busiest week. */
+.activity { display: flex; align-items: flex-end; gap: 5px; height: 120px; list-style: none; margin: 0; padding: 0; border-bottom: 1px solid #39424e; }
+.activity li { flex: 1; height: 100%; display: flex; align-items: flex-end; }
+.activityBar { display: block; width: 100%; border-radius: 3px 3px 0 0; background: #8799ed; }
+.activityAxis { display: flex; justify-content: space-between; color: #8b97ad; font-size: .75rem; font-weight: 400; margin-top: 6px; }
+
+.shares { list-style: none; margin: 0; padding: 0; }
+.shares li { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #39424e; }
+.shares li:last-child { border-bottom: none; }
+.shareName { flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.colorName { text-transform: capitalize; }
+.shareValue { font-weight: 700; font-variant-numeric: tabular-nums; }
+.shareGames { width: 6.5em; text-align: right; color: #9aa6b8; font-size: .8rem; font-weight: 400; font-variant-numeric: tabular-nums; }
+
+@media (max-width: 720px) {
+    .tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .matchDate { display: none; }
+    .hero .heroName { font-size: 1.3rem; }
+}

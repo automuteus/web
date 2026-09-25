@@ -8,6 +8,7 @@ import {
     COLORS, MAP_NAMES, REGION_NAMES, RESULT_NAMES, MatchEvent, MatchPlayer, MatchSummary, MatchTimeline, Role,
     clock, duration, timelineSections,
 } from "./match-summary";
+import { userStatsHref } from "./user-stats";
 
 interface Props {
     match: MatchSummary;
@@ -15,6 +16,8 @@ interface Props {
     premiumHref?: string;
     /** The signed-in user's Discord ID; their own roster row is highlighted and badged "You". */
     currentUserId?: string;
+    /** Carries the page's preview=free flag along on player links. */
+    preview?: boolean;
 }
 
 type Players = Record<string, StatsPlayer>;
@@ -23,7 +26,7 @@ const roleClass: Record<Role, string> = { crewmate: shared.crew, impostor: share
 /** The bot's own crewmate emoji in the player's color: standing, or the body left behind when they were killed or
  * voted out. A player whose color nothing reported gets a hollow outline instead. The images are small copies of
  * the bot's assets/emojis, in public/images/crewmates. */
-function Crewmate({ color, dead = false, gone = false, locked = false, size = 28 }: { color?: string; dead?: boolean; gone?: boolean; locked?: boolean; size?: number }): React.ReactElement {
+export function Crewmate({ color, dead = false, gone = false, locked = false, size = 28 }: { color?: string; dead?: boolean; gone?: boolean; locked?: boolean; size?: number }): React.ReactElement {
     const box = { width: size, height: size };
     if (!color || !COLORS.includes(color)) return <span className={styles.crewmate} style={box} title="Color not reported" aria-hidden="true"><span className={styles.noColor} /></span>;
     // Locked is always the standing sprite, blurred: a blurred body would still show its wide outline.
@@ -35,13 +38,14 @@ function Crewmate({ color, dead = false, gone = false, locked = false, size = 28
     </span>;
 }
 
-function Discord({ players, id, me }: { players: Players; id: string; me: boolean }): React.ReactElement {
+/** A roster player's Discord account, linking to their player page in this server. */
+function Discord({ players, id, me, href }: { players: Players; id: string; me: boolean; href: ReturnType<typeof userStatsHref> }): React.ReactElement {
     const fallback = defaultAvatar(id);
     const name = playerName(players, id);
     return <span className={styles.discord}>
         <img className={shared.avatar} src={avatarURL(players, id)} alt="" width={20} height={20} loading="lazy" referrerPolicy="no-referrer"
             onError={(e) => { if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback; }} />
-        {name ? <span className={shared.name} title={`User ID ${id}`}>{name}</span> : <code className={shared.unknown}>{id}</code>}
+        <Link className={shared.nameLink} href={href}>{name ? <span className={shared.name} title={`User ID ${id}`}>{name}</span> : <code className={shared.unknown}>{id}</code>}</Link>
         {me && <span className={shared.meBadge}>You</span>}
     </span>;
 }
@@ -62,7 +66,7 @@ function fates(timeline: MatchTimeline | undefined): (p: MatchPlayer) => MatchEv
     return (p) => (p.userId && byUser.get(p.userId)) || byPlayer.get(`${p.name}\u0000${p.color}`);
 }
 
-function Team({ role, rows, match, currentUserId, fate }: { role: Role; rows: MatchPlayer[]; match: MatchSummary; currentUserId?: string; fate: (p: MatchPlayer) => MatchEvent | undefined }): React.ReactElement {
+function Team({ role, rows, match, currentUserId, preview, fate }: { role: Role; rows: MatchPlayer[]; match: MatchSummary; currentUserId?: string; preview: boolean; fate: (p: MatchPlayer) => MatchEvent | undefined }): React.ReactElement {
     // Who died comes only from the premium timeline, so without it every player's sprite is locked.
     const locked = !match.timeline;
     const title = role === "impostor" ? "Impostors" : "Crewmates";
@@ -77,7 +81,7 @@ function Team({ role, rows, match, currentUserId, fate }: { role: Role; rows: Ma
                     <Crewmate color={p.color} dead={end?.type === "death" || end?.type === "exile"} gone={end?.type === "disconnect"} locked={locked} size={32} />
                     <span className={styles.who}>
                         <span className={styles.ingame}>{p.name || <em>Unnamed</em>}</span>
-                        {p.userId ? <Discord players={match.players} id={p.userId} me={me} /> : <span className={styles.unlinked}>Not linked</span>}
+                        {p.userId ? <Discord players={match.players} id={p.userId} me={me} href={userStatsHref(match.guildId, p.userId, preview)} /> : <span className={styles.unlinked}>Not linked</span>}
                     </span>
                     {end && <span className={styles.fate}>{fateText[end.type]} <time>{clock(end.offset)}</time></span>}
                 </li>;
@@ -163,7 +167,7 @@ function Header({ match }: { match: MatchSummary }): React.ReactElement {
 }
 
 /** Renders one match. Pure: everything shown comes from the document. */
-export default function MatchSummaryView({ match, premiumHref = "/premium", currentUserId }: Props): React.ReactElement {
+export default function MatchSummaryView({ match, premiumHref = "/premium", currentUserId, preview = false }: Props): React.ReactElement {
     const impostors = match.roster.filter((p) => p.role === "impostor");
     const crewmates = match.roster.filter((p) => p.role === "crewmate");
     const fate = fates(match.timeline);
@@ -173,8 +177,8 @@ export default function MatchSummaryView({ match, premiumHref = "/premium", curr
             ? "The roster appears when the match ends."
             : "No players were recorded for this match."}</p> : <>
             <div className={styles.teams}>
-                <Team role="impostor" rows={impostors} match={match} currentUserId={currentUserId} fate={fate} />
-                <Team role="crewmate" rows={crewmates} match={match} currentUserId={currentUserId} fate={fate} />
+                <Team role="impostor" rows={impostors} match={match} currentUserId={currentUserId} preview={preview} fate={fate} />
+                <Team role="crewmate" rows={crewmates} match={match} currentUserId={currentUserId} preview={preview} fate={fate} />
             </div>
             {!match.timeline && <p className={`${shared.meta} ${styles.premiumNote}`}><Link href={{ pathname: premiumHref, query: { guild: match.guildId } }}>Premium</Link> shows who was killed or voted out, and when.</p>}
             {!match.rosterComplete && <p className={shared.meta}>Only players linked to AutoMuteUs are listed. This match was recorded before the bot kept the full lobby, so anyone unlinked or opted out is missing.</p>}

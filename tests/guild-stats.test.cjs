@@ -205,3 +205,9 @@ test("cached names are escaped", () => {
     assert.ok(!html.includes("<img src=x onerror=alert(1)>") && html.includes("&lt;img src=x onerror=alert(1)&gt;"));
     assert.ok(html.includes("&lt;img"));
 });
+
+test("board names link to the player page, carrying the preview flag; the locked sample has no links", () => {
+    const html = render(fixture, { preview: true });
+    assert.ok(html.includes('href="/stats/user?guild=123456789012345678&amp;user=223456789012345678&amp;preview=free"'));
+    assert.ok(!render(previewFree(fixture)).includes("/stats/user"));
+});

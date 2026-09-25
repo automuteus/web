@@ -198,3 +198,9 @@ test("a linked player's fate follows their user ID even when the event's name or
     // Unlinked players still need both name and color to match.
     assert.ok(!html.includes("/images/crewmates/lime-dead.png"));
 });
+
+test("linked roster players link to their player page in the match's server", () => {
+    const html = render(fixture);
+    assert.ok(html.includes('href="/stats/user?guild=123456789012345678&amp;user=323456789012345678"'));
+    assert.ok(render(fixture, { preview: true }).includes("user=323456789012345678&amp;preview=free"));
+});

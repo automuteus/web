@@ -5,6 +5,7 @@ import {
     GuildStats, GuildLeaderboards, GuildStatsSummary, StatsPlayer, DuoWinrate, PlayerWinrate, IMPOSTOR_DUO_MIN_GAMES,
     avatarURL, defaultAvatar, percent, playerName, sampleLeaderboards,
 } from "./guild-stats";
+import { userStatsHref } from "./user-stats";
 
 interface Props {
     stats: GuildStats;
@@ -12,6 +13,8 @@ interface Props {
     premiumHref?: string;
     /** The signed-in user's Discord ID; their own entries are highlighted and badged "You". */
     currentUserId?: string;
+    /** Carries the page's preview=free flag along on player links. */
+    preview?: boolean;
 }
 
 /** The signed-in user's ID, so any row or card naming them can say so without every component being told. */
@@ -22,6 +25,17 @@ function useMe(...ids: string[]): boolean {
 }
 function MeBadge(): React.ReactElement {
     return <span className={styles.meBadge}>You</span>;
+}
+
+/** Where player names link. Only the real boards provide it: the blurred sample has no links, so nothing hidden
+ * from view can be reached with the keyboard. */
+const LinkContext = React.createContext<{ guildId: string; preview: boolean } | undefined>(undefined);
+
+/** A known player's name, linking to their player page when the boards are real. */
+function NameText({ id, name }: { id: string; name: string }): React.ReactElement {
+    const links = useContext(LinkContext);
+    const text = <span className={styles.name} title={`User ID ${id}`}>{name}</span>;
+    return links ? <Link className={styles.nameLink} href={userStatsHref(links.guildId, id, links.preview)}>{text}</Link> : text;
 }
 
 type Players = Record<string, StatsPlayer>;
@@ -41,7 +55,7 @@ function Player({ players, id }: { players: Players; id: string }): React.ReactE
     const me = useMe(id);
     return <span className={styles.player}>
         <Avatar players={players} id={id} />
-        {name ? <span className={styles.name} title={`User ID ${id}`}>{name}</span> : <code className={styles.unknown} title="This player's name isn't known yet">{id}</code>}
+        {name ? <NameText id={id} name={name} /> : <code className={styles.unknown} title="This player's name isn't known yet">{id}</code>}
         {me && <MeBadge />}
     </span>;
 }
@@ -56,7 +70,7 @@ function Pair({ players, a, b }: { players: Players; a: string; b: string }): Re
 function Name({ players, id }: { players: Players; id: string }): React.ReactElement {
     const name = playerName(players, id);
     const me = useMe(id);
-    return <>{name ? <span className={styles.name} title={`User ID ${id}`}>{name}</span> : <code className={styles.unknown}>{id}</code>}{me && <MeBadge />}</>;
+    return <>{name ? <NameText id={id} name={name} /> : <code className={styles.unknown}>{id}</code>}{me && <MeBadge />}</>;
 }
 
 /** A table row, highlighted when the signed-in user is one of the players named in it. */
@@ -256,12 +270,12 @@ function LockedLeaderboards({ guildId, premiumHref }: { guildId: string; premium
 
 /** Renders a guild's stats document. Pure: everything shown comes from the document, and unknown names fall
  * back to the user ID rather than a lookup. */
-export default function GuildStatsView({ stats, premiumHref = "/premium", currentUserId }: Props): React.ReactElement {
+export default function GuildStatsView({ stats, premiumHref = "/premium", currentUserId, preview = false }: Props): React.ReactElement {
     const { summary, leaderboards, players } = stats;
     const generated = new Date(stats.generatedAt * 1000);
     return <div>
         <SummaryStrip summary={summary} />
-        {leaderboards ? <MeContext.Provider value={currentUserId}><Leaderboards boards={leaderboards} players={players} /></MeContext.Provider>
+        {leaderboards ? <MeContext.Provider value={currentUserId}><LinkContext.Provider value={{ guildId: stats.guildId, preview }}><Leaderboards boards={leaderboards} players={players} /></LinkContext.Provider></MeContext.Provider>
             : <LockedLeaderboards guildId={stats.guildId} premiumHref={premiumHref} />}
         <p className={styles.meta}>Updated <time dateTime={generated.toISOString()}>{generated.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.</p>
     </div>;

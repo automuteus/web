@@ -9,10 +9,16 @@ export interface Props {
     link: string;
     icon?: IconProp;
     newtab?: boolean;
+    /** Carry the server being viewed (?guild=) along, so moving between the per-server pages keeps it selected. */
+    keepGuild?: boolean;
 }
 
 export default function HeaderLink(props: Props): React.ReactElement {
     const router = useRouter();
+    const guild = router.query.guild;
+    const href = props.keepGuild && typeof guild === "string" && /^[0-9]{17,20}$/.test(guild)
+        ? { pathname: props.link, query: { guild } }
+        : props.link;
 
     return (
         <li
@@ -21,7 +27,7 @@ export default function HeaderLink(props: Props): React.ReactElement {
             }`}
         >
             <Link
-                href={props.link}
+                href={href}
                 className="nav-link"
                 target={props.newtab ? "_blank" : undefined}
                 rel={props.newtab ? "noopener noreferrer" : undefined}

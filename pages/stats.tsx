@@ -3,11 +3,13 @@ import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import AppLayout from "../components/layout/AppLayout";
+import ResetPanel from "../components/layout/ResetPanel";
 import GuildStatsView from "../components/stats/GuildStatsView";
 import { GuildStats, parseGuildStats, previewFree } from "../components/stats/guild-stats";
+import { userStatsHref } from "../components/stats/user-stats";
 // The page shell (heading, server picker, state cards) is shared with the settings page so the two look alike.
 import styles from "../components/settings/SettingsView.module.css";
-import { Guild } from "../types/Guild";
+import { Guild, canManageGuild } from "../types/Guild";
 import type { BotPresence } from "./api/guild/bot";
 
 /** Generic invite used when the API could not supply a server-specific one. */
@@ -34,6 +36,8 @@ export default function StatsPage() {
     const [stats, setStats] = useState<Result<GuildStats>>({ key: "" });
     const [guildRetry, setGuildRetry] = useState(0);
     const [refresh, setRefresh] = useState(0);
+    // Set for the reload a reset starts, so it shows once over the emptied stats and goes on the next reload.
+    const [resetNotice, setResetNotice] = useState<{ key: string; message: string }>();
     const list = guilds.key === user ? guilds : { key: user };
     const guild = list.data?.find((g) => g.id === selected);
     const key = `${user}:${selected}:${refresh}`;
@@ -101,7 +105,7 @@ export default function StatsPage() {
                 <>
                     {list.error ? problem(list, () => setGuildRetry((n) => n + 1)) : !list.data ? <div className={styles.state} role="status">Loading your servers...</div> : list.data.length === 0 ?
                         <div className={styles.state}><h2>No servers found</h2><p>You don&apos;t seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.</p><button className={styles.button} onClick={() => setGuildRetry((n) => n + 1)}>Refresh servers</button></div> : <>
-                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button><Link className={styles.button} href={{ pathname: "/stats/match", query: { ...(guild ? { guild: guild.id } : {}), ...(preview ? { preview: "free" } : {}) } }}>Look up a match</Link></div>
+                            <div className={styles.toolbar}><div className={styles.selector}><label htmlFor="stats-guild">Discord server</label><select id="stats-guild" value={guild ? selected : ""} onChange={(e) => router.replace({ pathname: "/stats", query: { ...(e.target.value ? { guild: e.target.value } : {}), ...(preview ? { preview: "free" } : {}) } }, undefined, { shallow: true })}><option value="">Select a server</option>{[...list.data].sort((a, b) => a.name.localeCompare(b.name)).map((g) => <option key={g.id} value={g.id}>{g.name}</option>)}</select></div><button className={styles.button} disabled={busy} onClick={() => setRefresh((n) => n + 1)}>Reload stats</button><Link className={styles.button} href={{ pathname: "/stats/match", query: { ...(guild ? { guild: guild.id } : {}), ...(preview ? { preview: "free" } : {}) } }}>Look up a match</Link>{guild && <Link className={styles.button} href={userStatsHref(guild.id, user, preview)}>My stats</Link>}</div>
                             {!guild ? <div className={styles.state}><h2>{selected ? "Server unavailable" : "Select your server"}</h2><p>{selected ? "This server isn't one you're a member of. Choose another server above." : "Choose a server to see its stats."}</p></div> : <>
                                 <h2 className={styles.selected}>{guild.name}</h2>
                                 {!bot.data && !bot.error ? <div className={styles.state} role="status">Checking for AutoMuteUs in this server...</div> : bot.data?.present === false ?
@@ -115,7 +119,18 @@ export default function StatsPage() {
                                         {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data ? <div className={styles.state} role="status">Loading stats...</div> :
                                             <>
                                                 {preview && <p className={styles.notice} role="status">Previewing this server as it would look <strong>without premium</strong>. The leaderboards are hidden, not missing.</p>}
-                                                <GuildStatsView stats={preview ? previewFree(current.data) : current.data} currentUserId={user} />
+                                                {resetNotice?.key === key && <p className={styles.notice} role="status">{resetNotice.message}</p>}
+                                                <GuildStatsView stats={preview ? previewFree(current.data) : current.data} currentUserId={user} preview={preview} />
+                                                {canManageGuild(guild) && <ResetPanel key={guild.id} title="Reset server stats" action="Reset server stats" typed="reset"
+                                                    url={`/api/guild/stats/reset?${new URLSearchParams({ guildID: guild.id })}`}
+                                                    confirm={<>Every recorded game in <strong>{guild.name}</strong> will be deleted, for every player.</>}
+                                                    onReset={(body) => {
+                                                        const games = (body as { games?: unknown } | undefined)?.games;
+                                                        setResetNotice({ key: `${user}:${selected}:${refresh + 1}`, message: `Server stats reset.${typeof games === "number" ? ` ${games} game${games === 1 ? "" : "s"} deleted.` : ""}` });
+                                                        setRefresh((n) => n + 1);
+                                                    }}>
+                                                    <p>Delete every game AutoMuteUs has recorded in this server and start the stats over, like <code>/stats guild reset</code>. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.</p>
+                                                </ResetPanel>}
                                             </>}
                                     </>}
                             </>}
