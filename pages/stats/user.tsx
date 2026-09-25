@@ -25,7 +25,7 @@ export default function UserStatsPage() {
     const router = useRouter();
     const user = status === "authenticated" && !session.error ? session.user.id : "";
     const selected = typeof router.query.guild === "string" ? router.query.guild : "";
-    // Any member may look up any player, as with /stats user; without ?user= the page shows the signed-in user.
+    // Any member may look up any player; without ?user= the page shows the signed-in user.
     const requested = typeof router.query.user === "string" && /^[0-9]{17,20}$/.test(router.query.user) ? router.query.user : "";
     const target = requested || user;
     // ?preview=free shows the page as a server without premium sees it, for checking that layout locally.
@@ -109,8 +109,8 @@ export default function UserStatsPage() {
                                             setRefresh((n) => n + 1);
                                         }}>
                                         {target === user ?
-                                            <p>Remove yourself from every game recorded in this server and start your stats here over, like <code>/stats user reset</code>. The games stay, so everyone else&apos;s stats are unchanged, and your stats in other servers are kept.</p> :
-                                            <p>Remove this player from every game recorded in this server, like <code>/stats user reset</code>. The games stay, so everyone else&apos;s stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.</p>}
+                                            <p>Remove yourself from every game recorded in this server and start your stats here over. The games stay, so everyone else&apos;s stats are unchanged, and your stats in other servers are kept.</p> :
+                                            <p>Remove this player from every game recorded in this server. The games stay, so everyone else&apos;s stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.</p>}
                                     </ResetPanel>}
                                 </>}
                             </>}

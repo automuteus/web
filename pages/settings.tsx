@@ -317,7 +317,7 @@ export default function SettingsPage() {
                                                     setDraft({ key, settings: data });
                                                     setSave({ key, ok: true, message: "Settings reset to the defaults. The bot uses them from the next game." });
                                                 }}>
-                                                <p>Put every setting back to the bot&apos;s default, like <code>/settings reset</code>. Stats are kept.</p>
+                                                <p>Put every setting back to the bot&apos;s default. Stats are kept.</p>
                                             </ResetPanel>
                                         </>}
                                     </>}

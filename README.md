@@ -204,11 +204,10 @@ No background polling is used.
 ## Server stats page
 
 Open `/stats` or use Stats in the navigation. Sign in, select a Discord server
-you belong to, and the page shows what `/stats guild` reports in Discord: games
+you belong to, and the page shows the server's games
 played, crewmate and impostor wins, and, on servers with premium, the
 leaderboards (most games, winrates overall and by role, best and worst duos,
-first to die, killed by). Any member may view a server's stats, the same as the
-slash command, so the picker lists every server the user is in rather than
+first to die, killed by). Any member may view a server's stats, so the picker lists every server the user is in rather than
 only those they manage. A selection is shareable as `/stats?guild=<guild ID>`.
 
 The page loads `/api/guild/bot` first and offers an invite when the bot is
@@ -260,7 +259,7 @@ on the client, and the flag is kept when moving between the two pages.
 Open **My stats** on the stats page, or click a player's name on the server
 boards or a match roster. The page is `/stats/user?guild=<guild ID>&user=<user
 ID>`; without `user` it shows the signed-in user. Any member of the server may
-view any player, as with `/stats user` in Discord.
+view any player.
 
 The page loads `/api/guild/user`; the proxy only forwards a snowflake user ID
 and validates the upstream document against `components/stats/user-stats.ts`,
@@ -297,5 +296,5 @@ new version tag, discarding any unsaved edits.
 The reset routes are in `utils/server/reset-proxy.ts`. They accept only
 JSON POSTs, which a cross-site form cannot send, forward the settings `If-Match` tag, and validate what
 comes back. The Go API makes the final permission check, against Discord, on
-every reset. A player reset, like `/stats user reset` in Discord, only affects
-the server it is run in.
+every reset. A player reset only affects the server it is run in. In
+Discord, `/stats` and `/settings` now only link to these pages.

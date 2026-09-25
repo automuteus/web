@@ -57,7 +57,7 @@ export default function StatsPage() {
                 if (!res.ok) { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = await res.json();
                 if (!Array.isArray(data) || !data.every((g) => g && typeof g.id === "string" && typeof g.name === "string")) throw new Error("Invalid guild list");
-                // Every server the user belongs to: any member may see a server's stats, as with /stats guild.
+                // Every server the user belongs to: any member may see a server's stats.
                 if (!controller.signal.aborted) setGuilds({ key: user, data });
             }).catch(() => { if (!controller.signal.aborted) setGuilds({ key: user, error: errorMessage(502) }); });
         return () => controller.abort();
@@ -129,7 +129,7 @@ export default function StatsPage() {
                                                         setResetNotice({ key: `${user}:${selected}:${refresh + 1}`, message: `Server stats reset.${typeof games === "number" ? ` ${games} game${games === 1 ? "" : "s"} deleted.` : ""}` });
                                                         setRefresh((n) => n + 1);
                                                     }}>
-                                                    <p>Delete every game AutoMuteUs has recorded in this server and start the stats over, like <code>/stats guild reset</code>. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.</p>
+                                                    <p>Delete every game AutoMuteUs has recorded in this server and start the stats over. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.</p>
                                                 </ResetPanel>}
                                             </>}
                                     </>}
