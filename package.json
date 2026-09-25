@@ -23,7 +23,9 @@
         "build": "next build",
         "start": "next start",
         "typecheck": "tsc --noEmit",
-        "test": "node --test tests/*.test.cjs"
+        "test": "node --test tests/*.test.cjs",
+        "i18n:extract": "i18next-cli extract",
+        "i18n:check": "i18next-cli extract --ci --dry-run && i18next-cli lint"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.7.2",
@@ -34,6 +36,8 @@
         "@popperjs/core": "^2.11.8",
         "bootstrap": "^5.3.3",
         "framer-motion": "^11.18.2",
+        "i18next": "^26.4.2",
+        "i18next-resources-to-backend": "^1.2.3",
         "next": "^15.3.0",
         "next-auth": "^4.24.11",
         "nprogress": "^0.2.0",
@@ -41,6 +45,7 @@
         "react": "^18.3.1",
         "react-bootstrap": "^2.10.9",
         "react-dom": "^18.3.1",
+        "react-i18next": "^17.0.15",
         "sass": "^1.86.0"
     },
     "devDependencies": {
@@ -49,6 +54,7 @@
         "@types/numeral": "^2.0.5",
         "@types/react": "^18.3.20",
         "@types/react-dom": "^18.3.6",
+        "i18next-cli": "^1.74.1",
         "typescript": "^5.8.3"
     }
 }

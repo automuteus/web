@@ -55,9 +55,11 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 
     callbacks: {
-        async jwt({ token, account }) {
-            // First sign-in: stash the Discord tokens.
+        async jwt({ token, account, profile }) {
+            // First sign-in: stash the Discord tokens, and the user's Discord language for the UI.
             if (account) {
+                const locale = (profile as { locale?: unknown } | undefined)?.locale;
+                token.locale = typeof locale === "string" ? locale : undefined;
                 token.accessToken = account.access_token;
                 token.refreshToken = account.refresh_token;
                 token.expiresAt = account.expires_at;
@@ -79,6 +81,7 @@ export const authOptions: NextAuthOptions = {
         async session({ session, token }) {
             // `sub` is the Discord user ID when no adapter is configured.
             session.user.id = token.sub;
+            session.user.locale = token.locale;
             session.error = token.error;
             return session;
         },

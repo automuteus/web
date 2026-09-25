@@ -1,0 +1,198 @@
+{
+  "shared": {
+    "color": {
+      "banana": "Banana",
+      "black": "Black",
+      "blue": "Blue",
+      "brown": "Brown",
+      "coral": "Coral",
+      "cyan": "Cyan",
+      "gray": "Gray",
+      "green": "Green",
+      "lime": "Lime",
+      "maroon": "Maroon",
+      "orange": "Orange",
+      "pink": "Pink",
+      "purple": "Purple",
+      "red": "Red",
+      "rose": "Rose",
+      "tan": "Tan",
+      "white": "White",
+      "yellow": "Yellow"
+    },
+    "column": {
+      "deaths": "Deaths",
+      "games": "Games",
+      "impostor": "Impostor",
+      "map": "Map",
+      "player": "Player",
+      "rate": "Rate",
+      "teammate": "Teammate",
+      "winrate": "Winrate",
+      "wins": "Wins"
+    },
+    "games_one": "{{count, number}} game",
+    "games_other": "{{count, number}} games",
+    "mapNotRecorded": "Map not recorded",
+    "number": "{{value, number}}",
+    "outcome": {
+      "lost": "Lost",
+      "none": "No result",
+      "won": "Won"
+    },
+    "result": {
+      "crewmateDisconnect": "Crewmates won when the impostors disconnected",
+      "crewmateTasks": "Crewmates won by finishing their tasks",
+      "crewmateVote": "Crewmates won by voting out the impostors",
+      "impostorDisconnect": "Impostors won when the crewmates disconnected",
+      "impostorKill": "Impostors won by kills",
+      "impostorSabotage": "Impostors won by sabotage",
+      "impostorVote": "Impostors won by vote",
+      "unknown": "The game ended without reporting a result"
+    },
+    "role": {
+      "crewmate": "Crewmate",
+      "impostor": "Impostor"
+    },
+    "unknownPlayer": "This player's name isn't known yet",
+    "unnamed": "Unnamed",
+    "userId": "User ID {{id}}",
+    "you": "You"
+  },
+  "user": {
+    "activity": {
+      "barEarlier": "{{games}} {{weeks}}",
+      "barThisWeek_one": "{{count, number}} game in the last 7 days",
+      "barThisWeek_other": "{{count, number}} games in the last 7 days",
+      "hint": "{{games}} in the last {{weeks}}.",
+      "label": "Games per week, oldest first",
+      "lastWeeks_one": "{{count}} week",
+      "lastWeeks_other": "{{count}} weeks",
+      "thisWeek": "This week",
+      "title": "Activity",
+      "weeksAgo_one": "{{count}} week ago",
+      "weeksAgo_other": "{{count}} weeks ago",
+      "weeksBefore_one": "{{count}} week before that",
+      "weeksBefore_other": "{{count}} weeks before that"
+    },
+    "colors": {
+      "empty": "No colors recorded yet.",
+      "title": "Favorite colors"
+    },
+    "details": {
+      "title": "In depth"
+    },
+    "fates": {
+      "detailStillWon": "{{detail}} · their side still won {{rate}} of those",
+      "hint": "How often the player was killed or voted out, and how often their side won those games anyway.",
+      "killedAsCrewmate": "Killed as crewmate",
+      "ofCrewmateGames_one": "{{times}} of {{count, number}} crewmate game",
+      "ofCrewmateGames_other": "{{times}} of {{count, number}} crewmate games",
+      "ofImpostorGames_one": "{{times}} of {{count, number}} impostor game",
+      "ofImpostorGames_other": "{{times}} of {{count, number}} impostor games",
+      "title": "How games end",
+      "votedOutAsCrewmate": "Voted out as crewmate",
+      "votedOutAsImpostor": "Voted out as impostor"
+    },
+    "firstTarget": {
+      "detail_one": "{{deaths}} of {{count, number}} crewmate game",
+      "detail_other": "{{deaths}} of {{count, number}} crewmate games",
+      "label": "First to die"
+    },
+    "form": {
+      "dotLost": "Match {{id}}: lost",
+      "dotNoResult": "Match {{id}}: no result",
+      "dotWon": "Match {{id}}: won",
+      "label": "Form",
+      "summary_one": "Won {{wins}} of the last {{count, number}} game with a result",
+      "summary_other": "Won {{wins}} of the last {{count, number}} games with a result"
+    },
+    "hero": {
+      "label": "Player",
+      "noGames": "No games recorded in this server.",
+      "since": "Playing since <first>{{first}}</first> · last game <last>{{last}}</last>"
+    },
+    "killedBy": {
+      "empty_one": "No impostor has shared {{count, number}} game with this player yet.",
+      "empty_other": "No impostor has shared {{count, number}} games with this player yet.",
+      "hint": "Among Us doesn't report who made a kill, so a death as a crewmate counts against every impostor in that game.",
+      "title": "Died most often with this impostor in the game"
+    },
+    "locked": {
+      "body": "See streaks, server ranks, survival and first-to-die rates, best and worst teammates, maps, activity, and more. Servers with AutoMuteUs Premium get every section on this page.",
+      "cta": "Get Premium for this server",
+      "label": "Player details",
+      "title": "Detailed player stats are a premium feature"
+    },
+    "maps": {
+      "empty": "No games with a recorded map yet.",
+      "title": "Maps"
+    },
+    "names": {
+      "empty": "No names recorded yet.",
+      "title": "Names used"
+    },
+    "noGames": {
+      "other": "This player has no recorded games here. They may not have played yet, or may not be linked to AutoMuteUs.",
+      "self": "You have no recorded games here yet. Games count once AutoMuteUs has linked you to your in-game name."
+    },
+    "playedWith": {
+      "empty": "No games with other linked players yet.",
+      "share": "Of their games",
+      "title": "Most played with"
+    },
+    "ranks": {
+      "byGames_one": "by games, of {{count, number}} player",
+      "byGames_other": "by games, of {{count, number}} players",
+      "crewmateWinrate": "Crewmate winrate",
+      "hash": "#{{position}}",
+      "hint_one": "Winrate ranks count players with at least {{count, number}} game in the role.",
+      "hint_other": "Winrate ranks count players with at least {{count, number}} games in the role.",
+      "impostorWinrate": "Impostor winrate",
+      "noGames": "no games yet",
+      "notRanked": "Not ranked",
+      "overallWinrate": "Overall winrate",
+      "position_one": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>",
+      "position_other": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>",
+      "serverRank": "Server rank",
+      "title": "Server ranks"
+    },
+    "recent": {
+      "empty": "No finished matches yet.",
+      "matchLine": "Match {{id}} · {{map}}",
+      "title": "Recent matches"
+    },
+    "streak": {
+      "best": "best run {{win}}W · worst {{loss}}L",
+      "current": "Current streak",
+      "loss": "{{n}}L",
+      "win": "{{n}}W"
+    },
+    "summary": {
+      "asCrewmate": "As crewmate",
+      "asImpostor": "As impostor",
+      "gamesPlayed": "Games played",
+      "ofEveryGame": "of every game played",
+      "wins_one": "{{count, number}} win",
+      "wins_other": "{{count, number}} wins",
+      "wonOf_one": "{{wins}} won of {{count, number}} game",
+      "wonOf_other": "{{wins}} won of {{count, number}} games"
+    },
+    "survival": {
+      "detail_one": "alive at the end of {{survived}} of {{count, number}} game",
+      "detail_other": "alive at the end of {{survived}} of {{count, number}} games",
+      "label": "Crewmate survival"
+    },
+    "teammates": {
+      "bestCrewmate": "Best crewmate teammates",
+      "bestImpostor": "Best impostor teammates",
+      "emptyCrewmate_one": "No one has been a crewmate with this player in {{count, number}} game yet.",
+      "emptyCrewmate_other": "No one has been a crewmate with this player in {{count, number}} games yet.",
+      "emptyImpostor_one": "No one has been an impostor with this player in {{count, number}} game yet.",
+      "emptyImpostor_other": "No one has been an impostor with this player in {{count, number}} games yet.",
+      "worstCrewmate": "Worst crewmate teammates",
+      "worstImpostor": "Worst impostor teammates"
+    },
+    "updated": "Updated <time>{{when}}</time>. Stats count games where the player was linked to the bot and are refreshed about once a minute."
+  }
+}
