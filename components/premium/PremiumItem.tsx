@@ -15,6 +15,10 @@ export interface Props {
     description?: React.ReactNode;
     perks?: Array<PremiumItemPerk>;
     guildId?: number | string;
+    /** The premium tier this card buys; absent for donations. */
+    tier?: number;
+    /** Whether the selected server already has this tier active. */
+    current?: boolean;
 }
 
 export default function PremiumItem(props: Props): React.ReactElement {
@@ -39,6 +43,7 @@ export default function PremiumItem(props: Props): React.ReactElement {
                         {props.cardTitle}
                     </div>
                 </div>
+                {props.current && <div className="text-success small mb-1">Current plan</div>}
                 {props.price && (
                     <div className="mb-2" style={{ color: props.accentColor }}>
                         {props.price}

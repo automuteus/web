@@ -682,3 +682,21 @@ test("a refused player reset explains that players may reset only themselves", a
     assert.equal(res.statusCode, 403);
     assert.match(res.body.error, /your own stats/);
 });
+
+const { describePremium, parsePremium, tierName } = require("../components/premium/premium-status.ts");
+
+test("premium status describes active, unexpiring, expired, and free servers", () => {
+    assert.deepEqual(describePremium({ tier: 3, days: 18 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Gold, with 18 days left on its latest payment." });
+    assert.equal(describePremium({ tier: 1, days: 1 }, "Crew").message, "Crew has AutoMuteUs Bronze, with 1 day left on its latest payment.");
+    assert.deepEqual(describePremium({ tier: 2, days: -9999 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Silver, with no expiry." });
+    assert.deepEqual(describePremium({ tier: 2, days: 0 }, "Crew"), { kind: "expired", message: "Crew's AutoMuteUs Silver has expired." });
+    assert.equal(describePremium({ tier: 0, days: -9999 }, "Crew").kind, "free");
+    assert.equal(tierName(9), "Premium");
+});
+
+test("premium status rejects malformed records", () => {
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, extra: true }), { tier: 3, days: 5 });
+    for (const body of [null, [], {}, { tier: "3", days: 5 }, { tier: 3 }, { tier: -1, days: 5 }, { tier: 1.5, days: 5 }, { tier: 1, days: 0.5 }]) {
+        assert.throws(() => parsePremium(body), JSON.stringify(body));
+    }
+});

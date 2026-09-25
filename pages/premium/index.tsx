@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { Button, Modal, Spinner } from "react-bootstrap";
+import { Alert, Button, Modal, Spinner } from "react-bootstrap";
 import { Guild } from "../../types/Guild";
 
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
@@ -20,6 +20,8 @@ import GuildSelect from "../../components/premium/GuildSelect";
 import PremiumItem from "../../components/premium/PremiumItem";
 import { premium_items } from "../../data/premium_items";
 import PremiumPerk from "../../components/premium/PremiumPerk";
+import { describePremium, parsePremium } from "../../components/premium/premium-status";
+import { PremiumRecord, premiumActive } from "../../components/stats/guild-stats";
 
 export default function PremiumPage() {
     const router = useRouter();
@@ -28,6 +30,13 @@ export default function PremiumPage() {
     const [open, setOpen] = useState<boolean>(false);
     // undefined = not loaded yet (or signed out); [] = signed in, nothing found
     const [guilds, setGuilds] = useState<Guild[] | undefined>();
+    // The selected server's premium, keyed by server so a stale answer never shows under another one. Only
+    // members can read it, so a server picked by ID the user is not in simply shows no status.
+    const [premium, setPremium] = useState<{ guild: string; record: PremiumRecord }>();
+    const record = premium && premium.guild === guild ? premium.record : undefined;
+    const active = record && premiumActive(record) ? record : undefined;
+    const serverName = guilds?.find((g) => g.id === guild)?.name || "This server";
+    const summary = record && guild ? describePremium(record, serverName) : undefined;
 
     useEffect(() => {
         if (status !== "authenticated") {
@@ -46,6 +55,19 @@ export default function PremiumPage() {
             cancelled = true;
         };
     }, [status]);
+
+    useEffect(() => {
+        if (status !== "authenticated" || !guild || !util.validGuild(guild)) return;
+        const controller = new AbortController();
+        fetch(`/api/guild/premium?${new URLSearchParams({ guildID: guild })}`, { signal: controller.signal, cache: "no-store" })
+            .then(async (res) => {
+                if (!res.ok) return;
+                const record = parsePremium(await res.json());
+                if (!controller.signal.aborted) setPremium({ guild, record });
+            })
+            .catch(() => {});
+        return () => controller.abort();
+    }, [status, guild]);
 
     useEffect(() => {
         if (router.query.guild && util.validGuild(router.query.guild)) {
@@ -104,6 +126,26 @@ export default function PremiumPage() {
                     well as improve your muting experience!
                 </div>
 
+                {summary && (
+                    <Alert
+                        variant="transparent"
+                        className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : "text-light"}`}
+                        style={{ background: "var(--dark)" }}
+                    >
+                        <div>{summary.message}</div>
+                        {active && (
+                            <div className="text-warning mt-2">
+                                Each purchase starts a new PayPal subscription, so buying here won't replace the
+                                current one, and its remaining days don't carry over. If you're changing tiers,{" "}
+                                <a href="https://cancelprem.automute.us/" target="_blank">
+                                    cancel the current subscription
+                                </a>{" "}
+                                first.
+                            </div>
+                        )}
+                    </Alert>
+                )}
+
                 <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4 g-3 mt-4 mb-3 justify-content-center">
                     {premium_items.map((item) => {
                         return (
@@ -111,6 +153,7 @@ export default function PremiumPage() {
                                 key={item.paypalId}
                                 {...item}
                                 guildId={guild}
+                                current={!!active && item.tier === active.tier}
                             />
                         );
                     })}

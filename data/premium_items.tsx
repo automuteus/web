@@ -10,6 +10,7 @@ import { faCheckCircle, faTimes, faTimesCircle } from "@fortawesome/free-solid-s
 export const premium_items: Array<PremiumItemProps> = [
     {
         cardTitle: "Bronze",
+        tier: 1,
         accentColor: "#71491e",
         buttonText: "Get Bronze",
         paypalId: "M8D39PF5ADGJW",
@@ -68,6 +69,7 @@ export const premium_items: Array<PremiumItemProps> = [
     },
     {
         cardTitle: "Silver",
+        tier: 2,
         accentColor: "#d6e0f0",
         buttonText: "Get Silver",
         paypalId: "CPZMEL7ZA6PHN",
@@ -121,6 +123,7 @@ export const premium_items: Array<PremiumItemProps> = [
     },
     {
         cardTitle: "Gold",
+        tier: 3,
         accentColor: "#ffd700",
         buttonText: "Get Gold",
         paypalId: "PYFCA7562KHB6",
