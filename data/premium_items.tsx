@@ -56,15 +56,6 @@ export const premium_items: Array<PremiumItemProps> = [
                     />
                 ),
             },
-            {
-                key: "Download Raw Data",
-                value: (
-                    <FontAwesomeIcon
-                        icon={faTimesCircle}
-                        className="text-muted"
-                    />
-                ),
-            },
         ],
     },
     {
@@ -103,15 +94,6 @@ export const premium_items: Array<PremiumItemProps> = [
             },
             {
                 key: "Premium Servers",
-                value: (
-                    <FontAwesomeIcon
-                        icon={faTimesCircle}
-                        className="text-muted"
-                    />
-                ),
-            },
-            {
-                key: "Download Raw Data",
                 value: (
                     <FontAwesomeIcon
                         icon={faTimesCircle}
@@ -163,10 +145,6 @@ export const premium_items: Array<PremiumItemProps> = [
                         <strong className=""> 2</strong>
                     </>
                 ),
-            },
-            {
-                key: "Download Raw Data",
-                value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
         ],
     },

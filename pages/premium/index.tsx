@@ -6,7 +6,6 @@ import { Guild } from "../../types/Guild";
 
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import {
-    faDatabase,
     faGamepad,
     faHeadset,
     faMedal,
@@ -269,11 +268,5 @@ const current_perks = [
         description:
             "Get your premium AutoMuteUs bot status in multiple Discord servers!",
         icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faDiscord} />,
-    },
-    {
-        perk: "Download Raw Data",
-        description:
-            "Download the raw data stored in AutoMuteUs's database!",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faDatabase} />,
     },
 ];
