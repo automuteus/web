@@ -7,6 +7,7 @@ import {
     faCode,
     faCrown,
     faHome,
+    faSlidersH,
     faSignOutAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
@@ -26,6 +27,11 @@ const navs: Array<HeaderLinkProps> = [
         text: "Premium",
         link: "/premium",
         icon: faCrown,
+    },
+    {
+        text: "Settings",
+        link: "/settings",
+        icon: faSlidersH,
     },
     {
         text: "Commands",
