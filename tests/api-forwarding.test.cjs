@@ -534,6 +534,22 @@ test("Go access errors retain status and never reflect upstream bodies", async (
     }
 });
 
+test("a 503 while a stats document is still building passes a plain Retry-After through, and nothing else", async (t) => {
+    for (const [endpoint, status, retryAfter, want] of [
+        ["/guild/stats", 503, "5", "5"], ["/guild/user", 503, "5", "5"], ["/guild/match", 503, "5", "5"], ["/guild/stats", 429, "30", "30"],
+        ["/guild/stats", 503, undefined, undefined], ["/guild/stats", 503, "Wed, 21 Oct 2015 07:28:00 GMT", undefined], ["/guild/stats", 503, "5; drop=1", undefined],
+        ["/guild/stats", 403, "5", undefined], ["/guild/stats", 200, "5", undefined],
+    ]) {
+        mockFetch(t, async () => new Response(status === 200 ? JSON.stringify({}) : "private upstream data", { status, headers: retryAfter === undefined ? {} : { "Retry-After": retryAfter } }));
+        const res = response();
+        const query = { guildID: guild, ...(endpoint === "/guild/user" ? { userID: guild } : {}), ...(endpoint === "/guild/match" ? { matchID: "7" } : {}) };
+        await createAPIReadHandler(endpoint)(await request({}, query), res);
+        assert.equal(res.statusCode, status, `${endpoint} ${status}`);
+        assert.equal(res.getHeader("Retry-After"), want, `${endpoint} ${status} ${retryAfter}`);
+        assert.ok(!JSON.stringify(res.body).includes("private upstream"));
+    }
+});
+
 test("network failures, redirects rejected by fetch, and malformed success JSON return 502", async (t) => {
     for (const upstream of [
         async () => { throw new Error("connection credentials secret"); },

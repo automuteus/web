@@ -9,14 +9,17 @@ import { UserStats, parseUserStats, previewFree, userStatsHref } from "../../com
 // The page shell (heading, server picker, state cards) is shared with the settings and stats pages.
 import styles from "../../components/settings/SettingsView.module.css";
 import { playerName } from "../../components/stats/guild-stats";
+import { fetchWhileBuilding } from "../../components/stats/building-fetch";
 import { adminGuild, Guild, canManageGuild, hasStatsPage } from "../../types/Guild";
 
-type Result<T> = { key: string; data?: T; error?: string; login?: boolean };
+/** building is set while the API has said the document is not ready yet and the page is waiting to ask again. */
+type Result<T> = { key: string; data?: T; error?: string; login?: boolean; building?: boolean };
 
 function errorMessage(status: number) {
     if (status === 401) return "Your Discord login has expired. Sign in again to continue.";
     if (status === 403) return "You're not a member of this server, or Discord has not granted the required access.";
-    if (status === 429 || status === 503) return "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.";
+    if (status === 503) return "AutoMuteUs is still preparing this data, or Discord is temporarily busy. Please wait a minute and try again.";
+    if (status === 429) return "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.";
     return "We couldn't load this information. Please try again.";
 }
 
@@ -64,7 +67,7 @@ export default function UserStatsPage() {
         if (!user || !guild || !target) return;
         const controller = new AbortController();
         setStats({ key });
-        fetch(`/api/guild/user?${new URLSearchParams({ guildID: guild.id, userID: target })}`, { signal: controller.signal, cache: "no-store" })
+        fetchWhileBuilding(`/api/guild/user?${new URLSearchParams({ guildID: guild.id, userID: target })}`, { signal: controller.signal, onWaiting: () => { if (!controller.signal.aborted) setStats({ key, building: true }); } })
             .then(async (res) => {
                 if (!res.ok) { if (!controller.signal.aborted) setStats({ key, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = parseUserStats(await res.json());
@@ -100,7 +103,7 @@ export default function UserStatsPage() {
                             {!guild ? <div className={styles.state}><h2>{selected ? "Server unavailable" : "Select your server"}</h2><p>{selected ? "This server isn't one you're a member of. Choose another server above." : "Choose the server to see stats from."}</p></div> : <>
                                 <h2 className={styles.selected}>{guild.name}</h2>
                                 {admin && <p className={styles.notice} role="status">Admin view: loaded with the API&apos;s admin credential{listed ? "" : " for a server you're not in"}.</p>}
-                                {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data ? <div className={styles.state} role="status">Loading player stats...</div> : <>
+                                {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data ? <div className={styles.state} role="status">{current.building ? "Building this player's stats. Large servers can take a minute or two; the page will update on its own." : "Loading player stats..."}</div> : <>
                                     {preview && <p className={styles.notice} role="status">Previewing this player as they would look <strong>without premium</strong>. The detailed sections are hidden, not missing.</p>}
                                     {resetNotice?.key === key && <p className={styles.notice} role="status">{resetNotice.message}</p>}
                                     <UserStatsView stats={preview ? previewFree(current.data) : current.data} currentUserId={user} preview={preview} />

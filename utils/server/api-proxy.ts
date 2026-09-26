@@ -87,9 +87,13 @@ export function createAPIReadHandler(endpoint: ReadEndpoint, shape?: ResponseSha
                     404: "Not found",
                     429: "Too many requests; try again later",
                     501: "The API is not configured for this request",
-                    503: "API authorization is temporarily unavailable",
+                    503: "Still being prepared; try again shortly",
                 };
                 const status = messages[upstream.status] ? upstream.status : 502;
+                // The stats routes answer 503 while a large server's document is still being built, and the page
+                // retries on the schedule the API asks for. Only a plain number of seconds is passed through.
+                const retryAfter = upstream.headers.get("Retry-After");
+                if ((status === 429 || status === 503) && retryAfter && /^[0-9]{1,5}$/.test(retryAfter)) res.setHeader("Retry-After", retryAfter);
                 // Do not reflect upstream error bodies, cookies, or headers.
                 return res.status(status).json({ error: messages[status] || "API request failed" });
             }

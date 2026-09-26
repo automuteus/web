@@ -6,6 +6,7 @@ import AppLayout from "../components/layout/AppLayout";
 import ResetPanel from "../components/layout/ResetPanel";
 import GuildStatsView from "../components/stats/GuildStatsView";
 import { GuildStats, parseGuildStats, previewFree } from "../components/stats/guild-stats";
+import { fetchWhileBuilding } from "../components/stats/building-fetch";
 import { userStatsHref } from "../components/stats/user-stats";
 // The page shell (heading, server picker, state cards) is shared with the settings page so the two look alike.
 import styles from "../components/settings/SettingsView.module.css";
@@ -15,12 +16,14 @@ import type { BotPresence } from "./api/guild/bot";
 /** Generic invite used when the API could not supply a server-specific one. */
 const GENERIC_INVITE = "https://add.automute.us";
 
-type Result<T> = { key: string; data?: T; error?: string; login?: boolean };
+/** building is set while the API has said the document is not ready yet and the page is waiting to ask again. */
+type Result<T> = { key: string; data?: T; error?: string; login?: boolean; building?: boolean };
 
 function errorMessage(status: number) {
     if (status === 401) return "Your Discord login has expired. Sign in again to continue.";
     if (status === 403) return "You're not a member of this server, or Discord has not granted the required access.";
-    if (status === 429 || status === 503) return "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.";
+    if (status === 503) return "AutoMuteUs is still preparing this data, or Discord is temporarily busy. Please wait a minute and try again.";
+    if (status === 429) return "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.";
     return "We couldn't load this information. Please try again.";
 }
 
@@ -87,7 +90,7 @@ export default function StatsPage() {
         if (!user || !guild || !checkStats) return;
         const controller = new AbortController();
         setStats({ key });
-        fetch(`/api/guild/stats?${new URLSearchParams({ guildID: guild.id })}`, { signal: controller.signal, cache: "no-store" })
+        fetchWhileBuilding(`/api/guild/stats?${new URLSearchParams({ guildID: guild.id })}`, { signal: controller.signal, onWaiting: () => { if (!controller.signal.aborted) setStats({ key, building: true }); } })
             .then(async (res) => {
                 if (!res.ok) { if (!controller.signal.aborted) setStats({ key, error: errorMessage(res.status), login: res.status === 401 }); return; }
                 const data = parseGuildStats(await res.json());
@@ -120,7 +123,7 @@ export default function StatsPage() {
                                         <button className={styles.button} onClick={() => setRefresh((n) => n + 1)}>I&apos;ve added it</button>
                                     </div> : <>
                                         {bot.error && <p className={styles.warning} role="status">We couldn&apos;t confirm that AutoMuteUs is in this server. If the bot hasn&apos;t joined, <a href={GENERIC_INVITE} target="_blank" rel="noopener noreferrer">invite it</a> to start recording games.</p>}
-                                        {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data ? <div className={styles.state} role="status">Loading stats...</div> :
+                                        {current.error ? problem(current, () => setRefresh((n) => n + 1)) : !current.data ? <div className={styles.state} role="status">{current.building ? "Building stats for this server. Large servers can take a minute or two; the page will update on its own." : "Loading stats..."}</div> :
                                             <>
                                                 {preview && <p className={styles.notice} role="status">Previewing this server as it would look <strong>without premium</strong>. The leaderboards are hidden, not missing.</p>}
                                                 {resetNotice?.key === key && <p className={styles.notice} role="status">{resetNotice.message}</p>}
