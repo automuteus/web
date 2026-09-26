@@ -10,9 +10,10 @@ const MIN_DELAY = 2_000;
 const MAX_DELAY = 15_000;
 const DEFAULT_DELAY = 5_000;
 
-/** How long to keep retrying in total. The API's own build budget is two minutes (DefaultStatsBuildTimeout), after
- * which a retry fails outright rather than answering 503 again, so waiting much longer only delays a known error. */
-export const BUILD_WAIT_BUDGET = 150_000;
+/** How long to keep retrying in total. The API's build budget defaults to two minutes and the official deployment
+ * raises it to five (API_STATS_BUILD_TIMEOUT); once a build fails, a retry answers with an error rather than 503,
+ * so this only needs to outlast the longest build, not to guess when it failed. */
+export const BUILD_WAIT_BUDGET = 330_000;
 
 export type BuildingFetchOptions = {
     signal: AbortSignal;

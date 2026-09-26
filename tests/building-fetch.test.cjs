@@ -75,9 +75,9 @@ test("the last 503 is returned once the budget would be exceeded", async (t) => 
     assert.deepEqual(c.waits, [15_000, 15_000]);
 });
 
-test("the default budget outlasts the API's two-minute build and a few polls beyond it", () => {
-    assert.ok(BUILD_WAIT_BUDGET >= 120_000 + 15_000);
-    assert.ok(BUILD_WAIT_BUDGET <= 5 * 60_000);
+test("the default budget outlasts the official deployment's five-minute build and a poll beyond it", () => {
+    assert.ok(BUILD_WAIT_BUDGET >= 5 * 60_000 + 15_000);
+    assert.ok(BUILD_WAIT_BUDGET <= 10 * 60_000);
 });
 
 test("aborting during a wait stops the loop and rejects like fetch does", async (t) => {
