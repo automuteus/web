@@ -33,6 +33,9 @@ NEXTAUTH_SECRET=
 DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 
+# Optional: the bot application the invite buttons add. Defaults to the hosted AutoMuteUs bot.
+DISCORD_BOT_CLIENT_ID=
+
 # Server-side AutoMuteUs API base URL for public stats and authenticated reads
 # Use a trusted HTTPS endpoint in production; local HTTP is supported for development.
 AUTOMUTEUS_API_URL=https://api.automute.us
@@ -102,8 +105,9 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 
 Example: `fetch("/api/guild/settings?guildID=123456789012345678")`.
 The `/settings` page uses the settings, premium, and bot routes. The bot route
-adds an `invite` URL when the bot is absent, built from `DISCORD_CLIENT_ID` and
-preselecting that server. `PATCH /api/guild/settings` forwards a JSON object of
+adds an `invite` URL when the bot is absent: the same bot application and permissions as
+https://add.automute.us, preselecting that server. A self-hosted bot sets
+`DISCORD_BOT_CLIENT_ID` to its own application; `DISCORD_CLIENT_ID` is only the site's sign-in app. `PATCH /api/guild/settings` forwards a JSON object of
 changed fields with the caller's session and the `If-Match` tag from the GET;
 the site only accepts the fields it can edit, applies the API's range checks
 first, and relays the API's `fields` list on 400 and 403 so the page can point
