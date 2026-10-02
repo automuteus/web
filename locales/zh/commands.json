@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "要取消链接的用户"
+        "user": "User to unlink"
       },
       "description": "取消 Discord 用户与其游戏内颜色的链接"
     }
@@ -96,8 +96,8 @@
     "optional": "可选",
     "optionalLabel": "可选",
     "required": "必填",
-    "subcommandCount_other": "+ {{count}} 个子命令",
-    "subcommands": "子命令"
+    "subcommands": "子命令",
+    "subcommandCount_other": "+ {{count}} 个子命令"
   },
   "page": {
     "currentAsOf": "基于 {{version}} 版本",
