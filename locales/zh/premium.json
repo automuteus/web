@@ -1,93 +1,93 @@
 {
   "cancel": {
-    "body": "As per the email you received on purchase, you can <manage>manage your subscriptions via PayPal.</manage><br/>If you checked out with a PayPal guest account, or otherwise need help, <form>please use this form.</form>",
-    "heading": "Looking to cancel?"
+    "body": "如购买时收到的邮件所述，你可以<manage>通过 PayPal 管理订阅。</manage><br/>如果你使用 PayPal 访客账户付款，或需要其他帮助，<form>请使用此表单。</form>",
+    "heading": "想要取消订阅？"
   },
   "card": {
     "bronze": {
-      "button": "Get Bronze"
+      "button": "获取 Bronze"
     },
-    "chooseServer": "Please choose a server first",
-    "current": "Current plan",
+    "chooseServer": "请先选择一个服务器",
+    "current": "当前方案",
     "donation": {
-      "button": "Make Donation",
-      "description": "You won't get any special bot privileges, but you will get our thanks for making this Open Source project possible!",
-      "heading": "Chip in any amount you wish ❤️",
-      "thanks": "Thank you! ♥",
-      "title": "Donation"
+      "button": "捐赠",
+      "description": "你不会获得任何机器人特权，但你会收获我们的感谢，是你让这个开源项目得以存在！",
+      "heading": "随心捐赠任意金额 ❤️",
+      "thanks": "谢谢你！♥",
+      "title": "捐赠"
     },
     "gold": {
-      "button": "Get Gold"
+      "button": "获取 Gold"
     },
-    "price": "<strong>{{price}}</strong> <small>/ month</small>",
-    "serverId": "Server ID: {{id}}",
+    "price": "<strong>{{price}}</strong> <small>/ 月</small>",
+    "serverId": "服务器 ID：{{id}}",
     "silver": {
-      "button": "Get Silver"
+      "button": "获取 Silver"
     }
   },
   "guildSelect": {
-    "noServers": "No servers found.",
-    "prompt": "Select Server",
-    "reload": "Try reloading the page."
+    "noServers": "未找到服务器。",
+    "prompt": "选择服务器",
+    "reload": "请尝试重新加载页面。"
   },
-  "heading": "AutoMuteUs Premium",
-  "loadingServers": "Loading your servers",
+  "heading": "AutoMuteUs 高级版",
+  "loadingServers": "正在加载你的服务器",
   "meta": {
-    "description": "AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!",
-    "title": "AutoMuteUs - Premium"
+    "description": "AutoMuteUs 高级版可以让你绕过 Discord 的速率限制，通过排行榜追踪统计数据，并可使用 Discord 高级支持频道！",
+    "title": "AutoMuteUs - 高级版"
   },
   "modal": {
-    "confirm": "Confirm Server ID",
-    "confirmPrompt": "Please confirm that this is the server you want selected!",
-    "different": "If you'd prefer a different server, sign in and select from your joined servers list.",
-    "findId": "How do I find my server ID?",
-    "selected": "The server ID you've selected is:",
-    "title": "Server ID Pre-selected"
+    "confirm": "确认服务器 ID",
+    "confirmPrompt": "请确认这是你要选择的服务器！",
+    "different": "如果你想选择其他服务器，请登录并从你加入的服务器列表中选择。",
+    "findId": "如何找到我的服务器 ID？",
+    "selected": "你选择的服务器 ID 是：",
+    "title": "已预选服务器 ID"
   },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load! ",
-      "title": "Priority Game Access"
+      "description": "即使机器人负载很高，也总能创建新游戏！",
+      "title": "优先游戏访问"
     },
     "mutingBots": {
-      "description": "Issues requests alongside the main bot; this drastically improves the speed of mutes/deafens in your games",
-      "title": "Priority Muting Bots"
+      "description": "与主机器人一起发送请求，大幅提升游戏中静音/拒听的速度",
+      "title": "优先静音机器人"
     },
     "servers": {
-      "description": "Get your premium AutoMuteUs bot status in multiple Discord servers!",
-      "title": "Premium Servers"
+      "description": "在多个 Discord 服务器中享受 AutoMuteUs 高级版机器人状态！",
+      "title": "高级版服务器"
     },
     "stats": {
-      "description": "View Among Us stats and leaderboards for the players on your server!",
-      "title": "Stats and Leaderboards"
+      "description": "查看你服务器中玩家的 Among Us 统计数据和排行榜！",
+      "title": "统计与排行榜"
     },
     "support": {
-      "description": "Access to Premium-only channels and chats in our official Discord!",
-      "title": "Premium Support"
+      "description": "可访问我们官方 Discord 中的高级版专属频道和聊天！",
+      "title": "高级版支持"
     }
   },
-  "perksHeading": "Premium Perks",
-  "signIn": "Sign in to view your servers",
+  "perksHeading": "高级版特权",
+  "signIn": "登录以查看你的服务器",
   "status": {
-    "changingTiers": "Each purchase starts a new PayPal subscription, so buying here won't replace the current one, and its remaining days don't carry over. If you're changing tiers, <cancel>cancel the current subscription</cancel> first.",
-    "ending": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. Its PayPal subscription is cancelled and won't renew.",
-    "endingInherited": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. The PayPal subscription of the server it inherits premium from is cancelled and won't renew.",
-    "expired": "{{server}}'s AutoMuteUs {{tier}} has expired.",
-    "free": "{{server}} doesn't have AutoMuteUs Premium.",
-    "noExpiry": "{{server}} has AutoMuteUs {{tier}}, with no expiry.",
-    "renews": "{{server}} has AutoMuteUs {{tier}}. Its PayPal subscription renews around {{date, datetime}}.",
-    "renewsInherited": "{{server}} has AutoMuteUs {{tier}}. The PayPal subscription of the server it inherits premium from renews around {{date, datetime}}.",
-    "days_other": "{{server}} has AutoMuteUs {{tier}}, with {{count}} days left on its latest payment."
+    "changingTiers": "每次购买都会创建一个新的 PayPal 订阅，因此在此购买不会替换当前订阅，当前订阅的剩余天数也不会转移。如果你要更换等级，请先<cancel>取消当前订阅</cancel>。",
+    "ending": "{{server}} 拥有 AutoMuteUs {{tier}}，有效期至 {{date, datetime}}。其 PayPal 订阅已取消，不会续订。",
+    "endingInherited": "{{server}} 拥有 AutoMuteUs {{tier}}，有效期至 {{date, datetime}}。其高级版继承自另一个服务器，该服务器的 PayPal 订阅已取消，不会续订。",
+    "expired": "{{server}} 的 AutoMuteUs {{tier}} 已过期。",
+    "free": "{{server}} 没有 AutoMuteUs 高级版。",
+    "noExpiry": "{{server}} 拥有 AutoMuteUs {{tier}}，永不过期。",
+    "renews": "{{server}} 拥有 AutoMuteUs {{tier}}。其 PayPal 订阅将于 {{date, datetime}} 前后续订。",
+    "renewsInherited": "{{server}} 拥有 AutoMuteUs {{tier}}。其高级版继承自另一个服务器，该服务器的 PayPal 订阅将于 {{date, datetime}} 前后续订。",
+    "days_other": "{{server}} 拥有 AutoMuteUs {{tier}}，最近一次付款还剩 {{count}} 天。"
   },
-  "subtitle": "Looking to upgrade your Among Us gameplay even further? Running into limitations with the bot while it's under high load? Consider AutoMuteUs premium to support the project as well as improve your muting experience!",
-  "thisServer": "This server",
+  "subtitle": "想让你的 Among Us 游戏体验更上一层楼？机器人高负载时遇到了限制？考虑一下 AutoMuteUs 高级版吧，既能支持本项目，又能改善你的静音体验！",
+  "thisServer": "此服务器",
   "tier": {
     "bronze": "Bronze",
-    "free": "Free",
+    "free": "免费",
     "gold": "Gold",
-    "premium": "Premium",
-    "selfHosted": "Self-hosted",
+    "premium": "高级版",
+    "selfHosted": "自托管",
     "silver": "Silver",
-    "trial": "Trial"
+    "trial": "试用"
   }
 }
