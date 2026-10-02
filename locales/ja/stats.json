@@ -1,431 +1,431 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Best crewmate duos",
-      "bestImpostorDuos": "Best impostor duos",
-      "crewmateWinrate": "Crewmate winrate",
-      "firstToDie": "First to die",
-      "firstToDieHint": "How often a player was the first one killed, out of their games as a crewmate.",
-      "impostorWinrate": "Impostor winrate",
-      "killedBy": "Killed by",
-      "killedByHint": "How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.",
-      "mostGames": "Most games",
-      "overallWinrate": "Overall winrate",
-      "worstCrewmateDuos": "Worst crewmate duos",
-      "worstImpostorDuos": "Worst impostor duos"
+      "bestCrewmateDuos": "勝率の高いクルーメイトコンビ",
+      "bestImpostorDuos": "勝率の高いインポスターコンビ",
+      "crewmateWinrate": "クルーメイト勝率",
+      "firstToDie": "最初の犠牲者",
+      "firstToDieHint": "クルーメイトとして参加したゲームのうち、最初にキルされた割合です。",
+      "impostorWinrate": "インポスター勝率",
+      "killedBy": "キルされた相手",
+      "killedByHint": "あるプレイヤーがインポスターだったゲームで、クルーメイトが死亡した割合です。Among Us は誰がキルしたかを報告しないため、死亡はそのゲームのインポスター全員にカウントされます。",
+      "mostGames": "最多プレイ",
+      "overallWinrate": "総合勝率",
+      "worstCrewmateDuos": "勝率の低いクルーメイトコンビ",
+      "worstImpostorDuos": "勝率の低いインポスターコンビ"
     },
     "column": {
-      "crewmateGames": "Crewmate games",
-      "firstDeaths": "First deaths",
-      "players": "Players",
+      "crewmateGames": "クルーメイトのゲーム数",
+      "firstDeaths": "最初の犠牲",
+      "players": "プレイヤー",
       "rank": "#"
     },
     "empty": {
-      "noGames": "No games recorded yet.",
-      "crewmateDuo_other": "No two players have been crewmates together in {{count}} games yet.",
-      "games_other": "No one has played {{count}} games yet.",
-      "impostorDuo_other": "No two players have been impostors together in {{count}} games yet.",
-      "killedBy_other": "No crewmate and impostor have shared {{count}} games yet.",
-      "roleGames_other": "No one has played {{count}} games in this role yet."
+      "noGames": "記録されたゲームはまだありません。",
+      "crewmateDuo_other": "一緒にクルーメイトとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
+      "games_other": "{{count}} ゲーム以上プレイしたプレイヤーはまだいません。",
+      "impostorDuo_other": "一緒にインポスターとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
+      "killedBy_other": "{{count}} ゲーム以上を共にしたクルーメイトとインポスターの組み合わせはまだありません。",
+      "roleGames_other": "この役職で {{count}} ゲーム以上プレイしたプレイヤーはまだいません。"
     },
     "leaderboards": {
-      "minimums": "Rate boards rank players with at least {{games}}; impostor duos need {{duoGames}} together.",
-      "title": "Leaderboards"
+      "minimums": "勝率のランキングは {{games}}以上のプレイヤーが対象です。インポスターコンビは一緒に {{duoGames}}以上が必要です。",
+      "title": "リーダーボード"
     },
     "locked": {
-      "body": "See who really wins here: winrates, best and worst duos, who dies first, and more. Servers with AutoMuteUs Premium get every board on this page, and the detailed <code>/stats</code> command.",
-      "title": "Leaderboards are a premium feature"
+      "body": "勝率、勝率の高い / 低いコンビ、最初に死ぬのは誰かなど、本当の勝者がわかります。AutoMuteUs プレミアムのサーバーでは、このページのすべてのボードと、詳細な <code>/stats</code> コマンドを利用できます。",
+      "title": "リーダーボードはプレミアム機能です"
     },
     "share": {
-      "crewmates": "Crewmates <strong>{{rate}}</strong>",
-      "impostors": "Impostors <strong>{{rate}}</strong>",
-      "label": "Crewmates won {{crewmates}} of games, impostors {{impostors}}",
-      "none": "No result recorded <strong>{{rate}}</strong>"
+      "crewmates": "クルーメイト <strong>{{rate}}</strong>",
+      "impostors": "インポスター <strong>{{rate}}</strong>",
+      "label": "クルーメイトの勝利 {{crewmates}}、インポスターの勝利 {{impostors}}",
+      "none": "結果の記録なし <strong>{{rate}}</strong>"
     },
     "spotlight": {
       "and": " & ",
-      "bestDuo": "Best duo",
-      "bestWinrate": "Best winrate",
-      "firstToGo": "First to go",
-      "regular": "the server's regular",
-      "title": "Hall of fame",
-      "topCrewmate": "Top crewmate",
-      "topImpostor": "Top impostor",
-      "firstToDie_other": "first to die in {{deaths}} of {{count}} games",
-      "winsOf_other": "{{wins}} of {{count}} games",
-      "winsOfCrewmate_other": "{{wins}} of {{count}} crewmate games",
-      "winsOfImpostor_other": "{{wins}} of {{count}} impostor games",
-      "winsTogether_other": "{{wins}} of {{count}} games together"
+      "bestDuo": "最強コンビ",
+      "bestWinrate": "最高勝率",
+      "firstToGo": "真っ先にやられる人",
+      "regular": "サーバーの常連",
+      "title": "殿堂入り",
+      "topCrewmate": "トップクルーメイト",
+      "topImpostor": "トップインポスター",
+      "firstToDie_other": "{{count}} ゲーム中 {{deaths}} 回最初の犠牲者に",
+      "winsOf_other": "{{count}} ゲーム中 {{wins}} 勝",
+      "winsOfCrewmate_other": "クルーメイトで {{count}} ゲーム中 {{wins}} 勝",
+      "winsOfImpostor_other": "インポスターで {{count}} ゲーム中 {{wins}} 勝",
+      "winsTogether_other": "一緒に {{count}} ゲーム中 {{wins}} 勝"
     },
     "strip": {
-      "crewmateWins": "crewmate wins",
-      "gamesPlayed": "games played",
-      "impostorWins": "impostor wins",
-      "label": "Summary"
+      "crewmateWins": "クルーメイトの勝利",
+      "gamesPlayed": "プレイしたゲーム",
+      "impostorWins": "インポスターの勝利",
+      "label": "概要"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.",
-    "games_other": "{{count}} games"
+    "updated": "<time>{{when}}</time> に更新。統計はプレイヤーがボットにリンクされていたゲームを対象とし、約 1 分ごとに更新されます。",
+    "games_other": "{{count}} ゲーム"
   },
   "match": {
-    "abortedNote": "The match was ended before the game reported a result, so it doesn't count toward stats.",
+    "abortedNote": "ゲームが結果を報告する前に試合が終了したため、統計には含まれません。",
     "crewmate": {
-      "color": "Color: {{color}}",
+      "color": "色：{{color}}",
       "colorName": {
-        "banana": "banana",
-        "black": "black",
-        "blue": "blue",
-        "brown": "brown",
-        "coral": "coral",
-        "cyan": "cyan",
-        "gray": "gray",
-        "green": "green",
-        "lime": "lime",
-        "maroon": "maroon",
-        "orange": "orange",
-        "pink": "pink",
-        "purple": "purple",
-        "red": "red",
-        "rose": "rose",
-        "tan": "tan",
-        "white": "white",
-        "yellow": "yellow"
+        "banana": "バナナ",
+        "black": "黒",
+        "blue": "青",
+        "brown": "茶",
+        "coral": "コーラル",
+        "cyan": "水色",
+        "gray": "灰",
+        "green": "緑",
+        "lime": "黄緑",
+        "maroon": "マルーン",
+        "orange": "オレンジ",
+        "pink": "ピンク",
+        "purple": "紫",
+        "red": "赤",
+        "rose": "ローズ",
+        "tan": "タン",
+        "white": "白",
+        "yellow": "黄"
       },
-      "dead": "{{color}}, dead",
-      "noColor": "Color not reported"
+      "dead": "{{color}}（死亡）",
+      "noColor": "色の報告なし"
     },
     "duration": {
       "hoursMinutes": "{{hours}} {{minutes}}",
       "minutesSeconds": "{{minutes}} {{seconds}}",
-      "hours_other": "{{count}} h",
-      "minutes_other": "{{count}} min",
-      "seconds_other": "{{count}} s"
+      "hours_other": "{{count}} 時間",
+      "minutes_other": "{{count}} 分",
+      "seconds_other": "{{count}} 秒"
     },
     "event": {
-      "aka": " ({{name}})",
-      "disconnected": "<strong>{{name}}</strong> disconnected",
-      "killed": "<strong>{{name}}</strong> was killed",
-      "someone": "A player",
-      "votedOut": "<strong>{{name}}</strong> was voted out"
+      "aka": "（{{name}}）",
+      "disconnected": "<strong>{{name}}</strong> が切断しました",
+      "killed": "<strong>{{name}}</strong> がキルされました",
+      "someone": "プレイヤー",
+      "votedOut": "<strong>{{name}}</strong> が追放されました"
     },
     "facts": {
-      "length": "Length",
-      "region": "Region",
-      "started": "Started"
+      "length": "試合時間",
+      "region": "リージョン",
+      "started": "開始"
     },
     "fate": {
-      "disconnected": "Disconnected <time>{{offset}}</time>",
-      "killed": "Killed <time>{{offset}}</time>",
-      "votedOut": "Voted out <time>{{offset}}</time>"
+      "disconnected": "<time>{{offset}}</time> に切断した",
+      "killed": "<time>{{offset}}</time> にキルされた",
+      "votedOut": "<time>{{offset}}</time> に追放された"
     },
     "headline": {
-      "aborted": "Match ended early",
-      "crewmatesWin": "Crewmates win",
-      "impostorsWin": "Impostors win",
-      "inProgress": "Match in progress",
-      "noWinner": "No winner recorded"
+      "aborted": "試合が途中で終了しました",
+      "crewmatesWin": "クルーメイトの勝利",
+      "impostorsWin": "インポスターの勝利",
+      "inProgress": "試合中",
+      "noWinner": "勝者の記録なし"
     },
-    "id": "Match {{id}}",
-    "label": "Match",
+    "id": "試合 {{id}}",
+    "label": "試合",
     "locked": {
-      "body": "See how the match played out: every round and meeting, who was killed and when, and who was voted out. Servers with AutoMuteUs Premium get the timeline for every match.",
-      "title": "The match timeline is a premium feature"
+      "body": "すべてのラウンドと会議、誰がいつキルされたか、誰が追放されたかなど、試合の流れがわかります。AutoMuteUs プレミアムのサーバーでは、すべての試合のタイムラインを見られます。",
+      "title": "試合のタイムラインはプレミアム機能です"
     },
-    "premiumNote": "<premium>Premium</premium> shows who was killed or voted out, and when.",
+    "premiumNote": "<premium>プレミアム</premium>なら、誰がいつキルされたか・追放されたかを確認できます。",
     "region": {
-      "as": "Asia",
-      "eu": "Europe",
-      "na": "North America"
+      "as": "アジア",
+      "eu": "ヨーロッパ",
+      "na": "北アメリカ"
     },
     "roster": {
-      "incomplete": "Only players linked to AutoMuteUs are listed. This match was recorded before the bot kept the full lobby, so anyone unlinked or opted out is missing.",
-      "later": "The roster appears when the match ends.",
-      "none": "No players were recorded for this match."
+      "incomplete": "表示されるのは AutoMuteUs にリンクされたプレイヤーのみです。この試合はボットがロビー全体を記録する前のものなので、未リンクのプレイヤーや記録を拒否したプレイヤーは含まれていません。",
+      "later": "参加者は試合終了後に表示されます。",
+      "none": "この試合のプレイヤーは記録されていません。"
     },
     "team": {
-      "crewmates": "Crewmates",
-      "impostors": "Impostors",
-      "noCrewmates": "No crewmates recorded.",
-      "noImpostors": "No impostors recorded.",
-      "notLinked": "Not linked"
+      "crewmates": "クルーメイト",
+      "impostors": "インポスター",
+      "noCrewmates": "クルーメイトの記録はありません。",
+      "noImpostors": "インポスターの記録はありません。",
+      "notLinked": "未リンク"
     },
     "timeline": {
-      "empty": "The capture didn't report anything for this match.",
-      "meeting": "Meeting {{number}}",
-      "noDeath": "No one died.",
-      "noExile": "No one was voted out.",
-      "round": "Round {{number}}",
-      "title": "Timeline",
-      "disconnected_other": "<strong>{{count}}</strong> disconnected",
-      "kills_other": "<strong>{{count}}</strong> kills",
-      "meetings_other": "<strong>{{count}}</strong> meetings",
-      "votedOut_other": "<strong>{{count}}</strong> voted out"
+      "empty": "キャプチャはこの試合について何も報告しませんでした。",
+      "meeting": "会議 {{number}}",
+      "noDeath": "死亡者なし。",
+      "noExile": "追放者なし。",
+      "round": "ラウンド {{number}}",
+      "title": "タイムライン",
+      "disconnected_other": "切断 <strong>{{count}}</strong>",
+      "kills_other": "キル <strong>{{count}}</strong>",
+      "meetings_other": "会議 <strong>{{count}}</strong>",
+      "votedOut_other": "追放 <strong>{{count}}</strong>"
     }
   },
   "page": {
-    "admin": "Admin view: loaded with the API's admin credential.",
-    "adminServerName": "Server {{id}}",
-    "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in.",
+    "admin": "管理者表示：API の管理者認証情報で読み込んでいます。",
+    "adminServerName": "サーバー {{id}}",
+    "adminUnlisted": "管理者表示：参加していないサーバーを API の管理者認証情報で読み込んでいます。",
     "match": {
-      "building": "Building the summary for match {{id}}. The page will update on its own.",
-      "chooseServer": "Choose the server the match was played in.",
-      "description": "Look up a match by the ID AutoMuteUs posts when a game ends, like <code>ABCDEFGH:42</code>.",
-      "heading": "Match summary",
-      "idLabel": "Match ID",
-      "idPlaceholder": "ABCDEFGH:42 or 42",
-      "invalidId": "That doesn't look like a match ID. Paste the ID from the bot's game over message, or just the number after the colon.",
-      "loading": "Loading match {{id}}...",
-      "lookUp": "Look up",
-      "metaDesc": "Who played, who won, and how an Among Us match played out, from the matches AutoMuteUs records.",
+      "building": "試合 {{id}} の概要を作成しています。ページは自動で更新されます。",
+      "chooseServer": "試合をプレイしたサーバーを選択してください。",
+      "description": "ゲーム終了時に AutoMuteUs が投稿する ID（例：<code>ABCDEFGH:42</code>）で試合を検索できます。",
+      "heading": "試合の概要",
+      "idLabel": "マッチ ID",
+      "idPlaceholder": "ABCDEFGH:42 または 42",
+      "invalidId": "マッチ ID ではないようです。ボットのゲーム終了メッセージにある ID か、コロンの後ろの数字だけを貼り付けてください。",
+      "loading": "試合 {{id}} を読み込んでいます...",
+      "lookUp": "検索",
+      "metaDesc": "AutoMuteUs が記録した Among Us の試合で、誰がプレイし、誰が勝ち、どんな展開だったかを確認できます。",
       "noId": {
-        "body": "AutoMuteUs posts the match ID in its game over message. You can also browse this server's <stats>stats</stats>.",
-        "heading": "Enter a match ID"
+        "body": "AutoMuteUs はゲーム終了メッセージにマッチ ID を投稿します。このサーバーの<stats>統計</stats>も見られます。",
+        "heading": "マッチ ID を入力"
       },
       "notFound": {
-        "body": "{{guild}} has no match {{id}}. Check that the ID is from a game played in this server.",
-        "heading": "Match not found"
+        "body": "{{guild}} に試合 {{id}} はありません。このサーバーでプレイしたゲームの ID か確認してください。",
+        "heading": "試合が見つかりません"
       },
-      "preview": "Previewing this match as it would look <strong>without premium</strong>. The timeline is hidden, not missing.",
+      "preview": "この試合を<strong>プレミアムなし</strong>の表示でプレビューしています。タイムラインは消えたのではなく、非表示になっているだけです。",
       "signedOut": {
-        "body": "Sign in with Discord to look up matches from the servers you play in.",
-        "heading": "See how the match went"
+        "body": "Discord でサインインすると、プレイしているサーバーの試合を検索できます。",
+        "heading": "試合の展開を見てみよう"
       },
-      "title": "Match summary - AutoMuteUs"
+      "title": "試合の概要 - AutoMuteUs"
     },
-    "myStats": "My stats",
-    "noServers": "You don't seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.",
-    "notMember": "This server isn't one you're a member of. Choose another server above.",
-    "reloadStats": "Reload stats",
-    "selectServer": "Select your server",
+    "myStats": "自分の統計",
+    "noServers": "Discord サーバーに参加していないようです。AutoMuteUs が使われているサーバーに参加してから、サーバー一覧を再読み込みしてください。",
+    "notMember": "このサーバーのメンバーではありません。上で別のサーバーを選択してください。",
+    "reloadStats": "統計を再読み込み",
+    "selectServer": "サーバーを選択",
     "server": {
-      "admin": "Admin view: loaded with the API's admin credential. Leaderboards are shown whatever the server's premium.",
-      "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in. Leaderboards are shown whatever the server's premium.",
-      "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> to start recording games.",
-      "building": "Building stats for this server. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose a server to see its stats.",
-      "description": "How your crew has fared: games played, which side wins, and who leads the boards.",
-      "heading": "Server stats",
-      "inviteBot": "Invite the bot to {{guild}} and play a few games; stats will appear here once matches have been recorded.",
-      "loading": "Loading stats...",
-      "lookUpMatch": "Look up a match",
-      "metaDesc": "Games played, winrates, and leaderboards for the Discord servers you play Among Us in with AutoMuteUs.",
-      "preview": "Previewing this server as it would look <strong>without premium</strong>. The leaderboards are hidden, not missing.",
+      "admin": "管理者表示：API の管理者認証情報で読み込んでいます。リーダーボードはサーバーのプレミアムに関係なく表示されます。",
+      "adminUnlisted": "管理者表示：参加していないサーバーを API の管理者認証情報で読み込んでいます。リーダーボードはサーバーのプレミアムに関係なく表示されます。",
+      "botUnknown": "AutoMuteUs がこのサーバーにいることを確認できませんでした。ボットがまだ参加していない場合は、<invite>招待</invite>してゲームの記録を始めましょう。",
+      "building": "このサーバーの統計を作成しています。大きなサーバーでは 1〜2 分かかることがあります。ページは自動で更新されます。",
+      "chooseServer": "統計を見るサーバーを選択してください。",
+      "description": "プレイしたゲーム数、どちらの陣営が勝っているか、ボードの上位は誰か。クルーの戦績がわかります。",
+      "heading": "サーバーの統計",
+      "inviteBot": "ボットを {{guild}} に招待して何回かゲームをプレイしてください。試合が記録されると、ここに統計が表示されます。",
+      "loading": "統計を読み込んでいます...",
+      "lookUpMatch": "試合を検索",
+      "metaDesc": "AutoMuteUs で Among Us をプレイしている Discord サーバーの、プレイしたゲーム数、勝率、リーダーボードを確認できます。",
+      "preview": "このサーバーを<strong>プレミアムなし</strong>の表示でプレビューしています。リーダーボードは消えたのではなく、非表示になっているだけです。",
       "reset": {
-        "action": "Reset server stats",
-        "body": "Delete every game AutoMuteUs has recorded in this server and start the stats over. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "confirm": "Every recorded game in <strong>{{guild}}</strong> will be deleted, for every player.",
-        "title": "Reset server stats"
+        "action": "サーバーの統計をリセット",
+        "body": "AutoMuteUs がこのサーバーで記録したすべてのゲームを削除し、統計を最初からやり直します。設定は保持されます。この項目は、サーバーオーナーと、管理者またはサーバー管理の権限を持つメンバーにのみ表示されます。",
+        "confirm": "<strong>{{guild}}</strong> で記録されたすべてのゲームが、全プレイヤー分削除されます。",
+        "title": "サーバーの統計をリセット"
       },
-      "resetDone": "Server stats reset.",
+      "resetDone": "サーバーの統計をリセットしました。",
       "signedOut": {
-        "body": "Sign in with Discord to see stats for the servers you play in.",
-        "heading": "See how your crew plays"
+        "body": "Discord でサインインすると、プレイしているサーバーの統計を見られます。",
+        "heading": "クルーの戦績を見てみよう"
       },
-      "title": "Server stats - AutoMuteUs",
-      "resetDoneGames_other": "Server stats reset. {{count}} games deleted."
+      "title": "サーバーの統計 - AutoMuteUs",
+      "resetDoneGames_other": "サーバーの統計をリセットしました。{{count}} ゲームを削除しました。"
     },
     "user": {
-      "building": "Building this player's stats. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose the server to see stats from.",
-      "description": "How a player has done in a server: wins by role, recent matches, and who they play best with.",
-      "heading": "Player stats",
-      "loading": "Loading player stats...",
-      "metaDesc": "Winrates, recent matches, streaks, and teammates for an Among Us player in a server that plays with AutoMuteUs.",
-      "preview": "Previewing this player as they would look <strong>without premium</strong>. The detailed sections are hidden, not missing.",
+      "building": "このプレイヤーの統計を作成しています。大きなサーバーでは 1〜2 分かかることがあります。ページは自動で更新されます。",
+      "chooseServer": "統計を見るサーバーを選択してください。",
+      "description": "役職ごとの勝利数、最近の試合、相性の良い仲間など、サーバーでのプレイヤーの戦績がわかります。",
+      "heading": "プレイヤーの統計",
+      "loading": "プレイヤーの統計を読み込んでいます...",
+      "metaDesc": "AutoMuteUs を使っているサーバーでの Among Us プレイヤーの勝率、最近の試合、連勝記録、チームメイトを確認できます。",
+      "preview": "このプレイヤーを<strong>プレミアムなし</strong>の表示でプレビューしています。詳細なセクションは消えたのではなく、非表示になっているだけです。",
       "reset": {
-        "otherAction": "Reset player stats",
-        "otherBody": "Remove this player from every game recorded in this server. The games stay, so everyone else's stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "otherConfirm": "<strong>{{player}}</strong> will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "otherTitle": "Reset this player's stats",
-        "selfAction": "Reset my stats",
-        "selfBody": "Remove yourself from every game recorded in this server and start your stats here over. The games stay, so everyone else's stats are unchanged, and your stats in other servers are kept.",
-        "selfConfirm": "You will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "selfTitle": "Reset your stats"
+        "otherAction": "プレイヤーの統計をリセット",
+        "otherBody": "このサーバーで記録されたすべてのゲームからこのプレイヤーを削除します。ゲーム自体は残るため、他のプレイヤーの統計は変わらず、このプレイヤーの他のサーバーでの統計も保持されます。この項目は、サーバーオーナーと、管理者またはサーバー管理の権限を持つメンバーにのみ表示されます。",
+        "otherConfirm": "<strong>{{guild}}</strong> で記録されたすべてのゲームから <strong>{{player}}</strong> が削除されます。",
+        "otherTitle": "このプレイヤーの統計をリセット",
+        "selfAction": "自分の統計をリセット",
+        "selfBody": "このサーバーで記録されたすべてのゲームから自分を削除し、このサーバーでの統計を最初からやり直します。ゲーム自体は残るため、他のプレイヤーの統計は変わらず、他のサーバーでのあなたの統計も保持されます。",
+        "selfConfirm": "<strong>{{guild}}</strong> で記録されたすべてのゲームからあなたが削除されます。",
+        "selfTitle": "自分の統計をリセット"
       },
-      "resetDone": "Player stats reset.",
+      "resetDone": "プレイヤーの統計をリセットしました。",
       "signedOut": {
-        "body": "Sign in with Discord to see player stats for the servers you play in.",
-        "heading": "See how you play"
+        "body": "Discord でサインインすると、プレイしているサーバーのプレイヤーの統計を見られます。",
+        "heading": "自分のプレイを振り返ろう"
       },
-      "title": "Player stats - AutoMuteUs",
-      "resetDoneGames_other": "Player stats reset. Removed from {{count}} games."
+      "title": "プレイヤーの統計 - AutoMuteUs",
+      "resetDoneGames_other": "プレイヤーの統計をリセットしました。{{count}} ゲームから削除しました。"
     }
   },
   "shared": {
     "color": {
-      "banana": "Banana",
-      "black": "Black",
-      "blue": "Blue",
-      "brown": "Brown",
-      "coral": "Coral",
-      "cyan": "Cyan",
-      "gray": "Gray",
-      "green": "Green",
-      "lime": "Lime",
-      "maroon": "Maroon",
-      "orange": "Orange",
-      "pink": "Pink",
-      "purple": "Purple",
-      "red": "Red",
-      "rose": "Rose",
-      "tan": "Tan",
-      "white": "White",
-      "yellow": "Yellow"
+      "banana": "バナナ",
+      "black": "黒",
+      "blue": "青",
+      "brown": "茶",
+      "coral": "コーラル",
+      "cyan": "水色",
+      "gray": "灰",
+      "green": "緑",
+      "lime": "黄緑",
+      "maroon": "マルーン",
+      "orange": "オレンジ",
+      "pink": "ピンク",
+      "purple": "紫",
+      "red": "赤",
+      "rose": "ローズ",
+      "tan": "タン",
+      "white": "白",
+      "yellow": "黄"
     },
     "column": {
-      "deaths": "Deaths",
-      "games": "Games",
-      "impostor": "Impostor",
-      "map": "Map",
-      "player": "Player",
-      "rate": "Rate",
-      "teammate": "Teammate",
-      "winrate": "Winrate",
-      "wins": "Wins"
+      "deaths": "死亡",
+      "games": "ゲーム数",
+      "impostor": "インポスター",
+      "map": "マップ",
+      "player": "プレイヤー",
+      "rate": "割合",
+      "teammate": "チームメイト",
+      "winrate": "勝率",
+      "wins": "勝利数"
     },
-    "getPremium": "Get Premium for this server",
-    "mapNotRecorded": "Map not recorded",
+    "getPremium": "このサーバーでプレミアムに加入",
+    "mapNotRecorded": "マップの記録なし",
     "number": "{{value, number}}",
     "outcome": {
-      "lost": "Lost",
-      "none": "No result",
-      "won": "Won"
+      "lost": "敗北",
+      "none": "結果なし",
+      "won": "勝利"
     },
     "result": {
-      "crewmateDisconnect": "Crewmates won when the impostors disconnected",
-      "crewmateTasks": "Crewmates won by finishing their tasks",
-      "crewmateVote": "Crewmates won by voting out the impostors",
-      "impostorDisconnect": "Impostors won when the crewmates disconnected",
-      "impostorKill": "Impostors won by kills",
-      "impostorSabotage": "Impostors won by sabotage",
-      "impostorVote": "Impostors won by vote",
-      "unknown": "The game ended without reporting a result"
+      "crewmateDisconnect": "インポスターが切断したため、クルーメイトの勝利",
+      "crewmateTasks": "タスク完了でクルーメイトの勝利",
+      "crewmateVote": "インポスターを追放してクルーメイトの勝利",
+      "impostorDisconnect": "クルーメイトが切断したため、インポスターの勝利",
+      "impostorKill": "キルでインポスターの勝利",
+      "impostorSabotage": "サボタージュでインポスターの勝利",
+      "impostorVote": "投票でインポスターの勝利",
+      "unknown": "結果が報告されないままゲームが終了しました"
     },
     "role": {
-      "crewmate": "Crewmate",
-      "impostor": "Impostor"
+      "crewmate": "クルーメイト",
+      "impostor": "インポスター"
     },
-    "unknownPlayer": "This player's name isn't known yet",
-    "unnamed": "Unnamed",
-    "userId": "User ID {{id}}",
-    "you": "You",
-    "games_other": "{{count, number}} games"
+    "unknownPlayer": "このプレイヤーの名前はまだわかりません",
+    "unnamed": "名前なし",
+    "userId": "ユーザー ID {{id}}",
+    "you": "あなた",
+    "games_other": "{{count, number}} ゲーム"
   },
   "user": {
     "activity": {
-      "barEarlier": "{{games}} {{weeks}}",
-      "hint": "{{games}} in the last {{weeks}}.",
-      "label": "Games per week, oldest first",
-      "thisWeek": "This week",
-      "title": "Activity",
-      "barThisWeek_other": "{{count, number}} games in the last 7 days",
-      "lastWeeks_other": "{{count}} weeks",
-      "weeksAgo_other": "{{count}} weeks ago",
-      "weeksBefore_other": "{{count}} weeks before that"
+      "barEarlier": "{{weeks}}：{{games}}",
+      "hint": "過去 {{weeks}}で {{games}}。",
+      "label": "週ごとのゲーム数（古い順）",
+      "thisWeek": "今週",
+      "title": "アクティビティ",
+      "barThisWeek_other": "過去 7 日間で {{count, number}} ゲーム",
+      "lastWeeks_other": "{{count}} 週間",
+      "weeksAgo_other": "{{count}} 週間前",
+      "weeksBefore_other": "さらに {{count}} 週間前"
     },
     "colors": {
-      "empty": "No colors recorded yet.",
-      "title": "Favorite colors"
+      "empty": "色の記録はまだありません。",
+      "title": "よく使う色"
     },
     "details": {
-      "title": "In depth"
+      "title": "詳細"
     },
     "fates": {
-      "detailStillWon": "{{detail}} · their side still won {{rate}} of those",
-      "hint": "How often the player was killed or voted out, and how often their side won those games anyway.",
-      "killedAsCrewmate": "Killed as crewmate",
-      "title": "How games end",
-      "votedOutAsCrewmate": "Voted out as crewmate",
-      "votedOutAsImpostor": "Voted out as impostor",
-      "ofCrewmateGames_other": "{{times}} of {{count, number}} crewmate games",
-      "ofImpostorGames_other": "{{times}} of {{count, number}} impostor games"
+      "detailStillWon": "{{detail}} · それでも陣営が勝った割合 {{rate}}",
+      "hint": "プレイヤーがキルまたは追放された頻度と、それでも陣営がそのゲームに勝った割合です。",
+      "killedAsCrewmate": "クルーメイトでキルされた",
+      "title": "ゲームの終わり方",
+      "votedOutAsCrewmate": "クルーメイトで追放された",
+      "votedOutAsImpostor": "インポスターで追放された",
+      "ofCrewmateGames_other": "クルーメイトの {{count, number}} ゲーム中 {{times}} 回",
+      "ofImpostorGames_other": "インポスターの {{count, number}} ゲーム中 {{times}} 回"
     },
     "firstTarget": {
-      "label": "First to die",
-      "detail_other": "{{deaths}} of {{count, number}} crewmate games"
+      "label": "最初の犠牲者",
+      "detail_other": "クルーメイトの {{count, number}} ゲーム中 {{deaths}} 回"
     },
     "form": {
-      "dotLost": "Match {{id}}: lost",
-      "dotNoResult": "Match {{id}}: no result",
-      "dotWon": "Match {{id}}: won",
-      "label": "Form",
-      "summary_other": "Won {{wins}} of the last {{count, number}} games with a result"
+      "dotLost": "試合 {{id}}：敗北",
+      "dotNoResult": "試合 {{id}}：結果なし",
+      "dotWon": "試合 {{id}}：勝利",
+      "label": "最近の調子",
+      "summary_other": "結果のある直近 {{count, number}} ゲーム中 {{wins}} 勝"
     },
     "hero": {
-      "label": "Player",
-      "noGames": "No games recorded in this server.",
-      "since": "Playing since <first>{{first}}</first> · last game <last>{{last}}</last>"
+      "label": "プレイヤー",
+      "noGames": "このサーバーで記録されたゲームはありません。",
+      "since": "<first>{{first}}</first> からプレイ · 最後のゲーム <last>{{last}}</last>"
     },
     "killedBy": {
-      "hint": "Among Us doesn't report who made a kill, so a death as a crewmate counts against every impostor in that game.",
-      "title": "Died most often with this impostor in the game",
-      "empty_other": "No impostor has shared {{count, number}} games with this player yet."
+      "hint": "Among Us は誰がキルしたかを報告しないため、クルーメイトとしての死亡はそのゲームのインポスター全員にカウントされます。",
+      "title": "このインポスターがいるゲームで最も多く死亡",
+      "empty_other": "このプレイヤーと {{count, number}} ゲーム以上を共にしたインポスターはまだいません。"
     },
     "locked": {
-      "body": "See streaks, server ranks, survival and first-to-die rates, best and worst teammates, maps, activity, and more. Servers with AutoMuteUs Premium get every section on this page.",
-      "label": "Player details",
-      "title": "Detailed player stats are a premium feature"
+      "body": "連勝記録、サーバー内順位、生存率と最初の犠牲者になる割合、相性の良い / 悪いチームメイト、マップ、アクティビティなどを確認できます。AutoMuteUs プレミアムのサーバーでは、このページのすべてのセクションを利用できます。",
+      "label": "プレイヤーの詳細",
+      "title": "プレイヤーの詳細な統計はプレミアム機能です"
     },
     "maps": {
-      "empty": "No games with a recorded map yet.",
-      "title": "Maps"
+      "empty": "マップが記録されたゲームはまだありません。",
+      "title": "マップ"
     },
     "names": {
-      "empty": "No names recorded yet.",
-      "title": "Names used"
+      "empty": "名前の記録はまだありません。",
+      "title": "使用した名前"
     },
     "noGames": {
-      "other": "This player has no recorded games here. They may not have played yet, or may not be linked to AutoMuteUs.",
-      "self": "You have no recorded games here yet. Games count once AutoMuteUs has linked you to your in-game name."
+      "other": "このプレイヤーのゲームはこのサーバーに記録されていません。まだプレイしていないか、AutoMuteUs にリンクされていない可能性があります。",
+      "self": "このサーバーでのあなたのゲームはまだ記録されていません。AutoMuteUs があなたをゲーム内の名前にリンクすると、ゲームが記録されるようになります。"
     },
     "playedWith": {
-      "empty": "No games with other linked players yet.",
-      "share": "Of their games",
-      "title": "Most played with"
+      "empty": "リンクされた他のプレイヤーとのゲームはまだありません。",
+      "share": "全ゲームに占める割合",
+      "title": "よく一緒にプレイする人"
     },
     "ranks": {
-      "crewmateWinrate": "Crewmate winrate",
+      "crewmateWinrate": "クルーメイト勝率",
       "hash": "#{{position}}",
-      "impostorWinrate": "Impostor winrate",
-      "noGames": "no games yet",
-      "notRanked": "Not ranked",
-      "overallWinrate": "Overall winrate",
-      "serverRank": "Server rank",
-      "title": "Server ranks",
-      "byGames_other": "by games, of {{count, number}} players",
-      "hint_other": "Winrate ranks count players with at least {{count, number}} games in the role.",
-      "position_other": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>"
+      "impostorWinrate": "インポスター勝率",
+      "noGames": "ゲームなし",
+      "notRanked": "圏外",
+      "overallWinrate": "総合勝率",
+      "serverRank": "サーバー内順位",
+      "title": "サーバー内順位",
+      "byGames_other": "ゲーム数順、{{count, number}} 人中",
+      "hint_other": "勝率の順位は、その役職で {{count, number}} ゲーム以上プレイしたプレイヤーが対象です。",
+      "position_other": "<strong>#{{position}}</strong> <span>/ {{count, number}} 人</span>"
     },
     "recent": {
-      "empty": "No finished matches yet.",
-      "matchLine": "Match {{id}} · {{map}}",
-      "title": "Recent matches"
+      "empty": "終了した試合はまだありません。",
+      "matchLine": "試合 {{id}} · {{map}}",
+      "title": "最近の試合"
     },
     "streak": {
-      "best": "best run {{win}}W · worst {{loss}}L",
-      "current": "Current streak",
-      "loss": "{{n}}L",
-      "win": "{{n}}W"
+      "best": "最長連勝 {{win}} · 最長連敗 {{loss}}",
+      "current": "現在の連続記録",
+      "loss": "{{n}} 連敗",
+      "win": "{{n}} 連勝"
     },
     "summary": {
-      "asCrewmate": "As crewmate",
-      "asImpostor": "As impostor",
-      "gamesPlayed": "Games played",
-      "ofEveryGame": "of every game played",
-      "wins_other": "{{count, number}} wins",
-      "wonOf_other": "{{wins}} won of {{count, number}} games"
+      "asCrewmate": "クルーメイトとして",
+      "asImpostor": "インポスターとして",
+      "gamesPlayed": "プレイしたゲーム",
+      "ofEveryGame": "全ゲーム中",
+      "wins_other": "{{count, number}} 勝",
+      "wonOf_other": "{{count, number}} ゲーム中 {{wins}} 勝"
     },
     "survival": {
-      "label": "Crewmate survival",
-      "detail_other": "alive at the end of {{survived}} of {{count, number}} games"
+      "label": "クルーメイトの生存率",
+      "detail_other": "{{count, number}} ゲーム中 {{survived}} 回最後まで生存"
     },
     "teammates": {
-      "bestCrewmate": "Best crewmate teammates",
-      "bestImpostor": "Best impostor teammates",
-      "worstCrewmate": "Worst crewmate teammates",
-      "worstImpostor": "Worst impostor teammates",
-      "emptyCrewmate_other": "No one has been a crewmate with this player in {{count, number}} games yet.",
-      "emptyImpostor_other": "No one has been an impostor with this player in {{count, number}} games yet."
+      "bestCrewmate": "相性の良いクルーメイト",
+      "bestImpostor": "相性の良いインポスター",
+      "worstCrewmate": "相性の悪いクルーメイト",
+      "worstImpostor": "相性の悪いインポスター",
+      "emptyCrewmate_other": "このプレイヤーと一緒にクルーメイトとして {{count, number}} ゲーム以上プレイした人はまだいません。",
+      "emptyImpostor_other": "このプレイヤーと一緒にインポスターとして {{count, number}} ゲーム以上プレイした人はまだいません。"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where the player was linked to the bot and are refreshed about once a minute."
+    "updated": "<time>{{when}}</time> に更新。統計はプレイヤーがボットにリンクされていたゲームを対象とし、約 1 分ごとに更新されます。"
   }
 }
