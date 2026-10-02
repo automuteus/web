@@ -1,431 +1,431 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Best crewmate duos",
-      "bestImpostorDuos": "Best impostor duos",
-      "crewmateWinrate": "Crewmate winrate",
-      "firstToDie": "First to die",
-      "firstToDieHint": "How often a player was the first one killed, out of their games as a crewmate.",
-      "impostorWinrate": "Impostor winrate",
-      "killedBy": "Killed by",
-      "killedByHint": "How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.",
-      "mostGames": "Most games",
-      "overallWinrate": "Overall winrate",
-      "worstCrewmateDuos": "Worst crewmate duos",
-      "worstImpostorDuos": "Worst impostor duos"
+      "bestCrewmateDuos": "最佳船员搭档",
+      "bestImpostorDuos": "最佳内鬼搭档",
+      "crewmateWinrate": "船员胜率",
+      "firstToDie": "最先死亡",
+      "firstToDieHint": "在玩家作为船员参与的游戏中，第一个被击杀的比例。",
+      "impostorWinrate": "内鬼胜率",
+      "killedBy": "死于谁手",
+      "killedByHint": "在某位玩家担任内鬼的游戏中，船员死亡的比例。Among Us 不会报告是谁击杀的，因此每次死亡都会算在该局所有内鬼头上。",
+      "mostGames": "游戏场数最多",
+      "overallWinrate": "总胜率",
+      "worstCrewmateDuos": "最差船员搭档",
+      "worstImpostorDuos": "最差内鬼搭档"
     },
     "column": {
-      "crewmateGames": "Crewmate games",
-      "firstDeaths": "First deaths",
-      "players": "Players",
+      "crewmateGames": "船员场数",
+      "firstDeaths": "最先死亡次数",
+      "players": "玩家",
       "rank": "#"
     },
     "empty": {
-      "noGames": "No games recorded yet.",
-      "crewmateDuo_other": "No two players have been crewmates together in {{count}} games yet.",
-      "games_other": "No one has played {{count}} games yet.",
-      "impostorDuo_other": "No two players have been impostors together in {{count}} games yet.",
-      "killedBy_other": "No crewmate and impostor have shared {{count}} games yet.",
-      "roleGames_other": "No one has played {{count}} games in this role yet."
+      "noGames": "尚未记录任何游戏。",
+      "crewmateDuo_other": "还没有任何两名玩家一起当过 {{count}} 场船员。",
+      "games_other": "还没有人玩满 {{count}} 场游戏。",
+      "impostorDuo_other": "还没有任何两名玩家一起当过 {{count}} 场内鬼。",
+      "killedBy_other": "还没有船员和内鬼共同参与过 {{count}} 场游戏。",
+      "roleGames_other": "还没有人以此身份玩满 {{count}} 场游戏。"
     },
     "leaderboards": {
-      "minimums": "Rate boards rank players with at least {{games}}; impostor duos need {{duoGames}} together.",
-      "title": "Leaderboards"
+      "minimums": "胜率榜只统计至少玩过 {{games}}的玩家；内鬼搭档需一起玩过 {{duoGames}}。",
+      "title": "排行榜"
     },
     "locked": {
-      "body": "See who really wins here: winrates, best and worst duos, who dies first, and more. Servers with AutoMuteUs Premium get every board on this page, and the detailed <code>/stats</code> command.",
-      "title": "Leaderboards are a premium feature"
+      "body": "看看谁才是真正的赢家：胜率、最佳和最差搭档、谁最先死亡等等。拥有 AutoMuteUs 高级版的服务器可以查看此页面上的所有排行榜，并使用详细的 <code>/stats</code> 命令。",
+      "title": "排行榜是高级版功能"
     },
     "share": {
-      "crewmates": "Crewmates <strong>{{rate}}</strong>",
-      "impostors": "Impostors <strong>{{rate}}</strong>",
-      "label": "Crewmates won {{crewmates}} of games, impostors {{impostors}}",
-      "none": "No result recorded <strong>{{rate}}</strong>"
+      "crewmates": "船员 <strong>{{rate}}</strong>",
+      "impostors": "内鬼 <strong>{{rate}}</strong>",
+      "label": "船员赢下了 {{crewmates}} 的游戏，内鬼赢下了 {{impostors}}",
+      "none": "无结果记录 <strong>{{rate}}</strong>"
     },
     "spotlight": {
       "and": " & ",
-      "bestDuo": "Best duo",
-      "bestWinrate": "Best winrate",
-      "firstToGo": "First to go",
-      "regular": "the server's regular",
-      "title": "Hall of fame",
-      "topCrewmate": "Top crewmate",
-      "topImpostor": "Top impostor",
-      "firstToDie_other": "first to die in {{deaths}} of {{count}} games",
-      "winsOf_other": "{{wins}} of {{count}} games",
-      "winsOfCrewmate_other": "{{wins}} of {{count}} crewmate games",
-      "winsOfImpostor_other": "{{wins}} of {{count}} impostor games",
-      "winsTogether_other": "{{wins}} of {{count}} games together"
+      "bestDuo": "最佳搭档",
+      "bestWinrate": "最高胜率",
+      "firstToGo": "最先出局",
+      "regular": "服务器常客",
+      "title": "名人堂",
+      "topCrewmate": "顶尖船员",
+      "topImpostor": "顶尖内鬼",
+      "firstToDie_other": "{{count}} 场游戏中 {{deaths}} 次最先死亡",
+      "winsOf_other": "{{count}} 场游戏中赢了 {{wins}} 场",
+      "winsOfCrewmate_other": "{{count}} 场船员游戏中赢了 {{wins}} 场",
+      "winsOfImpostor_other": "{{count}} 场内鬼游戏中赢了 {{wins}} 场",
+      "winsTogether_other": "一起玩的 {{count}} 场游戏中赢了 {{wins}} 场"
     },
     "strip": {
-      "crewmateWins": "crewmate wins",
-      "gamesPlayed": "games played",
-      "impostorWins": "impostor wins",
-      "label": "Summary"
+      "crewmateWins": "船员胜场",
+      "gamesPlayed": "已玩游戏",
+      "impostorWins": "内鬼胜场",
+      "label": "概览"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.",
-    "games_other": "{{count}} games"
+    "updated": "更新于 <time>{{when}}</time>。统计数据只计入玩家已链接到机器人的游戏，大约每分钟刷新一次。",
+    "games_other": "{{count}} 场游戏"
   },
   "match": {
-    "abortedNote": "The match was ended before the game reported a result, so it doesn't count toward stats.",
+    "abortedNote": "这场比赛在游戏报告结果之前就结束了，因此不计入统计。",
     "crewmate": {
-      "color": "Color: {{color}}",
+      "color": "颜色：{{color}}",
       "colorName": {
-        "banana": "banana",
-        "black": "black",
-        "blue": "blue",
-        "brown": "brown",
-        "coral": "coral",
-        "cyan": "cyan",
-        "gray": "gray",
-        "green": "green",
-        "lime": "lime",
-        "maroon": "maroon",
-        "orange": "orange",
-        "pink": "pink",
-        "purple": "purple",
-        "red": "red",
-        "rose": "rose",
-        "tan": "tan",
-        "white": "white",
-        "yellow": "yellow"
+        "banana": "香蕉色",
+        "black": "黑色",
+        "blue": "蓝色",
+        "brown": "棕色",
+        "coral": "珊瑚色",
+        "cyan": "青色",
+        "gray": "灰色",
+        "green": "绿色",
+        "lime": "黄绿色",
+        "maroon": "栗色",
+        "orange": "橙色",
+        "pink": "粉色",
+        "purple": "紫色",
+        "red": "红色",
+        "rose": "玫瑰色",
+        "tan": "棕褐色",
+        "white": "白色",
+        "yellow": "黄色"
       },
-      "dead": "{{color}}, dead",
-      "noColor": "Color not reported"
+      "dead": "{{color}}，已死亡",
+      "noColor": "未报告颜色"
     },
     "duration": {
       "hoursMinutes": "{{hours}} {{minutes}}",
       "minutesSeconds": "{{minutes}} {{seconds}}",
-      "hours_other": "{{count}} h",
-      "minutes_other": "{{count}} min",
-      "seconds_other": "{{count}} s"
+      "hours_other": "{{count}} 小时",
+      "minutes_other": "{{count}} 分钟",
+      "seconds_other": "{{count}} 秒"
     },
     "event": {
-      "aka": " ({{name}})",
-      "disconnected": "<strong>{{name}}</strong> disconnected",
-      "killed": "<strong>{{name}}</strong> was killed",
-      "someone": "A player",
-      "votedOut": "<strong>{{name}}</strong> was voted out"
+      "aka": "（{{name}}）",
+      "disconnected": "<strong>{{name}}</strong> 断开了连接",
+      "killed": "<strong>{{name}}</strong> 被击杀",
+      "someone": "一名玩家",
+      "votedOut": "<strong>{{name}}</strong> 被投票驱逐"
     },
     "facts": {
-      "length": "Length",
-      "region": "Region",
-      "started": "Started"
+      "length": "时长",
+      "region": "地区",
+      "started": "开始时间"
     },
     "fate": {
-      "disconnected": "Disconnected <time>{{offset}}</time>",
-      "killed": "Killed <time>{{offset}}</time>",
-      "votedOut": "Voted out <time>{{offset}}</time>"
+      "disconnected": "于 <time>{{offset}}</time> 断开连接",
+      "killed": "于 <time>{{offset}}</time> 被击杀",
+      "votedOut": "于 <time>{{offset}}</time> 被投票驱逐"
     },
     "headline": {
-      "aborted": "Match ended early",
-      "crewmatesWin": "Crewmates win",
-      "impostorsWin": "Impostors win",
-      "inProgress": "Match in progress",
-      "noWinner": "No winner recorded"
+      "aborted": "比赛提前结束",
+      "crewmatesWin": "船员获胜",
+      "impostorsWin": "内鬼获胜",
+      "inProgress": "比赛进行中",
+      "noWinner": "未记录胜者"
     },
-    "id": "Match {{id}}",
-    "label": "Match",
+    "id": "比赛 {{id}}",
+    "label": "比赛",
     "locked": {
-      "body": "See how the match played out: every round and meeting, who was killed and when, and who was voted out. Servers with AutoMuteUs Premium get the timeline for every match.",
-      "title": "The match timeline is a premium feature"
+      "body": "了解比赛的全过程：每一轮和每次会议、谁在何时被击杀、谁被投票驱逐。拥有 AutoMuteUs 高级版的服务器可以查看每场比赛的时间线。",
+      "title": "比赛时间线是高级版功能"
     },
-    "premiumNote": "<premium>Premium</premium> shows who was killed or voted out, and when.",
+    "premiumNote": "<premium>高级版</premium>可显示谁在何时被击杀或被投票驱逐。",
     "region": {
-      "as": "Asia",
-      "eu": "Europe",
-      "na": "North America"
+      "as": "亚洲",
+      "eu": "欧洲",
+      "na": "北美"
     },
     "roster": {
-      "incomplete": "Only players linked to AutoMuteUs are listed. This match was recorded before the bot kept the full lobby, so anyone unlinked or opted out is missing.",
-      "later": "The roster appears when the match ends.",
-      "none": "No players were recorded for this match."
+      "incomplete": "这里只列出已链接到 AutoMuteUs 的玩家。这场比赛记录于机器人保存完整大厅名单之前，因此未链接或选择退出的玩家不在其中。",
+      "later": "比赛结束后将显示玩家名单。",
+      "none": "这场比赛没有记录任何玩家。"
     },
     "team": {
-      "crewmates": "Crewmates",
-      "impostors": "Impostors",
-      "noCrewmates": "No crewmates recorded.",
-      "noImpostors": "No impostors recorded.",
-      "notLinked": "Not linked"
+      "crewmates": "船员",
+      "impostors": "内鬼",
+      "noCrewmates": "没有记录到船员。",
+      "noImpostors": "没有记录到内鬼。",
+      "notLinked": "未链接"
     },
     "timeline": {
-      "empty": "The capture didn't report anything for this match.",
-      "meeting": "Meeting {{number}}",
-      "noDeath": "No one died.",
-      "noExile": "No one was voted out.",
-      "round": "Round {{number}}",
-      "title": "Timeline",
-      "disconnected_other": "<strong>{{count}}</strong> disconnected",
-      "kills_other": "<strong>{{count}}</strong> kills",
-      "meetings_other": "<strong>{{count}}</strong> meetings",
-      "votedOut_other": "<strong>{{count}}</strong> voted out"
+      "empty": "捕获软件没有报告这场比赛的任何内容。",
+      "meeting": "第 {{number}} 次会议",
+      "noDeath": "无人死亡。",
+      "noExile": "无人被投票驱逐。",
+      "round": "第 {{number}} 轮",
+      "title": "时间线",
+      "disconnected_other": "<strong>{{count}}</strong> 人断开连接",
+      "kills_other": "<strong>{{count}}</strong> 次击杀",
+      "meetings_other": "<strong>{{count}}</strong> 次会议",
+      "votedOut_other": "<strong>{{count}}</strong> 人被投票驱逐"
     }
   },
   "page": {
-    "admin": "Admin view: loaded with the API's admin credential.",
-    "adminServerName": "Server {{id}}",
-    "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in.",
+    "admin": "管理员视图：使用 API 的管理员凭据加载。",
+    "adminServerName": "服务器 {{id}}",
+    "adminUnlisted": "管理员视图：使用 API 的管理员凭据加载了一个你未加入的服务器。",
     "match": {
-      "building": "Building the summary for match {{id}}. The page will update on its own.",
-      "chooseServer": "Choose the server the match was played in.",
-      "description": "Look up a match by the ID AutoMuteUs posts when a game ends, like <code>ABCDEFGH:42</code>.",
-      "heading": "Match summary",
-      "idLabel": "Match ID",
-      "idPlaceholder": "ABCDEFGH:42 or 42",
-      "invalidId": "That doesn't look like a match ID. Paste the ID from the bot's game over message, or just the number after the colon.",
-      "loading": "Loading match {{id}}...",
-      "lookUp": "Look up",
-      "metaDesc": "Who played, who won, and how an Among Us match played out, from the matches AutoMuteUs records.",
+      "building": "正在生成比赛 {{id}} 的摘要，页面会自动更新。",
+      "chooseServer": "请选择进行这场比赛的服务器。",
+      "description": "通过 AutoMuteUs 在游戏结束时发布的 ID 查找比赛，例如 <code>ABCDEFGH:42</code>。",
+      "heading": "比赛摘要",
+      "idLabel": "比赛 ID",
+      "idPlaceholder": "ABCDEFGH:42 或 42",
+      "invalidId": "这看起来不是比赛 ID。请粘贴机器人游戏结束消息中的 ID，或只粘贴冒号后面的数字。",
+      "loading": "正在加载比赛 {{id}}...",
+      "lookUp": "查找",
+      "metaDesc": "根据 AutoMuteUs 记录的比赛，查看 Among Us 对局中有谁参与、谁获胜以及比赛是如何进行的。",
       "noId": {
-        "body": "AutoMuteUs posts the match ID in its game over message. You can also browse this server's <stats>stats</stats>.",
-        "heading": "Enter a match ID"
+        "body": "AutoMuteUs 会在游戏结束消息中发布比赛 ID。你也可以浏览此服务器的<stats>统计</stats>。",
+        "heading": "输入比赛 ID"
       },
       "notFound": {
-        "body": "{{guild}} has no match {{id}}. Check that the ID is from a game played in this server.",
-        "heading": "Match not found"
+        "body": "{{guild}} 中没有比赛 {{id}}。请确认该 ID 来自在此服务器进行的游戏。",
+        "heading": "未找到比赛"
       },
-      "preview": "Previewing this match as it would look <strong>without premium</strong>. The timeline is hidden, not missing.",
+      "preview": "正在以<strong>无高级版</strong>的视角预览这场比赛。时间线只是被隐藏了，并没有丢失。",
       "signedOut": {
-        "body": "Sign in with Discord to look up matches from the servers you play in.",
-        "heading": "See how the match went"
+        "body": "使用 Discord 登录，即可查找你所在服务器的比赛。",
+        "heading": "看看比赛是怎么进行的"
       },
-      "title": "Match summary - AutoMuteUs"
+      "title": "比赛摘要 - AutoMuteUs"
     },
-    "myStats": "My stats",
-    "noServers": "You don't seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.",
-    "notMember": "This server isn't one you're a member of. Choose another server above.",
-    "reloadStats": "Reload stats",
-    "selectServer": "Select your server",
+    "myStats": "我的统计",
+    "noServers": "你似乎没有加入任何 Discord 服务器。请加入一个正在使用 AutoMuteUs 的服务器，然后刷新服务器列表。",
+    "notMember": "你不是此服务器的成员。请在上方选择其他服务器。",
+    "reloadStats": "重新加载统计",
+    "selectServer": "选择你的服务器",
     "server": {
-      "admin": "Admin view: loaded with the API's admin credential. Leaderboards are shown whatever the server's premium.",
-      "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in. Leaderboards are shown whatever the server's premium.",
-      "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> to start recording games.",
-      "building": "Building stats for this server. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose a server to see its stats.",
-      "description": "How your crew has fared: games played, which side wins, and who leads the boards.",
-      "heading": "Server stats",
-      "inviteBot": "Invite the bot to {{guild}} and play a few games; stats will appear here once matches have been recorded.",
-      "loading": "Loading stats...",
-      "lookUpMatch": "Look up a match",
-      "metaDesc": "Games played, winrates, and leaderboards for the Discord servers you play Among Us in with AutoMuteUs.",
-      "preview": "Previewing this server as it would look <strong>without premium</strong>. The leaderboards are hidden, not missing.",
+      "admin": "管理员视图：使用 API 的管理员凭据加载。无论服务器是否拥有高级版，都会显示排行榜。",
+      "adminUnlisted": "管理员视图：使用 API 的管理员凭据加载了一个你未加入的服务器。无论服务器是否拥有高级版，都会显示排行榜。",
+      "botUnknown": "无法确认 AutoMuteUs 是否在此服务器中。如果机器人尚未加入，请<invite>邀请它</invite>以开始记录游戏。",
+      "building": "正在生成此服务器的统计数据。大型服务器可能需要一两分钟，页面会自动更新。",
+      "chooseServer": "选择一个服务器以查看其统计数据。",
+      "description": "看看你的船员们战绩如何：玩了多少场、哪一方赢得多、谁在排行榜上领先。",
+      "heading": "服务器统计",
+      "inviteBot": "邀请机器人加入 {{guild}} 并玩几局游戏；记录比赛后，统计数据就会显示在这里。",
+      "loading": "正在加载统计...",
+      "lookUpMatch": "查找比赛",
+      "metaDesc": "查看你使用 AutoMuteUs 玩 Among Us 的 Discord 服务器的游戏场数、胜率和排行榜。",
+      "preview": "正在以<strong>无高级版</strong>的视角预览此服务器。排行榜只是被隐藏了，并没有丢失。",
       "reset": {
-        "action": "Reset server stats",
-        "body": "Delete every game AutoMuteUs has recorded in this server and start the stats over. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "confirm": "Every recorded game in <strong>{{guild}}</strong> will be deleted, for every player.",
-        "title": "Reset server stats"
+        "action": "重置服务器统计",
+        "body": "删除 AutoMuteUs 在此服务器中记录的所有游戏，并从头开始统计。设置会保留。只有服务器所有者以及拥有“管理员”或“管理服务器”权限的成员才能看到此项。",
+        "confirm": "<strong>{{guild}}</strong> 中记录的所有游戏都将被删除，对所有玩家生效。",
+        "title": "重置服务器统计"
       },
-      "resetDone": "Server stats reset.",
+      "resetDone": "服务器统计已重置。",
       "signedOut": {
-        "body": "Sign in with Discord to see stats for the servers you play in.",
-        "heading": "See how your crew plays"
+        "body": "使用 Discord 登录，即可查看你所在服务器的统计数据。",
+        "heading": "看看你的船员们表现如何"
       },
-      "title": "Server stats - AutoMuteUs",
-      "resetDoneGames_other": "Server stats reset. {{count}} games deleted."
+      "title": "服务器统计 - AutoMuteUs",
+      "resetDoneGames_other": "服务器统计已重置，删除了 {{count}} 场游戏。"
     },
     "user": {
-      "building": "Building this player's stats. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose the server to see stats from.",
-      "description": "How a player has done in a server: wins by role, recent matches, and who they play best with.",
-      "heading": "Player stats",
-      "loading": "Loading player stats...",
-      "metaDesc": "Winrates, recent matches, streaks, and teammates for an Among Us player in a server that plays with AutoMuteUs.",
-      "preview": "Previewing this player as they would look <strong>without premium</strong>. The detailed sections are hidden, not missing.",
+      "building": "正在生成此玩家的统计数据。大型服务器可能需要一两分钟，页面会自动更新。",
+      "chooseServer": "选择要查看统计数据的服务器。",
+      "description": "玩家在服务器中的表现：各身份胜场、最近的比赛，以及和谁配合最好。",
+      "heading": "玩家统计",
+      "loading": "正在加载玩家统计...",
+      "metaDesc": "在使用 AutoMuteUs 的服务器中，查看 Among Us 玩家的胜率、最近比赛、连胜纪录和队友。",
+      "preview": "正在以<strong>无高级版</strong>的视角预览此玩家。详细部分只是被隐藏了，并没有丢失。",
       "reset": {
-        "otherAction": "Reset player stats",
-        "otherBody": "Remove this player from every game recorded in this server. The games stay, so everyone else's stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "otherConfirm": "<strong>{{player}}</strong> will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "otherTitle": "Reset this player's stats",
-        "selfAction": "Reset my stats",
-        "selfBody": "Remove yourself from every game recorded in this server and start your stats here over. The games stay, so everyone else's stats are unchanged, and your stats in other servers are kept.",
-        "selfConfirm": "You will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "selfTitle": "Reset your stats"
+        "otherAction": "重置玩家统计",
+        "otherBody": "将此玩家从此服务器记录的所有游戏中移除。游戏本身会保留，因此其他人的统计不受影响，该玩家在其他服务器的统计也会保留。只有服务器所有者以及拥有“管理员”或“管理服务器”权限的成员才能看到此项。",
+        "otherConfirm": "<strong>{{player}}</strong> 将从 <strong>{{guild}}</strong> 中记录的所有游戏中移除。",
+        "otherTitle": "重置此玩家的统计",
+        "selfAction": "重置我的统计",
+        "selfBody": "将你自己从此服务器记录的所有游戏中移除，并在此服务器从头开始统计。游戏本身会保留，因此其他人的统计不受影响，你在其他服务器的统计也会保留。",
+        "selfConfirm": "你将从 <strong>{{guild}}</strong> 中记录的所有游戏中移除。",
+        "selfTitle": "重置你的统计"
       },
-      "resetDone": "Player stats reset.",
+      "resetDone": "玩家统计已重置。",
       "signedOut": {
-        "body": "Sign in with Discord to see player stats for the servers you play in.",
-        "heading": "See how you play"
+        "body": "使用 Discord 登录，即可查看你所在服务器的玩家统计。",
+        "heading": "看看你的表现"
       },
-      "title": "Player stats - AutoMuteUs",
-      "resetDoneGames_other": "Player stats reset. Removed from {{count}} games."
+      "title": "玩家统计 - AutoMuteUs",
+      "resetDoneGames_other": "玩家统计已重置，已从 {{count}} 场游戏中移除。"
     }
   },
   "shared": {
     "color": {
-      "banana": "Banana",
-      "black": "Black",
-      "blue": "Blue",
-      "brown": "Brown",
-      "coral": "Coral",
-      "cyan": "Cyan",
-      "gray": "Gray",
-      "green": "Green",
-      "lime": "Lime",
-      "maroon": "Maroon",
-      "orange": "Orange",
-      "pink": "Pink",
-      "purple": "Purple",
-      "red": "Red",
-      "rose": "Rose",
-      "tan": "Tan",
-      "white": "White",
-      "yellow": "Yellow"
+      "banana": "香蕉色",
+      "black": "黑色",
+      "blue": "蓝色",
+      "brown": "棕色",
+      "coral": "珊瑚色",
+      "cyan": "青色",
+      "gray": "灰色",
+      "green": "绿色",
+      "lime": "黄绿色",
+      "maroon": "栗色",
+      "orange": "橙色",
+      "pink": "粉色",
+      "purple": "紫色",
+      "red": "红色",
+      "rose": "玫瑰色",
+      "tan": "棕褐色",
+      "white": "白色",
+      "yellow": "黄色"
     },
     "column": {
-      "deaths": "Deaths",
-      "games": "Games",
-      "impostor": "Impostor",
-      "map": "Map",
-      "player": "Player",
-      "rate": "Rate",
-      "teammate": "Teammate",
-      "winrate": "Winrate",
-      "wins": "Wins"
+      "deaths": "死亡",
+      "games": "场数",
+      "impostor": "内鬼",
+      "map": "地图",
+      "player": "玩家",
+      "rate": "比例",
+      "teammate": "队友",
+      "winrate": "胜率",
+      "wins": "胜场"
     },
-    "getPremium": "Get Premium for this server",
-    "mapNotRecorded": "Map not recorded",
+    "getPremium": "为此服务器开通高级版",
+    "mapNotRecorded": "未记录地图",
     "number": "{{value, number}}",
     "outcome": {
-      "lost": "Lost",
-      "none": "No result",
-      "won": "Won"
+      "lost": "失败",
+      "none": "无结果",
+      "won": "胜利"
     },
     "result": {
-      "crewmateDisconnect": "Crewmates won when the impostors disconnected",
-      "crewmateTasks": "Crewmates won by finishing their tasks",
-      "crewmateVote": "Crewmates won by voting out the impostors",
-      "impostorDisconnect": "Impostors won when the crewmates disconnected",
-      "impostorKill": "Impostors won by kills",
-      "impostorSabotage": "Impostors won by sabotage",
-      "impostorVote": "Impostors won by vote",
-      "unknown": "The game ended without reporting a result"
+      "crewmateDisconnect": "内鬼断开连接，船员获胜",
+      "crewmateTasks": "船员完成所有任务获胜",
+      "crewmateVote": "船员投票驱逐了内鬼，获得胜利",
+      "impostorDisconnect": "船员断开连接，内鬼获胜",
+      "impostorKill": "内鬼通过击杀获胜",
+      "impostorSabotage": "内鬼通过破坏获胜",
+      "impostorVote": "内鬼通过投票获胜",
+      "unknown": "游戏结束，但未报告结果"
     },
     "role": {
-      "crewmate": "Crewmate",
-      "impostor": "Impostor"
+      "crewmate": "船员",
+      "impostor": "内鬼"
     },
-    "unknownPlayer": "This player's name isn't known yet",
-    "unnamed": "Unnamed",
-    "userId": "User ID {{id}}",
-    "you": "You",
-    "games_other": "{{count, number}} games"
+    "unknownPlayer": "暂时还不知道此玩家的名字",
+    "unnamed": "未命名",
+    "userId": "用户 ID {{id}}",
+    "you": "你",
+    "games_other": "{{count, number}} 场游戏"
   },
   "user": {
     "activity": {
-      "barEarlier": "{{games}} {{weeks}}",
-      "hint": "{{games}} in the last {{weeks}}.",
-      "label": "Games per week, oldest first",
-      "thisWeek": "This week",
-      "title": "Activity",
-      "barThisWeek_other": "{{count, number}} games in the last 7 days",
-      "lastWeeks_other": "{{count}} weeks",
-      "weeksAgo_other": "{{count}} weeks ago",
-      "weeksBefore_other": "{{count}} weeks before that"
+      "barEarlier": "{{weeks}}：{{games}}",
+      "hint": "最近 {{weeks}}内共 {{games}}。",
+      "label": "每周游戏场数，从早到晚",
+      "thisWeek": "本周",
+      "title": "活跃度",
+      "barThisWeek_other": "过去 7 天内 {{count, number}} 场游戏",
+      "lastWeeks_other": "{{count}} 周",
+      "weeksAgo_other": "{{count}} 周前",
+      "weeksBefore_other": "再往前 {{count}} 周"
     },
     "colors": {
-      "empty": "No colors recorded yet.",
-      "title": "Favorite colors"
+      "empty": "尚未记录任何颜色。",
+      "title": "常用颜色"
     },
     "details": {
-      "title": "In depth"
+      "title": "深入数据"
     },
     "fates": {
-      "detailStillWon": "{{detail}} · their side still won {{rate}} of those",
-      "hint": "How often the player was killed or voted out, and how often their side won those games anyway.",
-      "killedAsCrewmate": "Killed as crewmate",
-      "title": "How games end",
-      "votedOutAsCrewmate": "Voted out as crewmate",
-      "votedOutAsImpostor": "Voted out as impostor",
-      "ofCrewmateGames_other": "{{times}} of {{count, number}} crewmate games",
-      "ofImpostorGames_other": "{{times}} of {{count, number}} impostor games"
+      "detailStillWon": "{{detail}} · 其中所在阵营仍赢下了 {{rate}}",
+      "hint": "玩家被击杀或被投票驱逐的频率，以及在这些游戏中所在阵营仍然获胜的比例。",
+      "killedAsCrewmate": "作为船员被击杀",
+      "title": "游戏如何收场",
+      "votedOutAsCrewmate": "作为船员被投票驱逐",
+      "votedOutAsImpostor": "作为内鬼被投票驱逐",
+      "ofCrewmateGames_other": "{{count, number}} 场船员游戏中 {{times}} 次",
+      "ofImpostorGames_other": "{{count, number}} 场内鬼游戏中 {{times}} 次"
     },
     "firstTarget": {
-      "label": "First to die",
-      "detail_other": "{{deaths}} of {{count, number}} crewmate games"
+      "label": "最先死亡",
+      "detail_other": "{{count, number}} 场船员游戏中 {{deaths}} 次"
     },
     "form": {
-      "dotLost": "Match {{id}}: lost",
-      "dotNoResult": "Match {{id}}: no result",
-      "dotWon": "Match {{id}}: won",
-      "label": "Form",
-      "summary_other": "Won {{wins}} of the last {{count, number}} games with a result"
+      "dotLost": "比赛 {{id}}：失败",
+      "dotNoResult": "比赛 {{id}}：无结果",
+      "dotWon": "比赛 {{id}}：胜利",
+      "label": "近期状态",
+      "summary_other": "最近 {{count, number}} 场有结果的游戏中赢了 {{wins}} 场"
     },
     "hero": {
-      "label": "Player",
-      "noGames": "No games recorded in this server.",
-      "since": "Playing since <first>{{first}}</first> · last game <last>{{last}}</last>"
+      "label": "玩家",
+      "noGames": "此服务器中没有记录任何游戏。",
+      "since": "自 <first>{{first}}</first> 开始游戏 · 最近一局 <last>{{last}}</last>"
     },
     "killedBy": {
-      "hint": "Among Us doesn't report who made a kill, so a death as a crewmate counts against every impostor in that game.",
-      "title": "Died most often with this impostor in the game",
-      "empty_other": "No impostor has shared {{count, number}} games with this player yet."
+      "hint": "Among Us 不会报告是谁击杀的，因此作为船员的每次死亡都会算在该局所有内鬼头上。",
+      "title": "有这位内鬼在场时死得最多",
+      "empty_other": "还没有内鬼与此玩家共同参与过 {{count, number}} 场游戏。"
     },
     "locked": {
-      "body": "See streaks, server ranks, survival and first-to-die rates, best and worst teammates, maps, activity, and more. Servers with AutoMuteUs Premium get every section on this page.",
-      "label": "Player details",
-      "title": "Detailed player stats are a premium feature"
+      "body": "查看连胜纪录、服务器排名、存活率和最先死亡率、最佳和最差队友、地图、活跃度等等。拥有 AutoMuteUs 高级版的服务器可以查看此页面上的所有部分。",
+      "label": "玩家详情",
+      "title": "详细玩家统计是高级版功能"
     },
     "maps": {
-      "empty": "No games with a recorded map yet.",
-      "title": "Maps"
+      "empty": "尚无记录了地图的游戏。",
+      "title": "地图"
     },
     "names": {
-      "empty": "No names recorded yet.",
-      "title": "Names used"
+      "empty": "尚未记录任何名字。",
+      "title": "用过的名字"
     },
     "noGames": {
-      "other": "This player has no recorded games here. They may not have played yet, or may not be linked to AutoMuteUs.",
-      "self": "You have no recorded games here yet. Games count once AutoMuteUs has linked you to your in-game name."
+      "other": "此玩家在这里没有游戏记录。他们可能还没玩过，或者还没有链接到 AutoMuteUs。",
+      "self": "你在这里还没有游戏记录。AutoMuteUs 将你链接到游戏内名字后，游戏才会被计入。"
     },
     "playedWith": {
-      "empty": "No games with other linked players yet.",
-      "share": "Of their games",
-      "title": "Most played with"
+      "empty": "尚无与其他已链接玩家一起玩的游戏。",
+      "share": "占其游戏的比例",
+      "title": "最常一起玩"
     },
     "ranks": {
-      "crewmateWinrate": "Crewmate winrate",
+      "crewmateWinrate": "船员胜率",
       "hash": "#{{position}}",
-      "impostorWinrate": "Impostor winrate",
-      "noGames": "no games yet",
-      "notRanked": "Not ranked",
-      "overallWinrate": "Overall winrate",
-      "serverRank": "Server rank",
-      "title": "Server ranks",
-      "byGames_other": "by games, of {{count, number}} players",
-      "hint_other": "Winrate ranks count players with at least {{count, number}} games in the role.",
-      "position_other": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>"
+      "impostorWinrate": "内鬼胜率",
+      "noGames": "暂无游戏",
+      "notRanked": "未上榜",
+      "overallWinrate": "总胜率",
+      "serverRank": "服务器排名",
+      "title": "服务器排名",
+      "byGames_other": "按场数，共 {{count, number}} 名玩家",
+      "hint_other": "胜率排名只计入以该身份至少玩过 {{count, number}} 场游戏的玩家。",
+      "position_other": "<strong>#{{position}}</strong> <span>/ 共 {{count, number}} 人</span>"
     },
     "recent": {
-      "empty": "No finished matches yet.",
-      "matchLine": "Match {{id}} · {{map}}",
-      "title": "Recent matches"
+      "empty": "尚无已结束的比赛。",
+      "matchLine": "比赛 {{id}} · {{map}}",
+      "title": "最近比赛"
     },
     "streak": {
-      "best": "best run {{win}}W · worst {{loss}}L",
-      "current": "Current streak",
-      "loss": "{{n}}L",
-      "win": "{{n}}W"
+      "best": "最长 {{win}} 连胜 · 最长 {{loss}} 连败",
+      "current": "当前连续纪录",
+      "loss": "{{n}} 连败",
+      "win": "{{n}} 连胜"
     },
     "summary": {
-      "asCrewmate": "As crewmate",
-      "asImpostor": "As impostor",
-      "gamesPlayed": "Games played",
-      "ofEveryGame": "of every game played",
-      "wins_other": "{{count, number}} wins",
-      "wonOf_other": "{{wins}} won of {{count, number}} games"
+      "asCrewmate": "作为船员",
+      "asImpostor": "作为内鬼",
+      "gamesPlayed": "已玩游戏",
+      "ofEveryGame": "占全部游戏",
+      "wins_other": "{{count, number}} 场胜利",
+      "wonOf_other": "{{count, number}} 场中赢了 {{wins}} 场"
     },
     "survival": {
-      "label": "Crewmate survival",
-      "detail_other": "alive at the end of {{survived}} of {{count, number}} games"
+      "label": "船员存活率",
+      "detail_other": "{{count, number}} 场游戏中有 {{survived}} 场存活到最后"
     },
     "teammates": {
-      "bestCrewmate": "Best crewmate teammates",
-      "bestImpostor": "Best impostor teammates",
-      "worstCrewmate": "Worst crewmate teammates",
-      "worstImpostor": "Worst impostor teammates",
-      "emptyCrewmate_other": "No one has been a crewmate with this player in {{count, number}} games yet.",
-      "emptyImpostor_other": "No one has been an impostor with this player in {{count, number}} games yet."
+      "bestCrewmate": "最佳船员队友",
+      "bestImpostor": "最佳内鬼队友",
+      "worstCrewmate": "最差船员队友",
+      "worstImpostor": "最差内鬼队友",
+      "emptyCrewmate_other": "还没有人与此玩家一起当过 {{count, number}} 场船员。",
+      "emptyImpostor_other": "还没有人与此玩家一起当过 {{count, number}} 场内鬼。"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where the player was linked to the bot and are refreshed about once a minute."
+    "updated": "更新于 <time>{{when}}</time>。统计数据只计入该玩家已链接到机器人的游戏，大约每分钟刷新一次。"
   }
 }
