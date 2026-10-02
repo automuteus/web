@@ -1,16 +1,16 @@
 {
   "actions": {
-    "addToDiscord": "Add to Discord",
-    "capture": "Capture Software",
-    "premium": "AutoMuteUs Premium"
+    "addToDiscord": "Discord に追加",
+    "capture": "キャプチャソフト",
+    "premium": "AutoMuteUs プレミアム"
   },
   "crewmateLabel": "AutoMuteUs",
   "heading": "AutoMuteUs でハンズフリーの自動ミュートを",
   "stats": {
-    "activeGames": "Active Games",
-    "gamesMuted": "Games Muted",
-    "servers": "Servers",
-    "users": "Users"
+    "activeGames": "進行中のゲーム",
+    "gamesMuted": "ミュートしたゲーム数",
+    "servers": "サーバー数",
+    "users": "ユーザー数"
   },
   "subtitle": "AutoMuteUs は Among Us のゲームデータを取得し、ゲーム中にプレイヤーを自動でミュート / ミュート解除する Discord ボットです！"
 }
