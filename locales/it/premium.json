@@ -1,94 +1,94 @@
 {
   "cancel": {
-    "body": "As per the email you received on purchase, you can <manage>manage your subscriptions via PayPal.</manage><br/>If you checked out with a PayPal guest account, or otherwise need help, <form>please use this form.</form>",
-    "heading": "Looking to cancel?"
+    "body": "Come indicato nell'email ricevuta al momento dell'acquisto, puoi <manage>gestire i tuoi abbonamenti tramite PayPal.</manage><br/>Se hai pagato con un account ospite PayPal o ti serve aiuto per altro, <form>usa questo modulo.</form>",
+    "heading": "Vuoi annullare l'abbonamento?"
   },
   "card": {
     "bronze": {
-      "button": "Get Bronze"
+      "button": "Scegli Bronze"
     },
-    "chooseServer": "Please choose a server first",
-    "current": "Current plan",
+    "chooseServer": "Scegli prima un server",
+    "current": "Piano attuale",
     "donation": {
-      "button": "Make Donation",
-      "description": "You won't get any special bot privileges, but you will get our thanks for making this Open Source project possible!",
-      "heading": "Chip in any amount you wish ❤️",
-      "thanks": "Thank you! ♥",
-      "title": "Donation"
+      "button": "Fai una donazione",
+      "description": "Non otterrai privilegi speciali sul bot, ma avrai tutta la nostra gratitudine per aver reso possibile questo progetto open source!",
+      "heading": "Contribuisci con l'importo che preferisci ❤️",
+      "thanks": "Grazie! ♥",
+      "title": "Donazione"
     },
     "gold": {
-      "button": "Get Gold"
+      "button": "Scegli Gold"
     },
-    "price": "<strong>{{price}}</strong> <small>/ month</small>",
-    "serverId": "Server ID: {{id}}",
+    "price": "<strong>{{price}}</strong> <small>/ mese</small>",
+    "serverId": "ID server: {{id}}",
     "silver": {
-      "button": "Get Silver"
+      "button": "Scegli Silver"
     }
   },
   "guildSelect": {
-    "noServers": "No servers found.",
-    "prompt": "Select Server",
-    "reload": "Try reloading the page."
+    "noServers": "Nessun server trovato.",
+    "prompt": "Seleziona il server",
+    "reload": "Prova a ricaricare la pagina."
   },
   "heading": "AutoMuteUs Premium",
-  "loadingServers": "Loading your servers",
+  "loadingServers": "Caricamento dei tuoi server",
   "meta": {
-    "description": "AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!",
+    "description": "AutoMuteUs Premium ti permette di aggirare i limiti di frequenza di Discord, seguire le statistiche con le classifiche e accedere ai canali di supporto Premium su Discord!",
     "title": "AutoMuteUs - Premium"
   },
   "modal": {
-    "confirm": "Confirm Server ID",
-    "confirmPrompt": "Please confirm that this is the server you want selected!",
-    "different": "If you'd prefer a different server, sign in and select from your joined servers list.",
-    "findId": "How do I find my server ID?",
-    "selected": "The server ID you've selected is:",
-    "title": "Server ID Pre-selected"
+    "confirm": "Conferma l'ID del server",
+    "confirmPrompt": "Conferma che è questo il server che vuoi selezionare!",
+    "different": "Se preferisci un altro server, accedi e sceglilo dall'elenco dei server a cui partecipi.",
+    "findId": "Come trovo l'ID del mio server?",
+    "selected": "L'ID del server che hai selezionato è:",
+    "title": "ID server preselezionato"
   },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load! ",
-      "title": "Priority Game Access"
+      "description": "Puoi sempre creare nuove partite, anche quando il bot è sotto carico elevato!",
+      "title": "Accesso prioritario alle partite"
     },
     "mutingBots": {
-      "description": "Issues requests alongside the main bot; this drastically improves the speed of mutes/deafens in your games",
-      "title": "Priority Muting Bots"
+      "description": "Inviano richieste insieme al bot principale; questo velocizza notevolmente i mute e i deafen nelle tue partite",
+      "title": "Bot di mute prioritari"
     },
     "servers": {
-      "description": "Get your premium AutoMuteUs bot status in multiple Discord servers!",
-      "title": "Premium Servers"
+      "description": "Ottieni lo stato Premium di AutoMuteUs in più server Discord!",
+      "title": "Server Premium"
     },
     "stats": {
-      "description": "View Among Us stats and leaderboards for the players on your server!",
-      "title": "Stats and Leaderboards"
+      "description": "Visualizza le statistiche di Among Us e le classifiche dei giocatori del tuo server!",
+      "title": "Statistiche e classifiche"
     },
     "support": {
-      "description": "Access to Premium-only channels and chats in our official Discord!",
-      "title": "Premium Support"
+      "description": "Accesso ai canali e alle chat riservati agli utenti Premium nel nostro Discord ufficiale!",
+      "title": "Supporto Premium"
     }
   },
-  "perksHeading": "Premium Perks",
-  "signIn": "Sign in to view your servers",
+  "perksHeading": "Vantaggi Premium",
+  "signIn": "Accedi per vedere i tuoi server",
   "status": {
-    "changingTiers": "Each purchase starts a new PayPal subscription, so buying here won't replace the current one, and its remaining days don't carry over. If you're changing tiers, <cancel>cancel the current subscription</cancel> first.",
-    "ending": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. Its PayPal subscription is cancelled and won't renew.",
-    "endingInherited": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. The PayPal subscription of the server it inherits premium from is cancelled and won't renew.",
-    "expired": "{{server}}'s AutoMuteUs {{tier}} has expired.",
-    "free": "{{server}} doesn't have AutoMuteUs Premium.",
-    "noExpiry": "{{server}} has AutoMuteUs {{tier}}, with no expiry.",
-    "renews": "{{server}} has AutoMuteUs {{tier}}. Its PayPal subscription renews around {{date, datetime}}.",
-    "renewsInherited": "{{server}} has AutoMuteUs {{tier}}. The PayPal subscription of the server it inherits premium from renews around {{date, datetime}}.",
-    "days_one": "{{server}} has AutoMuteUs {{tier}}, with {{count}} day left on its latest payment.",
-    "days_other": "{{server}} has AutoMuteUs {{tier}}, with {{count}} days left on its latest payment."
+    "changingTiers": "Ogni acquisto avvia un nuovo abbonamento PayPal, quindi acquistare qui non sostituisce quello attuale e i giorni rimanenti non vengono trasferiti. Se stai cambiando livello, <cancel>annulla prima l'abbonamento attuale</cancel>.",
+    "ending": "{{server}} ha AutoMuteUs {{tier}} fino al {{date, datetime}}. Il suo abbonamento PayPal è stato annullato e non verrà rinnovato.",
+    "endingInherited": "{{server}} ha AutoMuteUs {{tier}} fino al {{date, datetime}}. L'abbonamento PayPal del server da cui eredita il Premium è stato annullato e non verrà rinnovato.",
+    "expired": "AutoMuteUs {{tier}} di {{server}} è scaduto.",
+    "free": "{{server}} non ha AutoMuteUs Premium.",
+    "noExpiry": "{{server}} ha AutoMuteUs {{tier}}, senza scadenza.",
+    "renews": "{{server}} ha AutoMuteUs {{tier}}. Il suo abbonamento PayPal si rinnova intorno al {{date, datetime}}.",
+    "renewsInherited": "{{server}} ha AutoMuteUs {{tier}}. L'abbonamento PayPal del server da cui eredita il Premium si rinnova intorno al {{date, datetime}}.",
+    "days_one": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorno rimanente sull'ultimo pagamento.",
+    "days_other": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorni rimanenti sull'ultimo pagamento."
   },
-  "subtitle": "Looking to upgrade your Among Us gameplay even further? Running into limitations with the bot while it's under high load? Consider AutoMuteUs premium to support the project as well as improve your muting experience!",
-  "thisServer": "This server",
+  "subtitle": "Vuoi migliorare ancora di più le tue partite di Among Us? Il bot ti dà problemi quando è sotto carico elevato? Prendi in considerazione AutoMuteUs Premium per sostenere il progetto e migliorare la tua esperienza di mute!",
+  "thisServer": "Questo server",
   "tier": {
     "bronze": "Bronze",
-    "free": "Free",
+    "free": "Gratuito",
     "gold": "Gold",
     "premium": "Premium",
     "selfHosted": "Self-hosted",
     "silver": "Silver",
-    "trial": "Trial"
+    "trial": "Prova"
   }
 }
