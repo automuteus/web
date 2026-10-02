@@ -2,7 +2,7 @@
   "botAbsent": {
     "description": "Invite the bot to {{name}} to use it there. Once it has joined, come back and reload to see its settings."
   },
-  "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> and these settings will apply once it does.",
+  "botUnknown": "AutoMuteUs がこのサーバーにいることを確認できませんでした。ボットがまだ参加していない場合は、<invite>招待</invite>してください。参加後にこれらの設定が適用されます。",
   "channel": {
     "cantPost": "The bot can't post in this channel.",
     "checking": "Checking that the bot can post in this channel...",
@@ -50,7 +50,7 @@
     "forbidden": "You no longer have access to this server, or Discord has not granted the required access.",
     "notFound": "Settings could not be found for this server."
   },
-  "hint": "{{label}}. {{description}}",
+  "hint": "{{label}}。{{description}}",
   "languageFormat": {
     "short": "{{flag}} {{name}}",
     "withNative": "{{flag}} {{name}} ({{native}})"
@@ -66,7 +66,7 @@
     "ru": "Russian",
     "zh": "Chinese"
   },
-  "loadingSettings": "Loading settings...",
+  "loadingSettings": "設定を読み込んでいます...",
   "mapVersion": {
     "detailed": "Detailed",
     "simple": "Simple"
@@ -85,7 +85,7 @@
     "description": "Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.",
     "heading": "No servers you can manage"
   },
-  "notice": "Changes apply to the bot when you press <strong>Save changes</strong>. Servers that never saved settings start from the defaults. Values that differ from the bot's defaults are marked <strong>Custom</strong>, and edits you haven't saved yet are highlighted in amber; <strong>Premium</strong> marks settings the bot applies only on premium servers.",
+  "notice": "変更は <strong>変更を保存</strong> を押すとボットに反映されます。一度も設定を保存していないサーバーは既定値から始まります。ボットの既定値と異なる値には <strong>カスタム</strong> の印が付き、未保存の変更は黄色で強調表示されます。<strong>プレミアム</strong> の印は、ボットがプレミアムのサーバーでのみ適用する設定です。",
   "page": {
     "description": "Your server's voice rules, timing, and preferences in one place.",
     "heading": "Server settings",
@@ -102,9 +102,9 @@
     "LOBBY": "Lobby",
     "TASKS": "Tasks"
   },
-  "premiumHint": "Requires premium to change.",
-  "premiumLocked": "This server doesn't have AutoMuteUs premium, so settings marked <strong>Premium</strong> are shown but locked.",
-  "reloadSettings": "Reload settings",
+  "premiumHint": "変更するにはプレミアムが必要です。",
+  "premiumLocked": "このサーバーは AutoMuteUs プレミアムを利用していないため、<strong>プレミアム</strong> の印が付いた設定は表示のみで変更できません。",
+  "reloadSettings": "設定を再読み込み",
   "reset": {
     "action": "Reset to defaults",
     "confirm": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles.",
