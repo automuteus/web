@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Starte immer neue Spiele, selbst wenn der Bot stark ausgelastet ist! ",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Vorrangiger Spielzugang"
     },
     "mutingBots": {
@@ -70,15 +70,15 @@
   "signIn": "Melde dich an, um deine Server zu sehen",
   "status": {
     "changingTiers": "Jeder Kauf startet ein neues PayPal-Abonnement. Ein Kauf hier ersetzt also nicht das aktuelle, und dessen verbleibende Tage werden nicht übertragen. Wenn du die Stufe wechseln möchtest, <cancel>kündige zuerst das aktuelle Abonnement</cancel>.",
-    "days_one": "{{server}} hat AutoMuteUs {{tier}}, mit noch {{count}} Tag aus der letzten Zahlung.",
-    "days_other": "{{server}} hat AutoMuteUs {{tier}}, mit noch {{count}} Tagen aus der letzten Zahlung.",
     "ending": "{{server}} hat AutoMuteUs {{tier}} bis zum {{date, datetime}}. Das PayPal-Abonnement ist gekündigt und wird nicht verlängert.",
     "endingInherited": "{{server}} hat AutoMuteUs {{tier}} bis zum {{date, datetime}}. Das PayPal-Abonnement des Servers, von dem es Premium übernimmt, ist gekündigt und wird nicht verlängert.",
     "expired": "AutoMuteUs {{tier}} für {{server}} ist abgelaufen.",
     "free": "{{server}} hat kein AutoMuteUs Premium.",
     "noExpiry": "{{server}} hat AutoMuteUs {{tier}}, ohne Ablaufdatum.",
     "renews": "{{server}} hat AutoMuteUs {{tier}}. Das PayPal-Abonnement verlängert sich um den {{date, datetime}}.",
-    "renewsInherited": "{{server}} hat AutoMuteUs {{tier}}. Das PayPal-Abonnement des Servers, von dem es Premium übernimmt, verlängert sich um den {{date, datetime}}."
+    "renewsInherited": "{{server}} hat AutoMuteUs {{tier}}. Das PayPal-Abonnement des Servers, von dem es Premium übernimmt, verlängert sich um den {{date, datetime}}.",
+    "days_one": "{{server}} hat AutoMuteUs {{tier}}, mit noch {{count}} Tag aus der letzten Zahlung.",
+    "days_other": "{{server}} hat AutoMuteUs {{tier}}, mit noch {{count}} Tagen aus der letzten Zahlung."
   },
   "subtitle": "Willst du dein Among-Us-Erlebnis noch weiter verbessern? Stößt du an die Grenzen des Bots, wenn er stark ausgelastet ist? Hol dir AutoMuteUs Premium, um das Projekt zu unterstützen und das Stummschalten zu verbessern!",
   "thisServer": "Dieser Server",
