@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Podrás crear partidas nuevas siempre, incluso cuando el bot esté muy cargado.",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Acceso prioritario a partidas"
     },
     "mutingBots": {
