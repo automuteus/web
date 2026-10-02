@@ -33,9 +33,17 @@ NEXTAUTH_SECRET=
 DISCORD_CLIENT_ID=
 DISCORD_CLIENT_SECRET=
 
+# Optional: the bot application the invite buttons add. Defaults to the hosted AutoMuteUs bot.
+DISCORD_BOT_CLIENT_ID=
+
 # Server-side AutoMuteUs API base URL for public stats and authenticated reads
 # Use a trusted HTTPS endpoint in production; local HTTP is supported for development.
 AUTOMUTEUS_API_URL=https://api.automute.us
+
+# Optional: operators who may open any server's stats pages by ID (Discord user IDs, comma-separated),
+# and the Go API's admin password those reads use. Leave both unset to disable admin views.
+ADMIN_USER_IDS=
+API_ADMIN_PASS=
 ```
 
 In your Discord application, add a redirect under "OAuth2" matching
@@ -97,8 +105,9 @@ The browser calls these same-origin GET routes using its NextAuth session cookie
 
 Example: `fetch("/api/guild/settings?guildID=123456789012345678")`.
 The `/settings` page uses the settings, premium, and bot routes. The bot route
-adds an `invite` URL when the bot is absent, built from `DISCORD_CLIENT_ID` and
-preselecting that server. `PATCH /api/guild/settings` forwards a JSON object of
+adds an `invite` URL when the bot is absent: the same bot application and permissions as
+https://add.automute.us, preselecting that server. A self-hosted bot sets
+`DISCORD_BOT_CLIENT_ID` to its own application; `DISCORD_CLIENT_ID` is only the site's sign-in app. `PATCH /api/guild/settings` forwards a JSON object of
 changed fields with the caller's session and the `If-Match` tag from the GET;
 the site only accepts the fields it can edit, applies the API's range checks
 first, and relays the API's `fields` list on 400 and 403 so the page can point
@@ -112,8 +121,15 @@ captures the access token for the outgoing `Authorization: Bearer ...` header;
 the public `/api/auth/session` response never includes either Discord token.
 Browser Authorization headers and extra query parameters are not forwarded.
 
-Go independently enforces membership on each read. No platform admin credential
-is used, and the existing `identify guilds` OAuth scopes suffice. Configure
+Go independently enforces membership on each read, and the existing `identify guilds`
+OAuth scopes suffice. The one exception is the admin view: when `ADMIN_USER_IDS`
+and `API_ADMIN_PASS` are both set, a signed-in user listed there has the stats,
+match, player, and bot presence routes forwarded with the API's Basic admin
+credential instead of their Discord token, and `/guild/stats` is asked for
+`full=1` so the leaderboards come back whatever the server's premium. The
+response carries `X-AutoMuteUs-View: admin`, each such read is logged with the
+user and server, and every other route (settings, resets, premium) still uses
+the user's own session, so an operator can look but not change anything. Configure
 `AUTOMUTEUS_API_URL` to a trusted API running bearer authentication; tokens are
 sent only to that configured base URL, with redirects rejected. An unset URL
 uses `https://api.automute.us`, matching the existing public stats default.
@@ -125,10 +141,11 @@ A 401 means the UI should ask the user to sign in again; a 403 means insufficien
 access. Do not retry 429/503 aggressively: the Go API currently checks Discord on
 every read. API calls time out after 12 seconds; OAuth refresh after 8 seconds.
 
-`/api/guilds` continues to call Discord because Go has no guild-list endpoint. It
-now uses the same refresh-aware session helper and handles pagination. It keeps
-all of the user's guilds, including non-admin guilds and guilds without the bot,
-so the premium picker remains usable. Premium purchases and subscription
+`/api/guilds` forwards to the Go API's `GET /user/guilds`, which pages through
+Discord and tags each guild with `botPresent` and `hasStats`. It returns all of
+the user's guilds, including non-admin guilds and guilds without the bot, so the
+premium picker remains usable; the stats pages show guilds with stats or the bot,
+and settings shows guilds with the bot that the user can manage. Premium purchases and subscription
 ownership remain separate from guild-read authorization.
 
 Refresh tokens remain in encrypted cookies. Simultaneous refreshes across requests
@@ -209,6 +226,10 @@ played, crewmate and impostor wins, and, on servers with premium, the
 leaderboards (most games, winrates overall and by role, best and worst duos,
 first to die, killed by). Any member may view a server's stats, so the picker lists every server the user is in rather than
 only those they manage. A selection is shareable as `/stats?guild=<guild ID>`.
+An operator listed in `ADMIN_USER_IDS` may also open a server they are not in
+by ID; the pages show it as "Server <ID>" with an admin-view notice, offer no
+reset panel, and show the leaderboards regardless of premium (see the admin
+view under "Authenticated API reads").
 
 The page loads `/api/guild/bot` first and offers an invite when the bot is
 absent, then `/api/guild/stats`. The Go API builds the document at most once a

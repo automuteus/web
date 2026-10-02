@@ -26,7 +26,6 @@ export const commands: Command[] = [
                     "stats",
                     "premium",
                     "debug",
-                    "download",
                 ].sort(),
             },
         ],
@@ -232,26 +231,5 @@ export const commands: Command[] = [
                 example: "debug view game-state",
             },
         ],
-    },
-    {
-        command: "download",
-        description: ["Download AutoMuteUs data"],
-        isPremium: true,
-        arguments: [
-            {
-                name: "category",
-                description: ["Data to download"],
-                type: "string",
-                level: "required",
-                values: [
-                    "guild",
-                    "users",
-                    "users_games",
-                    "games",
-                    "game_events",
-                ].sort(),
-            },
-        ],
-        example: "download category:games",
     },
 ];

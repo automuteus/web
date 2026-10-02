@@ -5,6 +5,8 @@ declare module "next-auth" {
         user: DefaultSession["user"] & {
             /** Discord user ID (snowflake). */
             id: string;
+            /** Listed in ADMIN_USER_IDS: the stats pages may open any server by ID. */
+            admin?: boolean;
             /** The Discord client language at sign-in ("ja", "pt-BR"); missing on sessions from before it was stored. */
             locale?: string;
         };

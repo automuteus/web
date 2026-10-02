@@ -534,6 +534,22 @@ test("Go access errors retain status and never reflect upstream bodies", async (
     }
 });
 
+test("a 503 while a stats document is still building passes a plain Retry-After through, and nothing else", async (t) => {
+    for (const [endpoint, status, retryAfter, want] of [
+        ["/guild/stats", 503, "5", "5"], ["/guild/user", 503, "5", "5"], ["/guild/match", 503, "5", "5"], ["/guild/stats", 429, "30", "30"],
+        ["/guild/stats", 503, undefined, undefined], ["/guild/stats", 503, "Wed, 21 Oct 2015 07:28:00 GMT", undefined], ["/guild/stats", 503, "5; drop=1", undefined],
+        ["/guild/stats", 403, "5", undefined], ["/guild/stats", 200, "5", undefined],
+    ]) {
+        mockFetch(t, async () => new Response(status === 200 ? JSON.stringify({}) : "private upstream data", { status, headers: retryAfter === undefined ? {} : { "Retry-After": retryAfter } }));
+        const res = response();
+        const query = { guildID: guild, ...(endpoint === "/guild/user" ? { userID: guild } : {}), ...(endpoint === "/guild/match" ? { matchID: "7" } : {}) };
+        await createAPIReadHandler(endpoint)(await request({}, query), res);
+        assert.equal(res.statusCode, status, `${endpoint} ${status}`);
+        assert.equal(res.getHeader("Retry-After"), want, `${endpoint} ${status} ${retryAfter}`);
+        assert.ok(!JSON.stringify(res.body).includes("private upstream"));
+    }
+});
+
 test("network failures, redirects rejected by fetch, and malformed success JSON return 502", async (t) => {
     for (const upstream of [
         async () => { throw new Error("connection credentials secret"); },
@@ -548,34 +564,50 @@ test("network failures, redirects rejected by fetch, and malformed success JSON 
     }
 });
 
-test("guild picker keeps non-admin guilds and paginates Discord", async (t) => {
+test("guild picker forwards the session token to the Go guild list and keeps every guild", async (t) => {
+    const g = (id, botPresent, hasStats) => ({ id, name: "Guild", icon: null, owner: false, permissions: "0", botPresent, hasStats });
     let calls = 0;
     mockFetch(t, async (url, init) => {
         calls++;
-        assert.equal(url.origin, "https://discord.com");
-        assert.equal(init.headers.Authorization, "Bearer discord-access");
-        assert.equal(url.searchParams.get("limit"), "200");
-        const g = (id) => ({ id: String(id), name: "Guild", permissions: "0", owner: false, icon: null });
-        if (calls === 1) return json(Array.from({ length: 200 }, (_, i) => g(123456789012345678n + BigInt(i))));
-        assert.equal(url.searchParams.get("after"), "123456789012345877");
-        return json([g(223456789012345678n)]);
+        assert.equal(url.origin, "https://go.example.test");
+        assert.equal(url.pathname, "/user/guilds");
+        assert.equal(url.search, "");
+        assert.deepEqual(init.headers, { Authorization: "Bearer discord-access", Accept: "application/json" });
+        assert.equal(init.redirect, "error");
+        assert.equal(init.cache, "no-store");
+        return json([{ ...g("123456789012345678", true, false), extra: "dropped" }, g("223456789012345678", false, false)]);
     });
     const res = response();
     await guildsHandler(await request(), res);
+    assert.equal(calls, 1);
     assert.equal(res.statusCode, 200);
-    assert.equal(res.body.length, 201);
-    assert.ok(res.body.every((g) => g.permissions === "0" && g.owner === false));
+    assert.deepEqual(res.body, [g("123456789012345678", true, false), g("223456789012345678", false, false)]);
     assert.equal(res.getHeader("Cache-Control"), "no-store");
 });
 
-test("guild picker rejects Discord guilds without an owner flag", async (t) => {
-    mockFetch(t, async () => json([{ id: "123456789012345678", name: "Guild", permissions: "8", icon: null }]));
-    const res = response();
-    await guildsHandler(await request(), res);
-    assert.equal(res.statusCode, 502);
+test("guild picker rejects guilds missing a field", async (t) => {
+    const full = { id: "123456789012345678", name: "Guild", permissions: "8", icon: null, owner: false, botPresent: true, hasStats: true };
+    for (const field of ["owner", "botPresent", "hasStats"]) {
+        const guild = { ...full };
+        delete guild[field];
+        mockFetch(t, async () => json([guild]));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, 502, field);
+    }
 });
 
-test("guild picker also refreshes before contacting Discord", async (t) => {
+test("guild picker relays upstream failures without their bodies", async (t) => {
+    for (const [upstream, want] of [[401, 401], [403, 403], [429, 429], [503, 503], [404, 502], [500, 502]]) {
+        mockFetch(t, async () => json({ error: "private upstream detail" }, upstream));
+        const res = response();
+        await guildsHandler(await request(), res);
+        assert.equal(res.statusCode, want);
+        assert.deepEqual(res.body, { error: "Unable to load Discord guilds" });
+    }
+});
+
+test("guild picker also refreshes before contacting the API", async (t) => {
     mockFetch(t, async (url, init) => {
         if (String(url).endsWith("/oauth2/token")) return json({ access_token: "new-access", expires_in: 3600 });
         assert.equal(init.headers.Authorization, "Bearer new-access");
@@ -665,4 +697,84 @@ test("a refused player reset explains that players may reset only themselves", a
     await require("../pages/api/guild/user/reset.ts").default(await resetRequest("/guild/user/reset"), res);
     assert.equal(res.statusCode, 403);
     assert.match(res.body.error, /your own stats/);
+});
+
+const { describePremium, parsePremium, tierName } = require("../components/premium/premium-status.ts");
+
+test("premium status describes active, unexpiring, expired, and free servers", () => {
+    assert.deepEqual(describePremium({ tier: 3, days: 18 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Gold, with 18 days left on its latest payment." });
+    assert.equal(describePremium({ tier: 1, days: 1 }, "Crew").message, "Crew has AutoMuteUs Bronze, with 1 day left on its latest payment.");
+    assert.deepEqual(describePremium({ tier: 2, days: -9999 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Silver, with no expiry." });
+    assert.deepEqual(describePremium({ tier: 2, days: 0 }, "Crew"), { kind: "expired", message: "Crew's AutoMuteUs Silver has expired." });
+    assert.equal(describePremium({ tier: 0, days: -9999 }, "Crew").kind, "free");
+    assert.equal(tierName(9), "Premium");
+});
+
+test("premium status says whether a tracked subscription renews", () => {
+    const endsAt = Date.UTC(2026, 9, 24, 12) / 1000;
+    assert.deepEqual(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt } }, "Crew"),
+        { kind: "active", message: "Crew has AutoMuteUs Gold. Its PayPal subscription renews around Oct 24, 2026." });
+    assert.deepEqual(describePremium({ tier: 2, days: 29, subscription: { status: "cancelled", endsAt } }, "Crew"),
+        { kind: "ending", message: "Crew has AutoMuteUs Silver until Oct 24, 2026. Its PayPal subscription is cancelled and won't renew." });
+    assert.equal(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt, inherited: true } }, "Crew").message,
+        "Crew has AutoMuteUs Gold. The PayPal subscription of the server it inherits premium from renews around Oct 24, 2026.");
+    // No expiry outranks whatever the subscription says, and an expired tier never mentions one.
+    assert.equal(describePremium({ tier: 3, days: -9999, subscription: { status: "cancelled", endsAt } }, "Crew").kind, "active");
+    assert.equal(describePremium({ tier: 3, days: 0, subscription: { status: "active", endsAt } }, "Crew").kind, "expired");
+});
+
+test("premium status rejects malformed records", () => {
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, extra: true }), { tier: 3, days: 5 });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } }),
+        { tier: 3, days: 5, subscription: { status: "cancelled", endsAt: 1793000000, inherited: true } });
+    assert.deepEqual(parsePremium({ tier: 3, days: 5, subscription: { status: "active", endsAt: 1793000000 } }).subscription, { status: "active", endsAt: 1793000000, inherited: false });
+    for (const subscription of [{ status: "paused", endsAt: 1 }, { status: "active" }, { status: "active", endsAt: "soon" }, { status: "active", endsAt: 1, inherited: "yes" }, "active"]) {
+        assert.throws(() => parsePremium({ tier: 3, days: 5, subscription }), JSON.stringify(subscription));
+    }
+    for (const body of [null, [], {}, { tier: "3", days: 5 }, { tier: 3 }, { tier: -1, days: 5 }, { tier: 1.5, days: 5 }, { tier: 1, days: 0.5 }]) {
+        assert.throws(() => parsePremium(body), JSON.stringify(body));
+    }
+});
+
+test("operators listed in ADMIN_USER_IDS read the stats routes with the admin credential", async (t) => {
+    const statsHandler = require("../pages/api/guild/stats.ts").default;
+    const { isAdminUser, adminAuthorization } = require("../utils/server/admin.ts");
+    const fixture = require("./fixtures/guild-stats.json");
+    process.env.ADMIN_USER_IDS = " 999999999999999999, 223456789012345678 ";
+    process.env.API_ADMIN_PASS = "hunter2";
+    t.after(() => { delete process.env.ADMIN_USER_IDS; delete process.env.API_ADMIN_PASS; });
+    assert.equal(isAdminUser("223456789012345678"), true);
+    assert.equal(isAdminUser("323456789012345678"), false);
+    assert.equal(isAdminUser(undefined), false);
+    assert.equal(adminAuthorization(), "Basic " + Buffer.from("admin:hunter2").toString("base64"));
+
+    const seen = [];
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    // An operator: Basic auth, and full=1 on the stats document only.
+    let res = response();
+    await statsHandler(await request(), res);
+    assert.equal(res.statusCode, 200);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), "admin");
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: "1", auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    const userHandler = require("../pages/api/guild/user.ts").default;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ ...require("./fixtures/user-stats.json") }); });
+    res = response();
+    await userHandler(await request({}, { guildID: guild, userID: "323456789012345678" }), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/user", full: null, auth: "Basic " + Buffer.from("admin:hunter2").toString("base64") });
+    // Anyone else, and any write or settings route, keeps the Discord session.
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request({ sub: "323456789012345678" }), res);
+    assert.equal(res.getHeader("X-AutoMuteUs-View"), undefined);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json({ language: "en" }); });
+    res = response();
+    await createAPIReadHandler("/guild/settings")(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/settings", full: null, auth: "Bearer discord-access" });
+    // Without the API password there is no admin view at all.
+    delete process.env.API_ADMIN_PASS;
+    mockFetch(t, async (url, init) => { seen.push({ path: url.pathname, full: url.searchParams.get("full"), auth: init.headers.Authorization }); return json(fixture); });
+    res = response();
+    await statsHandler(await request(), res);
+    assert.deepEqual(seen.pop(), { path: "/guild/stats", full: null, auth: "Bearer discord-access" });
 });
