@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "ボットが高負荷のときでも、いつでも新しいゲームを作成できます！",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "ゲームの優先アクセス"
     },
     "mutingBots": {
@@ -70,14 +70,14 @@
   "signIn": "サインインしてサーバーを表示",
   "status": {
     "changingTiers": "購入するたびに新しい PayPal サブスクリプションが作成されるため、ここで購入しても現在のサブスクリプションは置き換わらず、残りの日数も引き継がれません。プランを変更する場合は、先に<cancel>現在のサブスクリプションを解約</cancel>してください。",
-    "days_other": "{{server}} は AutoMuteUs {{tier}} を利用中です。最新の支払いの残りは {{count}} 日です。",
     "ending": "{{server}} は {{date, datetime}} まで AutoMuteUs {{tier}} を利用できます。PayPal サブスクリプションは解約済みのため、更新されません。",
     "endingInherited": "{{server}} は {{date, datetime}} まで AutoMuteUs {{tier}} を利用できます。プレミアムの継承元サーバーの PayPal サブスクリプションは解約済みのため、更新されません。",
     "expired": "{{server}} の AutoMuteUs {{tier}} は期限切れです。",
     "free": "{{server}} は AutoMuteUs プレミアムを利用していません。",
     "noExpiry": "{{server}} は AutoMuteUs {{tier}} を無期限で利用できます。",
     "renews": "{{server}} は AutoMuteUs {{tier}} を利用中です。PayPal サブスクリプションは {{date, datetime}} ごろに更新されます。",
-    "renewsInherited": "{{server}} は AutoMuteUs {{tier}} を利用中です。プレミアムの継承元サーバーの PayPal サブスクリプションは {{date, datetime}} ごろに更新されます。"
+    "renewsInherited": "{{server}} は AutoMuteUs {{tier}} を利用中です。プレミアムの継承元サーバーの PayPal サブスクリプションは {{date, datetime}} ごろに更新されます。",
+    "days_other": "{{server}} は AutoMuteUs {{tier}} を利用中です。最新の支払いの残りは {{count}} 日です。"
   },
   "subtitle": "Among Us のプレイをさらに快適にしたいですか？ ボットの高負荷時に制限を受けていませんか？ AutoMuteUs プレミアムで、プロジェクトを支援しながらミュートの体験を向上させましょう！",
   "thisServer": "このサーバー",
