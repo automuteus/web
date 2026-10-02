@@ -116,13 +116,13 @@
     "title": "Réinitialiser les paramètres"
   },
   "retention": {
-    "after_one": "Supprimer après {{count}} minute",
-    "after_other": "Supprimer après {{count}} minutes",
     "afterOption": "Supprimer après…",
     "forever": "Conserver indéfiniment",
     "immediately": "Supprimer immédiatement",
     "minutes": "minutes",
-    "minutesLabel": "Minutes avant la suppression du résumé"
+    "minutesLabel": "Minutes avant la suppression du résumé",
+    "after_one": "Supprimer après {{count}} minute",
+    "after_other": "Supprimer après {{count}} minutes"
   },
   "roles": {
     "add": "Ajouter",
