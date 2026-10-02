@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "即使机器人负载很高，也总能创建新游戏！",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "优先游戏访问"
     },
     "mutingBots": {
