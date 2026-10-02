@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Utilisateur à délier"
+        "user": "User to unlink"
       },
       "description": "Délier un utilisateur Discord de sa couleur en jeu"
     }
