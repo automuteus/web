@@ -12,6 +12,7 @@ import "../public/global.scss";
 import "../public/nprogress.css";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
+import LanguageSync from "../components/layout/LanguageSync";
 
 const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
     const router = useRouter();
@@ -38,6 +39,7 @@ const App = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => {
         <>
             <div className="stars"></div>
             <SessionProvider session={session}>
+                <LanguageSync />
                 <AnimatePresence mode="wait" initial={false}>
                     <Component {...pageProps} key={router.route} />
                 </AnimatePresence>

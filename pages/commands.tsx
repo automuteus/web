@@ -6,6 +6,7 @@ import * as data from "../data/commands";
 import { faCrown } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import Link from "next/link";
+import { Trans, useTranslation } from "react-i18next";
 import AppLayout from "../components/layout/AppLayout";
 import CommandEntry from "../components/commands/CommandEntry";
 import { Command } from "../types/Command";
@@ -24,6 +25,7 @@ export const premium_icon = (
 );
 
 export default function CommandsPage() {
+    const { t } = useTranslation("commands");
     const commands = data.commands as Array<Command>;
     const commandsSorted = commands
         .sort((a, b) => (a.command > b.command ? 1 : -1))
@@ -37,18 +39,17 @@ export default function CommandsPage() {
 
     return (
         <AppLayout
-            title="AutoMuteUs - Commands"
-            metaDesc="View all the available commands in the AutoMuteUs Discord muting bot."
+            title={t("page.title")}
+            metaDesc={t("page.metaDescription")}
         >
             <div className={`container pb-4 commandsPage`}>
                 <div className="d-block d-md-flex align-items-center justify-content-between">
-                    <h1>Commands</h1>
+                    <h1>{t("page.heading")}</h1>
                     <span className="entryLabelSubcommands">
-                        Current as of v10.0.0
+                        {t("page.currentAsOf", { version: "v10.0.0" })}
                     </span>
                 </div>
 
-                        Current as of v10.0.0
                 <div className="row">
                     <div
                         className={`col-12 col-md-auto d-none d-lg-flex fixedCol`}
@@ -61,7 +62,7 @@ export default function CommandsPage() {
                                         className="flex-column"
                                     >
                                         <Nav.Item>
-                                            <h5>General Commands</h5>
+                                            <h5>{t("page.generalCommands")}</h5>
                                         </Nav.Item>
                                         {commandsSorted.map((cmd) => (
                                             <Nav.Item
@@ -91,11 +92,11 @@ export default function CommandsPage() {
                                             </Nav.Item>
                                         ))}
                                         <Nav.Item>
-                                            <h5 className="mt-3">Settings</h5>
+                                            <h5 className="mt-3">{t("page.settings")}</h5>
                                         </Nav.Item>
                                         <Nav.Item className="commandMenu">
                                             <Nav.Link href="#settings-list">
-                                                Managed on the web
+                                                {t("page.managedOnWeb")}
                                             </Nav.Link>
                                         </Nav.Item>
                                     </Nav>
@@ -106,7 +107,7 @@ export default function CommandsPage() {
                     <div className="col">
                         <div>
                             <div>
-                                <h3 id="commands-list">General Commands</h3>
+                                <h3 id="commands-list">{t("page.generalCommands")}</h3>
                                 {commandsSorted.map((cmd) => (
                                     <CommandEntry
                                         entry={cmd}
@@ -118,22 +119,22 @@ export default function CommandsPage() {
                             </div>
 
                             <div className="mt-4">
-                                <h3 id="settings-list">Settings</h3>
+                                <h3 id="settings-list">{t("page.settings")}</h3>
                                 <Alert
                                     variant="transparent"
                                     className="text-light"
                                     style={{ background: "var(--dark)" }}
                                 >
                                     <p className="mb-0">
-                                        Settings are no longer changed with
-                                        commands. Open the{" "}
-                                        <Link href="/settings">settings page</Link>{" "}
-                                        and sign in with Discord to view and
-                                        change them. The server owner and
-                                        members with Administrator or Manage
-                                        Server can make changes. In Discord,{" "}
-                                        <code>/settings</code> links to the same
-                                        page.
+                                        <Trans
+                                            t={t}
+                                            i18nKey="page.settingsMoved"
+                                            components={{
+                                                settingsLink: <Link href="/settings" />,
+                                                code: <code />,
+                                            }}
+                                            values={{ command: "/settings" }}
+                                        />
                                     </p>
                                 </Alert>
                             </div>

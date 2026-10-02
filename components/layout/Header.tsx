@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import { signOut, signIn, useSession } from "next-auth/react";
 import { Navbar } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -18,51 +19,52 @@ import default_user from "../../public/images/discord_placeholder.png";
 import site_logo from "../../public/images/logo_animated_sm.gif";
 import HeaderLink, { Props as HeaderLinkProps } from "./HeaderLink";
 
-const navs: Array<HeaderLinkProps> = [
-    {
-        text: "Home",
-        link: "/",
-        icon: faHome,
-    },
-    {
-        text: "Premium",
-        link: "/premium",
-        icon: faCrown,
-        keepGuild: true,
-    },
-    {
-        text: "Settings",
-        link: "/settings",
-        icon: faSlidersH,
-        keepGuild: true,
-    },
-    {
-        text: "Stats",
-        link: "/stats",
-        icon: faChartSimple,
-        keepGuild: true,
-    },
-    {
-        text: "Commands",
-        link: "/commands",
-        icon: faCode,
-    },
-    {
-        text: "GitHub",
-        link: "https://github.com/denverquane/automuteus",
-        icon: faGithub,
-        newtab: true,
-    },
-    {
-        text: "Support Server",
-        link: "https://discord.gg/vwWXs8Z",
-        icon: faDiscord,
-        newtab: true,
-    },
-];
-
 export default function Header(): React.ReactElement {
+    const { t } = useTranslation("common");
     const { data: session, status } = useSession();
+
+    const navs: Array<HeaderLinkProps> = [
+        {
+            text: t("header.nav.home"),
+            link: "/",
+            icon: faHome,
+        },
+        {
+            text: t("header.nav.premium"),
+            link: "/premium",
+            icon: faCrown,
+            keepGuild: true,
+        },
+        {
+            text: t("header.nav.settings"),
+            link: "/settings",
+            icon: faSlidersH,
+            keepGuild: true,
+        },
+        {
+            text: t("header.nav.stats"),
+            link: "/stats",
+            icon: faChartSimple,
+            keepGuild: true,
+        },
+        {
+            text: t("header.nav.commands"),
+            link: "/commands",
+            icon: faCode,
+        },
+        {
+            text: t("header.nav.github"),
+            link: "https://github.com/denverquane/automuteus",
+            icon: faGithub,
+            newtab: true,
+        },
+        {
+            text: t("header.nav.support"),
+            link: "https://discord.gg/vwWXs8Z",
+            icon: faDiscord,
+            newtab: true,
+        },
+    ];
 
     let routeSection = (
         <ul className="navbar-nav me-auto mb-2 mb-lg-0">
@@ -78,7 +80,7 @@ export default function Header(): React.ReactElement {
         userSection = (
             <div className="navbar-text text-white">
                 <div className="spinner-grow me-2" role="status">
-                    <span className="invisible">Checking login...</span>
+                    <span className="invisible">{t("header.checkingLogin")}</span>
                 </div>
             </div>
         );
@@ -93,7 +95,7 @@ export default function Header(): React.ReactElement {
                         size="lg"
                         className="me-2"
                     />
-                    <span className="d-none d-sm-inline-block">Sign In</span>
+                    <span className="d-none d-sm-inline-block">{t("header.signIn")}</span>
                 </div>
             </li>
         );
@@ -106,7 +108,7 @@ export default function Header(): React.ReactElement {
                 <div className="navbar-text user-logged-in">
                     <img
                         src={session.user.image ?? default_user.src}
-                        alt={session.user.name ?? "<Unknown>"}
+                        alt={session.user.name ?? t("header.unknownUser")}
                         className="user-image me-2"
                     />
                     <div className="user-details d-none d-sm-block">
@@ -115,7 +117,7 @@ export default function Header(): React.ReactElement {
                             className="user-signout"
                             onClick={() => signOut()}
                         >
-                            Sign Out
+                            {t("header.signOut")}
                         </small>
                     </div>
                     <div className="d-block d-sm-none">
@@ -141,7 +143,7 @@ export default function Header(): React.ReactElement {
                 <div className="navbar-brand ms-3 d-none d-lg-inline-block">
                     <img
                         src={site_logo.src}
-                        alt="AutoMuteUs logo"
+                        alt={t("header.logoAlt")}
                         className="align-top"
                         width="50"
                         height="50"
@@ -150,6 +152,7 @@ export default function Header(): React.ReactElement {
 
                 <Navbar.Toggle
                     aria-controls="site-nav"
+                    label={t("header.toggleNav")}
                     className="border-0 text-light"
                 >
                     <FontAwesomeIcon icon={faBars} />

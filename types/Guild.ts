@@ -15,9 +15,9 @@ export interface Guild {
 
 /** A stand-in for a server an operator opened by ID without being a member of it. It carries no permissions, so
  * nothing that changes the server is offered. */
-export function adminGuild(id: string): Guild | undefined {
+export function adminGuild(id: string, name: string): Guild | undefined {
     if (!/^[0-9]{17,20}$/.test(id)) return undefined;
-    return { id, name: `Server ${id}`, icon: null, owner: false, permissions: "0", botPresent: true, hasStats: true };
+    return { id, name, icon: null, owner: false, permissions: "0", botPresent: true, hasStats: true };
 }
 
 /** Guilds whose stats page has something to show, or soon will because the bot is there to record games. */

@@ -2,6 +2,8 @@ import React, { useId, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faMicrophone, faMicrophoneSlash, faHeadphones, faSlash, faCircleInfo, faCrown } from "@fortawesome/free-solid-svg-icons";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Trans, useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 import styles from "./SettingsView.module.css";
 import {
     Settings, PHASES, LIVES, MAP_VERSIONS, ROOM_CODE_OPTIONS, DELAY_RANGE, SUMMARY_RANGE,
@@ -15,60 +17,51 @@ export interface ChannelCheckState {
     name?: string;
     problems?: string[];
 }
-const CHANNEL_HELP = "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.";
-const CHANNEL_PICK_HELP = "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.";
-const ROLE_HELP = "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).";
-const ROLE_PICK_HELP = "Roles are listed as the bot sees them in this server.";
 
 export type { Settings } from "./settings-edit";
 export { same } from "./settings-edit";
 
-const phaseLabels: Record<string, string> = { LOBBY: "Lobby", TASKS: "Tasks", DISCUSSION: "Discussion" };
-const phases = PHASES.map((phase) => [phase, phaseLabels[phase]] as const);
-const unknown = "Not available";
+type T = TFunction<"settings">;
 
 /** Settings the API applies only on premium servers. This mirrors PremiumSnapshot in the Go settings package;
  * the leaderboard options are premium-gated there too but are no longer shown here. */
 export const PREMIUM_ONLY: ReadonlySet<string> = new Set(["deleteGameSummary", "matchSummaryChannelID", "autoRefresh", "muteSpectator", "displayRoomCode"]);
-const PREMIUM_DETAIL = "Premium-only setting. AutoMuteUs applies it only on servers with premium.";
 
-export function text(value: unknown): string {
-    return typeof value === "string" && value ? value : unknown;
+export function text(value: unknown, t: T): string {
+    return typeof value === "string" && value ? value : t("settings:value.unknown");
 }
-export function enabled(value: unknown): string {
-    return value === true ? "Enabled" : value === false ? "Disabled" : unknown;
+export function enabled(value: unknown, t: T): string {
+    return value === true ? t("settings:value.enabled") : value === false ? t("settings:value.disabled") : t("settings:value.unknown");
 }
-export function retention(value: unknown): string {
-    if (value === -1) return "Keep forever";
-    if (value === 0) return "Delete immediately";
-    return typeof value === "number" && Number.isFinite(value) && value > 0 ? `Delete after ${value} ${value === 1 ? "minute" : "minutes"}` : unknown;
+export function retention(value: unknown, t: T): string {
+    if (value === -1) return t("settings:retention.forever");
+    if (value === 0) return t("settings:retention.immediately");
+    return typeof value === "number" && Number.isFinite(value) && value > 0 ? t("settings:retention.after", { count: value }) : t("settings:value.unknown");
 }
-function number(value: unknown, unit = "") {
-    return typeof value === "number" && Number.isFinite(value) ? `${value}${unit}` : unknown;
+function seconds(value: unknown, t: T) {
+    return typeof value === "number" && Number.isFinite(value) ? t("settings:value.seconds", { value }) : t("settings:value.unknown");
 }
-function transitionDelay(from: string, to: string, value: unknown) {
-    return from === to ? "N/A" : number(value, " s");
+function transitionDelay(from: string, to: string, value: unknown, t: T) {
+    return from === to ? t("settings:value.notApplicable") : seconds(value, t);
 }
-function channel(value: unknown): string {
-    return value === "" ? "None configured" : text(value);
+function channel(value: unknown, t: T): string {
+    return value === "" ? t("settings:value.none") : text(value, t);
 }
-function roleIDs(value: unknown, roles?: readonly GuildRole[]): string {
-    if (!Array.isArray(value) || !value.every((id) => typeof id === "string")) return unknown;
-    return value.length ? value.map((id) => roles?.find((role) => role.id === id)?.name ?? id).join(", ") : "None configured";
+function roleIDs(value: unknown, t: T, roles?: readonly GuildRole[]): string {
+    if (!Array.isArray(value) || !value.every((id) => typeof id === "string")) return t("settings:value.unknown");
+    return value.length ? value.map((id) => roles?.find((role) => role.id === id)?.name ?? id).join(", ") : t("settings:value.none");
 }
-const roomLabels = new Map<string, string>([["always", "Always visible"], ["never", "Hidden"], ["spoiler", "Behind a spoiler"]]);
-function roomCode(value: unknown): string {
-    const room = text(value);
-    return roomLabels.get(room) ?? room;
+/** The language's name in the UI language. Keys are per code (settings:languageName.*). */
+function languageName(code: string, t: T) {
+    return t(`settings:languageName.${code}`);
 }
-function languageLabel(value: unknown): string {
+function languageLabel(value: unknown, t: T): string {
     const language = languageOf(value);
-    return language ? `${language.flag} ${language.name}` : text(value);
+    return language ? t("settings:languageFormat.short", { flag: language.flag, name: languageName(language.code, t) }) : text(value, t);
 }
-const mapLabels = new Map<string, string>([["simple", "Simple"], ["detailed", "Detailed"]]);
-function mapStyle(value: unknown): string {
-    const map = text(value);
-    return mapLabels.get(map) ?? map;
+function labelled(value: unknown, labels: Map<string, string>, t: T): string {
+    const label = text(value, t);
+    return labels.get(label) ?? label;
 }
 
 function VoiceHint({ label, description, children, className = "" }: {
@@ -78,13 +71,14 @@ function VoiceHint({ label, description, children, className = "" }: {
     className?: string;
 }) {
     const id = useId();
+    const { t } = useTranslation("settings");
     return (
         <OverlayTrigger
             placement="top"
             trigger={["hover", "focus"]}
             overlay={<Tooltip id={id}>{description}</Tooltip>}
         >
-            <span tabIndex={0} className={`${styles.voiceHint} ${className}`} aria-label={`${label}. ${description}`}>
+            <span tabIndex={0} className={`${styles.voiceHint} ${className}`} aria-label={t("hint", { label, description })}>
                 {children}
             </span>
         </OverlayTrigger>
@@ -94,7 +88,8 @@ function VoiceHint({ label, description, children, className = "" }: {
 /** Small pill next to a setting: gold for premium-only, blue when the stored value differs from the bot default.
  * Unsaved edits are not a pill; they are an amber highlight on the row or cell, see Rows and the grids. */
 function Marker({ kind, detail }: { kind: "premium" | "custom"; detail: string }) {
-    const label = kind === "premium" ? "Premium" : "Custom";
+    const { t } = useTranslation("settings");
+    const label = kind === "premium" ? t("marker.premium") : t("marker.custom");
     return <VoiceHint label={label} description={detail} className={kind === "premium" ? styles.premiumBadge : styles.customBadge}>
         {kind === "premium" && <FontAwesomeIcon icon={faCrown} aria-hidden="true" />}
         {label}
@@ -102,11 +97,12 @@ function Marker({ kind, detail }: { kind: "premium" | "custom"; detail: string }
 }
 /** Card header tally: how many settings are custom (differ from default) and how many edits are unsaved. */
 function Counts({ custom, unsaved }: { custom: number; unsaved: number }) {
+    const { t } = useTranslation("settings");
     if (custom === 0 && unsaved === 0) return null;
     return <span className={styles.counts}>
-        {custom > 0 && <span className={styles.customCount}>{custom} custom</span>}
+        {custom > 0 && <span className={styles.customCount}>{t("counts.custom", { count: custom })}</span>}
         {custom > 0 && unsaved > 0 && <span aria-hidden="true">·</span>}
-        {unsaved > 0 && <span className={styles.unsavedCount}>{unsaved} unsaved</span>}
+        {unsaved > 0 && <span className={styles.unsavedCount}>{t("counts.unsaved", { count: unsaved })}</span>}
     </span>;
 }
 
@@ -118,30 +114,33 @@ function VoiceState({ mute, deaf, context, onToggle, disabled }: {
     onToggle?: (kind: "MuteRules" | "DeafRules", value: boolean) => void;
     disabled?: boolean;
 }) {
-    if (typeof mute !== "boolean" || typeof deaf !== "boolean") return <>{unknown}</>;
-    const pills: [string, boolean, "MuteRules" | "DeafRules", React.ReactNode][] = [
-        [mute ? "Muted" : "Unmuted", mute, "MuteRules", <FontAwesomeIcon key="mic" icon={mute ? faMicrophoneSlash : faMicrophone} fixedWidth aria-hidden="true" />],
-        [deaf ? "Deafened" : "Undeafened", deaf, "DeafRules", <span key="ear" className={styles.headphoneIcon} aria-hidden="true">
+    const { t } = useTranslation("settings");
+    if (typeof mute !== "boolean" || typeof deaf !== "boolean") return <>{t("value.unknown")}</>;
+    // Label, restricted, kind, icon, the state in a sentence, and the state a click switches to.
+    const pills: [string, boolean, "MuteRules" | "DeafRules", React.ReactNode, string, string][] = [
+        [mute ? t("voice.state.muted") : t("voice.state.unmuted"), mute, "MuteRules", <FontAwesomeIcon key="mic" icon={mute ? faMicrophoneSlash : faMicrophone} fixedWidth aria-hidden="true" />,
+            mute ? t("voice.inSentence.muted") : t("voice.inSentence.unmuted"), mute ? t("voice.inSentence.unmuted") : t("voice.inSentence.muted")],
+        [deaf ? t("voice.state.deafened") : t("voice.state.undeafened"), deaf, "DeafRules", <span key="ear" className={styles.headphoneIcon} aria-hidden="true">
             <FontAwesomeIcon icon={faHeadphones} fixedWidth />
             {deaf && <FontAwesomeIcon icon={faSlash} className={styles.iconSlash} />}
-        </span>],
+        </span>, deaf ? t("voice.inSentence.deafened") : t("voice.inSentence.undeafened"), deaf ? t("voice.inSentence.undeafened") : t("voice.inSentence.deafened")],
     ];
     return (
         <span className={styles.voiceStates}>
-            {pills.map(([label, restricted, kind, icon]) => {
+            {pills.map(([label, restricted, kind, icon, state, next]) => {
                 const className = `${styles.voiceBadge} ${restricted ? styles.voiceRestricted : styles.voiceAllowed}`;
                 if (!onToggle) return <span key={kind} className={className} aria-label={label}>{icon}<span>{label}</span></span>;
                 return <button key={kind} type="button" className={`${className} ${styles.voiceToggle}`} aria-pressed={restricted} disabled={disabled}
-                    aria-label={`${context}: ${label.toLowerCase()}`} title={`Switch to ${restricted ? (kind === "MuteRules" ? "unmuted" : "undeafened") : (kind === "MuteRules" ? "muted" : "deafened")}`}
+                    aria-label={t("voice.toggle", { context, state })} title={t("voice.switchTo", { state: next })}
                     onClick={() => onToggle(kind, !restricted)}>{icon}<span>{label}</span></button>;
             })}
         </span>
     );
 }
-function settingLabel(label: string, description: string) {
+function settingLabel(label: string, about: string, description: string) {
     return <span className={styles.settingLabel}>
         {label}
-        <VoiceHint label={`About ${label.toLowerCase()}`} description={description}>
+        <VoiceHint label={about} description={description}>
             <FontAwesomeIcon icon={faCircleInfo} aria-hidden="true" />
         </VoiceHint>
     </span>;
@@ -168,11 +167,12 @@ function classes(...names: (string | false | undefined)[]): string | undefined {
     return list.length ? list.join(" ") : undefined;
 }
 function Rows({ rows }: { rows: Row[] }) {
+    const { t } = useTranslation("settings");
     return <dl className={styles.values}>{rows.map((row) => <div key={row.key} className={classes(row.error && styles.rowError, row.dirty && styles.dirty)}>
-        <dt>{row.label}{row.premium && <Marker kind="premium" detail={PREMIUM_DETAIL} />}</dt>
+        <dt>{row.label}{row.premium && <Marker kind="premium" detail={t("marker.premiumDetail")} />}</dt>
         <dd className={row.custom ? styles.customValue : undefined}>
             {row.control ?? row.value}
-            {row.custom && <Marker kind="custom" detail={`Custom value; the bot default is ${row.custom}.`} />}
+            {row.custom && <Marker kind="custom" detail={t("marker.customDefault", { value: row.custom })} />}
             {row.ok && <span className={styles.fieldOk} role="status">{row.ok}</span>}
             {row.hint && <span className={styles.fieldHint}>{row.hint}</span>}
             {row.error && <span className={styles.fieldError} role="alert">{row.error}</span>}
@@ -212,13 +212,23 @@ export interface SettingsViewProps {
 }
 
 export default function SettingsView({ settings: s, defaults, saved, onChange, disabled, errors = {}, premiumLocked, channelCheck, roles, channels }: SettingsViewProps) {
+    const { t } = useTranslation("settings");
+    const unknown = t("value.unknown");
+    const phaseLabels: Record<string, string> = { LOBBY: t("phase.LOBBY"), TASKS: t("phase.TASKS"), DISCUSSION: t("phase.DISCUSSION") };
+    /** Phase names as they read mid-sentence ("during tasks"), which is lower case in English. */
+    const phaseInSentence: Record<string, string> = { LOBBY: t("phase.inSentence.LOBBY"), TASKS: t("phase.inSentence.TASKS"), DISCUSSION: t("phase.inSentence.DISCUSSION") };
+    const phases = PHASES.map((phase) => [phase, phaseLabels[phase]] as const);
+    const roomLabels = new Map<string, string>([["always", t("roomCode.always")], ["never", t("roomCode.never")], ["spoiler", t("roomCode.spoiler")]]);
+    const mapLabels = new Map<string, string>([["simple", t("mapVersion.simple")], ["detailed", t("mapVersion.detailed")]]);
+    const channelHelp = t("channel.help");
+    const formatEnabled = (value: unknown) => enabled(value, t);
     const editing = !!onChange;
     const change = onChange ?? (() => undefined);
     const [pendingRole, setPendingRole] = useState("");
     // The picker cannot name a thread, so the ID box stays one click away even when the channel list is known.
     const [typeChannelID, setTypeChannelID] = useState(false);
     const lockedFor = (key: string) => !!disabled || (!!premiumLocked && PREMIUM_ONLY.has(key));
-    const premiumHint = (key: string) => premiumLocked && PREMIUM_ONLY.has(key) ? "Requires premium to change." : undefined;
+    const premiumHint = (key: string) => premiumLocked && PREMIUM_ONLY.has(key) ? t("premiumHint") : undefined;
 
     // A value is "custom" only when both documents carry it and the guild's value is displayable. A missing or
     // malformed guild value reads as unavailable, never as a customisation. "Dirty" compares against what was
@@ -242,14 +252,19 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
         return <label className={styles.switch}>
             <input type="checkbox" role="switch" checked={s[key] === true} disabled={lockedFor(key)} aria-label={label}
                 onChange={(e) => change(setField(s, key, e.target.checked))} />
-            <span>{enabled(s[key])}</span>
+            <span>{enabled(s[key], t)}</span>
         </label>;
     }
     function languageSelect() {
         const value = typeof s.language === "string" ? s.language : "";
-        return <select className={styles.control} value={value} disabled={lockedFor("language")} aria-label="Bot language" onChange={(e) => change(setField(s, "language", e.target.value))}>
+        return <select className={styles.control} value={value} disabled={lockedFor("language")} aria-label={t("display.language")} onChange={(e) => change(setField(s, "language", e.target.value))}>
             {!languageOf(value) && <option value={value}>{value || unknown}</option>}
-            {LANGUAGES.map((language) => <option key={language.code} value={language.code}>{language.flag} {language.name}{language.native !== language.name ? ` (${language.native})` : ""}</option>)}
+            {LANGUAGES.map((language) => {
+                const name = languageName(language.code, t);
+                return <option key={language.code} value={language.code}>{language.native !== name
+                    ? t("languageFormat.withNative", { flag: language.flag, name, native: language.native })
+                    : t("languageFormat.short", { flag: language.flag, name })}</option>;
+            })}
         </select>;
     }
     function select(key: "mapVersion" | "displayRoomCode", label: string, options: readonly string[], labels: Map<string, string>) {
@@ -265,10 +280,10 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
         if (!channels || typeChannelID) {
             return <span className={classes(styles.controlGroup, styles.pickGroup)}>
                 <input type="text" inputMode="numeric" autoComplete="off" spellCheck={false} className={`${styles.control} ${styles.idInput}`} value={value} disabled={locked}
-                    aria-label="Summary channel ID" placeholder="Channel ID, or empty for none" maxLength={20}
+                    aria-label={t("channel.idLabel")} placeholder={t("channel.idPlaceholder")} maxLength={20}
                     onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value.trim()))} />
-                <button type="button" className={styles.smallButton} disabled={locked || value === ""} onClick={() => change(setField(s, "matchSummaryChannelID", ""))}>Clear</button>
-                {channels && <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(false)}>Pick from a list</button>}
+                <button type="button" className={styles.smallButton} disabled={locked || value === ""} onClick={() => change(setField(s, "matchSummaryChannelID", ""))}>{t("channel.clear")}</button>
+                {channels && <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(false)}>{t("channel.pick")}</button>}
             </span>;
         }
         // Options in the list's order: top-level channels first, then one group per category. A value the list
@@ -277,19 +292,19 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
         let group: { label: string; items: React.ReactNode[] } | undefined;
         const flush = () => { if (group) { options.push(<optgroup key={`group:${group.label}`} label={group.label}>{group.items}</optgroup>); group = undefined; } };
         for (const ch of channels) {
-            const option = <option key={ch.id} value={ch.id} disabled={!ch.ok} title={ch.ok ? undefined : ch.problems.join("; ")}>#{ch.name}{ch.ok ? "" : " (bot can't post here)"}</option>;
+            const option = <option key={ch.id} value={ch.id} disabled={!ch.ok} title={ch.ok ? undefined : ch.problems.join("; ")}>{ch.ok ? t("channel.option", { name: ch.name }) : t("channel.optionBlocked", { name: ch.name })}</option>;
             if (ch.category === "") { flush(); options.push(option); continue; }
             if (!group || group.label !== ch.category) { flush(); group = { label: ch.category, items: [] }; }
             group.items.push(option);
         }
         flush();
         return <span className={classes(styles.controlGroup, styles.pickGroup)}>
-            <select className={styles.control} value={value} disabled={locked} aria-label="Summary channel" onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value))}>
-                <option value="">None</option>
-                {value !== "" && !channels.some((ch) => ch.id === value) && <option value={value}>{value} (not in the list)</option>}
+            <select className={styles.control} value={value} disabled={locked} aria-label={t("channel.label")} onChange={(e) => change(setField(s, "matchSummaryChannelID", e.target.value))}>
+                <option value="">{t("channel.none")}</option>
+                {value !== "" && !channels.some((ch) => ch.id === value) && <option value={value}>{t("channel.notListed", { id: value })}</option>}
                 {options}
             </select>
-            <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(true)}>Enter an ID</button>
+            <button type="button" className={styles.smallButton} disabled={locked} onClick={() => setTypeChannelID(true)}>{t("channel.enterID")}</button>
         </span>;
     }
     /** What to say under the channel control: the list's verdict for a picked channel, the live check for a typed
@@ -297,17 +312,17 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
     function channelStatus(): Pick<Row, "ok" | "hint" | "error"> {
         const value = typeof s.matchSummaryChannelID === "string" ? s.matchSummaryChannelID : "";
         const savedValue = typeof saved?.matchSummaryChannelID === "string" ? saved.matchSummaryChannelID : undefined;
-        const help = channels && !typeChannelID ? CHANNEL_PICK_HELP : CHANNEL_HELP;
+        const help = channels && !typeChannelID ? t("channel.pickHelp") : channelHelp;
         if (!editing || value === "" || !SNOWFLAKE.test(value) || value === savedValue) return { hint: editing ? help : undefined };
         const listed = channels?.find((ch) => ch.id === value);
-        if (listed) return listed.ok ? { ok: `#${listed.name}: the bot can post match summaries here.` } : { error: listed.problems.join("; ") || "The bot can't post in this channel." };
+        if (listed) return listed.ok ? { ok: t("channel.ok", { name: listed.name }) } : { error: listed.problems.join("; ") || t("channel.cantPost") };
         const check = channelCheck && channelCheck.id === value ? channelCheck : undefined;
-        if (!check) return { hint: CHANNEL_HELP };
+        if (!check) return { hint: channelHelp };
         switch (check.state) {
-            case "checking": return { hint: "Checking that the bot can post in this channel..." };
-            case "ok": return { ok: `#${check.name ?? value}: the bot can post match summaries here.` };
-            case "problem": return { error: (check.problems ?? []).join("; ") || "The bot can't post in this channel." };
-            default: return { hint: "Couldn't check this channel right now. It will be verified when you save." };
+            case "checking": return { hint: t("channel.checking") };
+            case "ok": return { ok: t("channel.ok", { name: check.name ?? value }) };
+            case "problem": return { error: (check.problems ?? []).join("; ") || t("channel.cantPost") };
+            default: return { hint: t("channel.unchecked") };
         }
     }
     function roleField() {
@@ -323,29 +338,29 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
                 const role = roles?.find((r) => r.id === id);
                 const missing = !!roles && !role;
                 return <span key={id} className={classes(styles.chip, errors[`permissionRoleIDs[${i}]`] && styles.chipError, missing && styles.chipUnknown)}
-                    title={missing ? "Not a role in this server" : undefined}>
+                    title={missing ? t("roles.notInServer") : undefined}>
                     {role ? <><span className={styles.swatch} style={{ background: roleColor(role) }} aria-hidden="true" /><span>{role.name}</span></> : <code>{id}</code>}
-                    <button type="button" className={styles.chipRemove} disabled={locked} aria-label={`Remove role ${role?.name ?? id}`} onClick={() => change(removeRoleID(s, id))}>&times;</button>
+                    <button type="button" className={styles.chipRemove} disabled={locked} aria-label={t("roles.remove", { name: role?.name ?? id })} onClick={() => change(removeRoleID(s, id))}>&times;</button>
                 </span>;
             })}
             <span className={styles.controlGroup}>
                 {roles ?
-                    <select className={styles.control} value={pendingRole} disabled={locked || available.length === 0} aria-label="Role to add" onChange={(e) => setPendingRole(e.target.value)}>
-                        <option value="">{available.length ? "Choose a role..." : "Every role is already listed"}</option>
-                        {available.map((role) => <option key={role.id} value={role.id}>{role.name}{role.managed ? " (bot or integration)" : ""}</option>)}
+                    <select className={styles.control} value={pendingRole} disabled={locked || available.length === 0} aria-label={t("roles.pickLabel")} onChange={(e) => setPendingRole(e.target.value)}>
+                        <option value="">{available.length ? t("roles.choose") : t("roles.allListed")}</option>
+                        {available.map((role) => <option key={role.id} value={role.id}>{role.managed ? t("roles.managed", { name: role.name }) : role.name}</option>)}
                     </select> :
                     <input type="text" inputMode="numeric" autoComplete="off" spellCheck={false} className={`${styles.control} ${styles.idInput}`} value={pendingRole} disabled={locked}
-                        aria-label="Role ID to add" placeholder="Role ID" maxLength={20}
+                        aria-label={t("roles.idLabel")} placeholder={t("roles.idPlaceholder")} maxLength={20}
                         onChange={(e) => setPendingRole(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); add(); } }} />}
-                <button type="button" className={styles.smallButton} disabled={!canAdd} onClick={add}>Add</button>
+                <button type="button" className={styles.smallButton} disabled={!canAdd} onClick={add}>{t("roles.add")}</button>
             </span>
         </span>;
     }
     /** Under the operator list: the picker note, or which typed IDs the server does not know. */
     function roleStatus(): Pick<Row, "hint" | "error"> {
         const missing = unknownRoleIDs(s.permissionRoleIDs, roles);
-        if (missing.length) return { error: `Not ${missing.length === 1 ? "a role" : "roles"} in this server: ${missing.join(", ")}. Remove ${missing.length === 1 ? "it" : "them"} to save.` };
-        return { hint: roles ? ROLE_PICK_HELP : ROLE_HELP };
+        if (missing.length) return { error: t("roles.unknown", { count: missing.length, ids: missing.join(", ") }) };
+        return { hint: roles ? t("roles.pickHelp") : t("roles.help") };
     }
     function summaryRetention() {
         const value = s.deleteGameSummary;
@@ -353,21 +368,21 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
         const minutes = typeof value === "number" && value > 0 ? value : "";
         const locked = lockedFor("deleteGameSummary");
         return <span className={styles.controlGroup}>
-            <select className={styles.control} value={mode} disabled={locked} aria-label="Match summary retention"
+            <select className={styles.control} value={mode} disabled={locked} aria-label={t("summaries.retention")}
                 onChange={(e) => change(setField(s, "deleteGameSummary", e.target.value === "forever" ? -1 : e.target.value === "immediately" ? 0 : 5))}>
-                <option value="forever">Keep forever</option>
-                <option value="immediately">Delete immediately</option>
-                <option value="after">Delete after...</option>
+                <option value="forever">{t("retention.forever")}</option>
+                <option value="immediately">{t("retention.immediately")}</option>
+                <option value="after">{t("retention.afterOption")}</option>
             </select>
             {mode === "after" && <label className={styles.inline}>
-                <input type="number" className={styles.control} min={1} max={SUMMARY_RANGE.max} step={1} value={minutes} disabled={locked} aria-label="Minutes before the summary is deleted"
+                <input type="number" className={styles.control} min={1} max={SUMMARY_RANGE.max} step={1} value={minutes} disabled={locked} aria-label={t("retention.minutesLabel")}
                     onChange={(e) => change(setField(s, "deleteGameSummary", e.target.value === "" ? NaN : Number(e.target.value)))} />
-                <span>minutes</span>
+                <span>{t("retention.minutes")}</span>
             </label>}
         </span>;
     }
 
-    const voiceCells = phases.flatMap(([phase, phaseLabel]) => LIVES.map((life) => {
+    const voiceCells = PHASES.flatMap((phase) => LIVES.map((life) => {
         const mute = cellDefault("voiceRules", "MuteRules", phase, life);
         const deaf = cellDefault("voiceRules", "DeafRules", phase, life);
         const defaultMute = mute ?? nested(s.voiceRules, "MuteRules", phase, life);
@@ -375,36 +390,37 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
         const custom = (mute !== undefined || deaf !== undefined) && typeof defaultMute === "boolean" && typeof defaultDeaf === "boolean";
         const dirty = dirtyAt("voiceRules", "MuteRules", phase, life) || dirtyAt("voiceRules", "DeafRules", phase, life);
         const error = errors[`voiceRules.MuteRules.${phase}.${life}`] ?? errors[`voiceRules.DeafRules.${phase}.${life}`];
-        return { phase, life, custom, dirty, error, context: `${life === "alive" ? "Alive" : "Dead"} players during ${phaseLabel.toLowerCase()}`,
-            detail: `Custom value; the bot default is ${defaultMute ? "muted" : "unmuted"} and ${defaultDeaf ? "deafened" : "undeafened"}.` };
+        return { phase, life, custom, dirty, error,
+            context: life === "alive" ? t("voice.context.alive", { phase: phaseInSentence[phase] }) : t("voice.context.dead", { phase: phaseInSentence[phase] }),
+            detail: t("voice.customDefault", { mute: defaultMute ? t("voice.inSentence.muted") : t("voice.inSentence.unmuted"), deaf: defaultDeaf ? t("voice.inSentence.deafened") : t("voice.inSentence.undeafened") }) };
     }));
     const voiceRows = [
-        row("unmuteDeadDuringTasks", settingLabel("Unmute dead players during tasks", "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players."), enabled,
-            toggle("unmuteDeadDuringTasks", "Unmute dead players during tasks")),
-        row("muteSpectator", settingLabel("Mute spectators", "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music."), enabled,
-            toggle("muteSpectator", "Mute spectators")),
+        row("unmuteDeadDuringTasks", settingLabel(t("voice.unmuteDead.label"), t("voice.unmuteDead.about"), t("voice.unmuteDead.description")), formatEnabled,
+            toggle("unmuteDeadDuringTasks", t("voice.unmuteDead.label"))),
+        row("muteSpectator", settingLabel(t("voice.muteSpectator.label"), t("voice.muteSpectator.about"), t("voice.muteSpectator.description")), formatEnabled,
+            toggle("muteSpectator", t("voice.muteSpectator.label"))),
     ];
-    const delayCells = phases.flatMap(([from, fromLabel]) => phases.map(([to, toLabel]) => {
+    const delayCells = PHASES.flatMap((from) => PHASES.map((to) => {
         const initial = from === to ? undefined : cellDefault("delays", "delays", from, to);
-        return { from, to, custom: initial !== undefined && number(initial) !== unknown, dirty: from !== to && dirtyAt("delays", "delays", from, to),
+        return { from, to, custom: typeof initial === "number" && Number.isFinite(initial), dirty: from !== to && dirtyAt("delays", "delays", from, to),
             error: from === to ? undefined : errors[`delays.delays.${from}.${to}`],
-            label: `Delay from ${fromLabel.toLowerCase()} to ${toLabel.toLowerCase()} in seconds`, detail: `Custom value; the bot default is ${number(initial, " s")}.` };
+            label: t("delays.cellLabel", { from: phaseInSentence[from], to: phaseInSentence[to] }), detail: t("marker.customDefault", { value: seconds(initial, t) }) };
     }));
 
     return <div className={styles.grid}>
         <section className={`${styles.card} ${styles.wide}`}>
             <h2 className={`${styles.voiceHeading} ${styles.cardHeading}`}>
-                Voice rules
-                <VoiceHint label="About voice rules" description="Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.">
+                {t("voice.heading")}
+                <VoiceHint label={t("voice.about")} description={t("voice.aboutDescription")}>
                     <FontAwesomeIcon icon={faCircleInfo} aria-hidden="true" />
                 </VoiceHint>
                 <Counts custom={voiceCells.filter((cell) => cell.custom).length + voiceRows.filter((r) => r.custom).length}
                     unsaved={voiceCells.filter((cell) => cell.dirty).length + voiceRows.filter((r) => r.dirty).length} />
             </h2>
-            <p className={styles.description}>Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. {editing ? "Select a pill to flip that rule." : "Hover or focus a label for details."}</p>
+            <p className={styles.description}>{editing ? t("voice.descriptionEditing") : t("voice.description")}</p>
             <div className={styles.scroll}><table className={styles.table}>
-                <caption className="visually-hidden">Configured voice rules by phase and player status</caption>
-                <thead><tr><th scope="col">Phase</th><th scope="col">Alive players</th><th scope="col">Dead players</th></tr></thead>
+                <caption className="visually-hidden">{t("voice.caption")}</caption>
+                <thead><tr><th scope="col">{t("voice.column.phase")}</th><th scope="col">{t("voice.column.alive")}</th><th scope="col">{t("voice.column.dead")}</th></tr></thead>
                 <tbody>{phases.map(([phase, label]) => <tr key={phase}><th scope="row">{label}</th>{voiceCells.filter((cell) => cell.phase === phase).map((cell) => <td key={cell.life} className={classes(cell.custom && styles.customCell, cell.dirty && styles.dirtyCell, cell.error && styles.errorCell)}>
                     <VoiceState mute={nested(s.voiceRules, "MuteRules", phase, cell.life)} deaf={nested(s.voiceRules, "DeafRules", phase, cell.life)} context={cell.context} disabled={disabled}
                         onToggle={editing ? (kind, value) => change(setVoiceRule(s, kind, phase, cell.life, value)) : undefined} />
@@ -413,46 +429,46 @@ export default function SettingsView({ settings: s, defaults, saved, onChange, d
                 </td>)}</tr>)}</tbody>
             </table></div>
             <Rows rows={voiceRows} />
-            {s.unmuteDeadDuringTasks === true && nested(s.voiceRules, "DeafRules", "TASKS", "alive") === false && <p className={`${styles.warning} ${styles.wideWarning}`} role="alert"><strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are.</p>}
-            <p className={styles.premiumNote}>Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.</p>
+            {s.unmuteDeadDuringTasks === true && nested(s.voiceRules, "DeafRules", "TASKS", "alive") === false && <p className={`${styles.warning} ${styles.wideWarning}`} role="alert"><Trans t={t} i18nKey="voice.unsafe" components={{ strong: <strong /> }} /></p>}
+            <p className={styles.premiumNote}>{t("voice.premiumNote")}</p>
         </section>
         <section className={styles.card}>
-            <h2 className={styles.cardHeading}>Transition delays<Counts custom={delayCells.filter((cell) => cell.custom).length} unsaved={delayCells.filter((cell) => cell.dirty).length} /></h2>
-            <p className={styles.description}>Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase.{editing && ` Whole seconds from ${DELAY_RANGE.min} to ${DELAY_RANGE.max}.`}</p>
+            <h2 className={styles.cardHeading}>{t("delays.heading")}<Counts custom={delayCells.filter((cell) => cell.custom).length} unsaved={delayCells.filter((cell) => cell.dirty).length} /></h2>
+            <p className={styles.description}>{editing ? t("delays.descriptionEditing", { min: DELAY_RANGE.min, max: DELAY_RANGE.max }) : t("delays.description")}</p>
             <div className={styles.scroll}><table className={styles.table}>
-                <caption className="visually-hidden">Voice transition delays in seconds</caption>
-                <thead><tr><th scope="col">From / to</th>{phases.map(([key, label]) => <th key={key} scope="col">{label}</th>)}</tr></thead>
+                <caption className="visually-hidden">{t("delays.caption")}</caption>
+                <thead><tr><th scope="col">{t("delays.corner")}</th>{phases.map(([key, label]) => <th key={key} scope="col">{label}</th>)}</tr></thead>
                 <tbody>{phases.map(([from, label]) => <tr key={from}><th scope="row">{label}</th>{delayCells.filter((cell) => cell.from === from).map((cell) => {
                     const value = nested(s.delays, "delays", from, cell.to);
-                    return <td key={cell.to} className={from === cell.to ? styles.notApplicable : classes(cell.custom && styles.customCell, cell.dirty && styles.dirtyCell, cell.error && styles.errorCell)} aria-label={from === cell.to ? "Not applicable: the bot only delays changes between phases" : undefined}>
+                    return <td key={cell.to} className={from === cell.to ? styles.notApplicable : classes(cell.custom && styles.customCell, cell.dirty && styles.dirtyCell, cell.error && styles.errorCell)} aria-label={from === cell.to ? t("delays.notApplicable") : undefined}>
                         {editing && from !== cell.to ?
                             <input type="number" className={`${styles.control} ${styles.delayInput}`} min={DELAY_RANGE.min} max={DELAY_RANGE.max} step={1} disabled={disabled} aria-label={cell.label}
                                 value={typeof value === "number" && Number.isFinite(value) ? value : ""}
                                 onChange={(e) => change(setDelay(s, from, cell.to, e.target.value === "" ? NaN : Number(e.target.value)))} /> :
-                            transitionDelay(from, cell.to, value)}
+                            transitionDelay(from, cell.to, value, t)}
                         {cell.custom && <Marker kind="custom" detail={cell.detail} />}
                         {cell.error && <span className={styles.fieldError} role="alert">{cell.error}</span>}
                     </td>;
                 })}</tr>)}</tbody>
             </table></div>
         </section>
-        <Group title="Display & language" rows={[
-            row("language", "Bot language", languageLabel, languageSelect()),
-            row("mapVersion", "Map style", mapStyle, select("mapVersion", "Map style", MAP_VERSIONS, mapLabels)),
-            row("displayRoomCode", "Room code visibility", roomCode, select("displayRoomCode", "Room code visibility", ROOM_CODE_OPTIONS, roomLabels)),
-            row("autoRefresh", "Refresh game message automatically", enabled, toggle("autoRefresh", "Refresh game message automatically")),
+        <Group title={t("display.heading")} rows={[
+            row("language", t("display.language"), (value) => languageLabel(value, t), languageSelect()),
+            row("mapVersion", t("display.mapVersion"), (value) => labelled(value, mapLabels, t), select("mapVersion", t("display.mapVersion"), MAP_VERSIONS, mapLabels)),
+            row("displayRoomCode", t("display.roomCode"), (value) => labelled(value, roomLabels, t), select("displayRoomCode", t("display.roomCode"), ROOM_CODE_OPTIONS, roomLabels)),
+            row("autoRefresh", t("display.autoRefresh"), formatEnabled, toggle("autoRefresh", t("display.autoRefresh"))),
         ]} />
         {/* Leaderboard options and bot admin user IDs are intentionally not shown: stats are moving to this UI and
             those settings are slated for removal, so the page should not invite anyone to rely on them. */}
-        <Group title="Match summaries" rows={[
-            row("deleteGameSummary", "Match summary retention", retention, summaryRetention()),
-            { ...row("matchSummaryChannelID", "Summary channel", channel, channelField()), ...channelStatus() },
+        <Group title={t("summaries.heading")} rows={[
+            row("deleteGameSummary", t("summaries.retention"), (value) => retention(value, t), summaryRetention()),
+            { ...row("matchSummaryChannelID", t("channel.label"), (value) => channel(value, t), channelField()), ...channelStatus() },
         ]} />
         {/* Mirrors commandAccess in bot/slash_commands.go: operator roles control /new, /pause, /end, /link, and
             /unlink; the guild owner and members with Administrator or Manage Server always pass, and only they may
             change settings (here or with /settings). */}
-        <Group title="Bot operators" description="Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings." rows={[
-            (() => { const base = row("permissionRoleIDs", roles ? "Operator roles" : "Operator role IDs", (value) => roleIDs(value, roles), roleField()); return editing ? { ...base, ...roleStatus(), error: base.error ?? roleStatus().error } : base; })(),
+        <Group title={t("roles.heading")} description={t("roles.description")} rows={[
+            (() => { const base = row("permissionRoleIDs", roles ? t("roles.label") : t("roles.idsLabel"), (value) => roleIDs(value, t, roles), roleField()); return editing ? { ...base, ...roleStatus(), error: base.error ?? roleStatus().error } : base; })(),
         ]} />
     </div>;
 }

@@ -1,3 +1,4 @@
+import type { TFunction } from "i18next";
 import { PremiumRecord, StatsPlayer, parsePlayers } from "./guild-stats";
 
 /** The GET /guild/match document, mirroring MatchSummary in the Go API (internal/api/match_summary.go). */
@@ -56,17 +57,11 @@ export interface MatchSummary {
 /** The in-game color keys, each with a standing and a dead crewmate image in public/images/crewmates. */
 export const COLORS: readonly string[] = ["red", "blue", "green", "pink", "orange", "yellow", "black", "white", "purple", "brown", "cyan", "lime", "maroon", "rose", "banana", "gray", "tan", "coral"];
 export const MAP_NAMES: Record<MatchMap, string> = { skeld: "The Skeld", mira: "MIRA HQ", polus: "Polus", dleks: "dlekS ehT", airship: "The Airship", fungle: "The Fungle" };
-export const REGION_NAMES: Record<Region, string> = { na: "North America", eu: "Europe", as: "Asia" };
-export const RESULT_NAMES: Record<MatchResult, string> = {
-    crewmateVote: "Crewmates won by voting out the impostors",
-    crewmateTasks: "Crewmates won by finishing their tasks",
-    crewmateDisconnect: "Crewmates won when the impostors disconnected",
-    impostorVote: "Impostors won by vote",
-    impostorKill: "Impostors won by kills",
-    impostorSabotage: "Impostors won by sabotage",
-    impostorDisconnect: "Impostors won when the crewmates disconnected",
-    unknown: "The game ended without reporting a result",
-};
+/** The regions and results the page can name; their names are in the stats catalog (match.region.*, shared.result.*). */
+export const REGIONS: readonly Region[] = ["na", "eu", "as"];
+export const RESULTS: readonly MatchResult[] = [
+    "crewmateVote", "crewmateTasks", "crewmateDisconnect", "impostorVote", "impostorKill", "impostorSabotage", "impostorDisconnect", "unknown",
+];
 
 const SNOWFLAKE = /^[0-9]{17,20}$/;
 const MATCH_ID = /^[1-9][0-9]{0,17}$/;
@@ -94,8 +89,9 @@ function oneOf<T extends string>(value: unknown, allowed: readonly string[], wha
 }
 /** A key the page knows how to show, or nothing: a map or region added to the API later is left out rather than
  * failing the whole page. */
-function known<T extends string>(value: unknown, names: Record<string, string>): T | undefined {
-    return typeof value === "string" && Object.prototype.hasOwnProperty.call(names, value) ? value as T : undefined;
+function known<T extends string>(value: unknown, names: Record<string, string> | readonly string[]): T | undefined {
+    if (typeof value !== "string") return undefined;
+    return (Array.isArray(names) ? names.includes(value) : Object.prototype.hasOwnProperty.call(names, value)) ? value as T : undefined;
 }
 function color(value: unknown): string {
     return typeof value === "string" && COLORS.includes(value) ? value : "";
@@ -134,11 +130,11 @@ export function parseMatchSummary(body: unknown): MatchSummary {
         players: parsePlayers(doc.players === undefined || doc.players === null ? {} : record(doc.players, "players")),
     };
     if (doc.endTime !== undefined && doc.endTime !== null) summary.endTime = count(doc.endTime, "endTime");
-    if (doc.result !== undefined && doc.result !== null) summary.result = known<MatchResult>(doc.result, RESULT_NAMES) ?? "unknown";
+    if (doc.result !== undefined && doc.result !== null) summary.result = known<MatchResult>(doc.result, RESULTS) ?? "unknown";
     if (doc.winner !== undefined && doc.winner !== null) summary.winner = oneOf<Role>(doc.winner, ROLES, "winner");
     const map = known<MatchMap>(doc.map, MAP_NAMES);
     if (map) summary.map = map;
-    const region = known<Region>(doc.region, REGION_NAMES);
+    const region = known<Region>(doc.region, REGIONS);
     if (region) summary.region = region;
     if (doc.timeline !== undefined && doc.timeline !== null) {
         const t = record(doc.timeline, "timeline");
@@ -188,12 +184,15 @@ export function clock(seconds: number): string {
     return h ? `${h}:${String(m).padStart(2, "0")}:${rest}` : `${m}:${rest}`;
 }
 
-/** "14 min 5 s", "45 s", or "1 h 2 min" for how long a match ran. */
-export function duration(seconds: number): string {
+/** "14 min 5 s", "45 s", or "1 h 2 min" for how long a match ran, in t's language. */
+export function duration(seconds: number, t: TFunction): string {
     const s = Math.max(0, Math.floor(seconds));
-    if (s < 60) return `${s} s`;
+    const secs = (count: number) => t("match.duration.seconds", { ns: "stats", count });
+    if (s < 60) return secs(s);
     const h = Math.floor(s / 3600), m = Math.floor(s / 60) % 60;
-    return h ? `${h} h ${m} min` : `${m} min${s % 60 ? ` ${s % 60} s` : ""}`;
+    const minutes = t("match.duration.minutes", { ns: "stats", count: m });
+    if (h) return t("match.duration.hoursMinutes", { ns: "stats", hours: t("match.duration.hours", { ns: "stats", count: h }), minutes });
+    return s % 60 ? t("match.duration.minutesSeconds", { ns: "stats", minutes, seconds: secs(s % 60) }) : minutes;
 }
 
 /** A timeline split where the game's own screens split it: each tasks phase is a round, each discussion a

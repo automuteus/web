@@ -700,27 +700,29 @@ test("a refused player reset explains that players may reset only themselves", a
 });
 
 const { describePremium, parsePremium, tierName } = require("../components/premium/premium-status.ts");
+// The helpers translate with the t they are given; the English catalog pins the messages.
+const enT = require("../utils/i18n.ts").default.getFixedT("en");
 
 test("premium status describes active, unexpiring, expired, and free servers", () => {
-    assert.deepEqual(describePremium({ tier: 3, days: 18 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Gold, with 18 days left on its latest payment." });
-    assert.equal(describePremium({ tier: 1, days: 1 }, "Crew").message, "Crew has AutoMuteUs Bronze, with 1 day left on its latest payment.");
-    assert.deepEqual(describePremium({ tier: 2, days: -9999 }, "Crew"), { kind: "active", message: "Crew has AutoMuteUs Silver, with no expiry." });
-    assert.deepEqual(describePremium({ tier: 2, days: 0 }, "Crew"), { kind: "expired", message: "Crew's AutoMuteUs Silver has expired." });
-    assert.equal(describePremium({ tier: 0, days: -9999 }, "Crew").kind, "free");
-    assert.equal(tierName(9), "Premium");
+    assert.deepEqual(describePremium({ tier: 3, days: 18 }, "Crew", enT), { kind: "active", message: "Crew has AutoMuteUs Gold, with 18 days left on its latest payment." });
+    assert.equal(describePremium({ tier: 1, days: 1 }, "Crew", enT).message, "Crew has AutoMuteUs Bronze, with 1 day left on its latest payment.");
+    assert.deepEqual(describePremium({ tier: 2, days: -9999 }, "Crew", enT), { kind: "active", message: "Crew has AutoMuteUs Silver, with no expiry." });
+    assert.deepEqual(describePremium({ tier: 2, days: 0 }, "Crew", enT), { kind: "expired", message: "Crew's AutoMuteUs Silver has expired." });
+    assert.equal(describePremium({ tier: 0, days: -9999 }, "Crew", enT).kind, "free");
+    assert.equal(tierName(9, enT), "Premium");
 });
 
 test("premium status says whether a tracked subscription renews", () => {
     const endsAt = Date.UTC(2026, 9, 24, 12) / 1000;
-    assert.deepEqual(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt } }, "Crew"),
+    assert.deepEqual(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt } }, "Crew", enT),
         { kind: "active", message: "Crew has AutoMuteUs Gold. Its PayPal subscription renews around Oct 24, 2026." });
-    assert.deepEqual(describePremium({ tier: 2, days: 29, subscription: { status: "cancelled", endsAt } }, "Crew"),
+    assert.deepEqual(describePremium({ tier: 2, days: 29, subscription: { status: "cancelled", endsAt } }, "Crew", enT),
         { kind: "ending", message: "Crew has AutoMuteUs Silver until Oct 24, 2026. Its PayPal subscription is cancelled and won't renew." });
-    assert.equal(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt, inherited: true } }, "Crew").message,
+    assert.equal(describePremium({ tier: 3, days: 29, subscription: { status: "active", endsAt, inherited: true } }, "Crew", enT).message,
         "Crew has AutoMuteUs Gold. The PayPal subscription of the server it inherits premium from renews around Oct 24, 2026.");
     // No expiry outranks whatever the subscription says, and an expired tier never mentions one.
-    assert.equal(describePremium({ tier: 3, days: -9999, subscription: { status: "cancelled", endsAt } }, "Crew").kind, "active");
-    assert.equal(describePremium({ tier: 3, days: 0, subscription: { status: "active", endsAt } }, "Crew").kind, "expired");
+    assert.equal(describePremium({ tier: 3, days: -9999, subscription: { status: "cancelled", endsAt } }, "Crew", enT).kind, "active");
+    assert.equal(describePremium({ tier: 3, days: 0, subscription: { status: "active", endsAt } }, "Crew", enT).kind, "expired");
 });
 
 test("premium status rejects malformed records", () => {

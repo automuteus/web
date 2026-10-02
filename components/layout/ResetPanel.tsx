@@ -1,4 +1,5 @@
 import { ReactNode, useState } from "react";
+import { Trans, useTranslation } from "react-i18next";
 import styles from "./ResetPanel.module.css";
 import shared from "../settings/SettingsView.module.css";
 
@@ -24,15 +25,17 @@ type Props = {
  * who can manage the server, so a 403 here means Discord no longer grants that. Remount it (with key) when the
  * server or player changes, so a half-finished confirmation never carries over to another target. */
 export default function ResetPanel(props: Props) {
+    const { t } = useTranslation("common");
     const [step, setStep] = useState<"idle" | "confirm" | "busy">("idle");
     const [typed, setTyped] = useState("");
-    const [error, setError] = useState("");
+    // The server's own message is shown as-is; our fallbacks are kept as keys so they follow the language.
+    const [error, setError] = useState<{ server: string } | "failed" | "unreachable" | undefined>();
     const unlocked = !props.typed || typed.trim().toLowerCase() === props.typed.toLowerCase();
 
     async function reset() {
         if (!unlocked || step === "busy") return;
         setStep("busy");
-        setError("");
+        setError(undefined);
         try {
             const res = await fetch(props.url, {
                 method: "POST",
@@ -48,9 +51,9 @@ export default function ResetPanel(props: Props) {
                 return;
             }
             const reply = data && typeof data === "object" ? data as { error?: unknown } : {};
-            setError(typeof reply.error === "string" ? reply.error : "The reset failed. Please try again.");
+            setError(typeof reply.error === "string" ? { server: reply.error } : "failed");
         } catch {
-            setError("We couldn't reach AutoMuteUs. Check your connection and try again.");
+            setError("unreachable");
         }
         setStep("confirm");
     }
@@ -61,15 +64,15 @@ export default function ResetPanel(props: Props) {
             <h2>{props.title}</h2>
             <div className={styles.body}>{props.children}</div>
         </div>
-        {step === "idle" ? <button type="button" className={`${shared.button} ${styles.danger}`} disabled={props.disabled} onClick={() => setStep("confirm")}>{props.action}...</button> :
-            <div className={styles.confirm} role="group" aria-label={`Confirm: ${props.action}`}>
-                <p className={styles.warning}>{props.confirm} This can&apos;t be undone.</p>
-                {props.typed && <label className={styles.typed} htmlFor={inputID}>Type <strong>{props.typed}</strong> to confirm
+        {step === "idle" ? <button type="button" className={`${shared.button} ${styles.danger}`} disabled={props.disabled} onClick={() => setStep("confirm")}>{t("resetPanel.open", { action: props.action })}</button> :
+            <div className={styles.confirm} role="group" aria-label={t("resetPanel.confirmLabel", { action: props.action })}>
+                <p className={styles.warning}><Trans t={t} i18nKey="resetPanel.warning" components={{ confirm: <>{props.confirm}</> }} /></p>
+                {props.typed && <label className={styles.typed} htmlFor={inputID}><Trans t={t} i18nKey="resetPanel.typed" values={{ word: props.typed }} components={{ strong: <strong /> }} />
                     <input id={inputID} value={typed} autoComplete="off" spellCheck={false} disabled={step === "busy"} onChange={(e) => setTyped(e.target.value)} /></label>}
-                {error && <p className={styles.error} role="alert">{error}</p>}
+                {error && <p className={styles.error} role="alert">{typeof error === "object" ? error.server : error === "failed" ? t("resetPanel.error.failed") : t("resetPanel.error.unreachable")}</p>}
                 <div className={styles.actions}>
-                    <button type="button" className={shared.button} disabled={step === "busy"} onClick={() => { setStep("idle"); setTyped(""); setError(""); }}>Cancel</button>
-                    <button type="button" className={`${shared.button} ${styles.danger}`} disabled={!unlocked || step === "busy" || props.disabled} onClick={reset}>{step === "busy" ? "Resetting..." : props.action}</button>
+                    <button type="button" className={shared.button} disabled={step === "busy"} onClick={() => { setStep("idle"); setTyped(""); setError(undefined); }}>{t("resetPanel.cancel")}</button>
+                    <button type="button" className={`${shared.button} ${styles.danger}`} disabled={!unlocked || step === "busy" || props.disabled} onClick={reset}>{step === "busy" ? t("resetPanel.resetting") : props.action}</button>
                 </div>
             </div>}
     </section>;

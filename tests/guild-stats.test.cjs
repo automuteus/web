@@ -11,6 +11,8 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
+// Initializes i18next with the bundled English catalog, as _app does in the browser.
+require("../utils/i18n.ts");
 const { parseGuildStats, premiumActive, playerName, percent, previewFree, avatarURL, defaultAvatar } = require("../components/stats/guild-stats.ts");
 const { default: GuildStatsView } = require("../components/stats/GuildStatsView.tsx");
 const fixture = require("./fixtures/guild-stats.json");

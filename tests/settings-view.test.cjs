@@ -11,7 +11,10 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
+// Initializes i18next with the bundled English catalog, as _app does in the browser.
+const i18n = require("../utils/i18n.ts").default;
 const { default: SettingsView, retention } = require("../components/settings/SettingsView.tsx");
+const t = i18n.getFixedT("en", "settings");
 const fixture = require("./fixtures/guild-settings.json");
 
 test("Go settings fixture displays voice rules, delays, and summary channel", () => {
@@ -37,10 +40,10 @@ test("Go settings fixture displays voice rules, delays, and summary channel", ()
 });
 
 test("summary sentinel values and missing settings are not presented as defaults", () => {
-    assert.equal(retention(-1), "Keep forever");
-    assert.equal(retention(0), "Delete immediately");
-    assert.equal(retention(1), "Delete after 1 minute");
-    assert.equal(retention(undefined), "Not available");
+    assert.equal(retention(-1, t), "Keep forever");
+    assert.equal(retention(0, t), "Delete immediately");
+    assert.equal(retention(1, t), "Delete after 1 minute");
+    assert.equal(retention(undefined, t), "Not available");
     const html = renderToStaticMarkup(React.createElement(SettingsView, { settings: {} }));
     assert.ok(html.includes("Not available"));
     assert.ok(!html.includes("Unmuted"));

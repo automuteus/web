@@ -2,36 +2,58 @@ import React from "react";
 import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Trans, useTranslation } from "react-i18next";
 import { popupCenter, validGuild } from "../../utils/functions";
-import { PremiumItemPerk } from "./PremiumPerk";
+import { PremiumItemPerk, usePerkText } from "./PremiumPerk";
 
-export interface Props {
-    cardTitle: string;
+export type PremiumCard = "bronze" | "silver" | "gold" | "donation";
+
+/** A card as data/premium_items.tsx lists it; its text comes from the premium namespace. */
+export interface PremiumItemData {
+    card: PremiumCard;
     accentColor: string;
-    buttonText: string;
     paypalId: string;
     image: string;
-    price?: React.ReactNode;
-    description?: React.ReactNode;
+    /** Shown as-is, e.g. "US$1.50"; the "/ month" around it is translated. */
+    price?: string;
     perks?: Array<PremiumItemPerk>;
-    guildId?: number | string;
     /** The premium tier this card buys; absent for donations. */
     tier?: number;
+}
+
+export interface Props extends PremiumItemData {
+    guildId?: number | string;
     /** Whether the selected server already has this tier active. */
     current?: boolean;
 }
 
 export default function PremiumItem(props: Props): React.ReactElement {
+    const { t } = useTranslation("premium");
+    const perkText = usePerkText();
     const guild_target = props.guildId ? "&custom=" + props.guildId : "";
     const valid = validGuild(props.guildId);
-    const isDonation = props.cardTitle.toLowerCase() === "donation";
+    const isDonation = props.card === "donation";
     const disabled = !valid && !isDonation;
+    const cardTitle = {
+        bronze: t("tier.bronze"),
+        silver: t("tier.silver"),
+        gold: t("tier.gold"),
+        donation: t("card.donation.title"),
+    }[props.card];
+    const buttonText = {
+        bronze: t("card.bronze.button"),
+        silver: t("card.silver.button"),
+        gold: t("card.gold.button"),
+        donation: t("card.donation.button"),
+    }[props.card];
 
     return (
         <div className="card text-center shadow premium-card m-2">
             <div className="card-body">
                 <img src={props.image} />
                 <div className="card-title font-weight-bold font-family-title d-flex flex-row justify-content-center align-items-center">
+                    {/* The product name stays as is; the badge carries the translated tier. */}
+                    {/* i18next-instrument-ignore-next-line */}
                     <span className="text-ellipsis">AutoMuteUs</span>{" "}
                     <div
                         style={{
@@ -40,13 +62,18 @@ export default function PremiumItem(props: Props): React.ReactElement {
                         }}
                         className="badge ms-2"
                     >
-                        {props.cardTitle}
+                        {cardTitle}
                     </div>
                 </div>
-                {props.current && <div className="text-success small mb-1">Current plan</div>}
+                {props.current && <div className="text-success small mb-1">{t("card.current")}</div>}
                 {props.price && (
                     <div className="mb-2" style={{ color: props.accentColor }}>
-                        {props.price}
+                        <Trans
+                            t={t}
+                            i18nKey="card.price"
+                            values={{ price: props.price }}
+                            components={{ strong: <strong />, small: <small /> }}
+                        />
                     </div>
                 )}
 
@@ -54,14 +81,14 @@ export default function PremiumItem(props: Props): React.ReactElement {
                     placement="bottom"
                     overlay={
                         !isDonation ? (
-                            <Tooltip id={`tooltip-${props.cardTitle}`}>
+                            <Tooltip id={`tooltip-${props.card}`}>
                                 {disabled
-                                    ? "Please choose a server first"
-                                    : `Server ID: ${props.guildId}`}
+                                    ? t("card.chooseServer")
+                                    : t("card.serverId", { id: props.guildId })}
                             </Tooltip>
                         ) : (
-                            <Tooltip id={`tooltip-${props.cardTitle}`}>
-                                Thank you! ♥
+                            <Tooltip id={`tooltip-${props.card}`}>
+                                {t("card.donation.thanks")}
                             </Tooltip>
                         )
                     }
@@ -77,6 +104,7 @@ export default function PremiumItem(props: Props): React.ReactElement {
                                         "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
                                         props.paypalId +
                                         guild_target,
+                                    // The popup's window name, not shown.
                                     title: "AutoMuteUs Premium",
                                     w: 400,
                                     h: 600,
@@ -84,25 +112,30 @@ export default function PremiumItem(props: Props): React.ReactElement {
                             }
                         >
                             <FontAwesomeIcon icon={faPaypal} className="me-2" />
-                            {props.buttonText}
+                            {buttonText}
                         </button>
                     </span>
                 </OverlayTrigger>
-                {props.description && (
-                    <div className="card-text">{props.description}</div>
+                {isDonation && (
+                    <div className="card-text">
+                        <div>
+                            <h6 className="text-blurple">{t("card.donation.heading")}</h6>
+                            <div>{t("card.donation.description")}</div>
+                        </div>
+                    </div>
                 )}
             </div>
             <ul className="list-group list-group-flush">
                 {props.perks &&
                     props.perks.map((v: PremiumItemPerk) => {
                         return (
-                            <li className="list-group-item" key={v.key}>
+                            <li className="list-group-item" key={v.perk}>
                                 <div className="d-flex justify-content-between align-items-center">
                                     <strong
                                         className="d-inline me-2 mb-0 font-family-title text-light text-ellipsis py-1"
-                                        title={v.key}
+                                        title={perkText[v.perk].title}
                                     >
-                                        {v.key}
+                                        {perkText[v.perk].title}
                                     </strong>
                                     <span className="text-success">
                                         {v.value}

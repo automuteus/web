@@ -3,6 +3,8 @@ import numeral from "numeral";
 import { OverlayTrigger, Spinner, Tooltip } from "react-bootstrap";
 
 interface Props {
+    /** Stable across languages: used for the tooltip element id. */
+    id: string;
     stat: number | undefined;
     base: number;
     label: string;
@@ -10,6 +12,7 @@ interface Props {
 }
 
 export default function ServerStat({
+    id,
     stat,
     base,
     label,
@@ -28,7 +31,7 @@ export default function ServerStat({
         <OverlayTrigger
             placement={"bottom"}
             overlay={
-                <Tooltip id={`tooltip-${label}`}>
+                <Tooltip id={`tooltip-${id}`}>
                     {stat !== undefined ? stat + base : ""}
                 </Tooltip>
             }

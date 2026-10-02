@@ -1,4 +1,4 @@
-import { Props as PremiumItemProps } from "../components/premium/PremiumItem"
+import { PremiumItemData } from "../components/premium/PremiumItem";
 
 import crewmate_brown from "../public/images/svg/crewmate_brown.svg";
 import crewmate_white from "../public/images/svg/crewmate_white.svg";
@@ -7,30 +7,26 @@ import crewmate_cyan from "../public/images/svg/crewmate_cyan.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimes, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
-export const premium_items: Array<PremiumItemProps> = [
+// Text lives in the premium namespace: PremiumItem looks it up from `card` and each perk ID.
+export const premium_items: Array<PremiumItemData> = [
     {
-        cardTitle: "Bronze",
+        card: "bronze",
         tier: 1,
         accentColor: "#71491e",
-        buttonText: "Get Bronze",
         paypalId: "M8D39PF5ADGJW",
         image: crewmate_brown.src,
-        price: (
-            <>
-                <strong>US$1.50</strong> <small>/ month</small>
-            </>
-        ),
+        price: "US$1.50",
         perks: [
             {
-                key: "Priority Game Access",
+                perk: "gameAccess",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Stats and Leaderboards",
+                perk: "stats",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Premium Support",
+                perk: "support",
                 value: (
                     <FontAwesomeIcon
                         icon={faTimesCircle}
@@ -39,7 +35,7 @@ export const premium_items: Array<PremiumItemProps> = [
                 ),
             },
             {
-                key: "Priority Muting Bots",
+                perk: "mutingBots",
                 value: (
                     <FontAwesomeIcon
                         icon={faTimesCircle}
@@ -48,7 +44,7 @@ export const premium_items: Array<PremiumItemProps> = [
                 ),
             },
             {
-                key: "Premium Servers",
+                perk: "servers",
                 value: (
                     <FontAwesomeIcon
                         icon={faTimesCircle}
@@ -59,32 +55,27 @@ export const premium_items: Array<PremiumItemProps> = [
         ],
     },
     {
-        cardTitle: "Silver",
+        card: "silver",
         tier: 2,
         accentColor: "#d6e0f0",
-        buttonText: "Get Silver",
         paypalId: "CPZMEL7ZA6PHN",
         image: crewmate_white.src,
-        price: (
-            <>
-                <strong>US$3.50</strong> <small>/ month</small>
-            </>
-        ),
+        price: "US$3.50",
         perks: [
             {
-                key: "Priority Game Access",
+                perk: "gameAccess",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Stats and Leaderboards",
+                perk: "stats",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Premium Support",
+                perk: "support",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Priority Muting Bots",
+                perk: "mutingBots",
                 value: (
                     <>
                         <FontAwesomeIcon icon={faTimes} />
@@ -93,7 +84,7 @@ export const premium_items: Array<PremiumItemProps> = [
                 ),
             },
             {
-                key: "Premium Servers",
+                perk: "servers",
                 value: (
                     <FontAwesomeIcon
                         icon={faTimesCircle}
@@ -104,32 +95,27 @@ export const premium_items: Array<PremiumItemProps> = [
         ],
     },
     {
-        cardTitle: "Gold",
+        card: "gold",
         tier: 3,
         accentColor: "#ffd700",
-        buttonText: "Get Gold",
         paypalId: "PYFCA7562KHB6",
         image: crewmate_yellow.src,
-        price: (
-            <>
-                <strong>US$5.50</strong> <small>/ month</small>
-            </>
-        ),
+        price: "US$5.50",
         perks: [
             {
-                key: "Priority Game Access",
+                perk: "gameAccess",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Stats and Leaderboards",
+                perk: "stats",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Premium Support",
+                perk: "support",
                 value: <FontAwesomeIcon icon={faCheckCircle} />,
             },
             {
-                key: "Priority Muting Bots",
+                perk: "mutingBots",
                 value: (
                     <>
                         <FontAwesomeIcon icon={faTimes} />
@@ -138,7 +124,7 @@ export const premium_items: Array<PremiumItemProps> = [
                 ),
             },
             {
-                key: "Premium Servers",
+                perk: "servers",
                 value: (
                     <>
                         <FontAwesomeIcon icon={faTimes} />
@@ -149,19 +135,9 @@ export const premium_items: Array<PremiumItemProps> = [
         ],
     },
     {
-        cardTitle: "Donation",
+        card: "donation",
         accentColor: "#38fedc",
-        buttonText: "Make Donation",
         paypalId: "YM72RY5TF6WZU",
         image: crewmate_cyan.src,
-        description: (
-            <div>
-                <h6 className="text-blurple">Chip in any amount you wish ❤️</h6>
-                <div>
-                    You won't get any special bot privileges, but you will get
-                    our thanks for making this Open Source project possible!
-                </div>
-            </div>
-        ),
     },
 ];

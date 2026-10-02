@@ -1,15 +1,18 @@
 import { Command } from "../types/Command";
 
+// Descriptions are keys in locales/en/commands.json, resolved by components/commands/CommandDescription.tsx.
+// Command names, argument names/values and examples are what users type in Discord, so they stay as is.
+
 export const prefix = "/";
 
 export const commands: Command[] = [
     {
         command: "help",
-        description: ["View available commands"],
+        description: "command.help.description",
         arguments: [
             {
                 name: "command",
-                description: ["Name of command to view more details about"],
+                description: "command.help.arg.command",
                 type: "string",
                 level: "optional",
                 values: [
@@ -33,37 +36,37 @@ export const commands: Command[] = [
     },
     {
         command: "new",
-        description: ["Start a new game"],
+        description: "command.new.description",
         example: "new",
     },
     {
         command: "refresh",
-        description: ["Refresh the game message"],
+        description: "command.refresh.description",
         example: "refresh",
     },
     {
         command: "pause",
-        description: ["Pause the current game"],
+        description: "command.pause.description",
         example: "pause",
     },
     {
         command: "end",
-        description: ["End a game"],
+        description: "command.end.description",
         example: "end",
     },
     {
         command: "link",
-        description: ["Link a Discord User to their in-game color"],
+        description: "command.link.description",
         arguments: [
             {
                 name: "user",
-                description: ["User to link"],
+                description: "command.link.arg.user",
                 type: "Discord @User",
                 level: "required",
             },
             {
                 name: "color",
-                description: ["In-game color"],
+                description: "command.link.arg.color",
                 type: "string",
                 level: "required",
                 values: [
@@ -92,11 +95,11 @@ export const commands: Command[] = [
     },
     {
         command: "unlink",
-        description: ["Unlink a Discord User from their in-game color"],
+        description: "command.unlink.description",
         arguments: [
             {
                 name: "user",
-                description: ["User to link"],
+                description: "command.unlink.arg.user",
                 type: "Discord @User",
                 level: "required",
             },
@@ -105,20 +108,16 @@ export const commands: Command[] = [
     },
     {
         command: "settings",
-        description: [
-            "Get a link to the ",
-            <a href="/settings">settings page</a>,
-            ", where the bot's settings for this server are managed",
-        ],
+        description: "command.settings.description",
         example: "settings",
     },
     {
         command: "privacy",
-        description: ["View AMU privacy info"],
+        description: "command.privacy.description",
         arguments: [
             {
                 name: "command",
-                description: ["Name of privacy command"],
+                description: "command.privacy.arg.command",
                 type: "string",
                 level: "optional",
                 values: ["info", "show-me", "opt-in", "opt-out"],
@@ -128,23 +127,23 @@ export const commands: Command[] = [
     },
     {
         command: "info",
-        description: ["AutoMuteUs info"],
+        description: "command.info.description",
         example: "info",
     },
     {
         command: "map",
-        description: ["View Among Us game maps"],
+        description: "command.map.description",
         arguments: [
             {
                 name: "map_name",
-                description: ["Map to display"],
+                description: "command.map.arg.mapName",
                 type: "string",
                 level: "required",
                 values: ["Airship", "Skeld", "Mira", "Polus", "dlekS"],
             },
             {
                 name: "detailed",
-                description: ["View detailed map?"],
+                description: "command.map.arg.detailed",
                 type: "string",
                 level: "optional",
                 values: ["True", "False"],
@@ -154,80 +153,76 @@ export const commands: Command[] = [
     },
     {
         command: "stats",
-        description: [
-            "Get a link to the ",
-            <a href="/stats">stats page</a>,
-            ", where stats for this server are shown and reset",
-        ],
+        description: "command.stats.description",
         example: "stats",
     },
     {
         command: "premium",
-        description: ["View information about AutoMuteUs Premium"],
+        description: "command.premium.description",
         subcommands: [
             {
                 command: "info",
-                description: ["View AutoMuteUs Premium information"],
+                description: "command.premium.info.description",
                 example: "premium info",
             },
             {
                 command: "invites",
-                description: ["Invite AutoMuteUs premium workers"],
+                description: "command.premium.invites.description",
                 example: "premium invites",
             },
         ],
     },
     {
         command: "debug",
-        description: ["View and clear debug information for AutoMuteUs"],
+        description: "command.debug.description",
         subcommands: [
             {
                 command: "view user",
-                description: ["User cached names"],
+                description: "command.debug.viewUser.description",
                 example: "debug view user user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
                         level: "required",
-                        description: ["User to pull cache for"],
+                        description: "command.debug.viewUser.arg.user",
                         type: "Discord @User",
                     },
                 ],
             },
             {
                 command: "clear",
-                description: ["Clear cached user names"],
+                description: "command.debug.clear.description",
                 example: "debug clear user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
                         level: "required",
-                        description: ["User to clear cache for"],
+                        description: "command.debug.clear.arg.user",
                         type: "Discord @User",
                     },
                 ],
             },
             {
                 command: "unmute-all",
-                description: ["Unmute all players"],
+                description: "command.debug.unmuteAll.description",
                 example: "debug unmute-all",
             },
             {
                 command: "unmute",
-                description: ["Unmute myself, or a specific user"],
+                description: "command.debug.unmute.description",
                 example: "debug unmute user:@Yoshirahh",
                 arguments: [
                     {
                         name: "user",
                         level: "optional",
-                        description: ["User who should be unmuted/undeafened"],
+                        description: "command.debug.unmute.arg.user",
                         type: "Discord @User",
                     },
                 ],
             },
             {
                 command: "view game-state",
-                description: ["Print out the current game state"],
+                description: "command.debug.viewGameState.description",
                 example: "debug view game-state",
             },
         ],

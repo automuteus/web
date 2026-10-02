@@ -1,11 +1,13 @@
 import React from "react";
+import type { TFunction } from "i18next";
 import Link from "next/link";
+import { Trans, useTranslation } from "react-i18next";
 // Cards, avatars, badges, and the locked-section overlay are shared with the server stats page.
 import shared from "./GuildStatsView.module.css";
 import styles from "./MatchSummaryView.module.css";
 import { StatsPlayer, avatarURL, defaultAvatar, playerName } from "./guild-stats";
 import {
-    COLORS, MAP_NAMES, REGION_NAMES, RESULT_NAMES, MatchEvent, MatchPlayer, MatchSummary, MatchTimeline, Role,
+    COLORS, MAP_NAMES, MatchEvent, MatchPlayer, MatchSummary, MatchTimeline, Region, Role,
     clock, duration, timelineSections,
 } from "./match-summary";
 import { userStatsHref } from "./user-stats";
@@ -27,30 +29,42 @@ const roleClass: Record<Role, string> = { crewmate: shared.crew, impostor: share
  * voted out. A player whose color nothing reported gets a hollow outline instead. The images are small copies of
  * the bot's assets/emojis, in public/images/crewmates. */
 export function Crewmate({ color, dead = false, gone = false, locked = false, size = 28 }: { color?: string; dead?: boolean; gone?: boolean; locked?: boolean; size?: number }): React.ReactElement {
+    const { t } = useTranslation();
     const box = { width: size, height: size };
-    if (!color || !COLORS.includes(color)) return <span className={styles.crewmate} style={box} title="Color not reported" aria-hidden="true"><span className={styles.noColor} /></span>;
+    if (!color || !COLORS.includes(color)) return <span className={styles.crewmate} style={box} title={t("match.crewmate.noColor")} aria-hidden="true"><span className={styles.noColor} /></span>;
+    // The tooltip names the color mid-sentence, so it has its own (in English, lower case) form.
+    const name = t(`match.crewmate.colorName.${color}`);
     // Locked is always the standing sprite, blurred: a blurred body would still show its wide outline.
-    if (locked) return <span className={`${styles.crewmate} ${styles.lockedSprite}`} style={box} title={`Color: ${color}`} aria-hidden="true">
+    if (locked) return <span className={`${styles.crewmate} ${styles.lockedSprite}`} style={box} title={t("match.crewmate.color", { color: name })} aria-hidden="true">
         <img src={`/images/crewmates/${color}.png`} alt="" width={size} height={size} loading="lazy" />
     </span>;
-    return <span className={`${styles.crewmate} ${gone ? styles.gone : ""}`} style={box} title={dead ? `${color}, dead` : color} aria-hidden="true">
+    return <span className={`${styles.crewmate} ${gone ? styles.gone : ""}`} style={box} title={dead ? t("match.crewmate.dead", { color: name }) : name} aria-hidden="true">
         <img src={`/images/crewmates/${color}${dead ? "-dead" : ""}.png`} alt="" width={size} height={size} loading="lazy" />
     </span>;
 }
 
 /** A roster player's Discord account, linking to their player page in this server. */
 function Discord({ players, id, me, href }: { players: Players; id: string; me: boolean; href: ReturnType<typeof userStatsHref> }): React.ReactElement {
+    const { t } = useTranslation();
     const fallback = defaultAvatar(id);
     const name = playerName(players, id);
     return <span className={styles.discord}>
         <img className={shared.avatar} src={avatarURL(players, id)} alt="" width={20} height={20} loading="lazy" referrerPolicy="no-referrer"
             onError={(e) => { if (e.currentTarget.src !== fallback) e.currentTarget.src = fallback; }} />
-        <Link className={shared.nameLink} href={href}>{name ? <span className={shared.name} title={`User ID ${id}`}>{name}</span> : <code className={shared.unknown}>{id}</code>}</Link>
-        {me && <span className={shared.meBadge}>You</span>}
+        <Link className={shared.nameLink} href={href}>{name ? <span className={shared.name} title={t("shared.userId", { id })}>{name}</span> : <code className={shared.unknown}>{id}</code>}</Link>
+        {me && <span className={shared.meBadge}>{t("shared.you")}</span>}
     </span>;
 }
 
-const fateText: Record<string, string> = { death: "Killed", exile: "Voted out", disconnect: "Disconnected" };
+/** The events that end a player's match. */
+const FATES: readonly string[] = ["death", "exile", "disconnect"];
+
+/** "Killed 4:10": how and when a player's match ended. */
+function FateText({ event }: { event: MatchEvent }): React.ReactElement {
+    const { t } = useTranslation();
+    const key = event.type === "death" ? "match.fate.killed" : event.type === "exile" ? "match.fate.votedOut" : "match.fate.disconnected";
+    return <Trans t={t} i18nKey={key} values={{ offset: clock(event.offset) }} components={{ time: <time /> }} />;
+}
 
 /** How a player's match ended, from the timeline: the first death, exile, or disconnect naming them. A linked
  * player is matched by user ID, which the API only sets for roster players; anyone else by in-game name and color. */
@@ -58,7 +72,7 @@ function fates(timeline: MatchTimeline | undefined): (p: MatchPlayer) => MatchEv
     const byUser = new Map<string, MatchEvent>();
     const byPlayer = new Map<string, MatchEvent>();
     for (const e of timeline?.events ?? []) {
-        if (!fateText[e.type]) continue;
+        if (!FATES.includes(e.type)) continue;
         if (e.userId && !byUser.has(e.userId)) byUser.set(e.userId, e);
         const key = `${e.name ?? ""}\u0000${e.color ?? ""}`;
         if (e.name && !byPlayer.has(key)) byPlayer.set(key, e);
@@ -68,22 +82,23 @@ function fates(timeline: MatchTimeline | undefined): (p: MatchPlayer) => MatchEv
 
 function Team({ role, rows, match, currentUserId, preview, fate }: { role: Role; rows: MatchPlayer[]; match: MatchSummary; currentUserId?: string; preview: boolean; fate: (p: MatchPlayer) => MatchEvent | undefined }): React.ReactElement {
     // Who died comes only from the premium timeline, so without it every player's sprite is locked.
+    const { t } = useTranslation();
     const locked = !match.timeline;
-    const title = role === "impostor" ? "Impostors" : "Crewmates";
+    const title = role === "impostor" ? t("match.team.impostors") : t("match.team.crewmates");
     const won = match.winner === role;
     return <section className={`${shared.card} ${styles.team} ${roleClass[role]}`} aria-label={title}>
-        <h2><span className={`${shared.swatch} ${roleClass[role]}`} aria-hidden="true" />{title}{won && <span className={styles.winBadge}>Won</span>}</h2>
-        {rows.length === 0 ? <p className={shared.empty}>No {title.toLowerCase()} recorded.</p> : <ul className={styles.roster}>
+        <h2><span className={`${shared.swatch} ${roleClass[role]}`} aria-hidden="true" />{title}{won && <span className={styles.winBadge}>{t("shared.outcome.won")}</span>}</h2>
+        {rows.length === 0 ? <p className={shared.empty}>{role === "impostor" ? t("match.team.noImpostors") : t("match.team.noCrewmates")}</p> : <ul className={styles.roster}>
             {rows.map((p, i) => {
                 const me = !!currentUserId && p.userId === currentUserId;
                 const end = fate(p);
                 return <li key={`${p.userId ?? p.name}:${i}`} className={me ? styles.me : undefined}>
                     <Crewmate color={p.color} dead={end?.type === "death" || end?.type === "exile"} gone={end?.type === "disconnect"} locked={locked} size={32} />
                     <span className={styles.who}>
-                        <span className={styles.ingame}>{p.name || <em>Unnamed</em>}</span>
-                        {p.userId ? <Discord players={match.players} id={p.userId} me={me} href={userStatsHref(match.guildId, p.userId, preview)} /> : <span className={styles.unlinked}>Not linked</span>}
+                        <span className={styles.ingame}>{p.name || <em>{t("shared.unnamed")}</em>}</span>
+                        {p.userId ? <Discord players={match.players} id={p.userId} me={me} href={userStatsHref(match.guildId, p.userId, preview)} /> : <span className={styles.unlinked}>{t("match.team.notLinked")}</span>}
                     </span>
-                    {end && <span className={styles.fate}>{fateText[end.type]} <time>{clock(end.offset)}</time></span>}
+                    {end && <span className={styles.fate}><FateText event={end} /></span>}
                 </li>;
             })}
         </ul>}
@@ -91,28 +106,32 @@ function Team({ role, rows, match, currentUserId, preview, fate }: { role: Role;
 }
 
 function EventRow({ event, players }: { event: MatchEvent; players: Players }): React.ReactElement {
-    const verb = event.type === "death" ? "was killed" : event.type === "exile" ? "was voted out" : "disconnected";
+    const { t } = useTranslation();
+    const key = event.type === "death" ? "match.event.killed" : event.type === "exile" ? "match.event.votedOut" : "match.event.disconnected";
+    const aka = event.userId && playerName(players, event.userId);
     return <li className={`${styles.event} ${styles[event.type]}`}>
         <time className={styles.offset}>{clock(event.offset)}</time>
         <Crewmate color={event.color} dead={event.type === "death"} gone={event.type === "disconnect"} size={24} />
-        <span><strong>{event.name || "A player"}</strong> {verb}{event.userId && playerName(players, event.userId) ? <span className={styles.aka}> ({playerName(players, event.userId)})</span> : null}</span>
+        <span><Trans t={t} i18nKey={key} values={{ name: event.name || t("match.event.someone") }} components={{ strong: <strong /> }} />{aka ? <span className={styles.aka}>{t("match.event.aka", { name: aka })}</span> : null}</span>
     </li>;
 }
 
 function Timeline({ timeline, players }: { timeline: MatchTimeline; players: Players }): React.ReactElement {
+    const { t } = useTranslation();
     const sections = timelineSections(timeline.events);
-    return <section className={`${shared.card} ${styles.timeline}`} aria-label="Timeline">
-        <h2>Timeline</h2>
+    const strong = { strong: <strong /> };
+    return <section className={`${shared.card} ${styles.timeline}`} aria-label={t("match.timeline.title")}>
+        <h2>{t("match.timeline.title")}</h2>
         <ul className={styles.counts}>
-            <li><strong>{timeline.meetings}</strong> {timeline.meetings === 1 ? "meeting" : "meetings"}</li>
-            <li><strong>{timeline.deaths}</strong> {timeline.deaths === 1 ? "kill" : "kills"}</li>
-            <li><strong>{timeline.exiles}</strong> voted out</li>
-            {timeline.disconnects > 0 && <li><strong>{timeline.disconnects}</strong> disconnected</li>}
+            <li><Trans t={t} i18nKey="match.timeline.meetings" count={timeline.meetings} components={strong} /></li>
+            <li><Trans t={t} i18nKey="match.timeline.kills" count={timeline.deaths} components={strong} /></li>
+            <li><Trans t={t} i18nKey="match.timeline.votedOut" count={timeline.exiles} components={strong} /></li>
+            {timeline.disconnects > 0 && <li><Trans t={t} i18nKey="match.timeline.disconnected" count={timeline.disconnects} components={strong} /></li>}
         </ul>
-        {sections.length === 0 ? <p className={shared.empty}>The capture didn&apos;t report anything for this match.</p> : <ol className={styles.sections}>
+        {sections.length === 0 ? <p className={shared.empty}>{t("match.timeline.empty")}</p> : <ol className={styles.sections}>
             {sections.map((s) => <li key={`${s.kind}${s.number}`} className={`${styles.section} ${s.kind === "meeting" ? styles.meeting : styles.round}`}>
-                <div className={styles.sectionHead}><span>{s.kind === "meeting" ? `Meeting ${s.number}` : `Round ${s.number}`}</span><time>{clock(s.offset)}</time></div>
-                {s.events.length === 0 ? <p className={styles.quiet}>{s.kind === "meeting" ? "No one was voted out." : "No one died."}</p>
+                <div className={styles.sectionHead}><span>{s.kind === "meeting" ? t("match.timeline.meeting", { number: s.number }) : t("match.timeline.round", { number: s.number })}</span><time>{clock(s.offset)}</time></div>
+                {s.events.length === 0 ? <p className={styles.quiet}>{s.kind === "meeting" ? t("match.timeline.noExile") : t("match.timeline.noDeath")}</p>
                     : <ul className={styles.events}>{s.events.map((e, i) => <EventRow key={i} event={e} players={players} />)}</ul>}
             </li>)}
         </ol>}
@@ -129,59 +148,68 @@ function sampleTimeline(): MatchTimeline {
 }
 
 function LockedTimeline({ guildId, premiumHref }: { guildId: string; premiumHref: string }): React.ReactElement {
+    const { t } = useTranslation();
     return <div className={shared.locked}>
         <div className={shared.lockOverlay}>
-            <section className={shared.lockCard} aria-label="Timeline">
-                <h2>The match timeline is a premium feature</h2>
-                <p>See how the match played out: every round and meeting, who was killed and when, and who was voted out. Servers with AutoMuteUs Premium get the timeline for every match.</p>
-                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>Get Premium for this server</Link>
+            <section className={shared.lockCard} aria-label={t("match.timeline.title")}>
+                <h2>{t("match.locked.title")}</h2>
+                <p>{t("match.locked.body")}</p>
+                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>{t("shared.getPremium")}</Link>
             </section>
         </div>
         <div className={shared.lockedContent} aria-hidden="true"><Timeline timeline={sampleTimeline()} players={{}} /></div>
     </div>;
 }
 
-function headline(match: MatchSummary): string {
-    if (match.status === "inProgress") return "Match in progress";
-    if (match.status === "aborted") return "Match ended early";
-    if (match.winner === "crewmate") return "Crewmates win";
-    if (match.winner === "impostor") return "Impostors win";
-    return "No winner recorded";
+function headline(match: MatchSummary, t: TFunction): string {
+    if (match.status === "inProgress") return t("match.headline.inProgress");
+    if (match.status === "aborted") return t("match.headline.aborted");
+    if (match.winner === "crewmate") return t("match.headline.crewmatesWin");
+    if (match.winner === "impostor") return t("match.headline.impostorsWin");
+    return t("match.headline.noWinner");
+}
+
+function regionName(region: Region, t: TFunction): string {
+    if (region === "na") return t("match.region.na");
+    if (region === "eu") return t("match.region.eu");
+    return t("match.region.as");
 }
 
 function Header({ match }: { match: MatchSummary }): React.ReactElement {
+    const { t, i18n } = useTranslation();
     const started = new Date(match.startTime * 1000);
     const facts: Array<[string, React.ReactNode]> = [];
-    if (match.map) facts.push(["Map", MAP_NAMES[match.map]]);
-    if (match.region) facts.push(["Region", REGION_NAMES[match.region]]);
-    facts.push(["Started", <time key="t" dateTime={started.toISOString()}>{started.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</time>]);
-    if (match.endTime !== undefined && match.endTime >= match.startTime) facts.push(["Length", duration(match.endTime - match.startTime)]);
+    if (match.map) facts.push([t("shared.column.map"), MAP_NAMES[match.map]]);
+    if (match.region) facts.push([t("match.facts.region"), regionName(match.region, t)]);
+    facts.push([t("match.facts.started"), <time key="t" dateTime={started.toISOString()}>{started.toLocaleString(i18n.language, { dateStyle: "medium", timeStyle: "short" })}</time>]);
+    if (match.endTime !== undefined && match.endTime >= match.startTime) facts.push([t("match.facts.length"), duration(match.endTime - match.startTime, t)]);
     const side = match.winner ? roleClass[match.winner] : shared.none;
-    return <section className={`${shared.card} ${styles.hero} ${side}`} aria-label="Match">
-        <div className={styles.matchId}>Match {match.matchId}</div>
-        <h2 className={styles.headline}>{headline(match)}</h2>
-        {match.status === "finished" && match.result && <p className={styles.result}>{RESULT_NAMES[match.result]}</p>}
-        {match.status === "aborted" && <p className={styles.result}>The match was ended before the game reported a result, so it doesn&apos;t count toward stats.</p>}
+    return <section className={`${shared.card} ${styles.hero} ${side}`} aria-label={t("match.label")}>
+        <div className={styles.matchId}>{t("match.id", { id: match.matchId })}</div>
+        <h2 className={styles.headline}>{headline(match, t)}</h2>
+        {match.status === "finished" && match.result && <p className={styles.result}>{t(`shared.result.${match.result}`)}</p>}
+        {match.status === "aborted" && <p className={styles.result}>{t("match.abortedNote")}</p>}
         <dl className={styles.facts}>{facts.map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
     </section>;
 }
 
 /** Renders one match. Pure: everything shown comes from the document. */
 export default function MatchSummaryView({ match, premiumHref = "/premium", currentUserId, preview = false }: Props): React.ReactElement {
+    const { t } = useTranslation();
     const impostors = match.roster.filter((p) => p.role === "impostor");
     const crewmates = match.roster.filter((p) => p.role === "crewmate");
     const fate = fates(match.timeline);
     return <div>
         <Header match={match} />
         {match.roster.length === 0 ? <p className={shared.meta}>{match.status === "inProgress"
-            ? "The roster appears when the match ends."
-            : "No players were recorded for this match."}</p> : <>
+            ? t("match.roster.later")
+            : t("match.roster.none")}</p> : <>
             <div className={styles.teams}>
                 <Team role="impostor" rows={impostors} match={match} currentUserId={currentUserId} preview={preview} fate={fate} />
                 <Team role="crewmate" rows={crewmates} match={match} currentUserId={currentUserId} preview={preview} fate={fate} />
             </div>
-            {!match.timeline && <p className={`${shared.meta} ${styles.premiumNote}`}><Link href={{ pathname: premiumHref, query: { guild: match.guildId } }}>Premium</Link> shows who was killed or voted out, and when.</p>}
-            {!match.rosterComplete && <p className={shared.meta}>Only players linked to AutoMuteUs are listed. This match was recorded before the bot kept the full lobby, so anyone unlinked or opted out is missing.</p>}
+            {!match.timeline && <p className={`${shared.meta} ${styles.premiumNote}`}><Trans t={t} i18nKey="match.premiumNote" components={{ premium: <Link href={{ pathname: premiumHref, query: { guild: match.guildId } }} /> }} /></p>}
+            {!match.rosterComplete && <p className={shared.meta}>{t("match.roster.incomplete")}</p>}
         </>}
         {match.timeline ? <Timeline timeline={match.timeline} players={match.players} />
             : match.status !== "aborted" && <LockedTimeline guildId={match.guildId} premiumHref={premiumHref} />}

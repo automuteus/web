@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 import { faCamera, faCrown } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
+import { useTranslation } from "react-i18next";
 
 import AppLayout from "../components/layout/AppLayout";
 import ServerStat from "../components/index/ServerStat";
@@ -14,6 +15,7 @@ import crewmate from "../public/images/svg/amus_crewmate_robo.svg";
 const STATS_REFRESH_MS = 10_000;
 
 export default function Home(): React.ReactElement {
+    const { t } = useTranslation("home");
     // Fetched in the browser rather than at build time so the numbers are
     // always current and keep updating while the page is open.
     const [live, setLive] = useState<ServerStats | undefined>();
@@ -39,26 +41,30 @@ export default function Home(): React.ReactElement {
     const stats = [
         {
             stat: live?.totalGuilds,
+            id: "Servers",
             base: 0,
-            label: "Servers",
+            label: t("stats.servers"),
             format: "0a",
         },
         {
             stat: live?.activeGames,
+            id: "Active Games",
             base: 0,
-            label: "Active Games",
+            label: t("stats.activeGames"),
             format: "0",
         },
         {
             stat: live?.totalUsers,
+            id: "Users",
             base: 0,
-            label: "Users",
+            label: t("stats.users"),
             format: "0a",
         },
         {
             stat: live?.totalGames,
+            id: "Games Muted",
             base: 262000,
-            label: "Games Muted",
+            label: t("stats.gamesMuted"),
             format: "0.00a",
         },
     ];
@@ -67,10 +73,9 @@ export default function Home(): React.ReactElement {
         <AppLayout theatric>
             <div className="d-flex flex-md-row flex-column flex-grow-1 justify-content-between align-items-center">
                 <div className="p-4">
-                    <h1>Use AutoMuteUs for hands free muting</h1>
+                    <h1>{t("heading")}</h1>
                     <div className="subtitle mb-3">
-                        AutoMuteUs is a Discord Bot that collects Among Us game
-                        data to automatically mute/unmute players during games!
+                        {t("subtitle")}
                     </div>
 
                     <div id="home-links">
@@ -90,7 +95,7 @@ export default function Home(): React.ReactElement {
                                 size="lg"
                                 className="me-2"
                             />
-                            Add to Discord
+                            {t("actions.addToDiscord")}
                         </button>
                         <a
                             href="https://github.com/automuteus/capture-install#readme"
@@ -101,7 +106,7 @@ export default function Home(): React.ReactElement {
                                 size="lg"
                                 className="me-2"
                             />
-                            Capture Software
+                            {t("actions.capture")}
                         </a>
 
                         <Link href="/premium">
@@ -111,14 +116,14 @@ export default function Home(): React.ReactElement {
                                     size="lg"
                                     className="me-2"
                                 />
-                                AutoMuteUs Premium
+                                {t("actions.premium")}
                             </button>
                         </Link>
                     </div>
 
                     <div id="home-stats">
                         {stats.map((v) => (
-                            <ServerStat key={v.label} {...v} />
+                            <ServerStat key={v.id} {...v} />
                         ))}
                     </div>
                 </div>
@@ -129,7 +134,7 @@ export default function Home(): React.ReactElement {
                         type="image/svg+xml"
                         data={crewmate.src}
                         className="floating"
-                        aria-label="AutoMuteUs"
+                        aria-label={t("crewmateLabel")}
                     />
                 </div>
             </div>

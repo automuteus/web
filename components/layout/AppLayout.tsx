@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Head from "next/head";
 import React, { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import Footer from "./Footer";
 import Header from "./Header";
 import Metadata from "./Metadata";
@@ -22,11 +23,12 @@ export default function AppLayout({
     metaDesc,
     metaImg,
 }: Props): React.ReactElement {
+    const { t } = useTranslation("common");
     return (
         <>
             <Head>
                 <title>
-                    {title ?? "AutoMuteUs - Hands Free Among Us Muting"}
+                    {title ?? t("layout.title")}
                 </title>
                 <Metadata metaImg={metaImg} metaDesc={metaDesc} metaTitle={metaTitle ?? title} />
             </Head>

@@ -1,6 +1,7 @@
 import { Guild } from "../../types/Guild";
 import React, { BaseSyntheticEvent, useState } from "react";
 import { Dropdown } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import GuildEntry from "./GuildEntry";
 
 interface Props {
@@ -11,13 +12,15 @@ interface Props {
 
 export default function GuildSelect(props: Props): React.ReactElement {
     const { guilds, onSelect, initial } = props;
+    const { t } = useTranslation("premium");
 
     let g;
     if (guilds) g = guilds.find((v) => v.id === initial);
 
-    const [btnText, setBtnText] = useState<string>(
-        initial ? undefined : `<span>Select Server</span>`
-    );
+    // Whether the toggle prompts for a server; decided once, like the selection it stands in for.
+    const [prompt] = useState<boolean>(!initial);
+    // The picked entry's markup, copied into the toggle.
+    const [btnText, setBtnText] = useState<string>();
 
     const handleSelect = (key: any, e: BaseSyntheticEvent) => {
         setBtnText((e.target as HTMLElement).innerHTML);
@@ -26,7 +29,7 @@ export default function GuildSelect(props: Props): React.ReactElement {
 
     if (guilds.length <= 0)
         return (
-            <div className="d-flex align-items-center text-right mb-2 " title="Try reloading the page."><button className="btn btn-dark" disabled>No servers found.</button></div>
+            <div className="d-flex align-items-center text-right mb-2 " title={t("guildSelect.reload")}><button className="btn btn-dark" disabled>{t("guildSelect.noServers")}</button></div>
         );
 
     return (
@@ -42,6 +45,10 @@ export default function GuildSelect(props: Props): React.ReactElement {
                                 __html: btnText,
                             }}
                         ></span>
+                    ) : prompt ? (
+                        <span>
+                            <span>{t("guildSelect.prompt")}</span>
+                        </span>
                     ) : (
                         g && <GuildEntry {...g} key={g.id} unwrapped />
                     )}
