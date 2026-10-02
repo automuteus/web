@@ -21,14 +21,13 @@
       "rank": "#"
     },
     "empty": {
+      "noGames": "尚未记录任何游戏。",
       "crewmateDuo_other": "还没有任何两名玩家一起当过 {{count}} 场船员。",
       "games_other": "还没有人玩满 {{count}} 场游戏。",
       "impostorDuo_other": "还没有任何两名玩家一起当过 {{count}} 场内鬼。",
       "killedBy_other": "还没有船员和内鬼共同参与过 {{count}} 场游戏。",
-      "noGames": "尚未记录任何游戏。",
       "roleGames_other": "还没有人以此身份玩满 {{count}} 场游戏。"
     },
-    "games_other": "{{count}} 场游戏",
     "leaderboards": {
       "minimums": "胜率榜只统计至少玩过 {{games}}的玩家；内鬼搭档需一起玩过 {{duoGames}}。",
       "title": "排行榜"
@@ -47,12 +46,12 @@
       "and": " & ",
       "bestDuo": "最佳搭档",
       "bestWinrate": "最高胜率",
-      "firstToDie_other": "{{count}} 场游戏中 {{deaths}} 次最先死亡",
       "firstToGo": "最先出局",
       "regular": "服务器常客",
       "title": "名人堂",
       "topCrewmate": "顶尖船员",
       "topImpostor": "顶尖内鬼",
+      "firstToDie_other": "{{count}} 场游戏中 {{deaths}} 次最先死亡",
       "winsOf_other": "{{count}} 场游戏中赢了 {{wins}} 场",
       "winsOfCrewmate_other": "{{count}} 场船员游戏中赢了 {{wins}} 场",
       "winsOfImpostor_other": "{{count}} 场内鬼游戏中赢了 {{wins}} 场",
@@ -64,7 +63,8 @@
       "impostorWins": "内鬼胜场",
       "label": "概览"
     },
-    "updated": "更新于 <time>{{when}}</time>。统计数据只计入玩家已链接到机器人的游戏，大约每分钟刷新一次。"
+    "updated": "更新于 <time>{{when}}</time>。统计数据只计入玩家已链接到机器人的游戏，大约每分钟刷新一次。",
+    "games_other": "{{count}} 场游戏"
   },
   "match": {
     "abortedNote": "这场比赛在游戏报告结果之前就结束了，因此不计入统计。",
@@ -94,10 +94,10 @@
       "noColor": "未报告颜色"
     },
     "duration": {
-      "hours_other": "{{count}} 小时",
       "hoursMinutes": "{{hours}} {{minutes}}",
-      "minutes_other": "{{count}} 分钟",
       "minutesSeconds": "{{minutes}} {{seconds}}",
+      "hours_other": "{{count}} 小时",
+      "minutes_other": "{{count}} 分钟",
       "seconds_other": "{{count}} 秒"
     },
     "event": {
@@ -149,15 +149,15 @@
       "notLinked": "未链接"
     },
     "timeline": {
-      "disconnected_other": "<strong>{{count}}</strong> 人断开连接",
       "empty": "捕获软件没有报告这场比赛的任何内容。",
-      "kills_other": "<strong>{{count}}</strong> 次击杀",
       "meeting": "第 {{number}} 次会议",
-      "meetings_other": "<strong>{{count}}</strong> 次会议",
       "noDeath": "无人死亡。",
       "noExile": "无人被投票驱逐。",
       "round": "第 {{number}} 轮",
       "title": "时间线",
+      "disconnected_other": "<strong>{{count}}</strong> 人断开连接",
+      "kills_other": "<strong>{{count}}</strong> 次击杀",
+      "meetings_other": "<strong>{{count}}</strong> 次会议",
       "votedOut_other": "<strong>{{count}}</strong> 人被投票驱逐"
     }
   },
@@ -216,12 +216,12 @@
         "title": "重置服务器统计"
       },
       "resetDone": "服务器统计已重置。",
-      "resetDoneGames_other": "服务器统计已重置，删除了 {{count}} 场游戏。",
       "signedOut": {
         "body": "使用 Discord 登录，即可查看你所在服务器的统计数据。",
         "heading": "看看你的船员们表现如何"
       },
-      "title": "服务器统计 - AutoMuteUs"
+      "title": "服务器统计 - AutoMuteUs",
+      "resetDoneGames_other": "服务器统计已重置，删除了 {{count}} 场游戏。"
     },
     "user": {
       "building": "正在生成此玩家的统计数据。大型服务器可能需要一两分钟，页面会自动更新。",
@@ -242,12 +242,12 @@
         "selfTitle": "重置你的统计"
       },
       "resetDone": "玩家统计已重置。",
-      "resetDoneGames_other": "玩家统计已重置，已从 {{count}} 场游戏中移除。",
       "signedOut": {
         "body": "使用 Discord 登录，即可查看你所在服务器的玩家统计。",
         "heading": "看看你的表现"
       },
-      "title": "玩家统计 - AutoMuteUs"
+      "title": "玩家统计 - AutoMuteUs",
+      "resetDoneGames_other": "玩家统计已重置，已从 {{count}} 场游戏中移除。"
     }
   },
   "shared": {
@@ -282,7 +282,6 @@
       "winrate": "胜率",
       "wins": "胜场"
     },
-    "games_other": "{{count, number}} 场游戏",
     "getPremium": "为此服务器开通高级版",
     "mapNotRecorded": "未记录地图",
     "number": "{{value, number}}",
@@ -308,17 +307,18 @@
     "unknownPlayer": "暂时还不知道此玩家的名字",
     "unnamed": "未命名",
     "userId": "用户 ID {{id}}",
-    "you": "你"
+    "you": "你",
+    "games_other": "{{count, number}} 场游戏"
   },
   "user": {
     "activity": {
       "barEarlier": "{{weeks}}：{{games}}",
-      "barThisWeek_other": "过去 7 天内 {{count, number}} 场游戏",
       "hint": "最近 {{weeks}}内共 {{games}}。",
       "label": "每周游戏场数，从早到晚",
-      "lastWeeks_other": "{{count}} 周",
       "thisWeek": "本周",
       "title": "活跃度",
+      "barThisWeek_other": "过去 7 天内 {{count, number}} 场游戏",
+      "lastWeeks_other": "{{count}} 周",
       "weeksAgo_other": "{{count}} 周前",
       "weeksBefore_other": "再往前 {{count}} 周"
     },
@@ -333,15 +333,15 @@
       "detailStillWon": "{{detail}} · 其中所在阵营仍赢下了 {{rate}}",
       "hint": "玩家被击杀或被投票驱逐的频率，以及在这些游戏中所在阵营仍然获胜的比例。",
       "killedAsCrewmate": "作为船员被击杀",
-      "ofCrewmateGames_other": "{{count, number}} 场船员游戏中 {{times}} 次",
-      "ofImpostorGames_other": "{{count, number}} 场内鬼游戏中 {{times}} 次",
       "title": "游戏如何收场",
       "votedOutAsCrewmate": "作为船员被投票驱逐",
-      "votedOutAsImpostor": "作为内鬼被投票驱逐"
+      "votedOutAsImpostor": "作为内鬼被投票驱逐",
+      "ofCrewmateGames_other": "{{count, number}} 场船员游戏中 {{times}} 次",
+      "ofImpostorGames_other": "{{count, number}} 场内鬼游戏中 {{times}} 次"
     },
     "firstTarget": {
-      "detail_other": "{{count, number}} 场船员游戏中 {{deaths}} 次",
-      "label": "最先死亡"
+      "label": "最先死亡",
+      "detail_other": "{{count, number}} 场船员游戏中 {{deaths}} 次"
     },
     "form": {
       "dotLost": "比赛 {{id}}：失败",
@@ -356,9 +356,9 @@
       "since": "自 <first>{{first}}</first> 开始游戏 · 最近一局 <last>{{last}}</last>"
     },
     "killedBy": {
-      "empty_other": "还没有内鬼与此玩家共同参与过 {{count, number}} 场游戏。",
       "hint": "Among Us 不会报告是谁击杀的，因此作为船员的每次死亡都会算在该局所有内鬼头上。",
-      "title": "有这位内鬼在场时死得最多"
+      "title": "有这位内鬼在场时死得最多",
+      "empty_other": "还没有内鬼与此玩家共同参与过 {{count, number}} 场游戏。"
     },
     "locked": {
       "body": "查看连胜纪录、服务器排名、存活率和最先死亡率、最佳和最差队友、地图、活跃度等等。拥有 AutoMuteUs 高级版的服务器可以查看此页面上的所有部分。",
@@ -383,17 +383,17 @@
       "title": "最常一起玩"
     },
     "ranks": {
-      "byGames_other": "按场数，共 {{count, number}} 名玩家",
       "crewmateWinrate": "船员胜率",
       "hash": "#{{position}}",
-      "hint_other": "胜率排名只计入以该身份至少玩过 {{count, number}} 场游戏的玩家。",
       "impostorWinrate": "内鬼胜率",
       "noGames": "暂无游戏",
       "notRanked": "未上榜",
       "overallWinrate": "总胜率",
-      "position_other": "<strong>#{{position}}</strong> <span>/ 共 {{count, number}} 人</span>",
       "serverRank": "服务器排名",
-      "title": "服务器排名"
+      "title": "服务器排名",
+      "byGames_other": "按场数，共 {{count, number}} 名玩家",
+      "hint_other": "胜率排名只计入以该身份至少玩过 {{count, number}} 场游戏的玩家。",
+      "position_other": "<strong>#{{position}}</strong> <span>/ 共 {{count, number}} 人</span>"
     },
     "recent": {
       "empty": "尚无已结束的比赛。",
@@ -415,16 +415,16 @@
       "wonOf_other": "{{count, number}} 场中赢了 {{wins}} 场"
     },
     "survival": {
-      "detail_other": "{{count, number}} 场游戏中有 {{survived}} 场存活到最后",
-      "label": "船员存活率"
+      "label": "船员存活率",
+      "detail_other": "{{count, number}} 场游戏中有 {{survived}} 场存活到最后"
     },
     "teammates": {
       "bestCrewmate": "最佳船员队友",
       "bestImpostor": "最佳内鬼队友",
-      "emptyCrewmate_other": "还没有人与此玩家一起当过 {{count, number}} 场船员。",
-      "emptyImpostor_other": "还没有人与此玩家一起当过 {{count, number}} 场内鬼。",
       "worstCrewmate": "最差船员队友",
-      "worstImpostor": "最差内鬼队友"
+      "worstImpostor": "最差内鬼队友",
+      "emptyCrewmate_other": "还没有人与此玩家一起当过 {{count, number}} 场船员。",
+      "emptyImpostor_other": "还没有人与此玩家一起当过 {{count, number}} 场内鬼。"
     },
     "updated": "更新于 <time>{{when}}</time>。统计数据只计入该玩家已链接到机器人的游戏，大约每分钟刷新一次。"
   }
