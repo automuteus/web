@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "リンクを解除するユーザー"
+        "user": "User to unlink"
       },
       "description": "Discord ユーザーとゲーム内の色のリンクを解除します"
     }
