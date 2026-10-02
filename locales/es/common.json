@@ -1,75 +1,75 @@
 {
   "errorLayout": {
-    "heading": "There's been some kind of error!",
-    "report": "Please report this on our Discord Support Server"
+    "heading": "¡Se ha producido un error!",
+    "report": "Infórmalo en nuestro servidor de soporte de Discord"
   },
   "guildPage": {
     "botAbsent": {
-      "added": "I've added it",
-      "heading": "AutoMuteUs isn't in this server yet",
-      "invite": "Invite AutoMuteUs"
+      "added": "Ya lo he añadido",
+      "heading": "AutoMuteUs aún no está en este servidor",
+      "invite": "Invitar a AutoMuteUs"
     },
-    "checkingBot": "Checking for AutoMuteUs in this server...",
-    "checkingLogin": "Checking your Discord login...",
+    "checkingBot": "Comprobando si AutoMuteUs está en este servidor...",
+    "checkingLogin": "Comprobando tu inicio de sesión de Discord...",
     "error": {
-      "busy": "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.",
-      "expired": "Your Discord login has expired. Sign in again to continue.",
-      "forbidden": "You're not a member of this server, or Discord has not granted the required access.",
-      "generic": "We couldn't load this information. Please try again.",
-      "preparing": "AutoMuteUs is still preparing this data, or Discord is temporarily busy. Please wait a minute and try again."
+      "busy": "Discord o AutoMuteUs está ocupado en este momento. Espera un momento y vuelve a intentarlo.",
+      "expired": "Tu sesión de Discord ha caducado. Vuelve a iniciar sesión para continuar.",
+      "forbidden": "No eres miembro de este servidor o Discord no ha concedido el acceso necesario.",
+      "generic": "No hemos podido cargar esta información. Vuelve a intentarlo.",
+      "preparing": "AutoMuteUs todavía está preparando estos datos o Discord está ocupado en este momento. Espera un minuto y vuelve a intentarlo."
     },
-    "loadingServers": "Loading your servers...",
+    "loadingServers": "Cargando tus servidores...",
     "noServers": {
-      "heading": "No servers found",
-      "refresh": "Refresh servers"
+      "heading": "No se encontraron servidores",
+      "refresh": "Actualizar servidores"
     },
-    "selectServer": "Select a server",
-    "serverLabel": "Discord server",
-    "serverUnavailable": "Server unavailable",
-    "signIn": "Sign in with Discord",
-    "tryAgain": "Try again"
+    "selectServer": "Selecciona un servidor",
+    "serverLabel": "Servidor de Discord",
+    "serverUnavailable": "Servidor no disponible",
+    "signIn": "Iniciar sesión con Discord",
+    "tryAgain": "Reintentar"
   },
   "header": {
-    "checkingLogin": "Checking login...",
-    "language": "Language",
+    "checkingLogin": "Comprobando sesión...",
+    "language": "Idioma",
     "languageOption": "{{flag}} {{native}}",
-    "logoAlt": "AutoMuteUs logo",
+    "logoAlt": "Logotipo de AutoMuteUs",
     "nav": {
-      "commands": "Commands",
+      "commands": "Comandos",
       "github": "GitHub",
-      "home": "Home",
+      "home": "Inicio",
       "premium": "Premium",
-      "settings": "Settings",
-      "stats": "Stats",
-      "support": "Support Server"
+      "settings": "Ajustes",
+      "stats": "Estadísticas",
+      "support": "Servidor de soporte"
     },
-    "signIn": "Sign In",
-    "signOut": "Sign Out",
-    "toggleNav": "Toggle navigation",
-    "unknownUser": "<Unknown>"
+    "signIn": "Iniciar sesión",
+    "signOut": "Cerrar sesión",
+    "toggleNav": "Mostrar u ocultar navegación",
+    "unknownUser": "<Desconocido>"
   },
   "layout": {
-    "title": "AutoMuteUs - Hands Free Among Us Muting"
+    "title": "AutoMuteUs - Silencio automático para Among Us"
   },
   "meta": {
-    "description": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!",
+    "description": "AutoMuteUs es un bot de Discord que recopila datos de las partidas de Among Us para silenciar y quitar el silencio a los jugadores automáticamente durante las partidas.",
     "title": "AutoMuteUs"
   },
   "notFound": {
-    "heading": "This page was an imposter. <br/>",
-    "home": "Go Home",
-    "title": "404 Page Not Found"
+    "heading": "Esta página era un impostor. <br/>",
+    "home": "Volver al inicio",
+    "title": "404: Página no encontrada"
   },
   "resetPanel": {
-    "cancel": "Cancel",
-    "confirmLabel": "Confirm: {{action}}",
+    "cancel": "Cancelar",
+    "confirmLabel": "Confirmar: {{action}}",
     "error": {
-      "failed": "The reset failed. Please try again.",
-      "unreachable": "We couldn't reach AutoMuteUs. Check your connection and try again."
+      "failed": "No se pudo restablecer. Vuelve a intentarlo.",
+      "unreachable": "No hemos podido conectar con AutoMuteUs. Comprueba tu conexión y vuelve a intentarlo."
     },
     "open": "{{action}}...",
-    "resetting": "Resetting...",
-    "typed": "Type <strong>{{word}}</strong> to confirm",
-    "warning": "<confirm/> This can't be undone."
+    "resetting": "Restableciendo...",
+    "typed": "Escribe <strong>{{word}}</strong> para confirmar",
+    "warning": "<confirm/> Esta acción no se puede deshacer."
   }
 }
