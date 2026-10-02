@@ -1,75 +1,75 @@
 {
   "errorLayout": {
-    "heading": "There's been some kind of error!",
-    "report": "Please report this on our Discord Support Server"
+    "heading": "出错了！",
+    "report": "请在我们的 Discord 支持服务器上报告此问题"
   },
   "guildPage": {
     "botAbsent": {
-      "added": "I've added it",
-      "heading": "AutoMuteUs isn't in this server yet",
-      "invite": "Invite AutoMuteUs"
+      "added": "我已添加",
+      "heading": "AutoMuteUs 尚未加入此服务器",
+      "invite": "邀请 AutoMuteUs"
     },
-    "checkingBot": "Checking for AutoMuteUs in this server...",
-    "checkingLogin": "Checking your Discord login...",
+    "checkingBot": "正在检查 AutoMuteUs 是否在此服务器中...",
+    "checkingLogin": "正在检查你的 Discord 登录状态...",
     "error": {
-      "busy": "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.",
-      "expired": "Your Discord login has expired. Sign in again to continue.",
-      "forbidden": "You're not a member of this server, or Discord has not granted the required access.",
-      "generic": "We couldn't load this information. Please try again.",
-      "preparing": "AutoMuteUs is still preparing this data, or Discord is temporarily busy. Please wait a minute and try again."
+      "busy": "Discord 或 AutoMuteUs 暂时繁忙，请稍后再试。",
+      "expired": "你的 Discord 登录已过期，请重新登录后继续。",
+      "forbidden": "你不是此服务器的成员，或 Discord 未授予所需的权限。",
+      "generic": "无法加载此信息，请重试。",
+      "preparing": "AutoMuteUs 仍在准备这些数据，或 Discord 暂时繁忙。请稍等一分钟后再试。"
     },
-    "loadingServers": "Loading your servers...",
+    "loadingServers": "正在加载你的服务器...",
     "noServers": {
-      "heading": "No servers found",
-      "refresh": "Refresh servers"
+      "heading": "未找到服务器",
+      "refresh": "刷新服务器列表"
     },
-    "selectServer": "Select a server",
-    "serverLabel": "Discord server",
-    "serverUnavailable": "Server unavailable",
-    "signIn": "Sign in with Discord",
-    "tryAgain": "Try again"
+    "selectServer": "选择服务器",
+    "serverLabel": "Discord 服务器",
+    "serverUnavailable": "服务器不可用",
+    "signIn": "使用 Discord 登录",
+    "tryAgain": "重试"
   },
   "header": {
-    "checkingLogin": "Checking login...",
-    "language": "Language",
+    "checkingLogin": "正在检查登录状态...",
+    "language": "语言",
     "languageOption": "{{flag}} {{native}}",
-    "logoAlt": "AutoMuteUs logo",
+    "logoAlt": "AutoMuteUs 标志",
     "nav": {
-      "commands": "Commands",
+      "commands": "命令",
       "github": "GitHub",
-      "home": "Home",
-      "premium": "Premium",
-      "settings": "Settings",
-      "stats": "Stats",
-      "support": "Support Server"
+      "home": "首页",
+      "premium": "高级版",
+      "settings": "设置",
+      "stats": "统计",
+      "support": "支持服务器"
     },
-    "signIn": "Sign In",
-    "signOut": "Sign Out",
-    "toggleNav": "Toggle navigation",
-    "unknownUser": "<Unknown>"
+    "signIn": "登录",
+    "signOut": "退出登录",
+    "toggleNav": "切换导航菜单",
+    "unknownUser": "<未知用户>"
   },
   "layout": {
-    "title": "AutoMuteUs - Hands Free Among Us Muting"
+    "title": "AutoMuteUs - Among Us 自动静音"
   },
   "meta": {
-    "description": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!",
+    "description": "AutoMuteUs 是一个 Discord 机器人，它会收集 Among Us 的游戏数据，在游戏中自动为玩家静音和解除静音！",
     "title": "AutoMuteUs"
   },
   "notFound": {
-    "heading": "This page was an imposter. <br/>",
-    "home": "Go Home",
-    "title": "404 Page Not Found"
+    "heading": "这个页面是内鬼。<br/>",
+    "home": "返回首页",
+    "title": "404 页面未找到"
   },
   "resetPanel": {
-    "cancel": "Cancel",
-    "confirmLabel": "Confirm: {{action}}",
+    "cancel": "取消",
+    "confirmLabel": "确认：{{action}}",
     "error": {
-      "failed": "The reset failed. Please try again.",
-      "unreachable": "We couldn't reach AutoMuteUs. Check your connection and try again."
+      "failed": "重置失败，请重试。",
+      "unreachable": "无法连接到 AutoMuteUs。请检查网络连接后重试。"
     },
     "open": "{{action}}...",
-    "resetting": "Resetting...",
-    "typed": "Type <strong>{{word}}</strong> to confirm",
-    "warning": "<confirm/> This can't be undone."
+    "resetting": "正在重置...",
+    "typed": "输入 <strong>{{word}}</strong> 以确认",
+    "warning": "<confirm/> 此操作无法撤销。"
   }
 }

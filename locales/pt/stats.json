@@ -1,469 +1,469 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Best crewmate duos",
-      "bestImpostorDuos": "Best impostor duos",
-      "crewmateWinrate": "Crewmate winrate",
-      "firstToDie": "First to die",
-      "firstToDieHint": "How often a player was the first one killed, out of their games as a crewmate.",
-      "impostorWinrate": "Impostor winrate",
-      "killedBy": "Killed by",
-      "killedByHint": "How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.",
-      "mostGames": "Most games",
-      "overallWinrate": "Overall winrate",
-      "worstCrewmateDuos": "Worst crewmate duos",
-      "worstImpostorDuos": "Worst impostor duos"
+      "bestCrewmateDuos": "Melhores duplas de tripulantes",
+      "bestImpostorDuos": "Melhores duplas de impostores",
+      "crewmateWinrate": "Taxa de vitória como tripulante",
+      "firstToDie": "Primeiro a morrer",
+      "firstToDieHint": "Com que frequência um jogador foi o primeiro a ser morto, entre suas partidas como tripulante.",
+      "impostorWinrate": "Taxa de vitória como impostor",
+      "killedBy": "Morto por",
+      "killedByHint": "Com que frequência um tripulante morreu em partidas em que determinado jogador era impostor. O Among Us não informa quem fez cada abate, então uma morte conta contra todos os impostores daquela partida.",
+      "mostGames": "Mais partidas",
+      "overallWinrate": "Taxa de vitória geral",
+      "worstCrewmateDuos": "Piores duplas de tripulantes",
+      "worstImpostorDuos": "Piores duplas de impostores"
     },
     "column": {
-      "crewmateGames": "Crewmate games",
-      "firstDeaths": "First deaths",
-      "players": "Players",
+      "crewmateGames": "Partidas como tripulante",
+      "firstDeaths": "Primeiras mortes",
+      "players": "Jogadores",
       "rank": "#"
     },
     "empty": {
-      "noGames": "No games recorded yet.",
-      "crewmateDuo_one": "No two players have been crewmates together in {{count}} game yet.",
-      "crewmateDuo_other": "No two players have been crewmates together in {{count}} games yet.",
-      "games_one": "No one has played {{count}} game yet.",
-      "games_other": "No one has played {{count}} games yet.",
-      "impostorDuo_one": "No two players have been impostors together in {{count}} game yet.",
-      "impostorDuo_other": "No two players have been impostors together in {{count}} games yet.",
-      "killedBy_one": "No crewmate and impostor have shared {{count}} game yet.",
-      "killedBy_other": "No crewmate and impostor have shared {{count}} games yet.",
-      "roleGames_one": "No one has played {{count}} game in this role yet.",
-      "roleGames_other": "No one has played {{count}} games in this role yet."
+      "crewmateDuo_one": "Nenhuma dupla chegou a {{count}} partida juntos como tripulantes ainda.",
+      "crewmateDuo_other": "Nenhuma dupla chegou a {{count}} partidas juntos como tripulantes ainda.",
+      "games_one": "Ninguém chegou a {{count}} partida ainda.",
+      "games_other": "Ninguém chegou a {{count}} partidas ainda.",
+      "impostorDuo_one": "Nenhuma dupla chegou a {{count}} partida juntos como impostores ainda.",
+      "impostorDuo_other": "Nenhuma dupla chegou a {{count}} partidas juntos como impostores ainda.",
+      "killedBy_one": "Nenhum par de tripulante e impostor chegou a {{count}} partida juntos ainda.",
+      "killedBy_other": "Nenhum par de tripulante e impostor chegou a {{count}} partidas juntos ainda.",
+      "noGames": "Nenhuma partida registrada ainda.",
+      "roleGames_one": "Ninguém chegou a {{count}} partida nesta função ainda.",
+      "roleGames_other": "Ninguém chegou a {{count}} partidas nesta função ainda."
     },
+    "games_one": "{{count}} partida",
+    "games_other": "{{count}} partidas",
     "leaderboards": {
-      "minimums": "Rate boards rank players with at least {{games}}; impostor duos need {{duoGames}} together.",
-      "title": "Leaderboards"
+      "minimums": "Os rankings de taxa incluem jogadores com pelo menos {{games}}; duplas de impostores precisam de {{duoGames}} juntos.",
+      "title": "Classificações"
     },
     "locked": {
-      "body": "See who really wins here: winrates, best and worst duos, who dies first, and more. Servers with AutoMuteUs Premium get every board on this page, and the detailed <code>/stats</code> command.",
-      "title": "Leaderboards are a premium feature"
+      "body": "Veja quem realmente vence por aqui: taxas de vitória, melhores e piores duplas, quem morre primeiro e mais. Servidores com AutoMuteUs Premium têm todas as classificações desta página e o comando detalhado <code>/stats</code>.",
+      "title": "As classificações são um recurso premium"
     },
     "share": {
-      "crewmates": "Crewmates <strong>{{rate}}</strong>",
-      "impostors": "Impostors <strong>{{rate}}</strong>",
-      "label": "Crewmates won {{crewmates}} of games, impostors {{impostors}}",
-      "none": "No result recorded <strong>{{rate}}</strong>"
+      "crewmates": "Tripulantes <strong>{{rate}}</strong>",
+      "impostors": "Impostores <strong>{{rate}}</strong>",
+      "label": "Os tripulantes venceram {{crewmates}} das partidas, os impostores {{impostors}}",
+      "none": "Sem resultado registrado <strong>{{rate}}</strong>"
     },
     "spotlight": {
       "and": " & ",
-      "bestDuo": "Best duo",
-      "bestWinrate": "Best winrate",
-      "firstToGo": "First to go",
-      "regular": "the server's regular",
-      "title": "Hall of fame",
-      "topCrewmate": "Top crewmate",
-      "topImpostor": "Top impostor",
-      "firstToDie_one": "first to die in {{deaths}} of {{count}} game",
-      "firstToDie_other": "first to die in {{deaths}} of {{count}} games",
-      "winsOf_one": "{{wins}} of {{count}} game",
-      "winsOf_other": "{{wins}} of {{count}} games",
-      "winsOfCrewmate_one": "{{wins}} of {{count}} crewmate game",
-      "winsOfCrewmate_other": "{{wins}} of {{count}} crewmate games",
-      "winsOfImpostor_one": "{{wins}} of {{count}} impostor game",
-      "winsOfImpostor_other": "{{wins}} of {{count}} impostor games",
-      "winsTogether_one": "{{wins}} of {{count}} game together",
-      "winsTogether_other": "{{wins}} of {{count}} games together"
+      "bestDuo": "Melhor dupla",
+      "bestWinrate": "Melhor taxa de vitória",
+      "firstToDie_one": "primeiro a morrer em {{deaths}} de {{count}} partida",
+      "firstToDie_other": "primeiro a morrer em {{deaths}} de {{count}} partidas",
+      "firstToGo": "Primeiro a cair",
+      "regular": "o mais assíduo do servidor",
+      "title": "Hall da fama",
+      "topCrewmate": "Melhor tripulante",
+      "topImpostor": "Melhor impostor",
+      "winsOf_one": "{{wins}} de {{count}} partida",
+      "winsOf_other": "{{wins}} de {{count}} partidas",
+      "winsOfCrewmate_one": "{{wins}} de {{count}} partida como tripulante",
+      "winsOfCrewmate_other": "{{wins}} de {{count}} partidas como tripulante",
+      "winsOfImpostor_one": "{{wins}} de {{count}} partida como impostor",
+      "winsOfImpostor_other": "{{wins}} de {{count}} partidas como impostor",
+      "winsTogether_one": "{{wins}} de {{count}} partida juntos",
+      "winsTogether_other": "{{wins}} de {{count}} partidas juntos"
     },
     "strip": {
-      "crewmateWins": "crewmate wins",
-      "gamesPlayed": "games played",
-      "impostorWins": "impostor wins",
-      "label": "Summary"
+      "crewmateWins": "vitórias dos tripulantes",
+      "gamesPlayed": "partidas jogadas",
+      "impostorWins": "vitórias dos impostores",
+      "label": "Resumo"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.",
-    "games_one": "{{count}} game",
-    "games_other": "{{count}} games"
+    "updated": "Atualizado em <time>{{when}}</time>. As estatísticas contam partidas em que os jogadores estavam vinculados ao bot e são atualizadas mais ou menos a cada minuto."
   },
   "match": {
-    "abortedNote": "The match was ended before the game reported a result, so it doesn't count toward stats.",
+    "abortedNote": "A partida foi encerrada antes de o jogo informar um resultado, então ela não conta para as estatísticas.",
     "crewmate": {
-      "color": "Color: {{color}}",
+      "color": "Cor: {{color}}",
       "colorName": {
         "banana": "banana",
-        "black": "black",
-        "blue": "blue",
-        "brown": "brown",
+        "black": "preto",
+        "blue": "azul",
+        "brown": "marrom",
         "coral": "coral",
-        "cyan": "cyan",
-        "gray": "gray",
-        "green": "green",
-        "lime": "lime",
-        "maroon": "maroon",
-        "orange": "orange",
-        "pink": "pink",
-        "purple": "purple",
-        "red": "red",
-        "rose": "rose",
-        "tan": "tan",
-        "white": "white",
-        "yellow": "yellow"
+        "cyan": "ciano",
+        "gray": "cinza",
+        "green": "verde",
+        "lime": "lima",
+        "maroon": "bordô",
+        "orange": "laranja",
+        "pink": "rosa",
+        "purple": "roxo",
+        "red": "vermelho",
+        "rose": "rosé",
+        "tan": "bege",
+        "white": "branco",
+        "yellow": "amarelo"
       },
-      "dead": "{{color}}, dead",
-      "noColor": "Color not reported"
+      "dead": "{{color}}, morto",
+      "noColor": "Cor não informada"
     },
     "duration": {
-      "hoursMinutes": "{{hours}} {{minutes}}",
-      "minutesSeconds": "{{minutes}} {{seconds}}",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
+      "hoursMinutes": "{{hours}} {{minutes}}",
       "minutes_one": "{{count}} min",
       "minutes_other": "{{count}} min",
+      "minutesSeconds": "{{minutes}} {{seconds}}",
       "seconds_one": "{{count}} s",
       "seconds_other": "{{count}} s"
     },
     "event": {
       "aka": " ({{name}})",
-      "disconnected": "<strong>{{name}}</strong> disconnected",
-      "killed": "<strong>{{name}}</strong> was killed",
-      "someone": "A player",
-      "votedOut": "<strong>{{name}}</strong> was voted out"
+      "disconnected": "<strong>{{name}}</strong> se desconectou",
+      "killed": "<strong>{{name}}</strong> foi morto",
+      "someone": "Um jogador",
+      "votedOut": "<strong>{{name}}</strong> foi expulso na votação"
     },
     "facts": {
-      "length": "Length",
-      "region": "Region",
-      "started": "Started"
+      "length": "Duração",
+      "region": "Região",
+      "started": "Início"
     },
     "fate": {
-      "disconnected": "Disconnected <time>{{offset}}</time>",
-      "killed": "Killed <time>{{offset}}</time>",
-      "votedOut": "Voted out <time>{{offset}}</time>"
+      "disconnected": "Desconectou em <time>{{offset}}</time>",
+      "killed": "Morto em <time>{{offset}}</time>",
+      "votedOut": "Expulso na votação em <time>{{offset}}</time>"
     },
     "headline": {
-      "aborted": "Match ended early",
-      "crewmatesWin": "Crewmates win",
-      "impostorsWin": "Impostors win",
-      "inProgress": "Match in progress",
-      "noWinner": "No winner recorded"
+      "aborted": "Partida encerrada antes do fim",
+      "crewmatesWin": "Vitória dos tripulantes",
+      "impostorsWin": "Vitória dos impostores",
+      "inProgress": "Partida em andamento",
+      "noWinner": "Nenhum vencedor registrado"
     },
-    "id": "Match {{id}}",
-    "label": "Match",
+    "id": "Partida {{id}}",
+    "label": "Partida",
     "locked": {
-      "body": "See how the match played out: every round and meeting, who was killed and when, and who was voted out. Servers with AutoMuteUs Premium get the timeline for every match.",
-      "title": "The match timeline is a premium feature"
+      "body": "Veja como a partida aconteceu: cada rodada e reunião, quem foi morto e quando, e quem foi expulso na votação. Servidores com AutoMuteUs Premium têm a linha do tempo de todas as partidas.",
+      "title": "A linha do tempo da partida é um recurso premium"
     },
-    "premiumNote": "<premium>Premium</premium> shows who was killed or voted out, and when.",
+    "premiumNote": "O <premium>Premium</premium> mostra quem foi morto ou expulso na votação, e quando.",
     "region": {
-      "as": "Asia",
-      "eu": "Europe",
-      "na": "North America"
+      "as": "Ásia",
+      "eu": "Europa",
+      "na": "América do Norte"
     },
     "roster": {
-      "incomplete": "Only players linked to AutoMuteUs are listed. This match was recorded before the bot kept the full lobby, so anyone unlinked or opted out is missing.",
-      "later": "The roster appears when the match ends.",
-      "none": "No players were recorded for this match."
+      "incomplete": "Só aparecem os jogadores vinculados ao AutoMuteUs. Esta partida foi registrada antes de o bot guardar o lobby completo, então quem não estava vinculado ou optou por não participar está faltando.",
+      "later": "A lista de jogadores aparece quando a partida termina.",
+      "none": "Nenhum jogador foi registrado nesta partida."
     },
     "team": {
-      "crewmates": "Crewmates",
-      "impostors": "Impostors",
-      "noCrewmates": "No crewmates recorded.",
-      "noImpostors": "No impostors recorded.",
-      "notLinked": "Not linked"
+      "crewmates": "Tripulantes",
+      "impostors": "Impostores",
+      "noCrewmates": "Nenhum tripulante registrado.",
+      "noImpostors": "Nenhum impostor registrado.",
+      "notLinked": "Não vinculado"
     },
     "timeline": {
-      "empty": "The capture didn't report anything for this match.",
-      "meeting": "Meeting {{number}}",
-      "noDeath": "No one died.",
-      "noExile": "No one was voted out.",
-      "round": "Round {{number}}",
-      "title": "Timeline",
-      "disconnected_one": "<strong>{{count}}</strong> disconnected",
-      "disconnected_other": "<strong>{{count}}</strong> disconnected",
-      "kills_one": "<strong>{{count}}</strong> kill",
-      "kills_other": "<strong>{{count}}</strong> kills",
-      "meetings_one": "<strong>{{count}}</strong> meeting",
-      "meetings_other": "<strong>{{count}}</strong> meetings",
-      "votedOut_one": "<strong>{{count}}</strong> voted out",
-      "votedOut_other": "<strong>{{count}}</strong> voted out"
+      "disconnected_one": "<strong>{{count}}</strong> desconectado",
+      "disconnected_other": "<strong>{{count}}</strong> desconectados",
+      "empty": "A captura não informou nada sobre esta partida.",
+      "kills_one": "<strong>{{count}}</strong> abate",
+      "kills_other": "<strong>{{count}}</strong> abates",
+      "meeting": "Reunião {{number}}",
+      "meetings_one": "<strong>{{count}}</strong> reunião",
+      "meetings_other": "<strong>{{count}}</strong> reuniões",
+      "noDeath": "Ninguém morreu.",
+      "noExile": "Ninguém foi expulso na votação.",
+      "round": "Rodada {{number}}",
+      "title": "Linha do tempo",
+      "votedOut_one": "<strong>{{count}}</strong> expulso",
+      "votedOut_other": "<strong>{{count}}</strong> expulsos"
     }
   },
   "page": {
-    "admin": "Admin view: loaded with the API's admin credential.",
-    "adminServerName": "Server {{id}}",
-    "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in.",
+    "admin": "Visão de administrador: carregado com a credencial de administrador da API.",
+    "adminServerName": "Servidor {{id}}",
+    "adminUnlisted": "Visão de administrador: carregado com a credencial de administrador da API para um servidor em que você não está.",
     "match": {
-      "building": "Building the summary for match {{id}}. The page will update on its own.",
-      "chooseServer": "Choose the server the match was played in.",
-      "description": "Look up a match by the ID AutoMuteUs posts when a game ends, like <code>ABCDEFGH:42</code>.",
-      "heading": "Match summary",
-      "idLabel": "Match ID",
-      "idPlaceholder": "ABCDEFGH:42 or 42",
-      "invalidId": "That doesn't look like a match ID. Paste the ID from the bot's game over message, or just the number after the colon.",
-      "loading": "Loading match {{id}}...",
-      "lookUp": "Look up",
-      "metaDesc": "Who played, who won, and how an Among Us match played out, from the matches AutoMuteUs records.",
+      "building": "Montando o resumo da partida {{id}}. A página vai se atualizar sozinha.",
+      "chooseServer": "Escolha o servidor em que a partida foi jogada.",
+      "description": "Procure uma partida pelo ID que o AutoMuteUs publica quando um jogo termina, como <code>ABCDEFGH:42</code>.",
+      "heading": "Resumo da partida",
+      "idLabel": "ID da partida",
+      "idPlaceholder": "ABCDEFGH:42 ou 42",
+      "invalidId": "Isso não parece um ID de partida. Cole o ID da mensagem de fim de jogo do bot, ou só o número depois dos dois-pontos.",
+      "loading": "Carregando a partida {{id}}...",
+      "lookUp": "Procurar",
+      "metaDesc": "Quem jogou, quem venceu e como foi uma partida de Among Us, a partir das partidas que o AutoMuteUs registra.",
       "noId": {
-        "body": "AutoMuteUs posts the match ID in its game over message. You can also browse this server's <stats>stats</stats>.",
-        "heading": "Enter a match ID"
+        "body": "O AutoMuteUs publica o ID da partida na mensagem de fim de jogo. Você também pode navegar pelas <stats>estatísticas</stats> deste servidor.",
+        "heading": "Insira um ID de partida"
       },
       "notFound": {
-        "body": "{{guild}} has no match {{id}}. Check that the ID is from a game played in this server.",
-        "heading": "Match not found"
+        "body": "{{guild}} não tem a partida {{id}}. Verifique se o ID é de um jogo disputado neste servidor.",
+        "heading": "Partida não encontrada"
       },
-      "preview": "Previewing this match as it would look <strong>without premium</strong>. The timeline is hidden, not missing.",
+      "preview": "Pré-visualizando esta partida como ela apareceria <strong>sem premium</strong>. A linha do tempo está oculta, não ausente.",
       "signedOut": {
-        "body": "Sign in with Discord to look up matches from the servers you play in.",
-        "heading": "See how the match went"
+        "body": "Entre com o Discord para procurar partidas dos servidores em que você joga.",
+        "heading": "Veja como foi a partida"
       },
-      "title": "Match summary - AutoMuteUs"
+      "title": "Resumo da partida - AutoMuteUs"
     },
-    "myStats": "My stats",
-    "noServers": "You don't seem to be in any Discord servers. Join one where AutoMuteUs is playing, then refresh your server list.",
-    "notMember": "This server isn't one you're a member of. Choose another server above.",
-    "reloadStats": "Reload stats",
-    "selectServer": "Select your server",
+    "myStats": "Minhas estatísticas",
+    "noServers": "Parece que você não está em nenhum servidor do Discord. Entre em um onde o AutoMuteUs esteja sendo usado e depois atualize sua lista de servidores.",
+    "notMember": "Você não é membro deste servidor. Escolha outro servidor acima.",
+    "reloadStats": "Recarregar estatísticas",
+    "selectServer": "Selecione seu servidor",
     "server": {
-      "admin": "Admin view: loaded with the API's admin credential. Leaderboards are shown whatever the server's premium.",
-      "adminUnlisted": "Admin view: loaded with the API's admin credential for a server you're not in. Leaderboards are shown whatever the server's premium.",
-      "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> to start recording games.",
-      "building": "Building stats for this server. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose a server to see its stats.",
-      "description": "How your crew has fared: games played, which side wins, and who leads the boards.",
-      "heading": "Server stats",
-      "inviteBot": "Invite the bot to {{guild}} and play a few games; stats will appear here once matches have been recorded.",
-      "loading": "Loading stats...",
-      "lookUpMatch": "Look up a match",
-      "metaDesc": "Games played, winrates, and leaderboards for the Discord servers you play Among Us in with AutoMuteUs.",
-      "preview": "Previewing this server as it would look <strong>without premium</strong>. The leaderboards are hidden, not missing.",
+      "admin": "Visão de administrador: carregado com a credencial de administrador da API. As classificações aparecem independentemente do premium do servidor.",
+      "adminUnlisted": "Visão de administrador: carregado com a credencial de administrador da API para um servidor em que você não está. As classificações aparecem independentemente do premium do servidor.",
+      "botUnknown": "Não foi possível confirmar que o AutoMuteUs está neste servidor. Se o bot ainda não entrou, <invite>convide-o</invite> para começar a registrar partidas.",
+      "building": "Montando as estatísticas deste servidor. Servidores grandes podem levar um ou dois minutos; a página vai se atualizar sozinha.",
+      "chooseServer": "Escolha um servidor para ver as estatísticas dele.",
+      "description": "Como sua tripulação tem se saído: partidas jogadas, qual lado vence e quem lidera as classificações.",
+      "heading": "Estatísticas do servidor",
+      "inviteBot": "Convide o bot para {{guild}} e jogue algumas partidas; as estatísticas aparecerão aqui assim que houver partidas registradas.",
+      "loading": "Carregando estatísticas...",
+      "lookUpMatch": "Procurar uma partida",
+      "metaDesc": "Partidas jogadas, taxas de vitória e classificações dos servidores do Discord em que você joga Among Us com o AutoMuteUs.",
+      "preview": "Pré-visualizando este servidor como ele apareceria <strong>sem premium</strong>. As classificações estão ocultas, não ausentes.",
       "reset": {
-        "action": "Reset server stats",
-        "body": "Delete every game AutoMuteUs has recorded in this server and start the stats over. Settings are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "confirm": "Every recorded game in <strong>{{guild}}</strong> will be deleted, for every player.",
-        "title": "Reset server stats"
+        "action": "Redefinir estatísticas do servidor",
+        "body": "Exclui todas as partidas que o AutoMuteUs registrou neste servidor e recomeça as estatísticas do zero. As configurações são mantidas. Só o dono do servidor e os membros com Administrador ou Gerenciar servidor veem isto.",
+        "confirm": "Todas as partidas registradas em <strong>{{guild}}</strong> serão excluídas, para todos os jogadores.",
+        "title": "Redefinir estatísticas do servidor"
       },
-      "resetDone": "Server stats reset.",
+      "resetDone": "Estatísticas do servidor redefinidas.",
+      "resetDoneGames_one": "Estatísticas do servidor redefinidas. {{count}} partida excluída.",
+      "resetDoneGames_other": "Estatísticas do servidor redefinidas. {{count}} partidas excluídas.",
       "signedOut": {
-        "body": "Sign in with Discord to see stats for the servers you play in.",
-        "heading": "See how your crew plays"
+        "body": "Entre com o Discord para ver as estatísticas dos servidores em que você joga.",
+        "heading": "Veja como sua tripulação joga"
       },
-      "title": "Server stats - AutoMuteUs",
-      "resetDoneGames_one": "Server stats reset. {{count}} game deleted.",
-      "resetDoneGames_other": "Server stats reset. {{count}} games deleted."
+      "title": "Estatísticas do servidor - AutoMuteUs"
     },
     "user": {
-      "building": "Building this player's stats. Large servers can take a minute or two; the page will update on its own.",
-      "chooseServer": "Choose the server to see stats from.",
-      "description": "How a player has done in a server: wins by role, recent matches, and who they play best with.",
-      "heading": "Player stats",
-      "loading": "Loading player stats...",
-      "metaDesc": "Winrates, recent matches, streaks, and teammates for an Among Us player in a server that plays with AutoMuteUs.",
-      "preview": "Previewing this player as they would look <strong>without premium</strong>. The detailed sections are hidden, not missing.",
+      "building": "Montando as estatísticas deste jogador. Servidores grandes podem levar um ou dois minutos; a página vai se atualizar sozinha.",
+      "chooseServer": "Escolha o servidor de onde ver as estatísticas.",
+      "description": "Como um jogador tem se saído em um servidor: vitórias por função, partidas recentes e com quem ele joga melhor.",
+      "heading": "Estatísticas do jogador",
+      "loading": "Carregando estatísticas do jogador...",
+      "metaDesc": "Taxas de vitória, partidas recentes, sequências e parceiros de um jogador de Among Us em um servidor que joga com o AutoMuteUs.",
+      "preview": "Pré-visualizando este jogador como ele apareceria <strong>sem premium</strong>. As seções detalhadas estão ocultas, não ausentes.",
       "reset": {
-        "otherAction": "Reset player stats",
-        "otherBody": "Remove this player from every game recorded in this server. The games stay, so everyone else's stats are unchanged, and their stats in other servers are kept. Only the server owner and members with Administrator or Manage Server see this.",
-        "otherConfirm": "<strong>{{player}}</strong> will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "otherTitle": "Reset this player's stats",
-        "selfAction": "Reset my stats",
-        "selfBody": "Remove yourself from every game recorded in this server and start your stats here over. The games stay, so everyone else's stats are unchanged, and your stats in other servers are kept.",
-        "selfConfirm": "You will be removed from every recorded game in <strong>{{guild}}</strong>.",
-        "selfTitle": "Reset your stats"
+        "otherAction": "Redefinir estatísticas do jogador",
+        "otherBody": "Remove este jogador de todas as partidas registradas neste servidor. As partidas continuam existindo, então as estatísticas dos outros não mudam, e as estatísticas dele em outros servidores são mantidas. Só o dono do servidor e os membros com Administrador ou Gerenciar servidor veem isto.",
+        "otherConfirm": "<strong>{{player}}</strong> será removido de todas as partidas registradas em <strong>{{guild}}</strong>.",
+        "otherTitle": "Redefinir as estatísticas deste jogador",
+        "selfAction": "Redefinir minhas estatísticas",
+        "selfBody": "Remove você de todas as partidas registradas neste servidor e recomeça suas estatísticas aqui do zero. As partidas continuam existindo, então as estatísticas dos outros não mudam, e suas estatísticas em outros servidores são mantidas.",
+        "selfConfirm": "Você será removido de todas as partidas registradas em <strong>{{guild}}</strong>.",
+        "selfTitle": "Redefinir suas estatísticas"
       },
-      "resetDone": "Player stats reset.",
+      "resetDone": "Estatísticas do jogador redefinidas.",
+      "resetDoneGames_one": "Estatísticas do jogador redefinidas. Removido de {{count}} partida.",
+      "resetDoneGames_other": "Estatísticas do jogador redefinidas. Removido de {{count}} partidas.",
       "signedOut": {
-        "body": "Sign in with Discord to see player stats for the servers you play in.",
-        "heading": "See how you play"
+        "body": "Entre com o Discord para ver as estatísticas de jogadores dos servidores em que você joga.",
+        "heading": "Veja como você joga"
       },
-      "title": "Player stats - AutoMuteUs",
-      "resetDoneGames_one": "Player stats reset. Removed from {{count}} game.",
-      "resetDoneGames_other": "Player stats reset. Removed from {{count}} games."
+      "title": "Estatísticas do jogador - AutoMuteUs"
     }
   },
   "shared": {
     "color": {
       "banana": "Banana",
-      "black": "Black",
-      "blue": "Blue",
-      "brown": "Brown",
+      "black": "Preto",
+      "blue": "Azul",
+      "brown": "Marrom",
       "coral": "Coral",
-      "cyan": "Cyan",
-      "gray": "Gray",
-      "green": "Green",
-      "lime": "Lime",
-      "maroon": "Maroon",
-      "orange": "Orange",
-      "pink": "Pink",
-      "purple": "Purple",
-      "red": "Red",
-      "rose": "Rose",
-      "tan": "Tan",
-      "white": "White",
-      "yellow": "Yellow"
+      "cyan": "Ciano",
+      "gray": "Cinza",
+      "green": "Verde",
+      "lime": "Lima",
+      "maroon": "Bordô",
+      "orange": "Laranja",
+      "pink": "Rosa",
+      "purple": "Roxo",
+      "red": "Vermelho",
+      "rose": "Rosé",
+      "tan": "Bege",
+      "white": "Branco",
+      "yellow": "Amarelo"
     },
     "column": {
-      "deaths": "Deaths",
-      "games": "Games",
+      "deaths": "Mortes",
+      "games": "Partidas",
       "impostor": "Impostor",
-      "map": "Map",
-      "player": "Player",
-      "rate": "Rate",
-      "teammate": "Teammate",
-      "winrate": "Winrate",
-      "wins": "Wins"
+      "map": "Mapa",
+      "player": "Jogador",
+      "rate": "Taxa",
+      "teammate": "Parceiro",
+      "winrate": "Taxa de vitória",
+      "wins": "Vitórias"
     },
-    "getPremium": "Get Premium for this server",
-    "mapNotRecorded": "Map not recorded",
+    "games_one": "{{count, number}} partida",
+    "games_other": "{{count, number}} partidas",
+    "getPremium": "Obter Premium para este servidor",
+    "mapNotRecorded": "Mapa não registrado",
     "number": "{{value, number}}",
     "outcome": {
-      "lost": "Lost",
-      "none": "No result",
-      "won": "Won"
+      "lost": "Derrota",
+      "none": "Sem resultado",
+      "won": "Vitória"
     },
     "result": {
-      "crewmateDisconnect": "Crewmates won when the impostors disconnected",
-      "crewmateTasks": "Crewmates won by finishing their tasks",
-      "crewmateVote": "Crewmates won by voting out the impostors",
-      "impostorDisconnect": "Impostors won when the crewmates disconnected",
-      "impostorKill": "Impostors won by kills",
-      "impostorSabotage": "Impostors won by sabotage",
-      "impostorVote": "Impostors won by vote",
-      "unknown": "The game ended without reporting a result"
+      "crewmateDisconnect": "Os tripulantes venceram quando os impostores se desconectaram",
+      "crewmateTasks": "Os tripulantes venceram completando as tarefas",
+      "crewmateVote": "Os tripulantes venceram expulsando os impostores na votação",
+      "impostorDisconnect": "Os impostores venceram quando os tripulantes se desconectaram",
+      "impostorKill": "Os impostores venceram por abates",
+      "impostorSabotage": "Os impostores venceram por sabotagem",
+      "impostorVote": "Os impostores venceram na votação",
+      "unknown": "O jogo terminou sem informar um resultado"
     },
     "role": {
-      "crewmate": "Crewmate",
+      "crewmate": "Tripulante",
       "impostor": "Impostor"
     },
-    "unknownPlayer": "This player's name isn't known yet",
-    "unnamed": "Unnamed",
-    "userId": "User ID {{id}}",
-    "you": "You",
-    "games_one": "{{count, number}} game",
-    "games_other": "{{count, number}} games"
+    "unknownPlayer": "O nome deste jogador ainda não é conhecido",
+    "unnamed": "Sem nome",
+    "userId": "ID de usuário {{id}}",
+    "you": "Você"
   },
   "user": {
     "activity": {
       "barEarlier": "{{games}} {{weeks}}",
-      "hint": "{{games}} in the last {{weeks}}.",
-      "label": "Games per week, oldest first",
-      "thisWeek": "This week",
-      "title": "Activity",
-      "barThisWeek_one": "{{count, number}} game in the last 7 days",
-      "barThisWeek_other": "{{count, number}} games in the last 7 days",
-      "lastWeeks_one": "{{count}} week",
-      "lastWeeks_other": "{{count}} weeks",
-      "weeksAgo_one": "{{count}} week ago",
-      "weeksAgo_other": "{{count}} weeks ago",
-      "weeksBefore_one": "{{count}} week before that",
-      "weeksBefore_other": "{{count}} weeks before that"
+      "barThisWeek_one": "{{count, number}} partida nos últimos 7 dias",
+      "barThisWeek_other": "{{count, number}} partidas nos últimos 7 dias",
+      "hint": "{{games}} nas últimas {{weeks}}.",
+      "label": "Partidas por semana, da mais antiga para a mais recente",
+      "lastWeeks_one": "{{count}} semana",
+      "lastWeeks_other": "{{count}} semanas",
+      "thisWeek": "Esta semana",
+      "title": "Atividade",
+      "weeksAgo_one": "há {{count}} semana",
+      "weeksAgo_other": "há {{count}} semanas",
+      "weeksBefore_one": "{{count}} semana antes disso",
+      "weeksBefore_other": "{{count}} semanas antes disso"
     },
     "colors": {
-      "empty": "No colors recorded yet.",
-      "title": "Favorite colors"
+      "empty": "Nenhuma cor registrada ainda.",
+      "title": "Cores favoritas"
     },
     "details": {
-      "title": "In depth"
+      "title": "Em detalhes"
     },
     "fates": {
-      "detailStillWon": "{{detail}} · their side still won {{rate}} of those",
-      "hint": "How often the player was killed or voted out, and how often their side won those games anyway.",
-      "killedAsCrewmate": "Killed as crewmate",
-      "title": "How games end",
-      "votedOutAsCrewmate": "Voted out as crewmate",
-      "votedOutAsImpostor": "Voted out as impostor",
-      "ofCrewmateGames_one": "{{times}} of {{count, number}} crewmate game",
-      "ofCrewmateGames_other": "{{times}} of {{count, number}} crewmate games",
-      "ofImpostorGames_one": "{{times}} of {{count, number}} impostor game",
-      "ofImpostorGames_other": "{{times}} of {{count, number}} impostor games"
+      "detailStillWon": "{{detail}} · o time dele ainda venceu {{rate}} delas",
+      "hint": "Com que frequência o jogador foi morto ou expulso na votação, e com que frequência o time dele venceu essas partidas mesmo assim.",
+      "killedAsCrewmate": "Morto como tripulante",
+      "ofCrewmateGames_one": "{{times}} de {{count, number}} partida como tripulante",
+      "ofCrewmateGames_other": "{{times}} de {{count, number}} partidas como tripulante",
+      "ofImpostorGames_one": "{{times}} de {{count, number}} partida como impostor",
+      "ofImpostorGames_other": "{{times}} de {{count, number}} partidas como impostor",
+      "title": "Como as partidas terminam",
+      "votedOutAsCrewmate": "Expulso na votação como tripulante",
+      "votedOutAsImpostor": "Expulso na votação como impostor"
     },
     "firstTarget": {
-      "label": "First to die",
-      "detail_one": "{{deaths}} of {{count, number}} crewmate game",
-      "detail_other": "{{deaths}} of {{count, number}} crewmate games"
+      "detail_one": "{{deaths}} de {{count, number}} partida como tripulante",
+      "detail_other": "{{deaths}} de {{count, number}} partidas como tripulante",
+      "label": "Primeiro a morrer"
     },
     "form": {
-      "dotLost": "Match {{id}}: lost",
-      "dotNoResult": "Match {{id}}: no result",
-      "dotWon": "Match {{id}}: won",
-      "label": "Form",
-      "summary_one": "Won {{wins}} of the last {{count, number}} game with a result",
-      "summary_other": "Won {{wins}} of the last {{count, number}} games with a result"
+      "dotLost": "Partida {{id}}: derrota",
+      "dotNoResult": "Partida {{id}}: sem resultado",
+      "dotWon": "Partida {{id}}: vitória",
+      "label": "Retrospecto",
+      "summary_one": "Venceu {{wins}} de {{count, number}} partida recente com resultado",
+      "summary_other": "Venceu {{wins}} das últimas {{count, number}} partidas com resultado"
     },
     "hero": {
-      "label": "Player",
-      "noGames": "No games recorded in this server.",
-      "since": "Playing since <first>{{first}}</first> · last game <last>{{last}}</last>"
+      "label": "Jogador",
+      "noGames": "Nenhuma partida registrada neste servidor.",
+      "since": "Joga desde <first>{{first}}</first> · última partida <last>{{last}}</last>"
     },
     "killedBy": {
-      "hint": "Among Us doesn't report who made a kill, so a death as a crewmate counts against every impostor in that game.",
-      "title": "Died most often with this impostor in the game",
-      "empty_one": "No impostor has shared {{count, number}} game with this player yet.",
-      "empty_other": "No impostor has shared {{count, number}} games with this player yet."
+      "empty_one": "Nenhum impostor chegou a {{count, number}} partida com este jogador ainda.",
+      "empty_other": "Nenhum impostor chegou a {{count, number}} partidas com este jogador ainda.",
+      "hint": "O Among Us não informa quem fez cada abate, então uma morte como tripulante conta contra todos os impostores daquela partida.",
+      "title": "Morreu mais vezes com este impostor na partida"
     },
     "locked": {
-      "body": "See streaks, server ranks, survival and first-to-die rates, best and worst teammates, maps, activity, and more. Servers with AutoMuteUs Premium get every section on this page.",
-      "label": "Player details",
-      "title": "Detailed player stats are a premium feature"
+      "body": "Veja sequências, posições no servidor, taxas de sobrevivência e de primeira morte, melhores e piores parceiros, mapas, atividade e mais. Servidores com AutoMuteUs Premium têm todas as seções desta página.",
+      "label": "Detalhes do jogador",
+      "title": "As estatísticas detalhadas do jogador são um recurso premium"
     },
     "maps": {
-      "empty": "No games with a recorded map yet.",
-      "title": "Maps"
+      "empty": "Nenhuma partida com mapa registrado ainda.",
+      "title": "Mapas"
     },
     "names": {
-      "empty": "No names recorded yet.",
-      "title": "Names used"
+      "empty": "Nenhum nome registrado ainda.",
+      "title": "Nomes usados"
     },
     "noGames": {
-      "other": "This player has no recorded games here. They may not have played yet, or may not be linked to AutoMuteUs.",
-      "self": "You have no recorded games here yet. Games count once AutoMuteUs has linked you to your in-game name."
+      "other": "Este jogador não tem partidas registradas aqui. Talvez ainda não tenha jogado, ou não esteja vinculado ao AutoMuteUs.",
+      "self": "Você ainda não tem partidas registradas aqui. As partidas passam a contar quando o AutoMuteUs vincula você ao seu nome no jogo."
     },
     "playedWith": {
-      "empty": "No games with other linked players yet.",
-      "share": "Of their games",
-      "title": "Most played with"
+      "empty": "Nenhuma partida com outros jogadores vinculados ainda.",
+      "share": "Das partidas dele",
+      "title": "Com quem mais jogou"
     },
     "ranks": {
-      "crewmateWinrate": "Crewmate winrate",
+      "byGames_one": "por partidas, de {{count, number}} jogador",
+      "byGames_other": "por partidas, de {{count, number}} jogadores",
+      "crewmateWinrate": "Taxa de vitória como tripulante",
       "hash": "#{{position}}",
-      "impostorWinrate": "Impostor winrate",
-      "noGames": "no games yet",
-      "notRanked": "Not ranked",
-      "overallWinrate": "Overall winrate",
-      "serverRank": "Server rank",
-      "title": "Server ranks",
-      "byGames_one": "by games, of {{count, number}} player",
-      "byGames_other": "by games, of {{count, number}} players",
-      "hint_one": "Winrate ranks count players with at least {{count, number}} game in the role.",
-      "hint_other": "Winrate ranks count players with at least {{count, number}} games in the role.",
-      "position_one": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>",
-      "position_other": "<strong>#{{position}}</strong> <span>of {{count, number}}</span>"
+      "hint_one": "As posições por taxa de vitória contam jogadores com pelo menos {{count, number}} partida na função.",
+      "hint_other": "As posições por taxa de vitória contam jogadores com pelo menos {{count, number}} partidas na função.",
+      "impostorWinrate": "Taxa de vitória como impostor",
+      "noGames": "nenhuma partida ainda",
+      "notRanked": "Sem posição",
+      "overallWinrate": "Taxa de vitória geral",
+      "position_one": "<strong>#{{position}}</strong> <span>de {{count, number}}</span>",
+      "position_other": "<strong>#{{position}}</strong> <span>de {{count, number}}</span>",
+      "serverRank": "Posição no servidor",
+      "title": "Posições no servidor"
     },
     "recent": {
-      "empty": "No finished matches yet.",
-      "matchLine": "Match {{id}} · {{map}}",
-      "title": "Recent matches"
+      "empty": "Nenhuma partida finalizada ainda.",
+      "matchLine": "Partida {{id}} · {{map}}",
+      "title": "Partidas recentes"
     },
     "streak": {
-      "best": "best run {{win}}W · worst {{loss}}L",
-      "current": "Current streak",
-      "loss": "{{n}}L",
-      "win": "{{n}}W"
+      "best": "melhor sequência {{win}}V · pior {{loss}}D",
+      "current": "Sequência atual",
+      "loss": "{{n}}D",
+      "win": "{{n}}V"
     },
     "summary": {
-      "asCrewmate": "As crewmate",
-      "asImpostor": "As impostor",
-      "gamesPlayed": "Games played",
-      "ofEveryGame": "of every game played",
-      "wins_one": "{{count, number}} win",
-      "wins_other": "{{count, number}} wins",
-      "wonOf_one": "{{wins}} won of {{count, number}} game",
-      "wonOf_other": "{{wins}} won of {{count, number}} games"
+      "asCrewmate": "Como tripulante",
+      "asImpostor": "Como impostor",
+      "gamesPlayed": "Partidas jogadas",
+      "ofEveryGame": "de todas as partidas jogadas",
+      "wins_one": "{{count, number}} vitória",
+      "wins_other": "{{count, number}} vitórias",
+      "wonOf_one": "{{wins}} vencidas de {{count, number}} partida",
+      "wonOf_other": "{{wins}} vencidas de {{count, number}} partidas"
     },
     "survival": {
-      "label": "Crewmate survival",
-      "detail_one": "alive at the end of {{survived}} of {{count, number}} game",
-      "detail_other": "alive at the end of {{survived}} of {{count, number}} games"
+      "detail_one": "sobreviveu até o fim em {{survived}} de {{count, number}} partida",
+      "detail_other": "sobreviveu até o fim em {{survived}} de {{count, number}} partidas",
+      "label": "Sobrevivência como tripulante"
     },
     "teammates": {
-      "bestCrewmate": "Best crewmate teammates",
-      "bestImpostor": "Best impostor teammates",
-      "worstCrewmate": "Worst crewmate teammates",
-      "worstImpostor": "Worst impostor teammates",
-      "emptyCrewmate_one": "No one has been a crewmate with this player in {{count, number}} game yet.",
-      "emptyCrewmate_other": "No one has been a crewmate with this player in {{count, number}} games yet.",
-      "emptyImpostor_one": "No one has been an impostor with this player in {{count, number}} game yet.",
-      "emptyImpostor_other": "No one has been an impostor with this player in {{count, number}} games yet."
+      "bestCrewmate": "Melhores parceiros como tripulante",
+      "bestImpostor": "Melhores parceiros como impostor",
+      "emptyCrewmate_one": "Ninguém chegou a {{count, number}} partida como tripulante ao lado deste jogador ainda.",
+      "emptyCrewmate_other": "Ninguém chegou a {{count, number}} partidas como tripulante ao lado deste jogador ainda.",
+      "emptyImpostor_one": "Ninguém chegou a {{count, number}} partida como impostor ao lado deste jogador ainda.",
+      "emptyImpostor_other": "Ninguém chegou a {{count, number}} partidas como impostor ao lado deste jogador ainda.",
+      "worstCrewmate": "Piores parceiros como tripulante",
+      "worstImpostor": "Piores parceiros como impostor"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where the player was linked to the bot and are refreshed about once a minute."
+    "updated": "Atualizado em <time>{{when}}</time>. As estatísticas contam partidas em que o jogador estava vinculado ao bot e são atualizadas mais ou menos a cada minuto."
   }
 }

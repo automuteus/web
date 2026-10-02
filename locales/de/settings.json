@@ -1,56 +1,56 @@
 {
   "botAbsent": {
-    "description": "Invite the bot to {{name}} to use it there. Once it has joined, come back and reload to see its settings."
+    "description": "Lade den Bot auf {{name}} ein, um ihn dort zu nutzen. Sobald er beigetreten ist, komm zurück und lade die Seite neu, um seine Einstellungen zu sehen."
   },
-  "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> and these settings will apply once it does.",
+  "botUnknown": "Wir konnten nicht bestätigen, dass AutoMuteUs auf diesem Server ist. Falls der Bot noch nicht beigetreten ist, <invite>lade ihn ein</invite>. Diese Einstellungen gelten, sobald er da ist.",
   "channel": {
-    "cantPost": "The bot can't post in this channel.",
-    "checking": "Checking that the bot can post in this channel...",
-    "clear": "Clear",
-    "enterID": "Enter an ID",
-    "help": "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.",
-    "idLabel": "Summary channel ID",
-    "idPlaceholder": "Channel ID, or empty for none",
-    "label": "Summary channel",
-    "none": "None",
-    "notListed": "{{id}} (not in the list)",
-    "ok": "#{{name}}: the bot can post match summaries here.",
+    "cantPost": "Der Bot kann in diesem Kanal nicht posten.",
+    "checking": "Prüfe, ob der Bot in diesem Kanal posten kann...",
+    "clear": "Leeren",
+    "enterID": "ID eingeben",
+    "help": "Aktiviere in Discord unter Einstellungen > Erweitert den Entwicklermodus, klicke dann mit der rechten Maustaste auf den Kanal und wähle „Kanal-ID kopieren“.",
+    "idLabel": "ID des Zusammenfassungskanals",
+    "idPlaceholder": "Kanal-ID, leer für keinen",
+    "label": "Zusammenfassungskanal",
+    "none": "Keiner",
+    "notListed": "{{id}} (nicht in der Liste)",
+    "ok": "#{{name}}: Der Bot kann hier Spielzusammenfassungen posten.",
     "option": "#{{name}}",
-    "optionBlocked": "#{{name}} (bot can't post here)",
-    "pick": "Pick from a list",
-    "pickHelp": "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.",
-    "unchecked": "Couldn't check this channel right now. It will be verified when you save."
+    "optionBlocked": "#{{name}} (Bot kann hier nicht posten)",
+    "pick": "Aus Liste wählen",
+    "pickHelp": "Die Kanäle werden so aufgelistet, wie der Bot sie auf diesem Server sieht; Kanäle, in denen er nicht posten kann, sind ausgegraut. Gib eine ID ein, um einen Thread zu verwenden.",
+    "unchecked": "Dieser Kanal konnte gerade nicht geprüft werden. Er wird beim Speichern überprüft."
   },
   "confirm": {
-    "leave": "You have unsaved changes. Leave this page and discard them?",
-    "reload": "Discard your unsaved changes and reload this server's settings?",
-    "switch": "Discard your unsaved changes and switch servers?"
+    "leave": "Du hast ungespeicherte Änderungen. Seite verlassen und Änderungen verwerfen?",
+    "reload": "Ungespeicherte Änderungen verwerfen und die Einstellungen dieses Servers neu laden?",
+    "switch": "Ungespeicherte Änderungen verwerfen und Server wechseln?"
   },
   "counts": {
-    "custom_one": "{{count}} custom",
-    "custom_other": "{{count}} custom",
-    "unsaved_one": "{{count}} unsaved",
-    "unsaved_other": "{{count}} unsaved"
+    "custom_one": "{{count}} angepasst",
+    "custom_other": "{{count}} angepasst",
+    "unsaved_one": "{{count}} ungespeichert",
+    "unsaved_other": "{{count}} ungespeichert"
   },
   "delays": {
-    "caption": "Voice transition delays in seconds",
-    "cellLabel": "Delay from {{from}} to {{to}} in seconds",
-    "corner": "From / to",
-    "description": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase.",
-    "descriptionEditing": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase. Whole seconds from {{min}} to {{max}}.",
-    "heading": "Transition delays",
-    "notApplicable": "Not applicable: the bot only delays changes between phases"
+    "caption": "Verzögerungen bei Sprachwechseln in Sekunden",
+    "cellLabel": "Verzögerung von {{from}} nach {{to}} in Sekunden",
+    "corner": "Von / nach",
+    "description": "Sekunden, die vor dem Anwenden von Sprachänderungen gewartet wird. Zeilen sind die aktuelle Phase, Spalten die nächste Phase.",
+    "descriptionEditing": "Sekunden, die vor dem Anwenden von Sprachänderungen gewartet wird. Zeilen sind die aktuelle Phase, Spalten die nächste Phase. Ganze Sekunden von {{min}} bis {{max}}.",
+    "heading": "Übergangsverzögerungen",
+    "notApplicable": "Nicht zutreffend: Der Bot verzögert nur Änderungen zwischen Phasen"
   },
   "display": {
-    "autoRefresh": "Refresh game message automatically",
-    "heading": "Display & language",
-    "language": "Bot language",
-    "mapVersion": "Map style",
-    "roomCode": "Room code visibility"
+    "autoRefresh": "Spielnachricht automatisch aktualisieren",
+    "heading": "Anzeige & Sprache",
+    "language": "Sprache des Bots",
+    "mapVersion": "Kartenstil",
+    "roomCode": "Sichtbarkeit des Raumcodes"
   },
   "error": {
-    "forbidden": "You no longer have access to this server, or Discord has not granted the required access.",
-    "notFound": "Settings could not be found for this server."
+    "forbidden": "Du hast keinen Zugriff mehr auf diesen Server, oder Discord hat den nötigen Zugriff nicht gewährt.",
+    "notFound": "Für diesen Server wurden keine Einstellungen gefunden."
   },
   "hint": "{{label}}. {{description}}",
   "languageFormat": {
@@ -58,186 +58,186 @@
     "withNative": "{{flag}} {{name}} ({{native}})"
   },
   "languageName": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "it": "Italian",
-    "ja": "Japanese",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "zh": "Chinese"
+    "de": "Deutsch",
+    "en": "Englisch",
+    "es": "Spanisch",
+    "fr": "Französisch",
+    "it": "Italienisch",
+    "ja": "Japanisch",
+    "pt": "Portugiesisch",
+    "ru": "Russisch",
+    "zh": "Chinesisch"
   },
-  "loadingSettings": "Loading settings...",
+  "loadingSettings": "Lade Einstellungen...",
   "mapVersion": {
-    "detailed": "Detailed",
-    "simple": "Simple"
+    "detailed": "Detailliert",
+    "simple": "Einfach"
   },
   "marker": {
-    "custom": "Custom",
-    "customDefault": "Custom value; the bot default is {{value}}.",
+    "custom": "Angepasst",
+    "customDefault": "Angepasster Wert; der Standardwert des Bots ist {{value}}.",
     "premium": "Premium",
-    "premiumDetail": "Premium-only setting. AutoMuteUs applies it only on servers with premium."
+    "premiumDetail": "Nur mit Premium. AutoMuteUs wendet diese Einstellung nur auf Servern mit Premium an."
   },
   "noSelection": {
-    "description": "Choose a server to see and change its configuration.",
-    "heading": "Select your server"
+    "description": "Wähle einen Server, um seine Konfiguration anzusehen und zu ändern.",
+    "heading": "Wähle deinen Server"
   },
   "noServers": {
-    "description": "Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.",
-    "heading": "No servers you can manage"
+    "description": "Hier werden nur Server angezeigt, deren Besitzer du bist oder auf denen du die Berechtigung „Administrator“ oder „Server verwalten“ hast. Wenn du diese Rolle gerade erst bekommen hast, lade deine Serverliste neu.",
+    "heading": "Keine Server, die du verwalten kannst"
   },
-  "notice": "Changes apply to the bot when you press <strong>Save changes</strong>. Servers that never saved settings start from the defaults. Values that differ from the bot's defaults are marked <strong>Custom</strong>, and edits you haven't saved yet are highlighted in amber; <strong>Premium</strong> marks settings the bot applies only on premium servers.",
+  "notice": "Änderungen werden für den Bot übernommen, wenn du auf <strong>Änderungen speichern</strong> klickst. Server, die noch nie Einstellungen gespeichert haben, starten mit den Standardwerten. Werte, die von den Standardwerten des Bots abweichen, sind mit <strong>Angepasst</strong> markiert, und noch nicht gespeicherte Änderungen sind gelb hervorgehoben; <strong>Premium</strong> markiert Einstellungen, die der Bot nur auf Premium-Servern anwendet.",
   "page": {
-    "description": "Your server's voice rules, timing, and preferences in one place.",
-    "heading": "Server settings",
-    "metaDesc": "View and change AutoMuteUs voice rules, delays, and settings for the Discord servers you manage.",
-    "title": "Server settings - AutoMuteUs"
+    "description": "Sprachregeln, Timing und Einstellungen deines Servers an einem Ort.",
+    "heading": "Servereinstellungen",
+    "metaDesc": "Sprachregeln, Verzögerungen und Einstellungen von AutoMuteUs für die Discord-Server ansehen und ändern, die du verwaltest.",
+    "title": "Servereinstellungen - AutoMuteUs"
   },
   "phase": {
-    "DISCUSSION": "Discussion",
+    "DISCUSSION": "Diskussion",
     "inSentence": {
-      "DISCUSSION": "discussion",
-      "LOBBY": "lobby",
-      "TASKS": "tasks"
+      "DISCUSSION": "Diskussion",
+      "LOBBY": "Lobby",
+      "TASKS": "Tasks"
     },
     "LOBBY": "Lobby",
     "TASKS": "Tasks"
   },
-  "premiumHint": "Requires premium to change.",
-  "premiumLocked": "This server doesn't have AutoMuteUs premium, so settings marked <strong>Premium</strong> are shown but locked.",
-  "reloadSettings": "Reload settings",
+  "premiumHint": "Zum Ändern ist Premium erforderlich.",
+  "premiumLocked": "Dieser Server hat kein AutoMuteUs Premium. Mit <strong>Premium</strong> markierte Einstellungen werden daher angezeigt, sind aber gesperrt.",
+  "reloadSettings": "Einstellungen neu laden",
   "reset": {
-    "action": "Reset to defaults",
-    "confirm": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles.",
-    "confirmWithChanges": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles. Your unsaved changes will be discarded too.",
-    "description": "Put every setting back to the bot's default. Stats are kept.",
-    "done": "Settings reset to the defaults. The bot uses them from the next game.",
-    "title": "Reset settings"
+    "action": "Auf Standardwerte zurücksetzen",
+    "confirm": "Alle Einstellungen von <strong>{{name}}</strong> werden auf die Standardwerte zurückgesetzt, einschließlich des Zusammenfassungskanals und der Operator-Rollen.",
+    "confirmWithChanges": "Alle Einstellungen von <strong>{{name}}</strong> werden auf die Standardwerte zurückgesetzt, einschließlich des Zusammenfassungskanals und der Operator-Rollen. Deine ungespeicherten Änderungen werden ebenfalls verworfen.",
+    "description": "Setzt alle Einstellungen auf die Standardwerte des Bots zurück. Statistiken bleiben erhalten.",
+    "done": "Einstellungen auf die Standardwerte zurückgesetzt. Der Bot verwendet sie ab dem nächsten Spiel.",
+    "title": "Einstellungen zurücksetzen"
   },
   "retention": {
-    "afterOption": "Delete after...",
-    "forever": "Keep forever",
-    "immediately": "Delete immediately",
-    "minutes": "minutes",
-    "minutesLabel": "Minutes before the summary is deleted",
-    "after_one": "Delete after {{count}} minute",
-    "after_other": "Delete after {{count}} minutes"
+    "after_one": "Nach {{count}} Minute löschen",
+    "after_other": "Nach {{count}} Minuten löschen",
+    "afterOption": "Löschen nach...",
+    "forever": "Für immer behalten",
+    "immediately": "Sofort löschen",
+    "minutes": "Minuten",
+    "minutesLabel": "Minuten, bis die Zusammenfassung gelöscht wird"
   },
   "roles": {
-    "add": "Add",
-    "allListed": "Every role is already listed",
-    "choose": "Choose a role...",
-    "description": "Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings.",
-    "heading": "Bot operators",
-    "help": "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).",
-    "idLabel": "Role ID to add",
-    "idPlaceholder": "Role ID",
-    "idsLabel": "Operator role IDs",
-    "label": "Operator roles",
-    "managed": "{{name}} (bot or integration)",
-    "notInServer": "Not a role in this server",
-    "pickHelp": "Roles are listed as the bot sees them in this server.",
-    "pickLabel": "Role to add",
-    "remove": "Remove role {{name}}",
-    "unknown_one": "Not a role in this server: {{ids}}. Remove it to save.",
-    "unknown_other": "Not roles in this server: {{ids}}. Remove them to save."
+    "add": "Hinzufügen",
+    "allListed": "Alle Rollen sind bereits aufgeführt",
+    "choose": "Rolle auswählen...",
+    "description": "Mitglieder mit einer dieser Rollen können Spiele starten, pausieren, beenden, verlinken und die Verlinkung aufheben. Ist keine Rolle eingetragen, kann das jeder. Sobald eine Rolle hinzugefügt ist, können Mitglieder ohne eine dieser Rollen keine Spiele mehr steuern. Der Serverbesitzer und Mitglieder mit der Berechtigung „Administrator“ oder „Server verwalten“ können das immer, und nur sie können diese Einstellungen ändern, hier oder mit /settings.",
+    "heading": "Bot-Operatoren",
+    "help": "Rollen-IDs werden so gespeichert, wie sie eingegeben werden, und nicht mit dem Server abgeglichen. Öffne in Discord die Servereinstellungen > Rollen, klicke mit der rechten Maustaste auf eine Rolle und wähle „Rollen-ID kopieren“ (Entwicklermodus).",
+    "idLabel": "Hinzuzufügende Rollen-ID",
+    "idPlaceholder": "Rollen-ID",
+    "idsLabel": "Rollen-IDs der Operatoren",
+    "label": "Operator-Rollen",
+    "managed": "{{name}} (Bot oder Integration)",
+    "notInServer": "Keine Rolle auf diesem Server",
+    "pickHelp": "Die Rollen werden so aufgelistet, wie der Bot sie auf diesem Server sieht.",
+    "pickLabel": "Hinzuzufügende Rolle",
+    "remove": "Rolle {{name}} entfernen",
+    "unknown_one": "Keine Rolle auf diesem Server: {{ids}}. Entferne sie, um zu speichern.",
+    "unknown_other": "Keine Rollen auf diesem Server: {{ids}}. Entferne sie, um zu speichern."
   },
   "roomCode": {
-    "always": "Always visible",
-    "never": "Hidden",
-    "spoiler": "Behind a spoiler"
+    "always": "Immer sichtbar",
+    "never": "Ausgeblendet",
+    "spoiler": "Als Spoiler"
   },
   "save": {
-    "discard": "Discard",
-    "errorList": "Settings that need attention",
-    "fixFirst": "Fix the highlighted settings first.",
-    "none": "No unsaved changes",
-    "region": "Save changes",
-    "reload": "Reload",
-    "save": "Save changes",
-    "saved": "Settings saved. The bot uses them from the next game.",
-    "saving": "Saving...",
-    "unreachable": "We couldn't reach AutoMuteUs to save. Check your connection and try again.",
-    "unsaved_one": "{{count}} unsaved change",
-    "unsaved_other": "{{count}} unsaved changes"
+    "discard": "Verwerfen",
+    "errorList": "Einstellungen, die geprüft werden müssen",
+    "fixFirst": "Korrigiere zuerst die markierten Einstellungen.",
+    "none": "Keine ungespeicherten Änderungen",
+    "region": "Änderungen speichern",
+    "reload": "Neu laden",
+    "save": "Änderungen speichern",
+    "saved": "Einstellungen gespeichert. Der Bot verwendet sie ab dem nächsten Spiel.",
+    "saving": "Wird gespeichert...",
+    "unreachable": "AutoMuteUs war zum Speichern nicht erreichbar. Prüfe deine Verbindung und versuche es erneut.",
+    "unsaved_one": "{{count}} ungespeicherte Änderung",
+    "unsaved_other": "{{count}} ungespeicherte Änderungen"
   },
   "signedOut": {
-    "description": "Sign in with Discord to manage settings for the servers you own or administer.",
-    "heading": "Choose how your crew plays"
+    "description": "Melde dich mit Discord an, um die Einstellungen der Server zu verwalten, die dir gehören oder die du administrierst.",
+    "heading": "Bestimme, wie deine Crew spielt"
   },
   "summaries": {
-    "heading": "Match summaries",
-    "retention": "Match summary retention"
+    "heading": "Spielzusammenfassungen",
+    "retention": "Aufbewahrung der Spielzusammenfassung"
   },
   "unavailable": {
-    "description": "This server isn't one you own or administer. Choose another server above."
+    "description": "Dieser Server gehört dir nicht und du administrierst ihn nicht. Wähle oben einen anderen Server."
   },
   "validation": {
-    "channelID": "must be a Discord channel ID (17 to 20 digits), or empty for none",
-    "delay": "must be a whole number of seconds from {{min}} to {{max}}",
-    "duplicateRole": "duplicates entry {{entry}}",
-    "language": "must be one of the installed languages: {{codes}}",
-    "locked": "cannot be changed here",
-    "mapVersion": "must be {{first}} or {{second}}",
-    "onOff": "must be on or off",
-    "retention": "must be a whole number of minutes from 1 to {{max}}, 0 to delete immediately, or -1 to keep forever",
-    "roleID": "is not a Discord role ID",
-    "roleList": "must be a list of role IDs",
-    "roomCode": "must be one of {{options}}",
-    "tooManyRoles_one": "has {{count}} entry, at most {{max}} are allowed",
-    "tooManyRoles_other": "has {{count}} entries, at most {{max}} are allowed"
+    "channelID": "Muss eine Discord-Kanal-ID (17 bis 20 Ziffern) sein oder leer bleiben",
+    "delay": "Muss eine ganze Zahl von Sekunden zwischen {{min}} und {{max}} sein",
+    "duplicateRole": "Doppelt mit Eintrag {{entry}}",
+    "language": "Muss eine der installierten Sprachen sein: {{codes}}",
+    "locked": "Kann hier nicht geändert werden",
+    "mapVersion": "Muss {{first}} oder {{second}} sein",
+    "onOff": "Muss an oder aus sein",
+    "retention": "Muss eine ganze Zahl von Minuten zwischen 1 und {{max}} sein, 0 zum sofortigen Löschen oder -1 zum dauerhaften Behalten",
+    "roleID": "Ist keine Discord-Rollen-ID",
+    "roleList": "Muss eine Liste von Rollen-IDs sein",
+    "roomCode": "Muss einer dieser Werte sein: {{options}}",
+    "tooManyRoles_one": "Enthält {{count}} Eintrag, erlaubt sind höchstens {{max}}",
+    "tooManyRoles_other": "Enthält {{count}} Einträge, erlaubt sind höchstens {{max}}"
   },
   "value": {
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "none": "None configured",
-    "notApplicable": "N/A",
+    "disabled": "Deaktiviert",
+    "enabled": "Aktiviert",
+    "none": "Nichts eingerichtet",
+    "notApplicable": "k. A.",
     "seconds": "{{value}} s",
-    "unknown": "Not available"
+    "unknown": "Nicht verfügbar"
   },
   "voice": {
-    "about": "About voice rules",
-    "aboutDescription": "Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.",
-    "caption": "Configured voice rules by phase and player status",
+    "about": "Über Sprachregeln",
+    "aboutDescription": "Jede Zeile ist eine Spielphase. Die Spalten zeigen die eingestellten Regeln für Mikrofon und Hören von lebenden und toten Spielern. Das sind Bot-Einstellungen, keine Live-Ansicht des Discord-Audiostatus von irgendjemandem.",
+    "caption": "Eingestellte Sprachregeln nach Phase und Spielerstatus",
     "column": {
-      "alive": "Alive players",
-      "dead": "Dead players",
+      "alive": "Lebende Spieler",
+      "dead": "Tote Spieler",
       "phase": "Phase"
     },
     "context": {
-      "alive": "Alive players during {{phase}}",
-      "dead": "Dead players during {{phase}}"
+      "alive": "Lebende Spieler ({{phase}})",
+      "dead": "Tote Spieler ({{phase}})"
     },
-    "customDefault": "Custom value; the bot default is {{mute}} and {{deaf}}.",
-    "description": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Hover or focus a label for details.",
-    "descriptionEditing": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Select a pill to flip that rule.",
-    "heading": "Voice rules",
+    "customDefault": "Angepasster Wert; der Standard des Bots ist {{mute}} und {{deaf}}.",
+    "description": "Mikrofonsymbole zeigen die Sprechregeln, Kopfhörer die Hörregeln. Ein Schrägstrich bedeutet gesperrt. Fahre mit der Maus über ein Label oder fokussiere es, um Details zu sehen.",
+    "descriptionEditing": "Mikrofonsymbole zeigen die Sprechregeln, Kopfhörer die Hörregeln. Ein Schrägstrich bedeutet gesperrt. Wähle einen Schalter aus, um die Regel umzukehren.",
+    "heading": "Sprachregeln",
     "inSentence": {
-      "deafened": "deafened",
-      "muted": "muted",
-      "undeafened": "undeafened",
-      "unmuted": "unmuted"
+      "deafened": "taubgeschaltet",
+      "muted": "stummgeschaltet",
+      "undeafened": "nicht taubgeschaltet",
+      "unmuted": "nicht stummgeschaltet"
     },
     "muteSpectator": {
-      "about": "About mute spectators",
-      "description": "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music.",
-      "label": "Mute spectators"
+      "about": "Über das Stummschalten von Zuschauern",
+      "description": "Wenn aktiviert, werden Zuschauer wie tote Spieler stummgeschaltet. Server mit Musikbots lassen das oft deaktiviert, damit Zuschauer weiter Musik hören können.",
+      "label": "Zuschauer stummschalten"
     },
-    "premiumNote": "Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.",
+    "premiumNote": "Das Entstummen toter Spieler während der Tasks und das Stummschalten von Zuschauern können viele zusätzliche Sprachanfragen an Discord erfordern. Für Server ohne Premium, auf denen Anfragen langsamer oder verzögert sein können, ist das nicht zu empfehlen.",
     "state": {
-      "deafened": "Deafened",
-      "muted": "Muted",
-      "undeafened": "Undeafened",
-      "unmuted": "Unmuted"
+      "deafened": "Taub",
+      "muted": "Stumm",
+      "undeafened": "Nicht taub",
+      "unmuted": "Nicht stumm"
     },
-    "switchTo": "Switch to {{state}}",
+    "switchTo": "Umschalten auf {{state}}",
     "toggle": "{{context}}: {{state}}",
     "unmuteDead": {
-      "about": "About unmute dead players during tasks",
-      "description": "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players.",
-      "label": "Unmute dead players during tasks"
+      "about": "Über das Entstummen toter Spieler während der Tasks",
+      "description": "Wenn aktiviert, können tote Spieler während der Tasks sprechen. Das kann lebenden Spielern die Impostor verraten, wenn diese die toten Spieler weiterhin hören können.",
+      "label": "Tote Spieler während der Tasks entstummen"
     },
-    "unsafe": "<strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are."
+    "unsafe": "<strong>Möglicherweise unsichere Kombination:</strong> Tote Spieler sind während der Tasks nicht stummgeschaltet, während lebende Spieler nicht taubgeschaltet sind. Tote Spieler könnten den lebenden verraten, wer die Impostor sind."
   }
 }

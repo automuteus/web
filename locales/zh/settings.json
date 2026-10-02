@@ -1,237 +1,237 @@
 {
   "botAbsent": {
-    "description": "Invite the bot to {{name}} to use it there. Once it has joined, come back and reload to see its settings."
+    "description": "邀请机器人加入 {{name}} 后才能在那里使用。机器人加入后，请回到此处并重新加载以查看其设置。"
   },
-  "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> and these settings will apply once it does.",
+  "botUnknown": "无法确认 AutoMuteUs 是否在此服务器中。如果机器人尚未加入，请<invite>邀请它</invite>，加入后这些设置就会生效。",
   "channel": {
-    "cantPost": "The bot can't post in this channel.",
-    "checking": "Checking that the bot can post in this channel...",
-    "clear": "Clear",
-    "enterID": "Enter an ID",
-    "help": "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.",
-    "idLabel": "Summary channel ID",
-    "idPlaceholder": "Channel ID, or empty for none",
-    "label": "Summary channel",
-    "none": "None",
-    "notListed": "{{id}} (not in the list)",
-    "ok": "#{{name}}: the bot can post match summaries here.",
+    "cantPost": "机器人无法在此频道发送消息。",
+    "checking": "正在检查机器人能否在此频道发送消息...",
+    "clear": "清除",
+    "enterID": "输入 ID",
+    "help": "在 Discord 中，前往“设置 > 高级”开启开发者模式，然后右键点击频道并选择“复制频道 ID”。",
+    "idLabel": "摘要频道 ID",
+    "idPlaceholder": "频道 ID，留空表示不设置",
+    "label": "摘要频道",
+    "none": "无",
+    "notListed": "{{id}}（不在列表中）",
+    "ok": "#{{name}}：机器人可以在此发布比赛摘要。",
     "option": "#{{name}}",
-    "optionBlocked": "#{{name}} (bot can't post here)",
-    "pick": "Pick from a list",
-    "pickHelp": "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.",
-    "unchecked": "Couldn't check this channel right now. It will be verified when you save."
+    "optionBlocked": "#{{name}}（机器人无法在此发送消息）",
+    "pick": "从列表中选择",
+    "pickHelp": "此处按机器人在该服务器中看到的样子列出频道；无法发送消息的频道显示为灰色。如需使用子区，请输入 ID。",
+    "unchecked": "目前无法检查此频道，将在保存时进行验证。"
   },
   "confirm": {
-    "leave": "You have unsaved changes. Leave this page and discard them?",
-    "reload": "Discard your unsaved changes and reload this server's settings?",
-    "switch": "Discard your unsaved changes and switch servers?"
+    "leave": "你有未保存的更改。要离开此页面并放弃这些更改吗？",
+    "reload": "要放弃未保存的更改并重新加载此服务器的设置吗？",
+    "switch": "要放弃未保存的更改并切换服务器吗？"
   },
   "counts": {
-    "custom_other": "{{count}} custom",
-    "unsaved_other": "{{count}} unsaved"
+    "custom_other": "{{count}} 项自定义",
+    "unsaved_other": "{{count}} 项未保存"
   },
   "delays": {
-    "caption": "Voice transition delays in seconds",
-    "cellLabel": "Delay from {{from}} to {{to}} in seconds",
-    "corner": "From / to",
-    "description": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase.",
-    "descriptionEditing": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase. Whole seconds from {{min}} to {{max}}.",
-    "heading": "Transition delays",
-    "notApplicable": "Not applicable: the bot only delays changes between phases"
+    "caption": "语音切换延迟（秒）",
+    "cellLabel": "从{{from}}到{{to}}的延迟（秒）",
+    "corner": "从 / 到",
+    "description": "应用语音变更前等待的秒数。行表示当前阶段，列表示下一阶段。",
+    "descriptionEditing": "应用语音变更前等待的秒数。行表示当前阶段，列表示下一阶段。可设为 {{min}} 到 {{max}} 之间的整数秒。",
+    "heading": "阶段切换延迟",
+    "notApplicable": "不适用：机器人只会在阶段之间切换时延迟"
   },
   "display": {
-    "autoRefresh": "Refresh game message automatically",
-    "heading": "Display & language",
-    "language": "Bot language",
-    "mapVersion": "Map style",
-    "roomCode": "Room code visibility"
+    "autoRefresh": "自动刷新游戏消息",
+    "heading": "显示与语言",
+    "language": "机器人语言",
+    "mapVersion": "地图样式",
+    "roomCode": "房间代码可见性"
   },
   "error": {
-    "forbidden": "You no longer have access to this server, or Discord has not granted the required access.",
-    "notFound": "Settings could not be found for this server."
+    "forbidden": "你已无权访问此服务器，或 Discord 未授予所需的权限。",
+    "notFound": "找不到此服务器的设置。"
   },
-  "hint": "{{label}}. {{description}}",
+  "hint": "{{label}}。{{description}}",
   "languageFormat": {
     "short": "{{flag}} {{name}}",
-    "withNative": "{{flag}} {{name}} ({{native}})"
+    "withNative": "{{flag}} {{name}}（{{native}}）"
   },
   "languageName": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "it": "Italian",
-    "ja": "Japanese",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "zh": "Chinese"
+    "de": "德语",
+    "en": "英语",
+    "es": "西班牙语",
+    "fr": "法语",
+    "it": "意大利语",
+    "ja": "日语",
+    "pt": "葡萄牙语",
+    "ru": "俄语",
+    "zh": "中文"
   },
-  "loadingSettings": "Loading settings...",
+  "loadingSettings": "正在加载设置...",
   "mapVersion": {
-    "detailed": "Detailed",
-    "simple": "Simple"
+    "detailed": "详细",
+    "simple": "简洁"
   },
   "marker": {
-    "custom": "Custom",
-    "customDefault": "Custom value; the bot default is {{value}}.",
-    "premium": "Premium",
-    "premiumDetail": "Premium-only setting. AutoMuteUs applies it only on servers with premium."
+    "custom": "自定义",
+    "customDefault": "自定义值；机器人默认值为 {{value}}。",
+    "premium": "高级版",
+    "premiumDetail": "高级版专属设置。AutoMuteUs 仅在拥有高级版的服务器上应用此设置。"
   },
   "noSelection": {
-    "description": "Choose a server to see and change its configuration.",
-    "heading": "Select your server"
+    "description": "选择一个服务器以查看和更改其配置。",
+    "heading": "选择你的服务器"
   },
   "noServers": {
-    "description": "Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.",
-    "heading": "No servers you can manage"
+    "description": "这里只显示你是所有者或拥有“管理员”或“管理服务器”权限的服务器。如果你刚获得相应的身份组，请刷新服务器列表。",
+    "heading": "没有你可以管理的服务器"
   },
-  "notice": "Changes apply to the bot when you press <strong>Save changes</strong>. Servers that never saved settings start from the defaults. Values that differ from the bot's defaults are marked <strong>Custom</strong>, and edits you haven't saved yet are highlighted in amber; <strong>Premium</strong> marks settings the bot applies only on premium servers.",
+  "notice": "按下<strong>保存更改</strong>后，更改才会应用到机器人。从未保存过设置的服务器使用默认值。与机器人默认值不同的值会标记为<strong>自定义</strong>，尚未保存的修改会以琥珀色高亮显示；<strong>高级版</strong>标记表示机器人仅在高级版服务器上应用的设置。",
   "page": {
-    "description": "Your server's voice rules, timing, and preferences in one place.",
-    "heading": "Server settings",
-    "metaDesc": "View and change AutoMuteUs voice rules, delays, and settings for the Discord servers you manage.",
-    "title": "Server settings - AutoMuteUs"
+    "description": "在一个地方管理服务器的语音规则、时间设置和偏好。",
+    "heading": "服务器设置",
+    "metaDesc": "查看和更改你所管理的 Discord 服务器的 AutoMuteUs 语音规则、延迟和其他设置。",
+    "title": "服务器设置 - AutoMuteUs"
   },
   "phase": {
-    "DISCUSSION": "Discussion",
+    "DISCUSSION": "讨论",
     "inSentence": {
-      "DISCUSSION": "discussion",
-      "LOBBY": "lobby",
-      "TASKS": "tasks"
+      "DISCUSSION": "讨论阶段",
+      "LOBBY": "大厅阶段",
+      "TASKS": "任务阶段"
     },
-    "LOBBY": "Lobby",
-    "TASKS": "Tasks"
+    "LOBBY": "大厅",
+    "TASKS": "任务"
   },
-  "premiumHint": "Requires premium to change.",
-  "premiumLocked": "This server doesn't have AutoMuteUs premium, so settings marked <strong>Premium</strong> are shown but locked.",
-  "reloadSettings": "Reload settings",
+  "premiumHint": "需要高级版才能更改。",
+  "premiumLocked": "此服务器没有 AutoMuteUs 高级版，因此标记为<strong>高级版</strong>的设置仅供查看，无法更改。",
+  "reloadSettings": "重新加载设置",
   "reset": {
-    "action": "Reset to defaults",
-    "confirm": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles.",
-    "confirmWithChanges": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles. Your unsaved changes will be discarded too.",
-    "description": "Put every setting back to the bot's default. Stats are kept.",
-    "done": "Settings reset to the defaults. The bot uses them from the next game.",
-    "title": "Reset settings"
+    "action": "恢复默认设置",
+    "confirm": "<strong>{{name}}</strong> 中的所有设置都将恢复为默认值，包括比赛摘要频道和操作员身份组。",
+    "confirmWithChanges": "<strong>{{name}}</strong> 中的所有设置都将恢复为默认值，包括比赛摘要频道和操作员身份组。你未保存的更改也将被放弃。",
+    "description": "将所有设置恢复为机器人的默认值。统计数据会保留。",
+    "done": "设置已恢复为默认值。机器人将从下一局游戏开始使用。",
+    "title": "重置设置"
   },
   "retention": {
-    "afterOption": "Delete after...",
-    "forever": "Keep forever",
-    "immediately": "Delete immediately",
-    "minutes": "minutes",
-    "minutesLabel": "Minutes before the summary is deleted",
-    "after_other": "Delete after {{count}} minutes"
+    "after_other": "{{count}} 分钟后删除",
+    "afterOption": "一段时间后删除...",
+    "forever": "永久保留",
+    "immediately": "立即删除",
+    "minutes": "分钟",
+    "minutesLabel": "删除摘要前的分钟数"
   },
   "roles": {
-    "add": "Add",
-    "allListed": "Every role is already listed",
-    "choose": "Choose a role...",
-    "description": "Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings.",
-    "heading": "Bot operators",
-    "help": "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).",
-    "idLabel": "Role ID to add",
-    "idPlaceholder": "Role ID",
-    "idsLabel": "Operator role IDs",
-    "label": "Operator roles",
-    "managed": "{{name}} (bot or integration)",
-    "notInServer": "Not a role in this server",
-    "pickHelp": "Roles are listed as the bot sees them in this server.",
-    "pickLabel": "Role to add",
-    "remove": "Remove role {{name}}",
-    "unknown_other": "Not roles in this server: {{ids}}. Remove them to save."
+    "add": "添加",
+    "allListed": "所有身份组均已列出",
+    "choose": "选择身份组...",
+    "description": "拥有以下任一身份组的成员可以开始、暂停、结束游戏，以及链接和取消链接玩家。未列出任何身份组时，所有人都可以操作。一旦添加了身份组，没有这些身份组的成员将无法再控制游戏。服务器所有者以及拥有“管理员”或“管理服务器”权限的成员始终可以操作，并且只有他们可以在此处或通过 /settings 更改这些设置。",
+    "heading": "机器人操作员",
+    "help": "身份组 ID 按输入内容保存，不会与服务器核对。在 Discord 中，打开“服务器设置 > 身份组”，然后右键点击身份组并选择“复制身份组 ID”（需开启开发者模式）。",
+    "idLabel": "要添加的身份组 ID",
+    "idPlaceholder": "身份组 ID",
+    "idsLabel": "操作员身份组 ID",
+    "label": "操作员身份组",
+    "managed": "{{name}}（机器人或集成）",
+    "notInServer": "不是此服务器中的身份组",
+    "pickHelp": "此处按机器人在该服务器中看到的样子列出身份组。",
+    "pickLabel": "要添加的身份组",
+    "remove": "移除身份组 {{name}}",
+    "unknown_other": "以下不是此服务器中的身份组：{{ids}}。请移除后再保存。"
   },
   "roomCode": {
-    "always": "Always visible",
-    "never": "Hidden",
-    "spoiler": "Behind a spoiler"
+    "always": "始终可见",
+    "never": "隐藏",
+    "spoiler": "以剧透标签隐藏"
   },
   "save": {
-    "discard": "Discard",
-    "errorList": "Settings that need attention",
-    "fixFirst": "Fix the highlighted settings first.",
-    "none": "No unsaved changes",
-    "region": "Save changes",
-    "reload": "Reload",
-    "save": "Save changes",
-    "saved": "Settings saved. The bot uses them from the next game.",
-    "saving": "Saving...",
-    "unreachable": "We couldn't reach AutoMuteUs to save. Check your connection and try again.",
-    "unsaved_other": "{{count}} unsaved changes"
+    "discard": "放弃",
+    "errorList": "需要处理的设置",
+    "fixFirst": "请先修正高亮显示的设置。",
+    "none": "没有未保存的更改",
+    "region": "保存更改",
+    "reload": "重新加载",
+    "save": "保存更改",
+    "saved": "设置已保存。机器人将从下一局游戏开始使用。",
+    "saving": "正在保存...",
+    "unreachable": "无法连接到 AutoMuteUs 进行保存。请检查网络连接后重试。",
+    "unsaved_other": "{{count}} 项未保存的更改"
   },
   "signedOut": {
-    "description": "Sign in with Discord to manage settings for the servers you own or administer.",
-    "heading": "Choose how your crew plays"
+    "description": "使用 Discord 登录，管理你拥有或管理的服务器的设置。",
+    "heading": "决定你的船员们怎么玩"
   },
   "summaries": {
-    "heading": "Match summaries",
-    "retention": "Match summary retention"
+    "heading": "比赛摘要",
+    "retention": "比赛摘要保留时间"
   },
   "unavailable": {
-    "description": "This server isn't one you own or administer. Choose another server above."
+    "description": "你不是此服务器的所有者或管理员。请在上方选择其他服务器。"
   },
   "validation": {
-    "channelID": "must be a Discord channel ID (17 to 20 digits), or empty for none",
-    "delay": "must be a whole number of seconds from {{min}} to {{max}}",
-    "duplicateRole": "duplicates entry {{entry}}",
-    "language": "must be one of the installed languages: {{codes}}",
-    "locked": "cannot be changed here",
-    "mapVersion": "must be {{first}} or {{second}}",
-    "onOff": "must be on or off",
-    "retention": "must be a whole number of minutes from 1 to {{max}}, 0 to delete immediately, or -1 to keep forever",
-    "roleID": "is not a Discord role ID",
-    "roleList": "must be a list of role IDs",
-    "roomCode": "must be one of {{options}}",
-    "tooManyRoles_other": "has {{count}} entries, at most {{max}} are allowed"
+    "channelID": "请输入 Discord 频道 ID（17 到 20 位数字），或留空表示不设置",
+    "delay": "请输入 {{min}} 到 {{max}} 之间的整数秒",
+    "duplicateRole": "与第 {{entry}} 项重复",
+    "language": "请选择已安装的语言之一：{{codes}}",
+    "locked": "无法在此处更改",
+    "mapVersion": "请选择 {{first}} 或 {{second}}",
+    "onOff": "请选择开启或关闭",
+    "retention": "请输入 1 到 {{max}} 之间的整数分钟数，输入 0 表示立即删除，输入 -1 表示永久保留",
+    "roleID": "不是有效的 Discord 身份组 ID",
+    "roleList": "必须是身份组 ID 列表",
+    "roomCode": "请选择以下之一：{{options}}",
+    "tooManyRoles_other": "共有 {{count}} 项，最多只允许 {{max}} 项"
   },
   "value": {
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "none": "None configured",
-    "notApplicable": "N/A",
-    "seconds": "{{value}} s",
-    "unknown": "Not available"
+    "disabled": "已禁用",
+    "enabled": "已启用",
+    "none": "未配置",
+    "notApplicable": "不适用",
+    "seconds": "{{value}} 秒",
+    "unknown": "不可用"
   },
   "voice": {
-    "about": "About voice rules",
-    "aboutDescription": "Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.",
-    "caption": "Configured voice rules by phase and player status",
+    "about": "关于语音规则",
+    "aboutDescription": "每一行代表一个游戏阶段。各列显示为存活和死亡玩家配置的麦克风与收听规则。这些是机器人的设置，而不是任何人当前 Discord 音频状态的实时显示。",
+    "caption": "按阶段和玩家状态配置的语音规则",
     "column": {
-      "alive": "Alive players",
-      "dead": "Dead players",
-      "phase": "Phase"
+      "alive": "存活玩家",
+      "dead": "死亡玩家",
+      "phase": "阶段"
     },
     "context": {
-      "alive": "Alive players during {{phase}}",
-      "dead": "Dead players during {{phase}}"
+      "alive": "{{phase}}的存活玩家",
+      "dead": "{{phase}}的死亡玩家"
     },
-    "customDefault": "Custom value; the bot default is {{mute}} and {{deaf}}.",
-    "description": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Hover or focus a label for details.",
-    "descriptionEditing": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Select a pill to flip that rule.",
-    "heading": "Voice rules",
+    "customDefault": "自定义值；机器人默认为{{mute}}、{{deaf}}。",
+    "description": "麦克风图标表示说话规则，耳机图标表示收听规则。带斜线表示禁止。将鼠标悬停在标签上或聚焦标签可查看详情。",
+    "descriptionEditing": "麦克风图标表示说话规则，耳机图标表示收听规则。带斜线表示禁止。点击标签即可切换该规则。",
+    "heading": "语音规则",
     "inSentence": {
-      "deafened": "deafened",
-      "muted": "muted",
-      "undeafened": "undeafened",
-      "unmuted": "unmuted"
+      "deafened": "拒听",
+      "muted": "静音",
+      "undeafened": "取消拒听",
+      "unmuted": "取消静音"
     },
     "muteSpectator": {
-      "about": "About mute spectators",
-      "description": "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music.",
-      "label": "Mute spectators"
+      "about": "关于将旁观者静音",
+      "description": "启用后，旁观者会像死亡玩家一样被静音。使用音乐机器人的服务器通常会禁用此项，让旁观者可以继续收听音乐。",
+      "label": "将旁观者静音"
     },
-    "premiumNote": "Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.",
+    "premiumNote": "在任务阶段为死亡玩家取消静音以及将旁观者静音，可能会产生大量额外的 Discord 语音请求。不建议在非高级版服务器上使用，因为请求可能会变慢或延迟。",
     "state": {
-      "deafened": "Deafened",
-      "muted": "Muted",
-      "undeafened": "Undeafened",
-      "unmuted": "Unmuted"
+      "deafened": "拒听",
+      "muted": "静音",
+      "undeafened": "取消拒听",
+      "unmuted": "取消静音"
     },
-    "switchTo": "Switch to {{state}}",
-    "toggle": "{{context}}: {{state}}",
+    "switchTo": "切换为{{state}}",
+    "toggle": "{{context}}：{{state}}",
     "unmuteDead": {
-      "about": "About unmute dead players during tasks",
-      "description": "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players.",
-      "label": "Unmute dead players during tasks"
+      "about": "关于在任务阶段为死亡玩家取消静音",
+      "description": "启用后，死亡玩家可以在任务阶段说话。如果没有阻止存活玩家听到死亡玩家的声音，这可能会向存活玩家暴露内鬼。",
+      "label": "在任务阶段为死亡玩家取消静音"
     },
-    "unsafe": "<strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are."
+    "unsafe": "<strong>可能不安全的组合：</strong>在任务阶段死亡玩家被取消静音，而存活玩家未被拒听。死亡玩家可能会告诉存活玩家谁是内鬼。"
   }
 }

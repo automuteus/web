@@ -1,16 +1,16 @@
 {
   "actions": {
-    "addToDiscord": "Add to Discord",
-    "capture": "Capture Software",
-    "premium": "AutoMuteUs Premium"
+    "addToDiscord": "添加到 Discord",
+    "capture": "捕获软件",
+    "premium": "AutoMuteUs 高级版"
   },
   "crewmateLabel": "AutoMuteUs",
-  "heading": "Use AutoMuteUs for hands free muting",
+  "heading": "用 AutoMuteUs 实现免手动静音",
   "stats": {
-    "activeGames": "Active Games",
-    "gamesMuted": "Games Muted",
-    "servers": "Servers",
-    "users": "Users"
+    "activeGames": "进行中的游戏",
+    "gamesMuted": "已静音的游戏",
+    "servers": "服务器",
+    "users": "用户"
   },
-  "subtitle": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
+  "subtitle": "AutoMuteUs 是一个 Discord 机器人，它会收集 Among Us 的游戏数据，在游戏中自动为玩家静音和解除静音！"
 }

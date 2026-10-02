@@ -1,75 +1,75 @@
 {
   "errorLayout": {
-    "heading": "There's been some kind of error!",
-    "report": "Please report this on our Discord Support Server"
+    "heading": "エラーが発生しました！",
+    "report": "Discord サポートサーバーで報告してください"
   },
   "guildPage": {
     "botAbsent": {
-      "added": "I've added it",
-      "heading": "AutoMuteUs isn't in this server yet",
-      "invite": "Invite AutoMuteUs"
+      "added": "追加しました",
+      "heading": "AutoMuteUs はまだこのサーバーにいません",
+      "invite": "AutoMuteUs を招待"
     },
-    "checkingBot": "Checking for AutoMuteUs in this server...",
-    "checkingLogin": "Checking your Discord login...",
+    "checkingBot": "このサーバーに AutoMuteUs がいるか確認しています...",
+    "checkingLogin": "Discord のログインを確認しています...",
     "error": {
-      "busy": "Discord or AutoMuteUs is temporarily busy. Please wait a moment and try again.",
-      "expired": "Your Discord login has expired. Sign in again to continue.",
-      "forbidden": "You're not a member of this server, or Discord has not granted the required access.",
-      "generic": "We couldn't load this information. Please try again.",
-      "preparing": "AutoMuteUs is still preparing this data, or Discord is temporarily busy. Please wait a minute and try again."
+      "busy": "Discord または AutoMuteUs が一時的に混み合っています。しばらく待ってからもう一度お試しください。",
+      "expired": "Discord のログインの有効期限が切れました。続けるにはもう一度サインインしてください。",
+      "forbidden": "このサーバーのメンバーではないか、Discord から必要なアクセス権が付与されていません。",
+      "generic": "情報を読み込めませんでした。もう一度お試しください。",
+      "preparing": "AutoMuteUs がまだデータを準備中か、Discord が一時的に混み合っています。1 分ほど待ってからもう一度お試しください。"
     },
-    "loadingServers": "Loading your servers...",
+    "loadingServers": "サーバーを読み込んでいます...",
     "noServers": {
-      "heading": "No servers found",
-      "refresh": "Refresh servers"
+      "heading": "サーバーが見つかりません",
+      "refresh": "サーバーを再読み込み"
     },
-    "selectServer": "Select a server",
-    "serverLabel": "Discord server",
-    "serverUnavailable": "Server unavailable",
-    "signIn": "Sign in with Discord",
-    "tryAgain": "Try again"
+    "selectServer": "サーバーを選択",
+    "serverLabel": "Discord サーバー",
+    "serverUnavailable": "サーバーを利用できません",
+    "signIn": "Discord でサインイン",
+    "tryAgain": "もう一度試す"
   },
   "header": {
-    "checkingLogin": "Checking login...",
-    "language": "Language",
+    "checkingLogin": "ログインを確認しています...",
+    "language": "言語",
     "languageOption": "{{flag}} {{native}}",
-    "logoAlt": "AutoMuteUs logo",
+    "logoAlt": "AutoMuteUs のロゴ",
     "nav": {
-      "commands": "Commands",
+      "commands": "コマンド",
       "github": "GitHub",
-      "home": "Home",
-      "premium": "Premium",
-      "settings": "Settings",
-      "stats": "Stats",
-      "support": "Support Server"
+      "home": "ホーム",
+      "premium": "プレミアム",
+      "settings": "設定",
+      "stats": "統計",
+      "support": "サポートサーバー"
     },
-    "signIn": "Sign In",
-    "signOut": "Sign Out",
-    "toggleNav": "Toggle navigation",
-    "unknownUser": "<Unknown>"
+    "signIn": "サインイン",
+    "signOut": "サインアウト",
+    "toggleNav": "ナビゲーションを切り替え",
+    "unknownUser": "<不明>"
   },
   "layout": {
-    "title": "AutoMuteUs - Hands Free Among Us Muting"
+    "title": "AutoMuteUs - Among Us のハンズフリー自動ミュート"
   },
   "meta": {
-    "description": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!",
+    "description": "AutoMuteUs は Among Us のゲームデータを取得し、ゲーム中にプレイヤーを自動でミュート / ミュート解除する Discord ボットです！",
     "title": "AutoMuteUs"
   },
   "notFound": {
-    "heading": "This page was an imposter. <br/>",
-    "home": "Go Home",
-    "title": "404 Page Not Found"
+    "heading": "このページはインポスターでした。<br/>",
+    "home": "ホームへ戻る",
+    "title": "404 ページが見つかりません"
   },
   "resetPanel": {
-    "cancel": "Cancel",
-    "confirmLabel": "Confirm: {{action}}",
+    "cancel": "キャンセル",
+    "confirmLabel": "確認：{{action}}",
     "error": {
-      "failed": "The reset failed. Please try again.",
-      "unreachable": "We couldn't reach AutoMuteUs. Check your connection and try again."
+      "failed": "リセットに失敗しました。もう一度お試しください。",
+      "unreachable": "AutoMuteUs に接続できませんでした。接続を確認してもう一度お試しください。"
     },
     "open": "{{action}}...",
-    "resetting": "Resetting...",
-    "typed": "Type <strong>{{word}}</strong> to confirm",
-    "warning": "<confirm/> This can't be undone."
+    "resetting": "リセットしています...",
+    "typed": "確認のため <strong>{{word}}</strong> と入力してください",
+    "warning": "<confirm/> この操作は取り消せません。"
   }
 }
