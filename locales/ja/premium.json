@@ -30,8 +30,8 @@
     "prompt": "Select Server",
     "reload": "Try reloading the page."
   },
-  "heading": "AutoMuteUs Premium",
-  "loadingServers": "Loading your servers",
+  "heading": "AutoMuteUs プレミアム",
+  "loadingServers": "サーバーを読み込んでいます",
   "meta": {
     "description": "AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!",
     "title": "AutoMuteUs - Premium"
@@ -66,8 +66,8 @@
       "title": "Premium Support"
     }
   },
-  "perksHeading": "Premium Perks",
-  "signIn": "Sign in to view your servers",
+  "perksHeading": "プレミアムの特典",
+  "signIn": "サインインしてサーバーを表示",
   "status": {
     "changingTiers": "Each purchase starts a new PayPal subscription, so buying here won't replace the current one, and its remaining days don't carry over. If you're changing tiers, <cancel>cancel the current subscription</cancel> first.",
     "ending": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. Its PayPal subscription is cancelled and won't renew.",
@@ -79,8 +79,8 @@
     "renewsInherited": "{{server}} has AutoMuteUs {{tier}}. The PayPal subscription of the server it inherits premium from renews around {{date, datetime}}.",
     "days_other": "{{server}} has AutoMuteUs {{tier}}, with {{count}} days left on its latest payment."
   },
-  "subtitle": "Looking to upgrade your Among Us gameplay even further? Running into limitations with the bot while it's under high load? Consider AutoMuteUs premium to support the project as well as improve your muting experience!",
-  "thisServer": "This server",
+  "subtitle": "Among Us のプレイをさらに快適にしたいですか？ ボットの高負荷時に制限を受けていませんか？ AutoMuteUs プレミアムで、プロジェクトを支援しながらミュートの体験を向上させましょう！",
+  "thisServer": "このサーバー",
   "tier": {
     "bronze": "Bronze",
     "free": "Free",
