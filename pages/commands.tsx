@@ -50,7 +50,6 @@ export default function CommandsPage() {
                     </span>
                 </div>
 
-                        {t("page.currentAsOf", { version: "v10.0.0" })}
                 <div className="row">
                     <div
                         className={`col-12 col-md-auto d-none d-lg-flex fixedCol`}
