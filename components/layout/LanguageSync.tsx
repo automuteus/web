@@ -3,8 +3,14 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import i18n, { uiLanguage } from "../../utils/i18n";
 
-/** Remembers a manual choice; a future language picker writes the same key. */
+/** Remembers a manual choice from the header's language picker or ?lng=. */
 const STORAGE_KEY = "uiLanguage";
+
+/** Switches to a language the reader picked and keeps it over the Discord language on later visits. */
+export function chooseLanguage(language: string) {
+    localStorage.setItem(STORAGE_KEY, language);
+    i18n.changeLanguage(uiLanguage(language));
+}
 
 /** Picks the UI language after the first render (which is always English, matching the server render): a manual
  * choice first (?lng=ja sets it, ?lng= clears it), then the Discord client language from sign-in, then English. */

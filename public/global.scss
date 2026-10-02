@@ -411,6 +411,20 @@ h6 {
     }
 }
 
+// Above <main> (also z-index 10, but later in the page) so the language menu opens over the content.
+header.navbar {
+    z-index: 20;
+}
+
+.language-picker .dropdown-menu {
+    --bs-dropdown-bg: var(--dark);
+    --bs-dropdown-link-color: var(--text);
+    --bs-dropdown-link-hover-color: var(--text);
+    --bs-dropdown-link-hover-bg: var(--darker);
+    --bs-dropdown-link-active-color: #fff;
+    --bs-dropdown-link-active-bg: var(--blurple);
+}
+
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
     color: #fff;

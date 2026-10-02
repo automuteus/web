@@ -31,6 +31,8 @@
   },
   "header": {
     "checkingLogin": "Checking login...",
+    "language": "Language",
+    "languageOption": "{{flag}} {{native}}",
     "logoAlt": "AutoMuteUs logo",
     "nav": {
       "commands": "Commands",

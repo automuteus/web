@@ -18,6 +18,7 @@ import { faDiscord, faGithub } from "@fortawesome/free-brands-svg-icons";
 import default_user from "../../public/images/discord_placeholder.png";
 import site_logo from "../../public/images/logo_animated_sm.gif";
 import HeaderLink, { Props as HeaderLinkProps } from "./HeaderLink";
+import LanguagePicker from "./LanguagePicker";
 
 export default function Header(): React.ReactElement {
     const { t } = useTranslation("common");
@@ -159,6 +160,7 @@ export default function Header(): React.ReactElement {
                 </Navbar.Toggle>
 
                 <div className="navbar-nav flex-row align-items-center order-lg-2">
+                    <LanguagePicker />
                     {userSection}
                 </div>
 
