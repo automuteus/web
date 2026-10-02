@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Benutzer, dessen Verlinkung aufgehoben werden soll"
+        "user": "User to unlink"
       },
       "description": "Die Verlinkung eines Discord-Benutzers mit seiner Farbe im Spiel aufheben"
     }
@@ -96,9 +96,9 @@
     "optional": "Optional",
     "optionalLabel": "OPTIONAL",
     "required": "Erforderlich",
+    "subcommands": "Unterbefehle",
     "subcommandCount_one": "+ {{count}} Unterbefehl",
-    "subcommandCount_other": "+ {{count}} Unterbefehle",
-    "subcommands": "Unterbefehle"
+    "subcommandCount_other": "+ {{count}} Unterbefehle"
   },
   "page": {
     "currentAsOf": "Stand: {{version}}",
