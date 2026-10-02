@@ -1,93 +1,93 @@
 {
   "cancel": {
-    "body": "As per the email you received on purchase, you can <manage>manage your subscriptions via PayPal.</manage><br/>If you checked out with a PayPal guest account, or otherwise need help, <form>please use this form.</form>",
-    "heading": "Looking to cancel?"
+    "body": "購入時に届いたメールに記載のとおり、<manage>サブスクリプションは PayPal で管理できます。</manage><br/>PayPal のゲストアカウントで購入した場合や、その他のサポートが必要な場合は、<form>こちらのフォームをご利用ください。</form>",
+    "heading": "解約をご希望ですか？"
   },
   "card": {
     "bronze": {
-      "button": "Get Bronze"
+      "button": "Bronze に加入"
     },
-    "chooseServer": "Please choose a server first",
-    "current": "Current plan",
+    "chooseServer": "先にサーバーを選択してください",
+    "current": "現在のプラン",
     "donation": {
-      "button": "Make Donation",
-      "description": "You won't get any special bot privileges, but you will get our thanks for making this Open Source project possible!",
-      "heading": "Chip in any amount you wish ❤️",
-      "thanks": "Thank you! ♥",
-      "title": "Donation"
+      "button": "寄付する",
+      "description": "ボットの特典はありませんが、このオープンソースプロジェクトを支えてくださることに心から感謝します！",
+      "heading": "お好きな金額でご支援ください ❤️",
+      "thanks": "ありがとうございます！ ♥",
+      "title": "寄付"
     },
     "gold": {
-      "button": "Get Gold"
+      "button": "Gold に加入"
     },
-    "price": "<strong>{{price}}</strong> <small>/ month</small>",
-    "serverId": "Server ID: {{id}}",
+    "price": "<strong>{{price}}</strong> <small>/ 月</small>",
+    "serverId": "サーバー ID：{{id}}",
     "silver": {
-      "button": "Get Silver"
+      "button": "Silver に加入"
     }
   },
   "guildSelect": {
-    "noServers": "No servers found.",
-    "prompt": "Select Server",
-    "reload": "Try reloading the page."
+    "noServers": "サーバーが見つかりません。",
+    "prompt": "サーバーを選択",
+    "reload": "ページを再読み込みしてみてください。"
   },
   "heading": "AutoMuteUs プレミアム",
   "loadingServers": "サーバーを読み込んでいます",
   "meta": {
-    "description": "AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!",
-    "title": "AutoMuteUs - Premium"
+    "description": "AutoMuteUs プレミアムなら、Discord のレート制限を回避し、リーダーボード付きの統計を記録し、Discord のプレミアム専用サポートチャンネルを利用できます！",
+    "title": "AutoMuteUs - プレミアム"
   },
   "modal": {
-    "confirm": "Confirm Server ID",
-    "confirmPrompt": "Please confirm that this is the server you want selected!",
-    "different": "If you'd prefer a different server, sign in and select from your joined servers list.",
-    "findId": "How do I find my server ID?",
-    "selected": "The server ID you've selected is:",
-    "title": "Server ID Pre-selected"
+    "confirm": "サーバー ID を確認",
+    "confirmPrompt": "選択したいサーバーがこれで合っているか確認してください！",
+    "different": "別のサーバーを選びたい場合は、サインインして参加中のサーバー一覧から選択してください。",
+    "findId": "サーバー ID の確認方法は？",
+    "selected": "選択されているサーバー ID：",
+    "title": "サーバー ID が選択済みです"
   },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load! ",
-      "title": "Priority Game Access"
+      "description": "ボットが高負荷のときでも、いつでも新しいゲームを作成できます！",
+      "title": "ゲームの優先アクセス"
     },
     "mutingBots": {
-      "description": "Issues requests alongside the main bot; this drastically improves the speed of mutes/deafens in your games",
-      "title": "Priority Muting Bots"
+      "description": "メインのボットと並行してリクエストを送り、ゲーム中のミュート / スピーカーミュートを大幅に高速化します",
+      "title": "優先ミュートボット"
     },
     "servers": {
-      "description": "Get your premium AutoMuteUs bot status in multiple Discord servers!",
-      "title": "Premium Servers"
+      "description": "複数の Discord サーバーで AutoMuteUs のプレミアムを利用できます！",
+      "title": "プレミアムサーバー"
     },
     "stats": {
-      "description": "View Among Us stats and leaderboards for the players on your server!",
-      "title": "Stats and Leaderboards"
+      "description": "サーバーのプレイヤーの Among Us 統計とリーダーボードを見られます！",
+      "title": "統計とリーダーボード"
     },
     "support": {
-      "description": "Access to Premium-only channels and chats in our official Discord!",
-      "title": "Premium Support"
+      "description": "公式 Discord のプレミアム専用チャンネルとチャットを利用できます！",
+      "title": "プレミアムサポート"
     }
   },
   "perksHeading": "プレミアムの特典",
   "signIn": "サインインしてサーバーを表示",
   "status": {
-    "changingTiers": "Each purchase starts a new PayPal subscription, so buying here won't replace the current one, and its remaining days don't carry over. If you're changing tiers, <cancel>cancel the current subscription</cancel> first.",
-    "ending": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. Its PayPal subscription is cancelled and won't renew.",
-    "endingInherited": "{{server}} has AutoMuteUs {{tier}} until {{date, datetime}}. The PayPal subscription of the server it inherits premium from is cancelled and won't renew.",
-    "expired": "{{server}}'s AutoMuteUs {{tier}} has expired.",
-    "free": "{{server}} doesn't have AutoMuteUs Premium.",
-    "noExpiry": "{{server}} has AutoMuteUs {{tier}}, with no expiry.",
-    "renews": "{{server}} has AutoMuteUs {{tier}}. Its PayPal subscription renews around {{date, datetime}}.",
-    "renewsInherited": "{{server}} has AutoMuteUs {{tier}}. The PayPal subscription of the server it inherits premium from renews around {{date, datetime}}.",
-    "days_other": "{{server}} has AutoMuteUs {{tier}}, with {{count}} days left on its latest payment."
+    "changingTiers": "購入するたびに新しい PayPal サブスクリプションが作成されるため、ここで購入しても現在のサブスクリプションは置き換わらず、残りの日数も引き継がれません。プランを変更する場合は、先に<cancel>現在のサブスクリプションを解約</cancel>してください。",
+    "ending": "{{server}} は {{date, datetime}} まで AutoMuteUs {{tier}} を利用できます。PayPal サブスクリプションは解約済みのため、更新されません。",
+    "endingInherited": "{{server}} は {{date, datetime}} まで AutoMuteUs {{tier}} を利用できます。プレミアムの継承元サーバーの PayPal サブスクリプションは解約済みのため、更新されません。",
+    "expired": "{{server}} の AutoMuteUs {{tier}} は期限切れです。",
+    "free": "{{server}} は AutoMuteUs プレミアムを利用していません。",
+    "noExpiry": "{{server}} は AutoMuteUs {{tier}} を無期限で利用できます。",
+    "renews": "{{server}} は AutoMuteUs {{tier}} を利用中です。PayPal サブスクリプションは {{date, datetime}} ごろに更新されます。",
+    "renewsInherited": "{{server}} は AutoMuteUs {{tier}} を利用中です。プレミアムの継承元サーバーの PayPal サブスクリプションは {{date, datetime}} ごろに更新されます。",
+    "days_other": "{{server}} は AutoMuteUs {{tier}} を利用中です。最新の支払いの残りは {{count}} 日です。"
   },
   "subtitle": "Among Us のプレイをさらに快適にしたいですか？ ボットの高負荷時に制限を受けていませんか？ AutoMuteUs プレミアムで、プロジェクトを支援しながらミュートの体験を向上させましょう！",
   "thisServer": "このサーバー",
   "tier": {
     "bronze": "Bronze",
-    "free": "Free",
+    "free": "無料",
     "gold": "Gold",
-    "premium": "Premium",
-    "selfHosted": "Self-hosted",
+    "premium": "プレミアム",
+    "selfHosted": "セルフホスト",
     "silver": "Silver",
-    "trial": "Trial"
+    "trial": "試用"
   }
 }
