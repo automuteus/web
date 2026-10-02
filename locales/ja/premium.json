@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "ボットが高負荷のときでも、いつでも新しいゲームを作成できます！",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "ゲームの優先アクセス"
     },
     "mutingBots": {
