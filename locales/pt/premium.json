@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Sempre consiga criar novas partidas, mesmo quando o bot estiver sob carga pesada!",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Acesso prioritário às partidas"
     },
     "mutingBots": {
@@ -70,15 +70,15 @@
   "signIn": "Entre para ver seus servidores",
   "status": {
     "changingTiers": "Cada compra inicia uma nova assinatura do PayPal, então comprar aqui não substitui a atual, e os dias restantes dela não são transferidos. Se você vai mudar de plano, <cancel>cancele a assinatura atual</cancel> primeiro.",
-    "days_one": "{{server}} tem AutoMuteUs {{tier}}, com {{count}} dia restante do último pagamento.",
-    "days_other": "{{server}} tem AutoMuteUs {{tier}}, com {{count}} dias restantes do último pagamento.",
     "ending": "{{server}} tem AutoMuteUs {{tier}} até {{date, datetime}}. A assinatura do PayPal foi cancelada e não será renovada.",
     "endingInherited": "{{server}} tem AutoMuteUs {{tier}} até {{date, datetime}}. A assinatura do PayPal do servidor de onde ele herda o premium foi cancelada e não será renovada.",
     "expired": "O AutoMuteUs {{tier}} de {{server}} expirou.",
     "free": "{{server}} não tem AutoMuteUs Premium.",
     "noExpiry": "{{server}} tem AutoMuteUs {{tier}}, sem data de expiração.",
     "renews": "{{server}} tem AutoMuteUs {{tier}}. A assinatura do PayPal é renovada por volta de {{date, datetime}}.",
-    "renewsInherited": "{{server}} tem AutoMuteUs {{tier}}. A assinatura do PayPal do servidor de onde ele herda o premium é renovada por volta de {{date, datetime}}."
+    "renewsInherited": "{{server}} tem AutoMuteUs {{tier}}. A assinatura do PayPal do servidor de onde ele herda o premium é renovada por volta de {{date, datetime}}.",
+    "days_one": "{{server}} tem AutoMuteUs {{tier}}, com {{count}} dia restante do último pagamento.",
+    "days_other": "{{server}} tem AutoMuteUs {{tier}}, com {{count}} dias restantes do último pagamento."
   },
   "subtitle": "Quer levar suas partidas de Among Us ainda mais longe? Está esbarrando em limitações do bot quando ele está sob carga pesada? Considere o AutoMuteUs Premium para apoiar o projeto e melhorar sua experiência de silenciamento!",
   "thisServer": "Este servidor",
