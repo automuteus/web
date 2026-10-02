@@ -24,13 +24,8 @@ export const LANGUAGES: readonly { code: string; name: string; native: string; f
     { code: "fr", name: "French", native: "Fran\u00e7ais", flag: "\u{1F1EB}\u{1F1F7}" },
     { code: "it", name: "Italian", native: "Italiano", flag: "\u{1F1EE}\u{1F1F9}" },
     { code: "ja", name: "Japanese", native: "\u65e5\u672c\u8a9e", flag: "\u{1F1EF}\u{1F1F5}" },
-    { code: "no", name: "Norwegian", native: "Norsk", flag: "\u{1F1F3}\u{1F1F4}" },
-    { code: "pl", name: "Polish", native: "Polski", flag: "\u{1F1F5}\u{1F1F1}" },
     { code: "pt", name: "Portuguese", native: "Portugu\u00eas", flag: "\u{1F1F5}\u{1F1F9}" },
-    { code: "ro", name: "Romanian", native: "Rom\u00e2n\u0103", flag: "\u{1F1F7}\u{1F1F4}" },
     { code: "ru", name: "Russian", native: "\u0420\u0443\u0441\u0441\u043a\u0438\u0439", flag: "\u{1F1F7}\u{1F1FA}" },
-    { code: "sv", name: "Swedish", native: "Svenska", flag: "\u{1F1F8}\u{1F1EA}" },
-    { code: "uk", name: "Ukrainian", native: "\u0423\u043a\u0440\u0430\u0457\u043d\u0441\u044c\u043a\u0430", flag: "\u{1F1FA}\u{1F1E6}" },
     { code: "zh", name: "Chinese", native: "\u4e2d\u6587", flag: "\u{1F1E8}\u{1F1F3}" },
 ];
 export function languageOf(code: unknown) {

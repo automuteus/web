@@ -134,7 +134,7 @@ test("editing renders controls for editable fields, locks the rest, and highligh
     assert.ok(html.includes("Copy Channel ID"), "help for finding an ID");
     assert.ok(html.includes('<option value="de" selected="">\u{1F1E9}\u{1F1EA} German (Deutsch)</option>'));
     assert.ok(html.includes('<option value="en">\u{1F1FA}\u{1F1F8} English</option>'));
-    assert.equal((html.match(/<option value="[a-z]{2}"/g) || []).length, 14);
+    assert.equal((html.match(/<option value="[a-z]{2}"/g) || []).length, 9);
     // Premium lock disables premium-only controls and says why.
     assert.ok((html.match(/Requires premium to change/g) || []).length >= 4);
     assert.match(html, /<input[^>]*disabled=""[^>]*aria-label="Mute spectators"/);

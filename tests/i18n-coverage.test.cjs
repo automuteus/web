@@ -23,8 +23,8 @@ const { parseMatchSummary } = require("../components/stats/match-summary.ts");
 const LOCALES = path.join(__dirname, "../locales/en");
 const catalogs = Object.fromEntries(fs.readdirSync(LOCALES).map((file) => [file.replace(/\.json$/, ""), require(path.join(LOCALES, file))]));
 
-/** Every English value wrapped in ⟦…⟧, under a supported language that has no catalog of its own. */
-const PSEUDO = "sv";
+/** Every English value wrapped in ⟦…⟧, loaded under a supported language in place of its own catalog. */
+const PSEUDO = "it";
 const wrap = (value) => typeof value === "string" ? `⟦${value}⟧` : Object.fromEntries(Object.entries(value).map(([k, v]) => [k, wrap(v)]));
 
 const views = [

@@ -74,9 +74,9 @@ test("validation mirrors the API ranges and names fields the same way", () => {
     for (const bad of ["1", "general", "<#123456789012345678>", " 123456789012345678", 123456789012345678, null]) {
         assert.equal(validateDraft({ matchSummaryChannelID: bad }, ["matchSummaryChannelID"]).length, 1, String(bad));
     }
-    assert.equal(LANGUAGES.length, 14);
+    assert.equal(LANGUAGES.length, 9);
     assert.ok(LANGUAGES.every((l) => /^[a-z]{2}$/.test(l.code) && [...l.flag].length === 2 && l.name && l.native));
-    assert.equal(new Set(LANGUAGES.map((l) => l.code)).size, 14);
+    assert.equal(new Set(LANGUAGES.map((l) => l.code)).size, 9);
     const map = errorMap(errors);
     assert.equal(Object.keys(map).length, 4);
     assert.match(map["delays.delays.LOBBY.TASKS"], /0 to 10/);
