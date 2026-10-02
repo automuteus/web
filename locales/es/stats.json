@@ -1,108 +1,108 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Best crewmate duos",
-      "bestImpostorDuos": "Best impostor duos",
-      "crewmateWinrate": "Crewmate winrate",
-      "firstToDie": "First to die",
-      "firstToDieHint": "How often a player was the first one killed, out of their games as a crewmate.",
-      "impostorWinrate": "Impostor winrate",
-      "killedBy": "Killed by",
-      "killedByHint": "How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.",
-      "mostGames": "Most games",
-      "overallWinrate": "Overall winrate",
-      "worstCrewmateDuos": "Worst crewmate duos",
-      "worstImpostorDuos": "Worst impostor duos"
+      "bestCrewmateDuos": "Mejores parejas de tripulantes",
+      "bestImpostorDuos": "Mejores parejas de impostores",
+      "crewmateWinrate": "Tasa de victorias como tripulante",
+      "firstToDie": "Primero en morir",
+      "firstToDieHint": "Con qué frecuencia un jugador fue el primero en morir asesinado, sobre el total de sus partidas como tripulante.",
+      "impostorWinrate": "Tasa de victorias como impostor",
+      "killedBy": "Asesinado por",
+      "killedByHint": "Con qué frecuencia murió un tripulante en partidas en las que un jugador concreto era impostor. Among Us no indica quién hizo cada asesinato, así que una muerte cuenta contra todos los impostores de esa partida.",
+      "mostGames": "Más partidas",
+      "overallWinrate": "Tasa de victorias global",
+      "worstCrewmateDuos": "Peores parejas de tripulantes",
+      "worstImpostorDuos": "Peores parejas de impostores"
     },
     "column": {
-      "crewmateGames": "Crewmate games",
-      "firstDeaths": "First deaths",
-      "players": "Players",
+      "crewmateGames": "Partidas como tripulante",
+      "firstDeaths": "Primeras muertes",
+      "players": "Jugadores",
       "rank": "#"
     },
     "empty": {
-      "noGames": "No games recorded yet.",
-      "crewmateDuo_one": "No two players have been crewmates together in {{count}} game yet.",
-      "crewmateDuo_other": "No two players have been crewmates together in {{count}} games yet.",
-      "games_one": "No one has played {{count}} game yet.",
-      "games_other": "No one has played {{count}} games yet.",
-      "impostorDuo_one": "No two players have been impostors together in {{count}} game yet.",
-      "impostorDuo_other": "No two players have been impostors together in {{count}} games yet.",
-      "killedBy_one": "No crewmate and impostor have shared {{count}} game yet.",
-      "killedBy_other": "No crewmate and impostor have shared {{count}} games yet.",
-      "roleGames_one": "No one has played {{count}} game in this role yet.",
-      "roleGames_other": "No one has played {{count}} games in this role yet."
+      "noGames": "Aún no hay partidas registradas.",
+      "crewmateDuo_one": "Ninguna pareja de jugadores ha llegado aún a {{count}} partida juntos como tripulantes.",
+      "crewmateDuo_other": "Ninguna pareja de jugadores ha llegado aún a {{count}} partidas juntos como tripulantes.",
+      "games_one": "Nadie ha llegado aún a {{count}} partida.",
+      "games_other": "Nadie ha llegado aún a {{count}} partidas.",
+      "impostorDuo_one": "Ninguna pareja de jugadores ha llegado aún a {{count}} partida juntos como impostores.",
+      "impostorDuo_other": "Ninguna pareja de jugadores ha llegado aún a {{count}} partidas juntos como impostores.",
+      "killedBy_one": "Ningún tripulante e impostor han coincidido aún en {{count}} partida.",
+      "killedBy_other": "Ningún tripulante e impostor han coincidido aún en {{count}} partidas.",
+      "roleGames_one": "Nadie ha llegado aún a {{count}} partida en este rol.",
+      "roleGames_other": "Nadie ha llegado aún a {{count}} partidas en este rol."
     },
     "leaderboards": {
-      "minimums": "Rate boards rank players with at least {{games}}; impostor duos need {{duoGames}} together.",
-      "title": "Leaderboards"
+      "minimums": "Las tablas de tasas clasifican a los jugadores con al menos {{games}}; las parejas de impostores necesitan {{duoGames}} en común.",
+      "title": "Clasificaciones"
     },
     "locked": {
-      "body": "See who really wins here: winrates, best and worst duos, who dies first, and more. Servers with AutoMuteUs Premium get every board on this page, and the detailed <code>/stats</code> command.",
-      "title": "Leaderboards are a premium feature"
+      "body": "Descubre quién gana de verdad aquí: tasas de victorias, mejores y peores parejas, quién muere primero y mucho más. Los servidores con AutoMuteUs Premium tienen todas las tablas de esta página y el comando detallado <code>/stats</code>.",
+      "title": "Las clasificaciones son una función premium"
     },
     "share": {
-      "crewmates": "Crewmates <strong>{{rate}}</strong>",
-      "impostors": "Impostors <strong>{{rate}}</strong>",
-      "label": "Crewmates won {{crewmates}} of games, impostors {{impostors}}",
-      "none": "No result recorded <strong>{{rate}}</strong>"
+      "crewmates": "Tripulantes <strong>{{rate}}</strong>",
+      "impostors": "Impostores <strong>{{rate}}</strong>",
+      "label": "Los tripulantes ganaron el {{crewmates}} de las partidas; los impostores, el {{impostors}}",
+      "none": "Sin resultado registrado <strong>{{rate}}</strong>"
     },
     "spotlight": {
-      "and": " & ",
-      "bestDuo": "Best duo",
-      "bestWinrate": "Best winrate",
-      "firstToGo": "First to go",
-      "regular": "the server's regular",
-      "title": "Hall of fame",
-      "topCrewmate": "Top crewmate",
-      "topImpostor": "Top impostor",
-      "firstToDie_one": "first to die in {{deaths}} of {{count}} game",
-      "firstToDie_other": "first to die in {{deaths}} of {{count}} games",
-      "winsOf_one": "{{wins}} of {{count}} game",
-      "winsOf_other": "{{wins}} of {{count}} games",
-      "winsOfCrewmate_one": "{{wins}} of {{count}} crewmate game",
-      "winsOfCrewmate_other": "{{wins}} of {{count}} crewmate games",
-      "winsOfImpostor_one": "{{wins}} of {{count}} impostor game",
-      "winsOfImpostor_other": "{{wins}} of {{count}} impostor games",
-      "winsTogether_one": "{{wins}} of {{count}} game together",
-      "winsTogether_other": "{{wins}} of {{count}} games together"
+      "and": " y ",
+      "bestDuo": "Mejor pareja",
+      "bestWinrate": "Mejor tasa de victorias",
+      "firstToGo": "El primero en caer",
+      "regular": "el más asiduo del servidor",
+      "title": "Salón de la fama",
+      "topCrewmate": "Mejor tripulante",
+      "topImpostor": "Mejor impostor",
+      "firstToDie_one": "primero en morir en {{deaths}} de {{count}} partida",
+      "firstToDie_other": "primero en morir en {{deaths}} de {{count}} partidas",
+      "winsOf_one": "{{wins}} de {{count}} partida",
+      "winsOf_other": "{{wins}} de {{count}} partidas",
+      "winsOfCrewmate_one": "{{wins}} de {{count}} partida como tripulante",
+      "winsOfCrewmate_other": "{{wins}} de {{count}} partidas como tripulante",
+      "winsOfImpostor_one": "{{wins}} de {{count}} partida como impostor",
+      "winsOfImpostor_other": "{{wins}} de {{count}} partidas como impostor",
+      "winsTogether_one": "{{wins}} de {{count}} partida juntos",
+      "winsTogether_other": "{{wins}} de {{count}} partidas juntos"
     },
     "strip": {
-      "crewmateWins": "crewmate wins",
-      "gamesPlayed": "games played",
-      "impostorWins": "impostor wins",
-      "label": "Summary"
+      "crewmateWins": "victorias de tripulantes",
+      "gamesPlayed": "partidas jugadas",
+      "impostorWins": "victorias de impostores",
+      "label": "Resumen"
     },
-    "updated": "Updated <time>{{when}}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.",
-    "games_one": "{{count}} game",
-    "games_other": "{{count}} games"
+    "updated": "Actualizado <time>{{when}}</time>. Las estadísticas cuentan las partidas en las que los jugadores estaban vinculados al bot y se actualizan aproximadamente una vez por minuto.",
+    "games_one": "{{count}} partida",
+    "games_other": "{{count}} partidas"
   },
   "match": {
-    "abortedNote": "The match was ended before the game reported a result, so it doesn't count toward stats.",
+    "abortedNote": "La partida terminó antes de que el juego informara de un resultado, así que no cuenta para las estadísticas.",
     "crewmate": {
       "color": "Color: {{color}}",
       "colorName": {
         "banana": "banana",
-        "black": "black",
-        "blue": "blue",
-        "brown": "brown",
+        "black": "negro",
+        "blue": "azul",
+        "brown": "marrón",
         "coral": "coral",
-        "cyan": "cyan",
-        "gray": "gray",
-        "green": "green",
-        "lime": "lime",
-        "maroon": "maroon",
-        "orange": "orange",
-        "pink": "pink",
-        "purple": "purple",
-        "red": "red",
-        "rose": "rose",
-        "tan": "tan",
-        "white": "white",
-        "yellow": "yellow"
+        "cyan": "cian",
+        "gray": "gris",
+        "green": "verde",
+        "lime": "lima",
+        "maroon": "granate",
+        "orange": "naranja",
+        "pink": "rosa",
+        "purple": "morado",
+        "red": "rojo",
+        "rose": "rosa claro",
+        "tan": "canela",
+        "white": "blanco",
+        "yellow": "amarillo"
       },
-      "dead": "{{color}}, dead",
-      "noColor": "Color not reported"
+      "dead": "{{color}}, muerto",
+      "noColor": "Color no registrado"
     },
     "duration": {
       "hoursMinutes": "{{hours}} {{minutes}}",
@@ -116,14 +116,14 @@
     },
     "event": {
       "aka": " ({{name}})",
-      "disconnected": "<strong>{{name}}</strong> disconnected",
-      "killed": "<strong>{{name}}</strong> was killed",
-      "someone": "A player",
-      "votedOut": "<strong>{{name}}</strong> was voted out"
+      "disconnected": "<strong>{{name}}</strong> se desconectó",
+      "killed": "<strong>{{name}}</strong> fue asesinado",
+      "someone": "Un jugador",
+      "votedOut": "<strong>{{name}}</strong> fue expulsado"
     },
     "facts": {
-      "length": "Length",
-      "region": "Region",
+      "length": "Duración",
+      "region": "Región",
       "started": "Started"
     },
     "fate": {
