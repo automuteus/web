@@ -116,13 +116,13 @@
     "title": "Restablecer ajustes"
   },
   "retention": {
-    "after_one": "Borrar después de {{count}} minuto",
-    "after_other": "Borrar después de {{count}} minutos",
     "afterOption": "Borrar después de...",
     "forever": "Conservar siempre",
     "immediately": "Borrar inmediatamente",
     "minutes": "minutos",
-    "minutesLabel": "Minutos hasta que se borre el resumen"
+    "minutesLabel": "Minutos hasta que se borre el resumen",
+    "after_one": "Borrar después de {{count}} minuto",
+    "after_other": "Borrar después de {{count}} minutos"
   },
   "roles": {
     "add": "Añadir",
