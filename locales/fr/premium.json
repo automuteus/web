@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Lancez toujours de nouvelles parties, même quand le bot est très sollicité !",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Accès prioritaire aux parties"
     },
     "mutingBots": {
@@ -70,15 +70,15 @@
   "signIn": "Connectez-vous pour voir vos serveurs",
   "status": {
     "changingTiers": "Chaque achat crée un nouvel abonnement PayPal : acheter ici ne remplace donc pas l'abonnement actuel, et ses jours restants ne sont pas reportés. Si vous changez de formule, <cancel>résiliez d'abord l'abonnement actuel</cancel>.",
-    "days_one": "{{server}} a AutoMuteUs {{tier}}, avec {{count}} jour restant sur son dernier paiement.",
-    "days_other": "{{server}} a AutoMuteUs {{tier}}, avec {{count}} jours restants sur son dernier paiement.",
     "ending": "{{server}} a AutoMuteUs {{tier}} jusqu'au {{date, datetime}}. Son abonnement PayPal est résilié et ne sera pas renouvelé.",
     "endingInherited": "{{server}} a AutoMuteUs {{tier}} jusqu'au {{date, datetime}}. L'abonnement PayPal du serveur dont il hérite le Premium est résilié et ne sera pas renouvelé.",
     "expired": "AutoMuteUs {{tier}} a expiré pour {{server}}.",
     "free": "{{server}} n'a pas AutoMuteUs Premium.",
     "noExpiry": "{{server}} a AutoMuteUs {{tier}}, sans date d'expiration.",
     "renews": "{{server}} a AutoMuteUs {{tier}}. Son abonnement PayPal se renouvelle vers le {{date, datetime}}.",
-    "renewsInherited": "{{server}} a AutoMuteUs {{tier}}. L'abonnement PayPal du serveur dont il hérite le Premium se renouvelle vers le {{date, datetime}}."
+    "renewsInherited": "{{server}} a AutoMuteUs {{tier}}. L'abonnement PayPal du serveur dont il hérite le Premium se renouvelle vers le {{date, datetime}}.",
+    "days_one": "{{server}} a AutoMuteUs {{tier}}, avec {{count}} jour restant sur son dernier paiement.",
+    "days_other": "{{server}} a AutoMuteUs {{tier}}, avec {{count}} jours restants sur son dernier paiement."
   },
   "subtitle": "Envie d'aller encore plus loin dans vos parties d'Among Us ? Le bot montre ses limites quand il est très sollicité ? Optez pour AutoMuteUs Premium pour soutenir le projet et profiter d'une gestion des micros encore meilleure !",
   "thisServer": "Ce serveur",
