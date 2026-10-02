@@ -1,60 +1,60 @@
 {
   "botAbsent": {
-    "description": "Invite the bot to {{name}} to use it there. Once it has joined, come back and reload to see its settings."
+    "description": "Пригласите бота на сервер {{name}}, чтобы пользоваться им там. Когда он присоединится, вернитесь и перезагрузите страницу, чтобы увидеть его настройки."
   },
-  "botUnknown": "We couldn't confirm that AutoMuteUs is in this server. If the bot hasn't joined, <invite>invite it</invite> and these settings will apply once it does.",
+  "botUnknown": "Не удалось подтвердить, что AutoMuteUs есть на этом сервере. Если бот ещё не присоединился, <invite>пригласите его</invite>, и эти настройки начнут действовать, как только он появится.",
   "channel": {
-    "cantPost": "The bot can't post in this channel.",
-    "checking": "Checking that the bot can post in this channel...",
-    "clear": "Clear",
-    "enterID": "Enter an ID",
-    "help": "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.",
-    "idLabel": "Summary channel ID",
-    "idPlaceholder": "Channel ID, or empty for none",
-    "label": "Summary channel",
-    "none": "None",
-    "notListed": "{{id}} (not in the list)",
-    "ok": "#{{name}}: the bot can post match summaries here.",
+    "cantPost": "Бот не может писать в этот канал.",
+    "checking": "Проверяем, может ли бот писать в этот канал...",
+    "clear": "Очистить",
+    "enterID": "Ввести ID",
+    "help": "В Discord включите режим разработчика (Настройки → Расширенные), затем нажмите правой кнопкой мыши на канал и выберите «Копировать ID канала».",
+    "idLabel": "ID канала для итогов",
+    "idPlaceholder": "ID канала или пусто, чтобы не публиковать",
+    "label": "Канал для итогов",
+    "none": "Нет",
+    "notListed": "{{id}} (нет в списке)",
+    "ok": "#{{name}}: бот может публиковать здесь итоги матчей.",
     "option": "#{{name}}",
-    "optionBlocked": "#{{name}} (bot can't post here)",
-    "pick": "Pick from a list",
-    "pickHelp": "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.",
-    "unchecked": "Couldn't check this channel right now. It will be verified when you save."
+    "optionBlocked": "#{{name}} (бот не может здесь писать)",
+    "pick": "Выбрать из списка",
+    "pickHelp": "Каналы показаны так, как их видит бот на этом сервере; каналы, в которые он не может писать, затемнены. Чтобы использовать ветку, введите её ID.",
+    "unchecked": "Сейчас не удалось проверить этот канал. Он будет проверен при сохранении."
   },
   "confirm": {
-    "leave": "You have unsaved changes. Leave this page and discard them?",
-    "reload": "Discard your unsaved changes and reload this server's settings?",
-    "switch": "Discard your unsaved changes and switch servers?"
+    "leave": "У вас есть несохранённые изменения. Покинуть страницу и отменить их?",
+    "reload": "Отменить несохранённые изменения и заново загрузить настройки этого сервера?",
+    "switch": "Отменить несохранённые изменения и переключиться на другой сервер?"
   },
   "counts": {
-    "custom_one": "{{count}} custom",
-    "custom_few": "{{count}} custom",
-    "custom_many": "{{count}} custom",
-    "custom_other": "{{count}} custom",
-    "unsaved_one": "{{count}} unsaved",
-    "unsaved_few": "{{count}} unsaved",
-    "unsaved_many": "{{count}} unsaved",
-    "unsaved_other": "{{count}} unsaved"
+    "custom_one": "изменено: {{count}}",
+    "custom_few": "изменено: {{count}}",
+    "custom_many": "изменено: {{count}}",
+    "custom_other": "изменено: {{count}}",
+    "unsaved_one": "не сохранено: {{count}}",
+    "unsaved_few": "не сохранено: {{count}}",
+    "unsaved_many": "не сохранено: {{count}}",
+    "unsaved_other": "не сохранено: {{count}}"
   },
   "delays": {
-    "caption": "Voice transition delays in seconds",
-    "cellLabel": "Delay from {{from}} to {{to}} in seconds",
-    "corner": "From / to",
-    "description": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase.",
-    "descriptionEditing": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase. Whole seconds from {{min}} to {{max}}.",
-    "heading": "Transition delays",
-    "notApplicable": "Not applicable: the bot only delays changes between phases"
+    "caption": "Задержки голосовых переходов в секундах",
+    "cellLabel": "Задержка в секундах от {{from}} до {{to}}",
+    "corner": "Из / в",
+    "description": "Сколько секунд ждать перед изменением голосовых настроек. Строки — текущая фаза, столбцы — следующая.",
+    "descriptionEditing": "Сколько секунд ждать перед изменением голосовых настроек. Строки — текущая фаза, столбцы — следующая. Целое число секунд от {{min}} до {{max}}.",
+    "heading": "Задержки при смене фаз",
+    "notApplicable": "Неприменимо: бот задерживает изменения только между разными фазами"
   },
   "display": {
-    "autoRefresh": "Refresh game message automatically",
-    "heading": "Display & language",
-    "language": "Bot language",
-    "mapVersion": "Map style",
-    "roomCode": "Room code visibility"
+    "autoRefresh": "Автоматически обновлять игровое сообщение",
+    "heading": "Отображение и язык",
+    "language": "Язык бота",
+    "mapVersion": "Стиль карты",
+    "roomCode": "Видимость кода комнаты"
   },
   "error": {
-    "forbidden": "You no longer have access to this server, or Discord has not granted the required access.",
-    "notFound": "Settings could not be found for this server."
+    "forbidden": "У вас больше нет доступа к этому серверу, или Discord не предоставил необходимый доступ.",
+    "notFound": "Не удалось найти настройки для этого сервера."
   },
   "hint": "{{label}}. {{description}}",
   "languageFormat": {
@@ -62,122 +62,122 @@
     "withNative": "{{flag}} {{name}} ({{native}})"
   },
   "languageName": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "it": "Italian",
-    "ja": "Japanese",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "zh": "Chinese"
+    "de": "Немецкий",
+    "en": "Английский",
+    "es": "Испанский",
+    "fr": "Французский",
+    "it": "Итальянский",
+    "ja": "Японский",
+    "pt": "Португальский",
+    "ru": "Русский",
+    "zh": "Китайский"
   },
-  "loadingSettings": "Loading settings...",
+  "loadingSettings": "Загружаем настройки...",
   "mapVersion": {
-    "detailed": "Detailed",
-    "simple": "Simple"
+    "detailed": "Подробная",
+    "simple": "Простая"
   },
   "marker": {
-    "custom": "Custom",
-    "customDefault": "Custom value; the bot default is {{value}}.",
-    "premium": "Premium",
-    "premiumDetail": "Premium-only setting. AutoMuteUs applies it only on servers with premium."
+    "custom": "Изменено",
+    "customDefault": "Своё значение; по умолчанию у бота: {{value}}.",
+    "premium": "Премиум",
+    "premiumDetail": "Настройка только для Премиума. AutoMuteUs применяет её только на серверах с Премиумом."
   },
   "noSelection": {
-    "description": "Choose a server to see and change its configuration.",
-    "heading": "Select your server"
+    "description": "Выберите сервер, чтобы посмотреть и изменить его настройки.",
+    "heading": "Выберите сервер"
   },
   "noServers": {
-    "description": "Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.",
-    "heading": "No servers you can manage"
+    "description": "Здесь показаны только серверы, которыми вы владеете или на которых у вас есть право «Администратор» или «Управлять сервером». Если вам только что выдали такую роль, обновите список серверов.",
+    "heading": "Нет серверов, которыми вы можете управлять"
   },
-  "notice": "Changes apply to the bot when you press <strong>Save changes</strong>. Servers that never saved settings start from the defaults. Values that differ from the bot's defaults are marked <strong>Custom</strong>, and edits you haven't saved yet are highlighted in amber; <strong>Premium</strong> marks settings the bot applies only on premium servers.",
+  "notice": "Изменения применяются к боту, когда вы нажимаете <strong>Сохранить изменения</strong>. Серверы, которые ни разу не сохраняли настройки, используют значения по умолчанию. Значения, отличающиеся от стандартных, отмечены как <strong>Изменено</strong>, а несохранённые правки подсвечены жёлтым; <strong>Премиум</strong> отмечает настройки, которые бот применяет только на премиум-серверах.",
   "page": {
-    "description": "Your server's voice rules, timing, and preferences in one place.",
-    "heading": "Server settings",
-    "metaDesc": "View and change AutoMuteUs voice rules, delays, and settings for the Discord servers you manage.",
-    "title": "Server settings - AutoMuteUs"
+    "description": "Голосовые правила, тайминги и параметры вашего сервера в одном месте.",
+    "heading": "Настройки сервера",
+    "metaDesc": "Просмотр и изменение голосовых правил, задержек и настроек AutoMuteUs для серверов Discord, которыми вы управляете.",
+    "title": "Настройки сервера — AutoMuteUs"
   },
   "phase": {
-    "DISCUSSION": "Discussion",
+    "DISCUSSION": "Обсуждение",
     "inSentence": {
-      "DISCUSSION": "discussion",
-      "LOBBY": "lobby",
-      "TASKS": "tasks"
+      "DISCUSSION": "обсуждения",
+      "LOBBY": "лобби",
+      "TASKS": "заданий"
     },
-    "LOBBY": "Lobby",
-    "TASKS": "Tasks"
+    "LOBBY": "Лобби",
+    "TASKS": "Задания"
   },
-  "premiumHint": "Requires premium to change.",
-  "premiumLocked": "This server doesn't have AutoMuteUs premium, so settings marked <strong>Premium</strong> are shown but locked.",
-  "reloadSettings": "Reload settings",
+  "premiumHint": "Для изменения нужен Премиум.",
+  "premiumLocked": "У этого сервера нет AutoMuteUs Премиум, поэтому настройки с отметкой <strong>Премиум</strong> показаны, но заблокированы.",
+  "reloadSettings": "Загрузить настройки заново",
   "reset": {
-    "action": "Reset to defaults",
-    "confirm": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles.",
-    "confirmWithChanges": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles. Your unsaved changes will be discarded too.",
-    "description": "Put every setting back to the bot's default. Stats are kept.",
-    "done": "Settings reset to the defaults. The bot uses them from the next game.",
-    "title": "Reset settings"
+    "action": "Вернуть значения по умолчанию",
+    "confirm": "Все настройки сервера <strong>{{name}}</strong> вернутся к значениям по умолчанию, включая канал для итогов матчей и роли операторов.",
+    "confirmWithChanges": "Все настройки сервера <strong>{{name}}</strong> вернутся к значениям по умолчанию, включая канал для итогов матчей и роли операторов. Несохранённые изменения тоже будут отменены.",
+    "description": "Вернуть все настройки к значениям бота по умолчанию. Статистика сохранится.",
+    "done": "Настройки сброшены по умолчанию. Бот начнёт использовать их со следующей игры.",
+    "title": "Сброс настроек"
   },
   "retention": {
-    "afterOption": "Delete after...",
-    "forever": "Keep forever",
-    "immediately": "Delete immediately",
-    "minutes": "minutes",
-    "minutesLabel": "Minutes before the summary is deleted",
-    "after_one": "Delete after {{count}} minute",
-    "after_few": "Delete after {{count}} minutes",
-    "after_many": "Delete after {{count}} minutes",
-    "after_other": "Delete after {{count}} minutes"
+    "afterOption": "Удалять через...",
+    "forever": "Хранить всегда",
+    "immediately": "Удалять сразу",
+    "minutes": "минут",
+    "minutesLabel": "Через сколько минут удалять итоги",
+    "after_one": "Удалять через {{count}} минуту",
+    "after_few": "Удалять через {{count}} минуты",
+    "after_many": "Удалять через {{count}} минут",
+    "after_other": "Удалять через {{count}} минуты"
   },
   "roles": {
-    "add": "Add",
-    "allListed": "Every role is already listed",
-    "choose": "Choose a role...",
-    "description": "Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings.",
-    "heading": "Bot operators",
-    "help": "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).",
-    "idLabel": "Role ID to add",
-    "idPlaceholder": "Role ID",
-    "idsLabel": "Operator role IDs",
-    "label": "Operator roles",
-    "managed": "{{name}} (bot or integration)",
-    "notInServer": "Not a role in this server",
-    "pickHelp": "Roles are listed as the bot sees them in this server.",
-    "pickLabel": "Role to add",
-    "remove": "Remove role {{name}}",
-    "unknown_one": "Not a role in this server: {{ids}}. Remove it to save.",
-    "unknown_few": "Not roles in this server: {{ids}}. Remove them to save.",
-    "unknown_many": "Not roles in this server: {{ids}}. Remove them to save.",
-    "unknown_other": "Not roles in this server: {{ids}}. Remove them to save."
+    "add": "Добавить",
+    "allListed": "Все роли уже в списке",
+    "choose": "Выберите роль...",
+    "description": "Участники с любой из этих ролей могут начинать, ставить на паузу и завершать игры, а также привязывать и отвязывать игроков. Если ни одной роли не указано, это могут все. Как только роль добавлена, участники без этих ролей больше не могут управлять играми. Владелец сервера и участники с правом «Администратор» или «Управлять сервером» могут всегда, и только они могут менять эти настройки — здесь или через /settings.",
+    "heading": "Операторы бота",
+    "help": "ID ролей сохраняются как введены и не проверяются на сервере. В Discord откройте «Настройки сервера» → «Роли», затем нажмите правой кнопкой мыши на роль и выберите «Копировать ID роли» (нужен режим разработчика).",
+    "idLabel": "ID роли для добавления",
+    "idPlaceholder": "ID роли",
+    "idsLabel": "ID ролей операторов",
+    "label": "Роли операторов",
+    "managed": "{{name}} (бот или интеграция)",
+    "notInServer": "Такой роли нет на этом сервере",
+    "pickHelp": "Роли показаны так, как их видит бот на этом сервере.",
+    "pickLabel": "Роль для добавления",
+    "remove": "Удалить роль {{name}}",
+    "unknown_one": "Такой роли нет на этом сервере: {{ids}}. Удалите её, чтобы сохранить.",
+    "unknown_few": "Таких ролей нет на этом сервере: {{ids}}. Удалите их, чтобы сохранить.",
+    "unknown_many": "Таких ролей нет на этом сервере: {{ids}}. Удалите их, чтобы сохранить.",
+    "unknown_other": "Таких ролей нет на этом сервере: {{ids}}. Удалите их, чтобы сохранить."
   },
   "roomCode": {
-    "always": "Always visible",
-    "never": "Hidden",
-    "spoiler": "Behind a spoiler"
+    "always": "Всегда виден",
+    "never": "Скрыт",
+    "spoiler": "Под спойлером"
   },
   "save": {
-    "discard": "Discard",
-    "errorList": "Settings that need attention",
-    "fixFirst": "Fix the highlighted settings first.",
-    "none": "No unsaved changes",
-    "region": "Save changes",
-    "reload": "Reload",
-    "save": "Save changes",
-    "saved": "Settings saved. The bot uses them from the next game.",
-    "saving": "Saving...",
-    "unreachable": "We couldn't reach AutoMuteUs to save. Check your connection and try again.",
-    "unsaved_one": "{{count}} unsaved change",
-    "unsaved_few": "{{count}} unsaved changes",
-    "unsaved_many": "{{count}} unsaved changes",
-    "unsaved_other": "{{count}} unsaved changes"
+    "discard": "Отменить",
+    "errorList": "Настройки, требующие внимания",
+    "fixFirst": "Сначала исправьте выделенные настройки.",
+    "none": "Нет несохранённых изменений",
+    "region": "Сохранение изменений",
+    "reload": "Загрузить заново",
+    "save": "Сохранить изменения",
+    "saved": "Настройки сохранены. Бот начнёт использовать их со следующей игры.",
+    "saving": "Сохраняем...",
+    "unreachable": "Не удалось связаться с AutoMuteUs для сохранения. Проверьте подключение и попробуйте ещё раз.",
+    "unsaved_one": "{{count}} несохранённое изменение",
+    "unsaved_few": "{{count}} несохранённых изменения",
+    "unsaved_many": "{{count}} несохранённых изменений",
+    "unsaved_other": "{{count}} несохранённого изменения"
   },
   "signedOut": {
-    "description": "Sign in with Discord to manage settings for the servers you own or administer.",
-    "heading": "Choose how your crew plays"
+    "description": "Войдите через Discord, чтобы управлять настройками серверов, которыми вы владеете или администрируете.",
+    "heading": "Выберите, как играет ваш экипаж"
   },
   "summaries": {
-    "heading": "Match summaries",
+    "heading": "Итоги матчей",
     "retention": "Match summary retention"
   },
   "unavailable": {
