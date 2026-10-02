@@ -170,68 +170,68 @@
   },
   "validation": {
     "channelID": "请输入 Discord 频道 ID（17 到 20 位数字），或留空表示不设置",
-    "delay": "must be a whole number of seconds from {{min}} to {{max}}",
-    "duplicateRole": "duplicates entry {{entry}}",
-    "language": "must be one of the installed languages: {{codes}}",
-    "locked": "cannot be changed here",
-    "mapVersion": "must be {{first}} or {{second}}",
-    "onOff": "must be on or off",
-    "retention": "must be a whole number of minutes from 1 to {{max}}, 0 to delete immediately, or -1 to keep forever",
-    "roleID": "is not a Discord role ID",
-    "roleList": "must be a list of role IDs",
-    "roomCode": "must be one of {{options}}",
-    "tooManyRoles_other": "has {{count}} entries, at most {{max}} are allowed"
+    "delay": "请输入 {{min}} 到 {{max}} 之间的整数秒",
+    "duplicateRole": "与第 {{entry}} 项重复",
+    "language": "请选择已安装的语言之一：{{codes}}",
+    "locked": "无法在此处更改",
+    "mapVersion": "请选择 {{first}} 或 {{second}}",
+    "onOff": "请选择开启或关闭",
+    "retention": "请输入 1 到 {{max}} 之间的整数分钟数，输入 0 表示立即删除，输入 -1 表示永久保留",
+    "roleID": "不是有效的 Discord 身份组 ID",
+    "roleList": "必须是身份组 ID 列表",
+    "roomCode": "请选择以下之一：{{options}}",
+    "tooManyRoles_other": "共有 {{count}} 项，最多只允许 {{max}} 项"
   },
   "value": {
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "none": "None configured",
-    "notApplicable": "N/A",
-    "seconds": "{{value}} s",
-    "unknown": "Not available"
+    "disabled": "已禁用",
+    "enabled": "已启用",
+    "none": "未配置",
+    "notApplicable": "不适用",
+    "seconds": "{{value}} 秒",
+    "unknown": "不可用"
   },
   "voice": {
-    "about": "About voice rules",
-    "aboutDescription": "Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.",
-    "caption": "Configured voice rules by phase and player status",
+    "about": "关于语音规则",
+    "aboutDescription": "每一行代表一个游戏阶段。各列显示为存活和死亡玩家配置的麦克风与收听规则。这些是机器人的设置，而不是任何人当前 Discord 音频状态的实时显示。",
+    "caption": "按阶段和玩家状态配置的语音规则",
     "column": {
-      "alive": "Alive players",
-      "dead": "Dead players",
-      "phase": "Phase"
+      "alive": "存活玩家",
+      "dead": "死亡玩家",
+      "phase": "阶段"
     },
     "context": {
-      "alive": "Alive players during {{phase}}",
-      "dead": "Dead players during {{phase}}"
+      "alive": "{{phase}}的存活玩家",
+      "dead": "{{phase}}的死亡玩家"
     },
-    "customDefault": "Custom value; the bot default is {{mute}} and {{deaf}}.",
-    "description": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Hover or focus a label for details.",
-    "descriptionEditing": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Select a pill to flip that rule.",
-    "heading": "Voice rules",
+    "customDefault": "自定义值；机器人默认为{{mute}}、{{deaf}}。",
+    "description": "麦克风图标表示说话规则，耳机图标表示收听规则。带斜线表示禁止。将鼠标悬停在标签上或聚焦标签可查看详情。",
+    "descriptionEditing": "麦克风图标表示说话规则，耳机图标表示收听规则。带斜线表示禁止。点击标签即可切换该规则。",
+    "heading": "语音规则",
     "inSentence": {
-      "deafened": "deafened",
-      "muted": "muted",
-      "undeafened": "undeafened",
-      "unmuted": "unmuted"
+      "deafened": "拒听",
+      "muted": "静音",
+      "undeafened": "取消拒听",
+      "unmuted": "取消静音"
     },
     "muteSpectator": {
-      "about": "About mute spectators",
-      "description": "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music.",
-      "label": "Mute spectators"
+      "about": "关于将旁观者静音",
+      "description": "启用后，旁观者会像死亡玩家一样被静音。使用音乐机器人的服务器通常会禁用此项，让旁观者可以继续收听音乐。",
+      "label": "将旁观者静音"
     },
-    "premiumNote": "Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.",
+    "premiumNote": "在任务阶段为死亡玩家取消静音以及将旁观者静音，可能会产生大量额外的 Discord 语音请求。不建议在非高级版服务器上使用，因为请求可能会变慢或延迟。",
     "state": {
-      "deafened": "Deafened",
-      "muted": "Muted",
-      "undeafened": "Undeafened",
-      "unmuted": "Unmuted"
+      "deafened": "拒听",
+      "muted": "静音",
+      "undeafened": "取消拒听",
+      "unmuted": "取消静音"
     },
-    "switchTo": "Switch to {{state}}",
-    "toggle": "{{context}}: {{state}}",
+    "switchTo": "切换为{{state}}",
+    "toggle": "{{context}}：{{state}}",
     "unmuteDead": {
-      "about": "About unmute dead players during tasks",
-      "description": "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players.",
-      "label": "Unmute dead players during tasks"
+      "about": "关于在任务阶段为死亡玩家取消静音",
+      "description": "启用后，死亡玩家可以在任务阶段说话。如果没有阻止存活玩家听到死亡玩家的声音，这可能会向存活玩家暴露内鬼。",
+      "label": "在任务阶段为死亡玩家取消静音"
     },
-    "unsafe": "<strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are."
+    "unsafe": "<strong>可能不安全的组合：</strong>在任务阶段死亡玩家被取消静音，而存活玩家未被拒听。死亡玩家可能会告诉存活玩家谁是内鬼。"
   }
 }
