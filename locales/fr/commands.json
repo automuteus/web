@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Utilisateur à délier"
+        "user": "User to unlink"
       },
       "description": "Délier un utilisateur Discord de sa couleur en jeu"
     }
@@ -96,9 +96,9 @@
     "optional": "Facultatif",
     "optionalLabel": "FACULTATIF",
     "required": "Obligatoire",
+    "subcommands": "Sous-commandes",
     "subcommandCount_one": "+ {{count}} sous-commande",
-    "subcommandCount_other": "+ {{count}} sous-commandes",
-    "subcommands": "Sous-commandes"
+    "subcommandCount_other": "+ {{count}} sous-commandes"
   },
   "page": {
     "currentAsOf": "À jour pour la version {{version}}",

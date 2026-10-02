@@ -116,13 +116,13 @@
     "title": "Einstellungen zurücksetzen"
   },
   "retention": {
-    "after_one": "Nach {{count}} Minute löschen",
-    "after_other": "Nach {{count}} Minuten löschen",
     "afterOption": "Löschen nach...",
     "forever": "Für immer behalten",
     "immediately": "Sofort löschen",
     "minutes": "Minuten",
-    "minutesLabel": "Minuten, bis die Zusammenfassung gelöscht wird"
+    "minutesLabel": "Minuten, bis die Zusammenfassung gelöscht wird",
+    "after_one": "Nach {{count}} Minute löschen",
+    "after_other": "Nach {{count}} Minuten löschen"
   },
   "roles": {
     "add": "Hinzufügen",

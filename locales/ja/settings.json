@@ -114,12 +114,12 @@
     "title": "設定のリセット"
   },
   "retention": {
-    "after_other": "{{count}} 分後に削除",
     "afterOption": "一定時間後に削除...",
     "forever": "削除しない",
     "immediately": "すぐに削除",
     "minutes": "分",
-    "minutesLabel": "試合結果を削除するまでの時間（分）"
+    "minutesLabel": "試合結果を削除するまでの時間（分）",
+    "after_other": "{{count}} 分後に削除"
   },
   "roles": {
     "add": "追加",

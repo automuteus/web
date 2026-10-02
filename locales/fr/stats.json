@@ -21,6 +21,7 @@
       "rank": "#"
     },
     "empty": {
+      "noGames": "Aucune partie enregistrée pour l'instant.",
       "crewmateDuo_one": "Aucun duo n'a encore joué {{count}} partie ensemble en tant que coéquipiers.",
       "crewmateDuo_other": "Aucun duo n'a encore joué {{count}} parties ensemble en tant que coéquipiers.",
       "games_one": "Personne n'a encore joué {{count}} partie.",
@@ -29,12 +30,9 @@
       "impostorDuo_other": "Aucun duo n'a encore joué {{count}} parties ensemble en tant qu'imposteurs.",
       "killedBy_one": "Aucun coéquipier et aucun imposteur n'ont encore joué {{count}} partie ensemble.",
       "killedBy_other": "Aucun coéquipier et aucun imposteur n'ont encore joué {{count}} parties ensemble.",
-      "noGames": "Aucune partie enregistrée pour l'instant.",
       "roleGames_one": "Personne n'a encore joué {{count}} partie dans ce rôle.",
       "roleGames_other": "Personne n'a encore joué {{count}} parties dans ce rôle."
     },
-    "games_one": "{{count}} partie",
-    "games_other": "{{count}} parties",
     "leaderboards": {
       "minimums": "Les classements par taux ne retiennent que les joueurs ayant au moins {{games}} ; les duos d'imposteurs doivent avoir {{duoGames}} ensemble.",
       "title": "Classements"
@@ -53,13 +51,13 @@
       "and": " & ",
       "bestDuo": "Meilleur duo",
       "bestWinrate": "Meilleur taux de victoire",
-      "firstToDie_one": "premier à mourir {{deaths}} fois sur {{count}} partie",
-      "firstToDie_other": "premier à mourir {{deaths}} fois sur {{count}} parties",
       "firstToGo": "Premier à partir",
       "regular": "l'habitué du serveur",
       "title": "Panthéon",
       "topCrewmate": "Meilleur coéquipier",
       "topImpostor": "Meilleur imposteur",
+      "firstToDie_one": "premier à mourir {{deaths}} fois sur {{count}} partie",
+      "firstToDie_other": "premier à mourir {{deaths}} fois sur {{count}} parties",
       "winsOf_one": "{{wins}} sur {{count}} partie",
       "winsOf_other": "{{wins}} sur {{count}} parties",
       "winsOfCrewmate_one": "{{wins}} sur {{count}} partie en coéquipier",
@@ -75,7 +73,9 @@
       "impostorWins": "victoires des imposteurs",
       "label": "Résumé"
     },
-    "updated": "Mis à jour <time>{{when}}</time>. Les statistiques comptent les parties où les joueurs étaient liés au bot et sont actualisées environ une fois par minute."
+    "updated": "Mis à jour <time>{{when}}</time>. Les statistiques comptent les parties où les joueurs étaient liés au bot et sont actualisées environ une fois par minute.",
+    "games_one": "{{count}} partie",
+    "games_other": "{{count}} parties"
   },
   "match": {
     "abortedNote": "Le match a été terminé avant que le jeu n'indique de résultat : il n'est donc pas pris en compte dans les statistiques.",
@@ -105,12 +105,12 @@
       "noColor": "Couleur non indiquée"
     },
     "duration": {
+      "hoursMinutes": "{{hours}} {{minutes}}",
+      "minutesSeconds": "{{minutes}} {{seconds}}",
       "hours_one": "{{count}} h",
       "hours_other": "{{count}} h",
-      "hoursMinutes": "{{hours}} {{minutes}}",
       "minutes_one": "{{count}} min",
       "minutes_other": "{{count}} min",
-      "minutesSeconds": "{{minutes}} {{seconds}}",
       "seconds_one": "{{count}} s",
       "seconds_other": "{{count}} s"
     },
@@ -163,18 +163,18 @@
       "notLinked": "Non lié"
     },
     "timeline": {
-      "disconnected_one": "<strong>{{count}}</strong> déconnexion",
-      "disconnected_other": "<strong>{{count}}</strong> déconnexions",
       "empty": "La capture n'a rien transmis pour ce match.",
-      "kills_one": "<strong>{{count}}</strong> meurtre",
-      "kills_other": "<strong>{{count}}</strong> meurtres",
       "meeting": "Réunion {{number}}",
-      "meetings_one": "<strong>{{count}}</strong> réunion",
-      "meetings_other": "<strong>{{count}}</strong> réunions",
       "noDeath": "Personne n'est mort.",
       "noExile": "Personne n'a été éjecté.",
       "round": "Manche {{number}}",
       "title": "Chronologie",
+      "disconnected_one": "<strong>{{count}}</strong> déconnexion",
+      "disconnected_other": "<strong>{{count}}</strong> déconnexions",
+      "kills_one": "<strong>{{count}}</strong> meurtre",
+      "kills_other": "<strong>{{count}}</strong> meurtres",
+      "meetings_one": "<strong>{{count}}</strong> réunion",
+      "meetings_other": "<strong>{{count}}</strong> réunions",
       "votedOut_one": "<strong>{{count}}</strong> éjecté",
       "votedOut_other": "<strong>{{count}}</strong> éjectés"
     }
@@ -234,13 +234,13 @@
         "title": "Réinitialiser les statistiques du serveur"
       },
       "resetDone": "Statistiques du serveur réinitialisées.",
-      "resetDoneGames_one": "Statistiques du serveur réinitialisées. {{count}} partie supprimée.",
-      "resetDoneGames_other": "Statistiques du serveur réinitialisées. {{count}} parties supprimées.",
       "signedOut": {
         "body": "Connectez-vous avec Discord pour voir les statistiques des serveurs sur lesquels vous jouez.",
         "heading": "Découvrez comment joue votre équipe"
       },
-      "title": "Statistiques du serveur - AutoMuteUs"
+      "title": "Statistiques du serveur - AutoMuteUs",
+      "resetDoneGames_one": "Statistiques du serveur réinitialisées. {{count}} partie supprimée.",
+      "resetDoneGames_other": "Statistiques du serveur réinitialisées. {{count}} parties supprimées."
     },
     "user": {
       "building": "Préparation des statistiques de ce joueur. Sur les grands serveurs, cela peut prendre une minute ou deux ; la page se mettra à jour automatiquement.",
@@ -261,13 +261,13 @@
         "selfTitle": "Réinitialiser vos statistiques"
       },
       "resetDone": "Statistiques du joueur réinitialisées.",
-      "resetDoneGames_one": "Statistiques du joueur réinitialisées. Retiré de {{count}} partie.",
-      "resetDoneGames_other": "Statistiques du joueur réinitialisées. Retiré de {{count}} parties.",
       "signedOut": {
         "body": "Connectez-vous avec Discord pour voir les statistiques des joueurs sur les serveurs où vous jouez.",
         "heading": "Découvrez comment vous jouez"
       },
-      "title": "Statistiques du joueur - AutoMuteUs"
+      "title": "Statistiques du joueur - AutoMuteUs",
+      "resetDoneGames_one": "Statistiques du joueur réinitialisées. Retiré de {{count}} partie.",
+      "resetDoneGames_other": "Statistiques du joueur réinitialisées. Retiré de {{count}} parties."
     }
   },
   "shared": {
@@ -302,8 +302,6 @@
       "winrate": "Taux de victoire",
       "wins": "Victoires"
     },
-    "games_one": "{{count, number}} partie",
-    "games_other": "{{count, number}} parties",
     "getPremium": "Passer ce serveur en Premium",
     "mapNotRecorded": "Carte non enregistrée",
     "number": "{{value, number}}",
@@ -329,19 +327,21 @@
     "unknownPlayer": "Le nom de ce joueur n'est pas encore connu",
     "unnamed": "Sans nom",
     "userId": "ID utilisateur {{id}}",
-    "you": "Vous"
+    "you": "Vous",
+    "games_one": "{{count, number}} partie",
+    "games_other": "{{count, number}} parties"
   },
   "user": {
     "activity": {
       "barEarlier": "{{games}} {{weeks}}",
-      "barThisWeek_one": "{{count, number}} partie ces 7 derniers jours",
-      "barThisWeek_other": "{{count, number}} parties ces 7 derniers jours",
       "hint": "{{games}} sur les {{weeks}}.",
       "label": "Parties par semaine, de la plus ancienne à la plus récente",
-      "lastWeeks_one": "{{count}} dernière semaine",
-      "lastWeeks_other": "{{count}} dernières semaines",
       "thisWeek": "Cette semaine",
       "title": "Activité",
+      "barThisWeek_one": "{{count, number}} partie ces 7 derniers jours",
+      "barThisWeek_other": "{{count, number}} parties ces 7 derniers jours",
+      "lastWeeks_one": "{{count}} dernière semaine",
+      "lastWeeks_other": "{{count}} dernières semaines",
       "weeksAgo_one": "il y a {{count}} semaine",
       "weeksAgo_other": "il y a {{count}} semaines",
       "weeksBefore_one": "{{count}} semaine plus tôt",
@@ -358,18 +358,18 @@
       "detailStillWon": "{{detail}} · son camp a tout de même gagné {{rate}} de ces parties",
       "hint": "Fréquence à laquelle le joueur a été tué ou éjecté, et fréquence à laquelle son camp a tout de même gagné ces parties.",
       "killedAsCrewmate": "Tué en tant que coéquipier",
+      "title": "Comment finissent ses parties",
+      "votedOutAsCrewmate": "Éjecté en tant que coéquipier",
+      "votedOutAsImpostor": "Éjecté en tant qu'imposteur",
       "ofCrewmateGames_one": "{{times}} sur {{count, number}} partie en coéquipier",
       "ofCrewmateGames_other": "{{times}} sur {{count, number}} parties en coéquipier",
       "ofImpostorGames_one": "{{times}} sur {{count, number}} partie en imposteur",
-      "ofImpostorGames_other": "{{times}} sur {{count, number}} parties en imposteur",
-      "title": "Comment finissent ses parties",
-      "votedOutAsCrewmate": "Éjecté en tant que coéquipier",
-      "votedOutAsImpostor": "Éjecté en tant qu'imposteur"
+      "ofImpostorGames_other": "{{times}} sur {{count, number}} parties en imposteur"
     },
     "firstTarget": {
+      "label": "Premier à mourir",
       "detail_one": "{{deaths}} sur {{count, number}} partie en coéquipier",
-      "detail_other": "{{deaths}} sur {{count, number}} parties en coéquipier",
-      "label": "Premier à mourir"
+      "detail_other": "{{deaths}} sur {{count, number}} parties en coéquipier"
     },
     "form": {
       "dotLost": "Match {{id}} : défaite",
@@ -385,10 +385,10 @@
       "since": "Joue depuis le <first>{{first}}</first> · dernière partie le <last>{{last}}</last>"
     },
     "killedBy": {
-      "empty_one": "Aucun imposteur n'a encore joué {{count, number}} partie avec ce joueur.",
-      "empty_other": "Aucun imposteur n'a encore joué {{count, number}} parties avec ce joueur.",
       "hint": "Among Us n'indique pas qui a tué : une mort en tant que coéquipier est donc comptée contre chaque imposteur de la partie.",
-      "title": "Mort le plus souvent avec cet imposteur en jeu"
+      "title": "Mort le plus souvent avec cet imposteur en jeu",
+      "empty_one": "Aucun imposteur n'a encore joué {{count, number}} partie avec ce joueur.",
+      "empty_other": "Aucun imposteur n'a encore joué {{count, number}} parties avec ce joueur."
     },
     "locked": {
       "body": "Découvrez les séries, les rangs sur le serveur, les taux de survie et de premier mort, les meilleurs et pires partenaires, les cartes, l'activité, et plus encore. Les serveurs AutoMuteUs Premium ont accès à toutes les sections de cette page.",
@@ -413,20 +413,20 @@
       "title": "Joue le plus souvent avec"
     },
     "ranks": {
-      "byGames_one": "en nombre de parties, sur {{count, number}} joueur",
-      "byGames_other": "en nombre de parties, sur {{count, number}} joueurs",
       "crewmateWinrate": "Taux de victoire en coéquipier",
       "hash": "#{{position}}",
-      "hint_one": "Les classements par taux de victoire comptent les joueurs ayant au moins {{count, number}} partie dans le rôle.",
-      "hint_other": "Les classements par taux de victoire comptent les joueurs ayant au moins {{count, number}} parties dans le rôle.",
       "impostorWinrate": "Taux de victoire en imposteur",
       "noGames": "aucune partie pour l'instant",
       "notRanked": "Non classé",
       "overallWinrate": "Taux de victoire global",
-      "position_one": "<strong>#{{position}}</strong> <span>sur {{count, number}}</span>",
-      "position_other": "<strong>#{{position}}</strong> <span>sur {{count, number}}</span>",
       "serverRank": "Rang sur le serveur",
-      "title": "Rangs sur le serveur"
+      "title": "Rangs sur le serveur",
+      "byGames_one": "en nombre de parties, sur {{count, number}} joueur",
+      "byGames_other": "en nombre de parties, sur {{count, number}} joueurs",
+      "hint_one": "Les classements par taux de victoire comptent les joueurs ayant au moins {{count, number}} partie dans le rôle.",
+      "hint_other": "Les classements par taux de victoire comptent les joueurs ayant au moins {{count, number}} parties dans le rôle.",
+      "position_one": "<strong>#{{position}}</strong> <span>sur {{count, number}}</span>",
+      "position_other": "<strong>#{{position}}</strong> <span>sur {{count, number}}</span>"
     },
     "recent": {
       "empty": "Aucun match terminé pour l'instant.",
@@ -450,19 +450,19 @@
       "wonOf_other": "{{wins}} sur {{count, number}} parties gagnées"
     },
     "survival": {
+      "label": "Survie en coéquipier",
       "detail_one": "en vie à la fin {{survived}} fois sur {{count, number}} partie",
-      "detail_other": "en vie à la fin {{survived}} fois sur {{count, number}} parties",
-      "label": "Survie en coéquipier"
+      "detail_other": "en vie à la fin {{survived}} fois sur {{count, number}} parties"
     },
     "teammates": {
       "bestCrewmate": "Meilleurs partenaires en coéquipier",
       "bestImpostor": "Meilleurs partenaires en imposteur",
+      "worstCrewmate": "Pires partenaires en coéquipier",
+      "worstImpostor": "Pires partenaires en imposteur",
       "emptyCrewmate_one": "Personne n'a encore joué {{count, number}} partie en coéquipier avec ce joueur.",
       "emptyCrewmate_other": "Personne n'a encore joué {{count, number}} parties en coéquipier avec ce joueur.",
       "emptyImpostor_one": "Personne n'a encore joué {{count, number}} partie en imposteur avec ce joueur.",
-      "emptyImpostor_other": "Personne n'a encore joué {{count, number}} parties en imposteur avec ce joueur.",
-      "worstCrewmate": "Pires partenaires en coéquipier",
-      "worstImpostor": "Pires partenaires en imposteur"
+      "emptyImpostor_other": "Personne n'a encore joué {{count, number}} parties en imposteur avec ce joueur."
     },
     "updated": "Mis à jour <time>{{when}}</time>. Les statistiques comptent les parties où le joueur était lié au bot et sont actualisées environ une fois par minute."
   }

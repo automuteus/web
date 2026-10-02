@@ -120,15 +120,15 @@
     "title": "Сброс настроек"
   },
   "retention": {
-    "after_one": "Удалять через {{count}} минуту",
-    "after_few": "Удалять через {{count}} минуты",
-    "after_many": "Удалять через {{count}} минут",
-    "after_other": "Удалять через {{count}} минуты",
     "afterOption": "Удалять через...",
     "forever": "Хранить всегда",
     "immediately": "Удалять сразу",
     "minutes": "минут",
-    "minutesLabel": "Через сколько минут удалять итоги"
+    "minutesLabel": "Через сколько минут удалять итоги",
+    "after_one": "Удалять через {{count}} минуту",
+    "after_few": "Удалять через {{count}} минуты",
+    "after_many": "Удалять через {{count}} минут",
+    "after_other": "Удалять через {{count}} минуты"
   },
   "roles": {
     "add": "Добавить",

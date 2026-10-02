@@ -21,14 +21,13 @@
       "rank": "#"
     },
     "empty": {
+      "noGames": "記録されたゲームはまだありません。",
       "crewmateDuo_other": "一緒にクルーメイトとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
       "games_other": "{{count}} ゲーム以上プレイしたプレイヤーはまだいません。",
       "impostorDuo_other": "一緒にインポスターとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
       "killedBy_other": "{{count}} ゲーム以上を共にしたクルーメイトとインポスターの組み合わせはまだありません。",
-      "noGames": "記録されたゲームはまだありません。",
       "roleGames_other": "この役職で {{count}} ゲーム以上プレイしたプレイヤーはまだいません。"
     },
-    "games_other": "{{count}} ゲーム",
     "leaderboards": {
       "minimums": "勝率のランキングは {{games}}以上のプレイヤーが対象です。インポスターコンビは一緒に {{duoGames}}以上が必要です。",
       "title": "リーダーボード"
@@ -47,12 +46,12 @@
       "and": " & ",
       "bestDuo": "最強コンビ",
       "bestWinrate": "最高勝率",
-      "firstToDie_other": "{{count}} ゲーム中 {{deaths}} 回最初の犠牲者に",
       "firstToGo": "真っ先にやられる人",
       "regular": "サーバーの常連",
       "title": "殿堂入り",
       "topCrewmate": "トップクルーメイト",
       "topImpostor": "トップインポスター",
+      "firstToDie_other": "{{count}} ゲーム中 {{deaths}} 回最初の犠牲者に",
       "winsOf_other": "{{count}} ゲーム中 {{wins}} 勝",
       "winsOfCrewmate_other": "クルーメイトで {{count}} ゲーム中 {{wins}} 勝",
       "winsOfImpostor_other": "インポスターで {{count}} ゲーム中 {{wins}} 勝",
@@ -64,7 +63,8 @@
       "impostorWins": "インポスターの勝利",
       "label": "概要"
     },
-    "updated": "<time>{{when}}</time> に更新。統計はプレイヤーがボットにリンクされていたゲームを対象とし、約 1 分ごとに更新されます。"
+    "updated": "<time>{{when}}</time> に更新。統計はプレイヤーがボットにリンクされていたゲームを対象とし、約 1 分ごとに更新されます。",
+    "games_other": "{{count}} ゲーム"
   },
   "match": {
     "abortedNote": "ゲームが結果を報告する前に試合が終了したため、統計には含まれません。",
@@ -94,10 +94,10 @@
       "noColor": "色の報告なし"
     },
     "duration": {
-      "hours_other": "{{count}} 時間",
       "hoursMinutes": "{{hours}} {{minutes}}",
-      "minutes_other": "{{count}} 分",
       "minutesSeconds": "{{minutes}} {{seconds}}",
+      "hours_other": "{{count}} 時間",
+      "minutes_other": "{{count}} 分",
       "seconds_other": "{{count}} 秒"
     },
     "event": {
@@ -149,15 +149,15 @@
       "notLinked": "未リンク"
     },
     "timeline": {
-      "disconnected_other": "切断 <strong>{{count}}</strong>",
       "empty": "キャプチャはこの試合について何も報告しませんでした。",
-      "kills_other": "キル <strong>{{count}}</strong>",
       "meeting": "会議 {{number}}",
-      "meetings_other": "会議 <strong>{{count}}</strong>",
       "noDeath": "死亡者なし。",
       "noExile": "追放者なし。",
       "round": "ラウンド {{number}}",
       "title": "タイムライン",
+      "disconnected_other": "切断 <strong>{{count}}</strong>",
+      "kills_other": "キル <strong>{{count}}</strong>",
+      "meetings_other": "会議 <strong>{{count}}</strong>",
       "votedOut_other": "追放 <strong>{{count}}</strong>"
     }
   },
@@ -216,12 +216,12 @@
         "title": "サーバーの統計をリセット"
       },
       "resetDone": "サーバーの統計をリセットしました。",
-      "resetDoneGames_other": "サーバーの統計をリセットしました。{{count}} ゲームを削除しました。",
       "signedOut": {
         "body": "Discord でサインインすると、プレイしているサーバーの統計を見られます。",
         "heading": "クルーの戦績を見てみよう"
       },
-      "title": "サーバーの統計 - AutoMuteUs"
+      "title": "サーバーの統計 - AutoMuteUs",
+      "resetDoneGames_other": "サーバーの統計をリセットしました。{{count}} ゲームを削除しました。"
     },
     "user": {
       "building": "このプレイヤーの統計を作成しています。大きなサーバーでは 1〜2 分かかることがあります。ページは自動で更新されます。",
@@ -242,12 +242,12 @@
         "selfTitle": "自分の統計をリセット"
       },
       "resetDone": "プレイヤーの統計をリセットしました。",
-      "resetDoneGames_other": "プレイヤーの統計をリセットしました。{{count}} ゲームから削除しました。",
       "signedOut": {
         "body": "Discord でサインインすると、プレイしているサーバーのプレイヤーの統計を見られます。",
         "heading": "自分のプレイを振り返ろう"
       },
-      "title": "プレイヤーの統計 - AutoMuteUs"
+      "title": "プレイヤーの統計 - AutoMuteUs",
+      "resetDoneGames_other": "プレイヤーの統計をリセットしました。{{count}} ゲームから削除しました。"
     }
   },
   "shared": {
@@ -282,7 +282,6 @@
       "winrate": "勝率",
       "wins": "勝利数"
     },
-    "games_other": "{{count, number}} ゲーム",
     "getPremium": "このサーバーでプレミアムに加入",
     "mapNotRecorded": "マップの記録なし",
     "number": "{{value, number}}",
@@ -308,17 +307,18 @@
     "unknownPlayer": "このプレイヤーの名前はまだわかりません",
     "unnamed": "名前なし",
     "userId": "ユーザー ID {{id}}",
-    "you": "あなた"
+    "you": "あなた",
+    "games_other": "{{count, number}} ゲーム"
   },
   "user": {
     "activity": {
       "barEarlier": "{{weeks}}：{{games}}",
-      "barThisWeek_other": "過去 7 日間で {{count, number}} ゲーム",
       "hint": "過去 {{weeks}}で {{games}}。",
       "label": "週ごとのゲーム数（古い順）",
-      "lastWeeks_other": "{{count}} 週間",
       "thisWeek": "今週",
       "title": "アクティビティ",
+      "barThisWeek_other": "過去 7 日間で {{count, number}} ゲーム",
+      "lastWeeks_other": "{{count}} 週間",
       "weeksAgo_other": "{{count}} 週間前",
       "weeksBefore_other": "さらに {{count}} 週間前"
     },
@@ -333,15 +333,15 @@
       "detailStillWon": "{{detail}} · それでも陣営が勝った割合 {{rate}}",
       "hint": "プレイヤーがキルまたは追放された頻度と、それでも陣営がそのゲームに勝った割合です。",
       "killedAsCrewmate": "クルーメイトでキルされた",
-      "ofCrewmateGames_other": "クルーメイトの {{count, number}} ゲーム中 {{times}} 回",
-      "ofImpostorGames_other": "インポスターの {{count, number}} ゲーム中 {{times}} 回",
       "title": "ゲームの終わり方",
       "votedOutAsCrewmate": "クルーメイトで追放された",
-      "votedOutAsImpostor": "インポスターで追放された"
+      "votedOutAsImpostor": "インポスターで追放された",
+      "ofCrewmateGames_other": "クルーメイトの {{count, number}} ゲーム中 {{times}} 回",
+      "ofImpostorGames_other": "インポスターの {{count, number}} ゲーム中 {{times}} 回"
     },
     "firstTarget": {
-      "detail_other": "クルーメイトの {{count, number}} ゲーム中 {{deaths}} 回",
-      "label": "最初の犠牲者"
+      "label": "最初の犠牲者",
+      "detail_other": "クルーメイトの {{count, number}} ゲーム中 {{deaths}} 回"
     },
     "form": {
       "dotLost": "試合 {{id}}：敗北",
@@ -356,9 +356,9 @@
       "since": "<first>{{first}}</first> からプレイ · 最後のゲーム <last>{{last}}</last>"
     },
     "killedBy": {
-      "empty_other": "このプレイヤーと {{count, number}} ゲーム以上を共にしたインポスターはまだいません。",
       "hint": "Among Us は誰がキルしたかを報告しないため、クルーメイトとしての死亡はそのゲームのインポスター全員にカウントされます。",
-      "title": "このインポスターがいるゲームで最も多く死亡"
+      "title": "このインポスターがいるゲームで最も多く死亡",
+      "empty_other": "このプレイヤーと {{count, number}} ゲーム以上を共にしたインポスターはまだいません。"
     },
     "locked": {
       "body": "連勝記録、サーバー内順位、生存率と最初の犠牲者になる割合、相性の良い / 悪いチームメイト、マップ、アクティビティなどを確認できます。AutoMuteUs プレミアムのサーバーでは、このページのすべてのセクションを利用できます。",
@@ -383,17 +383,17 @@
       "title": "よく一緒にプレイする人"
     },
     "ranks": {
-      "byGames_other": "ゲーム数順、{{count, number}} 人中",
       "crewmateWinrate": "クルーメイト勝率",
       "hash": "#{{position}}",
-      "hint_other": "勝率の順位は、その役職で {{count, number}} ゲーム以上プレイしたプレイヤーが対象です。",
       "impostorWinrate": "インポスター勝率",
       "noGames": "ゲームなし",
       "notRanked": "圏外",
       "overallWinrate": "総合勝率",
-      "position_other": "<strong>#{{position}}</strong> <span>/ {{count, number}} 人</span>",
       "serverRank": "サーバー内順位",
-      "title": "サーバー内順位"
+      "title": "サーバー内順位",
+      "byGames_other": "ゲーム数順、{{count, number}} 人中",
+      "hint_other": "勝率の順位は、その役職で {{count, number}} ゲーム以上プレイしたプレイヤーが対象です。",
+      "position_other": "<strong>#{{position}}</strong> <span>/ {{count, number}} 人</span>"
     },
     "recent": {
       "empty": "終了した試合はまだありません。",
@@ -415,16 +415,16 @@
       "wonOf_other": "{{count, number}} ゲーム中 {{wins}} 勝"
     },
     "survival": {
-      "detail_other": "{{count, number}} ゲーム中 {{survived}} 回最後まで生存",
-      "label": "クルーメイトの生存率"
+      "label": "クルーメイトの生存率",
+      "detail_other": "{{count, number}} ゲーム中 {{survived}} 回最後まで生存"
     },
     "teammates": {
       "bestCrewmate": "相性の良いクルーメイト",
       "bestImpostor": "相性の良いインポスター",
-      "emptyCrewmate_other": "このプレイヤーと一緒にクルーメイトとして {{count, number}} ゲーム以上プレイした人はまだいません。",
-      "emptyImpostor_other": "このプレイヤーと一緒にインポスターとして {{count, number}} ゲーム以上プレイした人はまだいません。",
       "worstCrewmate": "相性の悪いクルーメイト",
-      "worstImpostor": "相性の悪いインポスター"
+      "worstImpostor": "相性の悪いインポスター",
+      "emptyCrewmate_other": "このプレイヤーと一緒にクルーメイトとして {{count, number}} ゲーム以上プレイした人はまだいません。",
+      "emptyImpostor_other": "このプレイヤーと一緒にインポスターとして {{count, number}} ゲーム以上プレイした人はまだいません。"
     },
     "updated": "<time>{{when}}</time> に更新。統計はプレイヤーがボットにリンクされていたゲームを対象とし、約 1 分ごとに更新されます。"
   }

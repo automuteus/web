@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Пользователь, которого нужно отвязать"
+        "user": "User to unlink"
       },
       "description": "Отвязать пользователя Discord от его цвета в игре"
     }
@@ -96,11 +96,11 @@
     "optional": "Необязательный",
     "optionalLabel": "НЕОБЯЗАТЕЛЬНО",
     "required": "Обязательный",
+    "subcommands": "Подкоманды",
     "subcommandCount_one": "+ {{count}} подкоманда",
     "subcommandCount_few": "+ {{count}} подкоманды",
     "subcommandCount_many": "+ {{count}} подкоманд",
-    "subcommandCount_other": "+ {{count}} подкоманды",
-    "subcommands": "Подкоманды"
+    "subcommandCount_other": "+ {{count}} подкоманды"
   },
   "page": {
     "currentAsOf": "Актуально для версии {{version}}",

@@ -21,6 +21,7 @@
       "rank": "#"
     },
     "empty": {
+      "noGames": "Пока нет записанных игр.",
       "crewmateDuo_one": "Пока ни одна пара игроков не сыграла вместе за экипаж хотя бы {{count}} игру.",
       "crewmateDuo_few": "Пока ни одна пара игроков не сыграла вместе за экипаж хотя бы {{count}} игры.",
       "crewmateDuo_many": "Пока ни одна пара игроков не сыграла вместе за экипаж хотя бы {{count}} игр.",
@@ -37,16 +38,11 @@
       "killedBy_few": "Пока ни один член экипажа не сыграл против одного и того же предателя хотя бы {{count}} игры.",
       "killedBy_many": "Пока ни один член экипажа не сыграл против одного и того же предателя хотя бы {{count}} игр.",
       "killedBy_other": "Пока ни один член экипажа не сыграл против одного и того же предателя хотя бы {{count}} игры.",
-      "noGames": "Пока нет записанных игр.",
       "roleGames_one": "Пока никто не сыграл в этой роли хотя бы {{count}} игру.",
       "roleGames_few": "Пока никто не сыграл в этой роли хотя бы {{count}} игры.",
       "roleGames_many": "Пока никто не сыграл в этой роли хотя бы {{count}} игр.",
       "roleGames_other": "Пока никто не сыграл в этой роли хотя бы {{count}} игры."
     },
-    "games_one": "{{count}} игра",
-    "games_few": "{{count}} игры",
-    "games_many": "{{count}} игр",
-    "games_other": "{{count}} игры",
     "leaderboards": {
       "minimums": "Минимум для рейтингов по проценту побед: {{games}}; для дуэтов предателей — {{duoGames}} вместе.",
       "title": "Таблицы лидеров"
@@ -65,15 +61,15 @@
       "and": " & ",
       "bestDuo": "Лучший дуэт",
       "bestWinrate": "Лучший процент побед",
-      "firstToDie_one": "погиб первым в {{deaths}} из {{count}} игры",
-      "firstToDie_few": "погиб первым в {{deaths}} из {{count}} игр",
-      "firstToDie_many": "погиб первым в {{deaths}} из {{count}} игр",
-      "firstToDie_other": "погиб первым в {{deaths}} из {{count}} игры",
       "firstToGo": "Первая жертва",
       "regular": "завсегдатай сервера",
       "title": "Зал славы",
       "topCrewmate": "Лучший член экипажа",
       "topImpostor": "Лучший предатель",
+      "firstToDie_one": "погиб первым в {{deaths}} из {{count}} игры",
+      "firstToDie_few": "погиб первым в {{deaths}} из {{count}} игр",
+      "firstToDie_many": "погиб первым в {{deaths}} из {{count}} игр",
+      "firstToDie_other": "погиб первым в {{deaths}} из {{count}} игры",
       "winsOf_one": "{{wins}} из {{count}} игры",
       "winsOf_few": "{{wins}} из {{count}} игр",
       "winsOf_many": "{{wins}} из {{count}} игр",
@@ -97,7 +93,11 @@
       "impostorWins": "победы предателей",
       "label": "Сводка"
     },
-    "updated": "Обновлено <time>{{when}}</time>. Учитываются игры, в которых игроки были привязаны к боту; статистика обновляется примерно раз в минуту."
+    "updated": "Обновлено <time>{{when}}</time>. Учитываются игры, в которых игроки были привязаны к боту; статистика обновляется примерно раз в минуту.",
+    "games_one": "{{count}} игра",
+    "games_few": "{{count}} игры",
+    "games_many": "{{count}} игр",
+    "games_other": "{{count}} игры"
   },
   "match": {
     "abortedNote": "Матч был завершён до того, как игра сообщила результат, поэтому он не учитывается в статистике.",
@@ -127,16 +127,16 @@
       "noColor": "Цвет не передан"
     },
     "duration": {
+      "hoursMinutes": "{{hours}} {{minutes}}",
+      "minutesSeconds": "{{minutes}} {{seconds}}",
       "hours_one": "{{count}} ч",
       "hours_few": "{{count}} ч",
       "hours_many": "{{count}} ч",
       "hours_other": "{{count}} ч",
-      "hoursMinutes": "{{hours}} {{minutes}}",
       "minutes_one": "{{count}} мин",
       "minutes_few": "{{count}} мин",
       "minutes_many": "{{count}} мин",
       "minutes_other": "{{count}} мин",
-      "minutesSeconds": "{{minutes}} {{seconds}}",
       "seconds_one": "{{count}} с",
       "seconds_few": "{{count}} с",
       "seconds_many": "{{count}} с",
@@ -191,24 +191,24 @@
       "notLinked": "Не привязан"
     },
     "timeline": {
-      "disconnected_one": "<strong>{{count}}</strong> отключился",
-      "disconnected_few": "<strong>{{count}}</strong> отключились",
-      "disconnected_many": "<strong>{{count}}</strong> отключились",
-      "disconnected_other": "<strong>{{count}}</strong> отключились",
       "empty": "Программа захвата ничего не передала об этом матче.",
-      "kills_one": "<strong>{{count}}</strong> убийство",
-      "kills_few": "<strong>{{count}}</strong> убийства",
-      "kills_many": "<strong>{{count}}</strong> убийств",
-      "kills_other": "<strong>{{count}}</strong> убийства",
       "meeting": "Собрание {{number}}",
-      "meetings_one": "<strong>{{count}}</strong> собрание",
-      "meetings_few": "<strong>{{count}}</strong> собрания",
-      "meetings_many": "<strong>{{count}}</strong> собраний",
-      "meetings_other": "<strong>{{count}}</strong> собрания",
       "noDeath": "Никто не погиб.",
       "noExile": "Никого не изгнали.",
       "round": "Раунд {{number}}",
       "title": "Хронология",
+      "disconnected_one": "<strong>{{count}}</strong> отключился",
+      "disconnected_few": "<strong>{{count}}</strong> отключились",
+      "disconnected_many": "<strong>{{count}}</strong> отключились",
+      "disconnected_other": "<strong>{{count}}</strong> отключились",
+      "kills_one": "<strong>{{count}}</strong> убийство",
+      "kills_few": "<strong>{{count}}</strong> убийства",
+      "kills_many": "<strong>{{count}}</strong> убийств",
+      "kills_other": "<strong>{{count}}</strong> убийства",
+      "meetings_one": "<strong>{{count}}</strong> собрание",
+      "meetings_few": "<strong>{{count}}</strong> собрания",
+      "meetings_many": "<strong>{{count}}</strong> собраний",
+      "meetings_other": "<strong>{{count}}</strong> собрания",
       "votedOut_one": "<strong>{{count}}</strong> изгнан",
       "votedOut_few": "<strong>{{count}}</strong> изгнаны",
       "votedOut_many": "<strong>{{count}}</strong> изгнаны",
@@ -270,15 +270,15 @@
         "title": "Сброс статистики сервера"
       },
       "resetDone": "Статистика сервера сброшена.",
-      "resetDoneGames_one": "Статистика сервера сброшена. Удалена {{count}} игра.",
-      "resetDoneGames_few": "Статистика сервера сброшена. Удалено {{count}} игры.",
-      "resetDoneGames_many": "Статистика сервера сброшена. Удалено {{count}} игр.",
-      "resetDoneGames_other": "Статистика сервера сброшена. Удалено {{count}} игры.",
       "signedOut": {
         "body": "Войдите через Discord, чтобы видеть статистику серверов, где вы играете.",
         "heading": "Узнайте, как играет ваш экипаж"
       },
-      "title": "Статистика сервера — AutoMuteUs"
+      "title": "Статистика сервера — AutoMuteUs",
+      "resetDoneGames_one": "Статистика сервера сброшена. Удалена {{count}} игра.",
+      "resetDoneGames_few": "Статистика сервера сброшена. Удалено {{count}} игры.",
+      "resetDoneGames_many": "Статистика сервера сброшена. Удалено {{count}} игр.",
+      "resetDoneGames_other": "Статистика сервера сброшена. Удалено {{count}} игры."
     },
     "user": {
       "building": "Собираем статистику этого игрока. На больших серверах это может занять минуту-две; страница обновится сама.",
@@ -299,15 +299,15 @@
         "selfTitle": "Сброс вашей статистики"
       },
       "resetDone": "Статистика игрока сброшена.",
-      "resetDoneGames_one": "Статистика игрока сброшена. Убран из {{count}} игры.",
-      "resetDoneGames_few": "Статистика игрока сброшена. Убран из {{count}} игр.",
-      "resetDoneGames_many": "Статистика игрока сброшена. Убран из {{count}} игр.",
-      "resetDoneGames_other": "Статистика игрока сброшена. Убран из {{count}} игры.",
       "signedOut": {
         "body": "Войдите через Discord, чтобы видеть статистику игроков на серверах, где вы играете.",
         "heading": "Узнайте, как вы играете"
       },
-      "title": "Статистика игрока — AutoMuteUs"
+      "title": "Статистика игрока — AutoMuteUs",
+      "resetDoneGames_one": "Статистика игрока сброшена. Убран из {{count}} игры.",
+      "resetDoneGames_few": "Статистика игрока сброшена. Убран из {{count}} игр.",
+      "resetDoneGames_many": "Статистика игрока сброшена. Убран из {{count}} игр.",
+      "resetDoneGames_other": "Статистика игрока сброшена. Убран из {{count}} игры."
     }
   },
   "shared": {
@@ -342,10 +342,6 @@
       "winrate": "% побед",
       "wins": "Победы"
     },
-    "games_one": "{{count, number}} игра",
-    "games_few": "{{count, number}} игры",
-    "games_many": "{{count, number}} игр",
-    "games_other": "{{count, number}} игры",
     "getPremium": "Подключить Премиум для этого сервера",
     "mapNotRecorded": "Карта не записана",
     "number": "{{value, number}}",
@@ -371,23 +367,27 @@
     "unknownPlayer": "Имя этого игрока пока неизвестно",
     "unnamed": "Без имени",
     "userId": "ID пользователя {{id}}",
-    "you": "Вы"
+    "you": "Вы",
+    "games_one": "{{count, number}} игра",
+    "games_few": "{{count, number}} игры",
+    "games_many": "{{count, number}} игр",
+    "games_other": "{{count, number}} игры"
   },
   "user": {
     "activity": {
       "barEarlier": "{{weeks}}: {{games}}",
+      "hint": "{{games}} за {{weeks}}.",
+      "label": "Игры по неделям, сначала самые старые",
+      "thisWeek": "Эта неделя",
+      "title": "Активность",
       "barThisWeek_one": "{{count, number}} игра за последние 7 дней",
       "barThisWeek_few": "{{count, number}} игры за последние 7 дней",
       "barThisWeek_many": "{{count, number}} игр за последние 7 дней",
       "barThisWeek_other": "{{count, number}} игры за последние 7 дней",
-      "hint": "{{games}} за {{weeks}}.",
-      "label": "Игры по неделям, сначала самые старые",
       "lastWeeks_one": "последнюю {{count}} неделю",
       "lastWeeks_few": "последние {{count}} недели",
       "lastWeeks_many": "последние {{count}} недель",
       "lastWeeks_other": "последние {{count}} недели",
-      "thisWeek": "Эта неделя",
-      "title": "Активность",
       "weeksAgo_one": "{{count}} неделю назад",
       "weeksAgo_few": "{{count}} недели назад",
       "weeksAgo_many": "{{count}} недель назад",
@@ -408,6 +408,9 @@
       "detailStillWon": "{{detail}} · его сторона всё равно победила в {{rate}} из них",
       "hint": "Как часто игрока убивали или изгоняли и как часто его сторона всё равно выигрывала такие игры.",
       "killedAsCrewmate": "Убит как член экипажа",
+      "title": "Чем заканчиваются игры",
+      "votedOutAsCrewmate": "Изгнан как член экипажа",
+      "votedOutAsImpostor": "Изгнан как предатель",
       "ofCrewmateGames_one": "{{times}} из {{count, number}} игры за экипаж",
       "ofCrewmateGames_few": "{{times}} из {{count, number}} игр за экипаж",
       "ofCrewmateGames_many": "{{times}} из {{count, number}} игр за экипаж",
@@ -415,17 +418,14 @@
       "ofImpostorGames_one": "{{times}} из {{count, number}} игры за предателя",
       "ofImpostorGames_few": "{{times}} из {{count, number}} игр за предателя",
       "ofImpostorGames_many": "{{times}} из {{count, number}} игр за предателя",
-      "ofImpostorGames_other": "{{times}} из {{count, number}} игры за предателя",
-      "title": "Чем заканчиваются игры",
-      "votedOutAsCrewmate": "Изгнан как член экипажа",
-      "votedOutAsImpostor": "Изгнан как предатель"
+      "ofImpostorGames_other": "{{times}} из {{count, number}} игры за предателя"
     },
     "firstTarget": {
+      "label": "Погибает первым",
       "detail_one": "{{deaths}} из {{count, number}} игры за экипаж",
       "detail_few": "{{deaths}} из {{count, number}} игр за экипаж",
       "detail_many": "{{deaths}} из {{count, number}} игр за экипаж",
-      "detail_other": "{{deaths}} из {{count, number}} игры за экипаж",
-      "label": "Погибает первым"
+      "detail_other": "{{deaths}} из {{count, number}} игры за экипаж"
     },
     "form": {
       "dotLost": "Матч {{id}}: поражение",
@@ -443,12 +443,12 @@
       "since": "Играет с <first>{{first}}</first> · последняя игра <last>{{last}}</last>"
     },
     "killedBy": {
+      "hint": "Among Us не сообщает, кто совершил убийство, поэтому смерть члена экипажа засчитывается каждому предателю в этой игре.",
+      "title": "Чаще всего погибал, когда в игре был этот предатель",
       "empty_one": "Пока ни один предатель не сыграл с этим игроком хотя бы {{count, number}} игру.",
       "empty_few": "Пока ни один предатель не сыграл с этим игроком хотя бы {{count, number}} игры.",
       "empty_many": "Пока ни один предатель не сыграл с этим игроком хотя бы {{count, number}} игр.",
-      "empty_other": "Пока ни один предатель не сыграл с этим игроком хотя бы {{count, number}} игры.",
-      "hint": "Among Us не сообщает, кто совершил убийство, поэтому смерть члена экипажа засчитывается каждому предателю в этой игре.",
-      "title": "Чаще всего погибал, когда в игре был этот предатель"
+      "empty_other": "Пока ни один предатель не сыграл с этим игроком хотя бы {{count, number}} игры."
     },
     "locked": {
       "body": "Серии, места на сервере, выживаемость и частота первой смерти, лучшие и худшие напарники, карты, активность и многое другое. Серверы с AutoMuteUs Премиум получают все разделы на этой странице.",
@@ -473,26 +473,26 @@
       "title": "Чаще всего играл с"
     },
     "ranks": {
-      "byGames_one": "по числу игр, из {{count, number}} игрока",
-      "byGames_few": "по числу игр, из {{count, number}} игроков",
-      "byGames_many": "по числу игр, из {{count, number}} игроков",
-      "byGames_other": "по числу игр, из {{count, number}} игрока",
       "crewmateWinrate": "Процент побед за экипаж",
       "hash": "#{{position}}",
-      "hint_one": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игры.",
-      "hint_few": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игр.",
-      "hint_many": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игр.",
-      "hint_other": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игры.",
       "impostorWinrate": "Процент побед за предателя",
       "noGames": "игр пока нет",
       "notRanked": "Нет в рейтинге",
       "overallWinrate": "Общий процент побед",
+      "serverRank": "Место на сервере",
+      "title": "Места на сервере",
+      "byGames_one": "по числу игр, из {{count, number}} игрока",
+      "byGames_few": "по числу игр, из {{count, number}} игроков",
+      "byGames_many": "по числу игр, из {{count, number}} игроков",
+      "byGames_other": "по числу игр, из {{count, number}} игрока",
+      "hint_one": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игры.",
+      "hint_few": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игр.",
+      "hint_many": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игр.",
+      "hint_other": "В рейтингах по проценту побед учитываются игроки, сыгравшие в этой роли не меньше {{count, number}} игры.",
       "position_one": "<strong>#{{position}}</strong> <span>из {{count, number}}</span>",
       "position_few": "<strong>#{{position}}</strong> <span>из {{count, number}}</span>",
       "position_many": "<strong>#{{position}}</strong> <span>из {{count, number}}</span>",
-      "position_other": "<strong>#{{position}}</strong> <span>из {{count, number}}</span>",
-      "serverRank": "Место на сервере",
-      "title": "Места на сервере"
+      "position_other": "<strong>#{{position}}</strong> <span>из {{count, number}}</span>"
     },
     "recent": {
       "empty": "Завершённых матчей пока нет.",
@@ -520,15 +520,17 @@
       "wonOf_other": "Побед: {{wins}} из {{count, number}} игры"
     },
     "survival": {
+      "label": "Выживаемость за экипаж",
       "detail_one": "дожил до конца в {{survived}} из {{count, number}} игры",
       "detail_few": "дожил до конца в {{survived}} из {{count, number}} игр",
       "detail_many": "дожил до конца в {{survived}} из {{count, number}} игр",
-      "detail_other": "дожил до конца в {{survived}} из {{count, number}} игры",
-      "label": "Выживаемость за экипаж"
+      "detail_other": "дожил до конца в {{survived}} из {{count, number}} игры"
     },
     "teammates": {
       "bestCrewmate": "Лучшие напарники за экипаж",
       "bestImpostor": "Лучшие напарники-предатели",
+      "worstCrewmate": "Худшие напарники за экипаж",
+      "worstImpostor": "Худшие напарники-предатели",
       "emptyCrewmate_one": "Пока никто не сыграл с этим игроком за экипаж хотя бы {{count, number}} игру.",
       "emptyCrewmate_few": "Пока никто не сыграл с этим игроком за экипаж хотя бы {{count, number}} игры.",
       "emptyCrewmate_many": "Пока никто не сыграл с этим игроком за экипаж хотя бы {{count, number}} игр.",
@@ -536,9 +538,7 @@
       "emptyImpostor_one": "Пока никто не сыграл с этим игроком за предателей хотя бы {{count, number}} игру.",
       "emptyImpostor_few": "Пока никто не сыграл с этим игроком за предателей хотя бы {{count, number}} игры.",
       "emptyImpostor_many": "Пока никто не сыграл с этим игроком за предателей хотя бы {{count, number}} игр.",
-      "emptyImpostor_other": "Пока никто не сыграл с этим игроком за предателей хотя бы {{count, number}} игры.",
-      "worstCrewmate": "Худшие напарники за экипаж",
-      "worstImpostor": "Худшие напарники-предатели"
+      "emptyImpostor_other": "Пока никто не сыграл с этим игроком за предателей хотя бы {{count, number}} игры."
     },
     "updated": "Обновлено <time>{{when}}</time>. Учитываются игры, в которых игрок был привязан к боту; статистика обновляется примерно раз в минуту."
   }

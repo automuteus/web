@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Puoi sempre creare nuove partite, anche quando il bot è sotto carico elevato!",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Accesso prioritario alle partite"
     },
     "mutingBots": {
@@ -70,15 +70,15 @@
   "signIn": "Accedi per vedere i tuoi server",
   "status": {
     "changingTiers": "Ogni acquisto avvia un nuovo abbonamento PayPal, quindi acquistare qui non sostituisce quello attuale e i giorni rimanenti non vengono trasferiti. Se stai cambiando livello, <cancel>annulla prima l'abbonamento attuale</cancel>.",
-    "days_one": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorno rimanente sull'ultimo pagamento.",
-    "days_other": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorni rimanenti sull'ultimo pagamento.",
     "ending": "{{server}} ha AutoMuteUs {{tier}} fino al {{date, datetime}}. Il suo abbonamento PayPal è stato annullato e non verrà rinnovato.",
     "endingInherited": "{{server}} ha AutoMuteUs {{tier}} fino al {{date, datetime}}. L'abbonamento PayPal del server da cui eredita il Premium è stato annullato e non verrà rinnovato.",
     "expired": "AutoMuteUs {{tier}} di {{server}} è scaduto.",
     "free": "{{server}} non ha AutoMuteUs Premium.",
     "noExpiry": "{{server}} ha AutoMuteUs {{tier}}, senza scadenza.",
     "renews": "{{server}} ha AutoMuteUs {{tier}}. Il suo abbonamento PayPal si rinnova intorno al {{date, datetime}}.",
-    "renewsInherited": "{{server}} ha AutoMuteUs {{tier}}. L'abbonamento PayPal del server da cui eredita il Premium si rinnova intorno al {{date, datetime}}."
+    "renewsInherited": "{{server}} ha AutoMuteUs {{tier}}. L'abbonamento PayPal del server da cui eredita il Premium si rinnova intorno al {{date, datetime}}.",
+    "days_one": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorno rimanente sull'ultimo pagamento.",
+    "days_other": "{{server}} ha AutoMuteUs {{tier}}, con {{count}} giorni rimanenti sull'ultimo pagamento."
   },
   "subtitle": "Vuoi migliorare ancora di più le tue partite di Among Us? Il bot ti dà problemi quando è sotto carico elevato? Prendi in considerazione AutoMuteUs Premium per sostenere il progetto e migliorare la tua esperienza di mute!",
   "thisServer": "Questo server",

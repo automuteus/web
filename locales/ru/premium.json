@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Создавайте новые игры всегда, даже когда бот под высокой нагрузкой!",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Приоритетный доступ к играм"
     },
     "mutingBots": {
@@ -70,17 +70,17 @@
   "signIn": "Войдите, чтобы увидеть свои серверы",
   "status": {
     "changingTiers": "Каждая покупка оформляет новую подписку PayPal, поэтому покупка здесь не заменит текущую подписку, а её оставшиеся дни не перенесутся. Если вы меняете уровень, сначала <cancel>отмените текущую подписку</cancel>.",
-    "days_one": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу остался {{count}} день.",
-    "days_few": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дня.",
-    "days_many": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дней.",
-    "days_other": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дня.",
     "ending": "У сервера {{server}} есть AutoMuteUs {{tier}} до {{date, datetime}}. Его подписка PayPal отменена и не продлится.",
     "endingInherited": "У сервера {{server}} есть AutoMuteUs {{tier}} до {{date, datetime}}. Подписка PayPal сервера, от которого он получает премиум, отменена и не продлится.",
     "expired": "Срок действия AutoMuteUs {{tier}} на сервере {{server}} истёк.",
     "free": "У сервера {{server}} нет AutoMuteUs Премиум.",
     "noExpiry": "У сервера {{server}} есть AutoMuteUs {{tier}} без срока окончания.",
     "renews": "У сервера {{server}} есть AutoMuteUs {{tier}}. Его подписка PayPal продлится примерно {{date, datetime}}.",
-    "renewsInherited": "У сервера {{server}} есть AutoMuteUs {{tier}}. Подписка PayPal сервера, от которого он получает премиум, продлится примерно {{date, datetime}}."
+    "renewsInherited": "У сервера {{server}} есть AutoMuteUs {{tier}}. Подписка PayPal сервера, от которого он получает премиум, продлится примерно {{date, datetime}}.",
+    "days_one": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу остался {{count}} день.",
+    "days_few": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дня.",
+    "days_many": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дней.",
+    "days_other": "У сервера {{server}} есть AutoMuteUs {{tier}}: по последнему платежу осталось {{count}} дня."
   },
   "subtitle": "Хотите вывести игру в Among Us на новый уровень? Сталкиваетесь с ограничениями бота, когда он под высокой нагрузкой? Оформите AutoMuteUs Премиум, чтобы поддержать проект и сделать мьют ещё удобнее!",
   "thisServer": "Этот сервер",

@@ -116,13 +116,13 @@
     "title": "Redefinir configurações"
   },
   "retention": {
-    "after_one": "Excluir após {{count}} minuto",
-    "after_other": "Excluir após {{count}} minutos",
     "afterOption": "Excluir após...",
     "forever": "Manter para sempre",
     "immediately": "Excluir imediatamente",
     "minutes": "minutos",
-    "minutesLabel": "Minutos até o resumo ser excluído"
+    "minutesLabel": "Minutos até o resumo ser excluído",
+    "after_one": "Excluir após {{count}} minuto",
+    "after_other": "Excluir após {{count}} minutos"
   },
   "roles": {
     "add": "Adicionar",
