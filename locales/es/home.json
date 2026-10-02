@@ -1,16 +1,16 @@
 {
   "actions": {
-    "addToDiscord": "Add to Discord",
-    "capture": "Capture Software",
+    "addToDiscord": "Añadir a Discord",
+    "capture": "Programa de captura",
     "premium": "AutoMuteUs Premium"
   },
   "crewmateLabel": "AutoMuteUs",
-  "heading": "Use AutoMuteUs for hands free muting",
+  "heading": "Usa AutoMuteUs para silenciar sin manos",
   "stats": {
-    "activeGames": "Active Games",
-    "gamesMuted": "Games Muted",
-    "servers": "Servers",
-    "users": "Users"
+    "activeGames": "Partidas activas",
+    "gamesMuted": "Partidas silenciadas",
+    "servers": "Servidores",
+    "users": "Usuarios"
   },
-  "subtitle": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
+  "subtitle": "AutoMuteUs es un bot de Discord que recopila datos de las partidas de Among Us para silenciar y quitar el silencio a los jugadores automáticamente durante las partidas."
 }
