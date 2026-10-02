@@ -116,13 +116,13 @@
     "title": "Ripristina le impostazioni"
   },
   "retention": {
-    "after_one": "Elimina dopo {{count}} minuto",
-    "after_other": "Elimina dopo {{count}} minuti",
     "afterOption": "Elimina dopo...",
     "forever": "Conserva per sempre",
     "immediately": "Elimina subito",
     "minutes": "minuti",
-    "minutesLabel": "Minuti prima che il riepilogo venga eliminato"
+    "minutesLabel": "Minuti prima che il riepilogo venga eliminato",
+    "after_one": "Elimina dopo {{count}} minuto",
+    "after_other": "Elimina dopo {{count}} minuti"
   },
   "roles": {
     "add": "Aggiungi",
