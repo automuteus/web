@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "Создавайте новые игры всегда, даже когда бот под высокой нагрузкой!",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "Приоритетный доступ к играм"
     },
     "mutingBots": {
