@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Usuário a desvincular"
+        "user": "User to unlink"
       },
       "description": "Desvincular um usuário do Discord da sua cor no jogo"
     }
