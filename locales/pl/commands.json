@@ -1,0 +1,122 @@
+{
+  "command": {
+    "debug": {
+      "clear": {
+        "arg": {
+          "user": "User to clear cache for"
+        },
+        "description": "Clear cached user names"
+      },
+      "description": "View and clear debug information for AutoMuteUs",
+      "unmute": {
+        "arg": {
+          "user": "User who should be unmuted/undeafened"
+        },
+        "description": "Unmute myself, or a specific user"
+      },
+      "unmuteAll": {
+        "description": "Unmute all players"
+      },
+      "viewGameState": {
+        "description": "Print out the current game state"
+      },
+      "viewUser": {
+        "arg": {
+          "user": "User to pull cache for"
+        },
+        "description": "User cached names"
+      }
+    },
+    "end": {
+      "description": "End a game"
+    },
+    "help": {
+      "arg": {
+        "command": "Name of command to view more details about"
+      },
+      "description": "View available commands"
+    },
+    "info": {
+      "description": "AutoMuteUs info"
+    },
+    "link": {
+      "arg": {
+        "color": "In-game color",
+        "user": "User to link"
+      },
+      "description": "Link a Discord User to their in-game color"
+    },
+    "map": {
+      "arg": {
+        "detailed": "View detailed map?",
+        "mapName": "Map to display"
+      },
+      "description": "View Among Us game maps"
+    },
+    "new": {
+      "description": "Start a new game"
+    },
+    "pause": {
+      "description": "Pause the current game"
+    },
+    "premium": {
+      "description": "View information about AutoMuteUs Premium",
+      "info": {
+        "description": "View AutoMuteUs Premium information"
+      },
+      "invites": {
+        "description": "Invite AutoMuteUs premium workers"
+      }
+    },
+    "privacy": {
+      "arg": {
+        "command": "Name of privacy command"
+      },
+      "description": "View AMU privacy info"
+    },
+    "refresh": {
+      "description": "Refresh the game message"
+    },
+    "settings": {
+      "description": "Get a link to the <settingsLink>settings page</settingsLink>, where the bot's settings for this server are managed"
+    },
+    "stats": {
+      "description": "Get a link to the <statsLink>stats page</statsLink>, where stats for this server are shown and reset"
+    },
+    "unlink": {
+      "arg": {
+        "user": "User to link"
+      },
+      "description": "Unlink a Discord User from their in-game color"
+    }
+  },
+  "entry": {
+    "arguments": "Arguments",
+    "example": "Example",
+    "optional": "Optional",
+    "optionalLabel": "OPTIONAL",
+    "required": "Required",
+    "subcommands": "Sub-commands",
+    "subcommandCount_one": "+ {{count}} sub-command",
+    "subcommandCount_few": "+ {{count}} sub-commands",
+    "subcommandCount_many": "+ {{count}} sub-commands",
+    "subcommandCount_other": "+ {{count}} sub-commands"
+  },
+  "page": {
+    "currentAsOf": "Current as of {{version}}",
+    "generalCommands": "General Commands",
+    "heading": "Commands",
+    "managedOnWeb": "Managed on the web",
+    "metaDescription": "View all the available commands in the AutoMuteUs Discord muting bot.",
+    "settings": "Settings",
+    "settingsMoved": "Settings are no longer changed with commands. Open the <settingsLink>settings page</settingsLink> and sign in with Discord to view and change them. The server owner and members with Administrator or Manage Server can make changes. In Discord, <code>{{command}}</code> links to the same page.",
+    "title": "AutoMuteUs - Commands"
+  },
+  "table": {
+    "description": "Description",
+    "name": "Name",
+    "none": "None",
+    "type": "Type",
+    "values": "Values"
+  }
+}
