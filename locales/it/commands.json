@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Utente da scollegare"
+        "user": "User to unlink"
       },
       "description": "Scollega un utente Discord dal suo colore in gioco"
     }
@@ -96,9 +96,9 @@
     "optional": "Facoltativo",
     "optionalLabel": "FACOLTATIVO",
     "required": "Obbligatorio",
+    "subcommands": "Sottocomandi",
     "subcommandCount_one": "+ {{count}} sottocomando",
-    "subcommandCount_other": "+ {{count}} sottocomandi",
-    "subcommands": "Sottocomandi"
+    "subcommandCount_other": "+ {{count}} sottocomandi"
   },
   "page": {
     "currentAsOf": "Aggiornato alla versione {{version}}",
