@@ -178,78 +178,78 @@
   },
   "summaries": {
     "heading": "Итоги матчей",
-    "retention": "Match summary retention"
+    "retention": "Хранение итогов матчей"
   },
   "unavailable": {
-    "description": "This server isn't one you own or administer. Choose another server above."
+    "description": "Вы не владеете этим сервером и не администрируете его. Выберите другой сервер выше."
   },
   "validation": {
-    "channelID": "must be a Discord channel ID (17 to 20 digits), or empty for none",
-    "delay": "must be a whole number of seconds from {{min}} to {{max}}",
-    "duplicateRole": "duplicates entry {{entry}}",
-    "language": "must be one of the installed languages: {{codes}}",
-    "locked": "cannot be changed here",
-    "mapVersion": "must be {{first}} or {{second}}",
-    "onOff": "must be on or off",
-    "retention": "must be a whole number of minutes from 1 to {{max}}, 0 to delete immediately, or -1 to keep forever",
-    "roleID": "is not a Discord role ID",
-    "roleList": "must be a list of role IDs",
-    "roomCode": "must be one of {{options}}",
-    "tooManyRoles_one": "has {{count}} entry, at most {{max}} are allowed",
-    "tooManyRoles_few": "has {{count}} entries, at most {{max}} are allowed",
-    "tooManyRoles_many": "has {{count}} entries, at most {{max}} are allowed",
-    "tooManyRoles_other": "has {{count}} entries, at most {{max}} are allowed"
+    "channelID": "Укажите ID канала Discord (от 17 до 20 цифр) или оставьте поле пустым",
+    "delay": "Укажите целое число секунд от {{min}} до {{max}}",
+    "duplicateRole": "Повторяет запись № {{entry}}",
+    "language": "Выберите один из установленных языков: {{codes}}",
+    "locked": "Здесь это изменить нельзя",
+    "mapVersion": "Допустимые значения: {{first}} или {{second}}",
+    "onOff": "Значение должно быть «включено» или «выключено»",
+    "retention": "Укажите целое число минут от 1 до {{max}}, 0, чтобы удалять сразу, или -1, чтобы хранить всегда",
+    "roleID": "Это не ID роли Discord",
+    "roleList": "Нужен список ID ролей",
+    "roomCode": "Допустимые значения: {{options}}",
+    "tooManyRoles_one": "Указана {{count}} запись, а можно не больше {{max}}",
+    "tooManyRoles_few": "Указано {{count}} записи, а можно не больше {{max}}",
+    "tooManyRoles_many": "Указано {{count}} записей, а можно не больше {{max}}",
+    "tooManyRoles_other": "Указано {{count}} записи, а можно не больше {{max}}"
   },
   "value": {
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "none": "None configured",
-    "notApplicable": "N/A",
-    "seconds": "{{value}} s",
-    "unknown": "Not available"
+    "disabled": "Выключено",
+    "enabled": "Включено",
+    "none": "Не настроено",
+    "notApplicable": "Н/д",
+    "seconds": "{{value}} с",
+    "unknown": "Недоступно"
   },
   "voice": {
-    "about": "About voice rules",
-    "aboutDescription": "Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.",
-    "caption": "Configured voice rules by phase and player status",
+    "about": "О голосовых правилах",
+    "aboutDescription": "Каждая строка — фаза игры. В столбцах показаны настроенные правила для микрофона и звука у живых и мёртвых игроков. Это настройки бота, а не текущее состояние звука у кого-либо в Discord.",
+    "caption": "Настроенные голосовые правила по фазам и статусу игрока",
     "column": {
-      "alive": "Alive players",
-      "dead": "Dead players",
-      "phase": "Phase"
+      "alive": "Живые игроки",
+      "dead": "Мёртвые игроки",
+      "phase": "Фаза"
     },
     "context": {
-      "alive": "Alive players during {{phase}}",
-      "dead": "Dead players during {{phase}}"
+      "alive": "Живые игроки во время {{phase}}",
+      "dead": "Мёртвые игроки во время {{phase}}"
     },
-    "customDefault": "Custom value; the bot default is {{mute}} and {{deaf}}.",
-    "description": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Hover or focus a label for details.",
-    "descriptionEditing": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Select a pill to flip that rule.",
-    "heading": "Voice rules",
+    "customDefault": "Своё значение; по умолчанию у бота: {{mute}}, {{deaf}}.",
+    "description": "Значок микрофона показывает, можно ли говорить, наушники — можно ли слышать. Перечёркнутый значок означает запрет. Наведите курсор или фокус на метку, чтобы узнать подробности.",
+    "descriptionEditing": "Значок микрофона показывает, можно ли говорить, наушники — можно ли слышать. Перечёркнутый значок означает запрет. Нажмите на переключатель, чтобы изменить правило.",
+    "heading": "Голосовые правила",
     "inSentence": {
-      "deafened": "deafened",
-      "muted": "muted",
-      "undeafened": "undeafened",
-      "unmuted": "unmuted"
+      "deafened": "звук выключен",
+      "muted": "микрофон выключен",
+      "undeafened": "звук включён",
+      "unmuted": "микрофон включён"
     },
     "muteSpectator": {
-      "about": "About mute spectators",
-      "description": "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music.",
-      "label": "Mute spectators"
+      "about": "О мьюте зрителей",
+      "description": "Если включено, зрителям выключается микрофон, как мёртвым игрокам. На серверах с музыкальными ботами это часто оставляют выключенным, чтобы зрители продолжали слышать музыку.",
+      "label": "Мьютить зрителей"
     },
-    "premiumNote": "Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.",
+    "premiumNote": "Включение микрофона мёртвым игрокам во время заданий и мьют зрителей могут потребовать много дополнительных голосовых запросов к Discord. Не рекомендуется для серверов без Премиума, где запросы могут выполняться медленнее или с задержкой.",
     "state": {
-      "deafened": "Deafened",
-      "muted": "Muted",
-      "undeafened": "Undeafened",
-      "unmuted": "Unmuted"
+      "deafened": "Звук выключен",
+      "muted": "Микрофон выключен",
+      "undeafened": "Звук включён",
+      "unmuted": "Микрофон включён"
     },
-    "switchTo": "Switch to {{state}}",
+    "switchTo": "Переключить на «{{state}}»",
     "toggle": "{{context}}: {{state}}",
     "unmuteDead": {
-      "about": "About unmute dead players during tasks",
-      "description": "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players.",
-      "label": "Unmute dead players during tasks"
+      "about": "О включении микрофона мёртвым во время заданий",
+      "description": "Если включено, мёртвые игроки могут говорить во время заданий. Это может выдать предателей живым игрокам, если те при этом слышат мёртвых.",
+      "label": "Включать микрофон мёртвым во время заданий"
     },
-    "unsafe": "<strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are."
+    "unsafe": "<strong>Потенциально небезопасное сочетание:</strong> во время заданий у мёртвых игроков включён микрофон, а у живых не выключен звук. Мёртвые могут подсказать живым, кто предатели."
   }
 }
