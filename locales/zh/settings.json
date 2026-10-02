@@ -114,12 +114,12 @@
     "title": "重置设置"
   },
   "retention": {
-    "after_other": "{{count}} 分钟后删除",
     "afterOption": "一段时间后删除...",
     "forever": "永久保留",
     "immediately": "立即删除",
     "minutes": "分钟",
-    "minutesLabel": "删除摘要前的分钟数"
+    "minutesLabel": "删除摘要前的分钟数",
+    "after_other": "{{count}} 分钟后删除"
   },
   "roles": {
     "add": "添加",
