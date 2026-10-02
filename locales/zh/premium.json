@@ -46,7 +46,7 @@
   },
   "perk": {
     "gameAccess": {
-      "description": "即使机器人负载很高，也总能创建新游戏！",
+      "description": "Always be able to make new games, even when the bot is under high load!",
       "title": "优先游戏访问"
     },
     "mutingBots": {
@@ -70,14 +70,14 @@
   "signIn": "登录以查看你的服务器",
   "status": {
     "changingTiers": "每次购买都会创建一个新的 PayPal 订阅，因此在此购买不会替换当前订阅，当前订阅的剩余天数也不会转移。如果你要更换等级，请先<cancel>取消当前订阅</cancel>。",
-    "days_other": "{{server}} 拥有 AutoMuteUs {{tier}}，最近一次付款还剩 {{count}} 天。",
     "ending": "{{server}} 拥有 AutoMuteUs {{tier}}，有效期至 {{date, datetime}}。其 PayPal 订阅已取消，不会续订。",
     "endingInherited": "{{server}} 拥有 AutoMuteUs {{tier}}，有效期至 {{date, datetime}}。其高级版继承自另一个服务器，该服务器的 PayPal 订阅已取消，不会续订。",
     "expired": "{{server}} 的 AutoMuteUs {{tier}} 已过期。",
     "free": "{{server}} 没有 AutoMuteUs 高级版。",
     "noExpiry": "{{server}} 拥有 AutoMuteUs {{tier}}，永不过期。",
     "renews": "{{server}} 拥有 AutoMuteUs {{tier}}。其 PayPal 订阅将于 {{date, datetime}} 前后续订。",
-    "renewsInherited": "{{server}} 拥有 AutoMuteUs {{tier}}。其高级版继承自另一个服务器，该服务器的 PayPal 订阅将于 {{date, datetime}} 前后续订。"
+    "renewsInherited": "{{server}} 拥有 AutoMuteUs {{tier}}。其高级版继承自另一个服务器，该服务器的 PayPal 订阅将于 {{date, datetime}} 前后续订。",
+    "days_other": "{{server}} 拥有 AutoMuteUs {{tier}}，最近一次付款还剩 {{count}} 天。"
   },
   "subtitle": "想让你的 Among Us 游戏体验更上一层楼？机器人高负载时遇到了限制？考虑一下 AutoMuteUs 高级版吧，既能支持本项目，又能改善你的静音体验！",
   "thisServer": "此服务器",
