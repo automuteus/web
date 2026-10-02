@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "Usuario que desvincular"
+        "user": "User to unlink"
       },
       "description": "Desvincular un usuario de Discord de su color en la partida"
     }
@@ -96,9 +96,9 @@
     "optional": "Opcional",
     "optionalLabel": "OPCIONAL",
     "required": "Obligatorio",
+    "subcommands": "Subcomandos",
     "subcommandCount_one": "+ {{count}} subcomando",
-    "subcommandCount_other": "+ {{count}} subcomandos",
-    "subcommands": "Subcomandos"
+    "subcommandCount_other": "+ {{count}} subcomandos"
   },
   "page": {
     "currentAsOf": "Actualizado a {{version}}",
