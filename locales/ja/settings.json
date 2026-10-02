@@ -1,54 +1,54 @@
 {
   "botAbsent": {
-    "description": "Invite the bot to {{name}} to use it there. Once it has joined, come back and reload to see its settings."
+    "description": "{{name}} で使うにはボットを招待してください。参加したら、このページに戻って再読み込みすると設定が表示されます。"
   },
   "botUnknown": "AutoMuteUs がこのサーバーにいることを確認できませんでした。ボットがまだ参加していない場合は、<invite>招待</invite>してください。参加後にこれらの設定が適用されます。",
   "channel": {
-    "cantPost": "The bot can't post in this channel.",
-    "checking": "Checking that the bot can post in this channel...",
-    "clear": "Clear",
-    "enterID": "Enter an ID",
-    "help": "In Discord, turn on Developer Mode under Settings, Advanced, then right-click the channel and choose Copy Channel ID.",
-    "idLabel": "Summary channel ID",
-    "idPlaceholder": "Channel ID, or empty for none",
-    "label": "Summary channel",
-    "none": "None",
-    "notListed": "{{id}} (not in the list)",
-    "ok": "#{{name}}: the bot can post match summaries here.",
+    "cantPost": "ボットはこのチャンネルに投稿できません。",
+    "checking": "ボットがこのチャンネルに投稿できるか確認しています...",
+    "clear": "クリア",
+    "enterID": "ID を入力",
+    "help": "Discord の設定の「詳細設定」で開発者モードをオンにし、チャンネルを右クリックして「チャンネル ID をコピー」を選択してください。",
+    "idLabel": "試合結果チャンネルの ID",
+    "idPlaceholder": "チャンネル ID（空欄でなし）",
+    "label": "試合結果チャンネル",
+    "none": "なし",
+    "notListed": "{{id}}（一覧にありません）",
+    "ok": "#{{name}}：ボットはここに試合結果を投稿できます。",
     "option": "#{{name}}",
-    "optionBlocked": "#{{name}} (bot can't post here)",
-    "pick": "Pick from a list",
-    "pickHelp": "Channels are listed as the bot sees them in this server; ones it can't post in are greyed out. Enter an ID to use a thread.",
-    "unchecked": "Couldn't check this channel right now. It will be verified when you save."
+    "optionBlocked": "#{{name}}（ボットが投稿できません）",
+    "pick": "一覧から選択",
+    "pickHelp": "このサーバーでボットから見えるチャンネルが表示されます。投稿できないチャンネルはグレー表示です。スレッドを使う場合は ID を入力してください。",
+    "unchecked": "現在このチャンネルを確認できませんでした。保存時に確認されます。"
   },
   "confirm": {
-    "leave": "You have unsaved changes. Leave this page and discard them?",
-    "reload": "Discard your unsaved changes and reload this server's settings?",
-    "switch": "Discard your unsaved changes and switch servers?"
+    "leave": "未保存の変更があります。変更を破棄してこのページを離れますか？",
+    "reload": "未保存の変更を破棄して、このサーバーの設定を再読み込みしますか？",
+    "switch": "未保存の変更を破棄して、サーバーを切り替えますか？"
   },
   "counts": {
-    "custom_other": "{{count}} custom",
-    "unsaved_other": "{{count}} unsaved"
+    "custom_other": "カスタム {{count}} 件",
+    "unsaved_other": "未保存 {{count}} 件"
   },
   "delays": {
-    "caption": "Voice transition delays in seconds",
-    "cellLabel": "Delay from {{from}} to {{to}} in seconds",
-    "corner": "From / to",
-    "description": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase.",
-    "descriptionEditing": "Seconds to wait before applying voice changes. Rows are the current phase; columns are the next phase. Whole seconds from {{min}} to {{max}}.",
-    "heading": "Transition delays",
-    "notApplicable": "Not applicable: the bot only delays changes between phases"
+    "caption": "ボイスの遷移遅延（秒）",
+    "cellLabel": "{{from}} から {{to}} への遅延（秒）",
+    "corner": "遷移前 / 遷移後",
+    "description": "ボイスの変更を適用するまでの待ち時間（秒）です。行が現在のフェーズ、列が次のフェーズです。",
+    "descriptionEditing": "ボイスの変更を適用するまでの待ち時間（秒）です。行が現在のフェーズ、列が次のフェーズです。{{min}} から {{max}} までの整数で指定してください。",
+    "heading": "遷移の遅延",
+    "notApplicable": "対象外：ボットが遅延させるのはフェーズ間の変更のみです"
   },
   "display": {
-    "autoRefresh": "Refresh game message automatically",
-    "heading": "Display & language",
-    "language": "Bot language",
-    "mapVersion": "Map style",
-    "roomCode": "Room code visibility"
+    "autoRefresh": "ゲームメッセージを自動更新",
+    "heading": "表示と言語",
+    "language": "ボットの言語",
+    "mapVersion": "マップのスタイル",
+    "roomCode": "ルームコードの表示"
   },
   "error": {
-    "forbidden": "You no longer have access to this server, or Discord has not granted the required access.",
-    "notFound": "Settings could not be found for this server."
+    "forbidden": "このサーバーへのアクセス権がなくなったか、Discord から必要なアクセス権が付与されていません。",
+    "notFound": "このサーバーの設定が見つかりませんでした。"
   },
   "hint": "{{label}}。{{description}}",
   "languageFormat": {
@@ -56,182 +56,182 @@
     "withNative": "{{flag}} {{name}} ({{native}})"
   },
   "languageName": {
-    "de": "German",
-    "en": "English",
-    "es": "Spanish",
-    "fr": "French",
-    "it": "Italian",
-    "ja": "Japanese",
-    "pt": "Portuguese",
-    "ru": "Russian",
-    "zh": "Chinese"
+    "de": "ドイツ語",
+    "en": "英語",
+    "es": "スペイン語",
+    "fr": "フランス語",
+    "it": "イタリア語",
+    "ja": "日本語",
+    "pt": "ポルトガル語",
+    "ru": "ロシア語",
+    "zh": "中国語"
   },
   "loadingSettings": "設定を読み込んでいます...",
   "mapVersion": {
-    "detailed": "Detailed",
-    "simple": "Simple"
+    "detailed": "詳細",
+    "simple": "シンプル"
   },
   "marker": {
-    "custom": "Custom",
-    "customDefault": "Custom value; the bot default is {{value}}.",
-    "premium": "Premium",
-    "premiumDetail": "Premium-only setting. AutoMuteUs applies it only on servers with premium."
+    "custom": "カスタム",
+    "customDefault": "カスタム値です。ボットの既定値は {{value}} です。",
+    "premium": "プレミアム",
+    "premiumDetail": "プレミアム専用の設定です。AutoMuteUs はプレミアムのサーバーでのみ適用します。"
   },
   "noSelection": {
-    "description": "Choose a server to see and change its configuration.",
-    "heading": "Select your server"
+    "description": "サーバーを選択すると、その設定を確認・変更できます。",
+    "heading": "サーバーを選択"
   },
   "noServers": {
-    "description": "Only servers where you are the owner or have the Administrator or Manage Server permission are shown here. If you were just given that role, refresh your server list.",
-    "heading": "No servers you can manage"
+    "description": "表示されるのは、あなたがオーナーであるか、管理者またはサーバー管理の権限を持っているサーバーだけです。そのロールを付与されたばかりの場合は、サーバー一覧を再読み込みしてください。",
+    "heading": "管理できるサーバーがありません"
   },
   "notice": "変更は <strong>変更を保存</strong> を押すとボットに反映されます。一度も設定を保存していないサーバーは既定値から始まります。ボットの既定値と異なる値には <strong>カスタム</strong> の印が付き、未保存の変更は黄色で強調表示されます。<strong>プレミアム</strong> の印は、ボットがプレミアムのサーバーでのみ適用する設定です。",
   "page": {
-    "description": "Your server's voice rules, timing, and preferences in one place.",
-    "heading": "Server settings",
-    "metaDesc": "View and change AutoMuteUs voice rules, delays, and settings for the Discord servers you manage.",
-    "title": "Server settings - AutoMuteUs"
+    "description": "サーバーのボイスルール、タイミング、各種設定をまとめて管理できます。",
+    "heading": "サーバー設定",
+    "metaDesc": "管理している Discord サーバーの AutoMuteUs のボイスルール、遅延、各種設定を確認・変更できます。",
+    "title": "サーバー設定 - AutoMuteUs"
   },
   "phase": {
-    "DISCUSSION": "Discussion",
+    "DISCUSSION": "緊急会議",
     "inSentence": {
-      "DISCUSSION": "discussion",
-      "LOBBY": "lobby",
-      "TASKS": "tasks"
+      "DISCUSSION": "緊急会議",
+      "LOBBY": "ロビー",
+      "TASKS": "タスク"
     },
-    "LOBBY": "Lobby",
-    "TASKS": "Tasks"
+    "LOBBY": "ロビー",
+    "TASKS": "タスク"
   },
   "premiumHint": "変更するにはプレミアムが必要です。",
   "premiumLocked": "このサーバーは AutoMuteUs プレミアムを利用していないため、<strong>プレミアム</strong> の印が付いた設定は表示のみで変更できません。",
   "reloadSettings": "設定を再読み込み",
   "reset": {
-    "action": "Reset to defaults",
-    "confirm": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles.",
-    "confirmWithChanges": "Every setting in <strong>{{name}}</strong> goes back to the default, including the match summary channel and operator roles. Your unsaved changes will be discarded too.",
-    "description": "Put every setting back to the bot's default. Stats are kept.",
-    "done": "Settings reset to the defaults. The bot uses them from the next game.",
-    "title": "Reset settings"
+    "action": "既定値にリセット",
+    "confirm": "<strong>{{name}}</strong> のすべての設定が、試合結果チャンネルとオペレーターロールも含めて既定値に戻ります。",
+    "confirmWithChanges": "<strong>{{name}}</strong> のすべての設定が、試合結果チャンネルとオペレーターロールも含めて既定値に戻ります。未保存の変更も破棄されます。",
+    "description": "すべての設定をボットの既定値に戻します。統計は保持されます。",
+    "done": "設定を既定値にリセットしました。次のゲームから適用されます。",
+    "title": "設定のリセット"
   },
   "retention": {
-    "afterOption": "Delete after...",
-    "forever": "Keep forever",
-    "immediately": "Delete immediately",
-    "minutes": "minutes",
-    "minutesLabel": "Minutes before the summary is deleted",
-    "after_other": "Delete after {{count}} minutes"
+    "afterOption": "一定時間後に削除...",
+    "forever": "削除しない",
+    "immediately": "すぐに削除",
+    "minutes": "分",
+    "minutesLabel": "試合結果を削除するまでの時間（分）",
+    "after_other": "{{count}} 分後に削除"
   },
   "roles": {
-    "add": "Add",
-    "allListed": "Every role is already listed",
-    "choose": "Choose a role...",
-    "description": "Members with any of these roles can start, pause, end, link, and unlink games. With no roles listed, everyone can. Once a role is added, members without one of these roles can no longer control games. The server owner and members with the Administrator or Manage Server permission always can, and they are the only ones who can change these settings, here or with /settings.",
-    "heading": "Bot operators",
-    "help": "Role IDs are saved as typed and not checked against the server. In Discord, open Server Settings, Roles, then right-click a role and choose Copy Role ID (Developer Mode).",
-    "idLabel": "Role ID to add",
-    "idPlaceholder": "Role ID",
-    "idsLabel": "Operator role IDs",
-    "label": "Operator roles",
-    "managed": "{{name}} (bot or integration)",
-    "notInServer": "Not a role in this server",
-    "pickHelp": "Roles are listed as the bot sees them in this server.",
-    "pickLabel": "Role to add",
-    "remove": "Remove role {{name}}",
-    "unknown_other": "Not roles in this server: {{ids}}. Remove them to save."
+    "add": "追加",
+    "allListed": "すべてのロールが追加済みです",
+    "choose": "ロールを選択...",
+    "description": "これらのいずれかのロールを持つメンバーは、ゲームの開始、一時停止、終了、リンク、リンク解除ができます。ロールが 1 つもない場合は全員が操作できます。ロールを追加すると、それらのロールを持たないメンバーはゲームを操作できなくなります。サーバーオーナーと、管理者またはサーバー管理の権限を持つメンバーは常に操作でき、これらの設定を変更できるのも（ここでも /settings でも）その人たちだけです。",
+    "heading": "ボットオペレーター",
+    "help": "ロール ID は入力したとおりに保存され、サーバーとの照合は行われません。Discord でサーバー設定の「ロール」を開き、ロールを右クリックして「ロール ID をコピー」を選択してください（開発者モードが必要です）。",
+    "idLabel": "追加するロール ID",
+    "idPlaceholder": "ロール ID",
+    "idsLabel": "オペレーターのロール ID",
+    "label": "オペレーターロール",
+    "managed": "{{name}}（ボットまたは連携サービス）",
+    "notInServer": "このサーバーのロールではありません",
+    "pickHelp": "このサーバーでボットから見えるロールが表示されます。",
+    "pickLabel": "追加するロール",
+    "remove": "ロール {{name}} を削除",
+    "unknown_other": "このサーバーのロールではありません：{{ids}}。保存するには削除してください。"
   },
   "roomCode": {
-    "always": "Always visible",
-    "never": "Hidden",
-    "spoiler": "Behind a spoiler"
+    "always": "常に表示",
+    "never": "非表示",
+    "spoiler": "スポイラーで隠す"
   },
   "save": {
-    "discard": "Discard",
-    "errorList": "Settings that need attention",
-    "fixFirst": "Fix the highlighted settings first.",
-    "none": "No unsaved changes",
-    "region": "Save changes",
-    "reload": "Reload",
-    "save": "Save changes",
-    "saved": "Settings saved. The bot uses them from the next game.",
-    "saving": "Saving...",
-    "unreachable": "We couldn't reach AutoMuteUs to save. Check your connection and try again.",
-    "unsaved_other": "{{count}} unsaved changes"
+    "discard": "破棄",
+    "errorList": "確認が必要な設定",
+    "fixFirst": "先に強調表示された設定を修正してください。",
+    "none": "未保存の変更はありません",
+    "region": "変更を保存",
+    "reload": "再読み込み",
+    "save": "変更を保存",
+    "saved": "設定を保存しました。次のゲームから適用されます。",
+    "saving": "保存しています...",
+    "unreachable": "AutoMuteUs に接続できず保存できませんでした。接続を確認してもう一度お試しください。",
+    "unsaved_other": "未保存の変更 {{count}} 件"
   },
   "signedOut": {
-    "description": "Sign in with Discord to manage settings for the servers you own or administer.",
-    "heading": "Choose how your crew plays"
+    "description": "Discord でサインインすると、オーナーまたは管理者であるサーバーの設定を管理できます。",
+    "heading": "クルーの遊び方を決めよう"
   },
   "summaries": {
-    "heading": "Match summaries",
-    "retention": "Match summary retention"
+    "heading": "試合結果",
+    "retention": "試合結果の保持期間"
   },
   "unavailable": {
-    "description": "This server isn't one you own or administer. Choose another server above."
+    "description": "このサーバーのオーナーまたは管理者ではありません。上で別のサーバーを選択してください。"
   },
   "validation": {
-    "channelID": "must be a Discord channel ID (17 to 20 digits), or empty for none",
-    "delay": "must be a whole number of seconds from {{min}} to {{max}}",
-    "duplicateRole": "duplicates entry {{entry}}",
-    "language": "must be one of the installed languages: {{codes}}",
-    "locked": "cannot be changed here",
-    "mapVersion": "must be {{first}} or {{second}}",
-    "onOff": "must be on or off",
-    "retention": "must be a whole number of minutes from 1 to {{max}}, 0 to delete immediately, or -1 to keep forever",
-    "roleID": "is not a Discord role ID",
-    "roleList": "must be a list of role IDs",
-    "roomCode": "must be one of {{options}}",
-    "tooManyRoles_other": "has {{count}} entries, at most {{max}} are allowed"
+    "channelID": "Discord のチャンネル ID（17〜20 桁）を入力するか、空欄にしてください",
+    "delay": "{{min}} から {{max}} までの整数（秒）で指定してください",
+    "duplicateRole": "{{entry}} 番目の項目と重複しています",
+    "language": "インストール済みの言語のいずれかを指定してください：{{codes}}",
+    "locked": "ここでは変更できません",
+    "mapVersion": "{{first}} または {{second}} を指定してください",
+    "onOff": "オンまたはオフを指定してください",
+    "retention": "1 から {{max}} までの整数（分）、すぐに削除する場合は 0、削除しない場合は -1 を指定してください",
+    "roleID": "Discord のロール ID ではありません",
+    "roleList": "ロール ID の一覧を指定してください",
+    "roomCode": "{{options}} のいずれかを指定してください",
+    "tooManyRoles_other": "{{count}} 件ありますが、最大 {{max}} 件までです"
   },
   "value": {
-    "disabled": "Disabled",
-    "enabled": "Enabled",
-    "none": "None configured",
-    "notApplicable": "N/A",
-    "seconds": "{{value}} s",
-    "unknown": "Not available"
+    "disabled": "無効",
+    "enabled": "有効",
+    "none": "未設定",
+    "notApplicable": "対象外",
+    "seconds": "{{value}} 秒",
+    "unknown": "取得できません"
   },
   "voice": {
-    "about": "About voice rules",
-    "aboutDescription": "Each row is a game phase. The columns show the configured microphone and hearing rules for alive and dead players. These are bot settings, not a live view of anyone's Discord audio state.",
-    "caption": "Configured voice rules by phase and player status",
+    "about": "ボイスルールについて",
+    "aboutDescription": "各行はゲームのフェーズです。列には、生存プレイヤーと死亡プレイヤーそれぞれのマイクと聞き取りのルール設定が表示されます。これはボットの設定であり、Discord の現在の音声状態を表示するものではありません。",
+    "caption": "フェーズとプレイヤーの状態ごとのボイスルール設定",
     "column": {
-      "alive": "Alive players",
-      "dead": "Dead players",
-      "phase": "Phase"
+      "alive": "生存プレイヤー",
+      "dead": "死亡プレイヤー",
+      "phase": "フェーズ"
     },
     "context": {
-      "alive": "Alive players during {{phase}}",
-      "dead": "Dead players during {{phase}}"
+      "alive": "{{phase}}中の生存プレイヤー",
+      "dead": "{{phase}}中の死亡プレイヤー"
     },
-    "customDefault": "Custom value; the bot default is {{mute}} and {{deaf}}.",
-    "description": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Hover or focus a label for details.",
-    "descriptionEditing": "Microphone icons show speaking rules; headphones show hearing rules. A slash means blocked. Select a pill to flip that rule.",
-    "heading": "Voice rules",
+    "customDefault": "カスタム値です。ボットの既定値は「{{mute}}・{{deaf}}」です。",
+    "description": "マイクのアイコンは発言のルール、ヘッドホンは聞き取りのルールを表します。斜線はブロックを意味します。ラベルにカーソルを合わせるかフォーカスすると詳細が表示されます。",
+    "descriptionEditing": "マイクのアイコンは発言のルール、ヘッドホンは聞き取りのルールを表します。斜線はブロックを意味します。ピルを選択するとルールを切り替えられます。",
+    "heading": "ボイスルール",
     "inSentence": {
-      "deafened": "deafened",
-      "muted": "muted",
-      "undeafened": "undeafened",
-      "unmuted": "unmuted"
+      "deafened": "スピーカーミュート",
+      "muted": "ミュート",
+      "undeafened": "スピーカーミュート解除",
+      "unmuted": "ミュート解除"
     },
     "muteSpectator": {
-      "about": "About mute spectators",
-      "description": "When enabled, spectators are muted like dead players. Servers with music bots often leave this disabled so spectators can continue hearing the music.",
-      "label": "Mute spectators"
+      "about": "観戦者のミュートについて",
+      "description": "有効にすると、観戦者は死亡プレイヤーと同様にミュートされます。音楽ボットを使うサーバーでは、観戦者が音楽を聞き続けられるよう無効のままにすることが多いです。",
+      "label": "観戦者をミュート"
     },
-    "premiumNote": "Unmuting dead players during tasks and muting spectators can require many additional Discord voice requests. They are not recommended for non-premium servers, where requests may be slower or delayed.",
+    "premiumNote": "タスク中に死亡プレイヤーのミュートを解除する設定と観戦者をミュートする設定は、Discord へのボイスリクエストが大幅に増えることがあります。プレミアムでないサーバーではリクエストが遅れることがあるため、おすすめしません。",
     "state": {
-      "deafened": "Deafened",
-      "muted": "Muted",
-      "undeafened": "Undeafened",
-      "unmuted": "Unmuted"
+      "deafened": "スピーカーミュート",
+      "muted": "ミュート",
+      "undeafened": "スピーカーミュート解除",
+      "unmuted": "ミュート解除"
     },
-    "switchTo": "Switch to {{state}}",
-    "toggle": "{{context}}: {{state}}",
+    "switchTo": "{{state}}に切り替え",
+    "toggle": "{{context}}：{{state}}",
     "unmuteDead": {
-      "about": "About unmute dead players during tasks",
-      "description": "When enabled, dead players can speak during tasks. This can reveal impostors to alive players if they are not prevented from hearing dead players.",
-      "label": "Unmute dead players during tasks"
+      "about": "タスク中の死亡プレイヤーのミュート解除について",
+      "description": "有効にすると、死亡プレイヤーはタスク中に発言できます。生存プレイヤーが死亡プレイヤーの声を聞けないようにしていない場合、インポスターがばれる可能性があります。",
+      "label": "タスク中に死亡プレイヤーのミュートを解除"
     },
-    "unsafe": "<strong>Potentially unsafe combination:</strong> dead players are unmuted during tasks while alive players are not deafened. Dead players may be able to tell alive players who the impostors are."
+    "unsafe": "<strong>安全でない可能性のある組み合わせ：</strong>生存プレイヤーがスピーカーミュートされていないのに、タスク中に死亡プレイヤーのミュートが解除されます。死亡プレイヤーが生存プレイヤーにインポスターを教えられるおそれがあります。"
   }
 }
