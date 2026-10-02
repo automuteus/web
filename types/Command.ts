@@ -1,7 +1,8 @@
 export interface Command {
     command: string;
     subcommands?: Command[];
-    description?: Array<string | React.ReactNode>;
+    /** Key in the `commands` namespace (under `command.`); may hold <settingsLink>/<statsLink> markup. */
+    description?: string;
     arguments?: Array<CommandArg>;
     example?: string;
     image?: boolean;
@@ -12,7 +13,8 @@ export interface Command {
 export interface CommandArg {
     name: string;
     type: string;
-    description: Array<string | React.ReactNode>;
+    /** Key in the `commands` namespace (under `command.`). */
+    description: string;
     values?: Array<any>;
     level: "required" | "optional";
 }

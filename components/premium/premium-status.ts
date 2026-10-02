@@ -1,13 +1,20 @@
+import type { TFunction } from "i18next";
 import { PremiumRecord, premiumActive } from "../stats/guild-stats";
 
 /** Go's premium.NoExpiryCode: a tier granted without a payment date, which never runs out. */
 export const NO_EXPIRY = -9999;
 
-/** Go's premium.TierStrings, indexed by tier. */
-const TIER_NAMES = ["Free", "Bronze", "Silver", "Gold", "Trial", "Self-hosted"];
-
-export function tierName(tier: number): string {
-    return TIER_NAMES[tier] ?? "Premium";
+/** Go's premium.TierStrings, indexed by tier. Keys carry the namespace: callers may pass any t. */
+export function tierName(tier: number, t: TFunction): string {
+    switch (tier) {
+        case 0: return t("premium:tier.free");
+        case 1: return t("premium:tier.bronze");
+        case 2: return t("premium:tier.silver");
+        case 3: return t("premium:tier.gold");
+        case 4: return t("premium:tier.trial");
+        case 5: return t("premium:tier.selfHosted");
+        default: return t("premium:tier.premium");
+    }
 }
 
 /** What the payment listener knows about the subscription paying for a server's premium. */
@@ -49,28 +56,33 @@ export interface PremiumStatus {
     message: string;
 }
 
-/** Renewal dates are approximate (PayPal bills on its own clock), so a fixed calendar is fine and keeps tests stable. */
-function formatDate(unix: number): string {
-    return new Date(unix * 1000).toLocaleDateString("en-US", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+/** Renewal dates are approximate (PayPal bills on its own clock), so a fixed calendar is fine and keeps tests stable.
+ * Formatted by i18next's datetime formatter in the language of the t it is given. */
+function dateParams(unix: number) {
+    return {
+        date: new Date(unix * 1000),
+        formatParams: { date: { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" } as Intl.DateTimeFormatOptions },
+    };
 }
 
 /** The sentence the premium page shows for the selected server. With a tracked subscription it says whether the
  * premium renews; otherwise the days count down from the server's latest payment and nothing promises a renewal. */
-export function describePremium(record: GuildPremium, server: string): PremiumStatus {
-    const tier = tierName(record.tier);
+export function describePremium(record: GuildPremium, server: string, t: TFunction): PremiumStatus {
+    const tier = tierName(record.tier, t);
     if (premiumActive(record)) {
-        if (record.days === NO_EXPIRY) return { kind: "active", message: `${server} has AutoMuteUs ${tier}, with no expiry.` };
+        if (record.days === NO_EXPIRY) return { kind: "active", message: t("premium:status.noExpiry", { server, tier }) };
         const sub = record.subscription;
         if (sub) {
-            const whose = sub.inherited ? "The PayPal subscription of the server it inherits premium from" : "Its PayPal subscription";
+            const values = { server, tier, ...dateParams(sub.endsAt) };
             if (sub.status === "active") {
-                return { kind: "active", message: `${server} has AutoMuteUs ${tier}. ${whose} renews around ${formatDate(sub.endsAt)}.` };
+                const message = sub.inherited ? t("premium:status.renewsInherited", values) : t("premium:status.renews", values);
+                return { kind: "active", message };
             }
-            return { kind: "ending", message: `${server} has AutoMuteUs ${tier} until ${formatDate(sub.endsAt)}. ${whose} is cancelled and won't renew.` };
+            const message = sub.inherited ? t("premium:status.endingInherited", values) : t("premium:status.ending", values);
+            return { kind: "ending", message };
         }
-        const days = record.days === 1 ? "1 day" : `${record.days} days`;
-        return { kind: "active", message: `${server} has AutoMuteUs ${tier}, with ${days} left on its latest payment.` };
+        return { kind: "active", message: t("premium:status.days", { server, tier, count: record.days }) };
     }
-    if (record.tier !== 0) return { kind: "expired", message: `${server}'s AutoMuteUs ${tier} has expired.` };
-    return { kind: "free", message: `${server} doesn't have AutoMuteUs Premium.` };
+    if (record.tier !== 0) return { kind: "expired", message: t("premium:status.expired", { server, tier }) };
+    return { kind: "free", message: t("premium:status.free", { server }) };
 }

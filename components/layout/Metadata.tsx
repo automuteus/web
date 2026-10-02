@@ -1,19 +1,21 @@
+import { useTranslation } from "react-i18next";
+
 interface Props {
     metaTitle?: string;
     metaDesc?: string;
     metaImg?: string;
 }
 
-const defaultTitle = "AutoMuteUs";
 const defaultImg = `https://automute.us/images/logo_embed.png`;
-const defaultDesc =
-    "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!";
 
 const Metadata = ({
     metaTitle,
     metaDesc,
     metaImg,
 }: Props): React.ReactElement => {
+    const { t } = useTranslation("common");
+    const defaultTitle = t("meta.title");
+    const defaultDesc = t("meta.description");
     return (
         <>
             <meta name="description" content={metaDesc ?? defaultDesc} />

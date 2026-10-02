@@ -1,16 +1,19 @@
 import { Table } from "react-bootstrap";
+import { useTranslation } from "react-i18next";
 import { CommandArg } from "../../types/Command";
+import CommandDescription from "./CommandDescription";
 
 export default function ArgTable(props: {
     cmd: string;
     args: Array<CommandArg>;
 }): React.ReactElement {
     const { cmd, args } = props;
+    const { t } = useTranslation("commands");
 
     if (!args.length)
         return (
             <div className="text-muted">
-                <em>None</em>
+                <em>{t("table.none")}</em>
             </div>
         );
 
@@ -24,10 +27,10 @@ export default function ArgTable(props: {
         >
             <thead>
                 <tr>
-                    <th style={{ width: "10%" }}>Name</th>
-                    <th style={{ width: "10%" }}>Type</th>
-                    <th style={{ width: "50%" }}>Description</th>
-                    <th>Values</th>
+                    <th style={{ width: "10%" }}>{t("table.name")}</th>
+                    <th style={{ width: "10%" }}>{t("table.type")}</th>
+                    <th style={{ width: "50%" }}>{t("table.description")}</th>
+                    <th>{t("table.values")}</th>
                 </tr>
             </thead>
             <tbody>
@@ -38,9 +41,7 @@ export default function ArgTable(props: {
                         </td>
                         <td className="text-monospace">{a.type}</td>
                         <td>
-                            {a.description.map((e, i) => (
-                                <span key={"desc3-" + i}>{e}</span>
-                            ))}
+                            <CommandDescription i18nKey={a.description} />
                         </td>
                         <td>
                             {a.values ? (

@@ -177,64 +177,84 @@ function integerIn(value: unknown, min: number, max: number): boolean {
     return typeof value === "number" && Number.isInteger(value) && value >= min && value <= max;
 }
 
+/** Optional translator for validateDraft. Without one the messages are English, as the API route sends them. */
+type Translate = (key: string, options?: Record<string, unknown>) => string;
+
 /** The API's own range checks, applied to the given fields of a document. Field paths match the API's
- * (for example "delays.delays.LOBBY.TASKS") so server and local errors land on the same control. */
-export function validateDraft(draft: Settings, keys: readonly string[] = EDITABLE): FieldError[] {
+ * (for example "delays.delays.LOBBY.TASKS") so server and local errors land on the same control. Pass the page's
+ * `t` to get messages in the UI language; this module must not import utils/i18n.ts (which imports LANGUAGES). */
+export function validateDraft(draft: Settings, keys: readonly string[] = EDITABLE, t?: Translate): FieldError[] {
     const errors: FieldError[] = [];
     for (const key of keys) {
         switch (key) {
             case "language":
-                if (!languageOf(draft[key])) errors.push({ field: key, message: `must be one of the installed languages: ${LANGUAGES.map((l) => l.code).join(", ")}` });
+                if (!languageOf(draft[key])) {
+                    const codes = LANGUAGES.map((l) => l.code).join(", ");
+                    errors.push({ field: key, message: t ? t("settings:validation.language", { codes }) : `must be one of the installed languages: ${codes}` });
+                }
                 break;
             case "voiceRules":
                 for (const kind of RULE_KINDS) for (const phase of PHASES) for (const life of LIVES) {
                     if (typeof nested(draft.voiceRules, kind, phase, life) !== "boolean") {
-                        errors.push({ field: `voiceRules.${kind}.${phase}.${life}`, message: "must be on or off" });
+                        errors.push({ field: `voiceRules.${kind}.${phase}.${life}`, message: t ? t("settings:validation.onOff") : "must be on or off" });
                     }
                 }
                 break;
             case "delays":
                 for (const from of PHASES) for (const to of PHASES) {
                     if (!integerIn(nested(draft.delays, "delays", from, to), DELAY_RANGE.min, DELAY_RANGE.max)) {
-                        errors.push({ field: `delays.delays.${from}.${to}`, message: `must be a whole number of seconds from ${DELAY_RANGE.min} to ${DELAY_RANGE.max}` });
+                        errors.push({ field: `delays.delays.${from}.${to}`, message: t ? t("settings:validation.delay", { min: DELAY_RANGE.min, max: DELAY_RANGE.max })
+                            : `must be a whole number of seconds from ${DELAY_RANGE.min} to ${DELAY_RANGE.max}` });
                     }
                 }
                 break;
             case "unmuteDeadDuringTasks":
             case "muteSpectator":
             case "autoRefresh":
-                if (typeof draft[key] !== "boolean") errors.push({ field: key, message: "must be on or off" });
+                if (typeof draft[key] !== "boolean") errors.push({ field: key, message: t ? t("settings:validation.onOff") : "must be on or off" });
                 break;
             case "mapVersion":
-                if (!(MAP_VERSIONS as readonly unknown[]).includes(draft[key])) errors.push({ field: key, message: `must be ${MAP_VERSIONS.join(" or ")}` });
+                if (!(MAP_VERSIONS as readonly unknown[]).includes(draft[key])) {
+                    const [first, second] = MAP_VERSIONS;
+                    errors.push({ field: key, message: t ? t("settings:validation.mapVersion", { first, second }) : `must be ${MAP_VERSIONS.join(" or ")}` });
+                }
                 break;
             case "displayRoomCode":
-                if (!(ROOM_CODE_OPTIONS as readonly unknown[]).includes(draft[key])) errors.push({ field: key, message: `must be one of ${ROOM_CODE_OPTIONS.join(", ")}` });
+                if (!(ROOM_CODE_OPTIONS as readonly unknown[]).includes(draft[key])) {
+                    const options = ROOM_CODE_OPTIONS.join(", ");
+                    errors.push({ field: key, message: t ? t("settings:validation.roomCode", { options }) : `must be one of ${options}` });
+                }
                 break;
             case "permissionRoleIDs": {
                 const roles = draft[key];
-                if (!Array.isArray(roles)) { errors.push({ field: key, message: "must be a list of role IDs" }); break; }
-                if (roles.length > MAX_ROLE_IDS) errors.push({ field: key, message: `has ${roles.length} entries, at most ${MAX_ROLE_IDS} are allowed` });
+                if (!Array.isArray(roles)) { errors.push({ field: key, message: t ? t("settings:validation.roleList") : "must be a list of role IDs" }); break; }
+                if (roles.length > MAX_ROLE_IDS) {
+                    errors.push({ field: key, message: t ? t("settings:validation.tooManyRoles", { count: roles.length, max: MAX_ROLE_IDS })
+                        : `has ${roles.length} entries, at most ${MAX_ROLE_IDS} are allowed` });
+                }
                 const seen = new Map<string, number>();
                 roles.forEach((role, i) => {
-                    if (typeof role !== "string" || !SNOWFLAKE.test(role)) errors.push({ field: `${key}[${i}]`, message: "is not a Discord role ID" });
-                    else if (seen.has(role)) errors.push({ field: `${key}[${i}]`, message: `duplicates entry ${seen.get(role)! + 1}` });
-                    else seen.set(role, i);
+                    if (typeof role !== "string" || !SNOWFLAKE.test(role)) errors.push({ field: `${key}[${i}]`, message: t ? t("settings:validation.roleID") : "is not a Discord role ID" });
+                    else if (seen.has(role)) {
+                        const entry = seen.get(role)! + 1;
+                        errors.push({ field: `${key}[${i}]`, message: t ? t("settings:validation.duplicateRole", { entry }) : `duplicates entry ${entry}` });
+                    } else seen.set(role, i);
                 });
                 break;
             }
             case "matchSummaryChannelID":
                 if (draft[key] !== "" && (typeof draft[key] !== "string" || !SNOWFLAKE.test(draft[key] as string))) {
-                    errors.push({ field: key, message: "must be a Discord channel ID (17 to 20 digits), or empty for none" });
+                    errors.push({ field: key, message: t ? t("settings:validation.channelID") : "must be a Discord channel ID (17 to 20 digits), or empty for none" });
                 }
                 break;
             case "deleteGameSummary":
                 if (!integerIn(draft[key], SUMMARY_RANGE.min, SUMMARY_RANGE.max)) {
-                    errors.push({ field: key, message: `must be a whole number of minutes from 1 to ${SUMMARY_RANGE.max}, 0 to delete immediately, or -1 to keep forever` });
+                    errors.push({ field: key, message: t ? t("settings:validation.retention", { max: SUMMARY_RANGE.max })
+                        : `must be a whole number of minutes from 1 to ${SUMMARY_RANGE.max}, 0 to delete immediately, or -1 to keep forever` });
                 }
                 break;
             default:
-                errors.push({ field: key, message: "cannot be changed here" });
+                errors.push({ field: key, message: t ? t("settings:validation.locked") : "cannot be changed here" });
         }
     }
     return errors;

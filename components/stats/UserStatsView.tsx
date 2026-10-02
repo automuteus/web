@@ -333,7 +333,7 @@ function LockedDetails({ guildId, until, premiumHref }: { guildId: string; until
             <section className={shared.lockCard} aria-label={t("user.locked.label")}>
                 <h2>{t("user.locked.title")}</h2>
                 <p>{t("user.locked.body")}</p>
-                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>{t("user.locked.cta")}</Link>
+                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>{t("shared.getPremium")}</Link>
             </section>
         </div>
         <div className={shared.lockedContent} aria-hidden="true"><Details details={sampleDetails(until)} players={{}} /></div>

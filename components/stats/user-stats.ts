@@ -1,5 +1,5 @@
 import { PremiumRecord, StatsPlayer, parsePlayers } from "./guild-stats";
-import { COLORS, MAP_NAMES, MatchMap, MatchResult, RESULT_NAMES, Role } from "./match-summary";
+import { COLORS, MAP_NAMES, MatchMap, MatchResult, RESULTS, Role } from "./match-summary";
 
 /** The GET /guild/user document, mirroring UserStats in the Go API (internal/api/user_stats.go). */
 export interface RoleRecord { games: number; wins: number; winrate: number }
@@ -130,7 +130,7 @@ function match(r: Record<string, unknown>, at: string): UserMatch {
         startTime: count(r.startTime, `${at}.startTime`),
         endTime: count(r.endTime, `${at}.endTime`),
         // A result, map, or color added to the API later is shown as unknown rather than failing the page.
-        result: typeof r.result === "string" && Object.prototype.hasOwnProperty.call(RESULT_NAMES, r.result) ? r.result as MatchResult : "unknown",
+        result: typeof r.result === "string" && RESULTS.includes(r.result as MatchResult) ? r.result as MatchResult : "unknown",
         name: r.name,
         color: typeof r.color === "string" && COLORS.includes(r.color) ? r.color : "",
         role: r.role as Role,

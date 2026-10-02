@@ -7,9 +7,11 @@ import {
     faSmileBeam,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useTranslation } from "react-i18next";
 
 import { Command, CommandArg } from "../../types/Command";
 import ArgTable from "./ArgTable";
+import CommandDescription from "./CommandDescription";
 import { premium_icon } from "../../pages/commands";
 
 interface Props {
@@ -22,6 +24,7 @@ interface Props {
 
 export default function CommandEntry(props: Props): React.ReactElement {
     const { entry, hashRoute, className, parent, prefix } = props;
+    const { t } = useTranslation("commands");
     const [open, setOpen] = useState<boolean>(false);
     const commandRef = useRef<HTMLDivElement>(null);
 
@@ -79,7 +82,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                             className="optArgLabel"
                                             style={{ fontSize: "0.8rem" }}
                                         >
-                                            OPTIONAL
+                                            {t("entry.optionalLabel")}
                                         </span>
                                         {opt_args.map((a: CommandArg) => (
                                             <code key={a.name}>{a.name}</code>
@@ -91,15 +94,14 @@ export default function CommandEntry(props: Props): React.ReactElement {
 
                         {entry.subcommands && (
                             <span className="entryLabelSubcommands">
-                                + {entry.subcommands.length} sub-commands
+                                {t("entry.subcommandCount", { count: entry.subcommands.length })}
                             </span>
                         )}
                     </div>
                     <div className={`entryLabelDescription`}>
-                        {entry.description &&
-                            entry.description.map((e, i) => (
-                                <span key={i}>{e}</span>
-                            ))}
+                        {entry.description && (
+                            <CommandDescription i18nKey={entry.description} />
+                        )}
                     </div>
                 </div>
                 <div className="entryToggle ms-auto">
@@ -117,7 +119,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                     <div className="commandEntryBody">
                         {entry.subcommands ? (
                             <>
-                                <h5>Sub-commands</h5>
+                                <h5>{t("entry.subcommands")}</h5>
                                 <div>
                                     {entry.subcommands.map((e) => (
                                         <CommandEntry
@@ -133,10 +135,10 @@ export default function CommandEntry(props: Props): React.ReactElement {
                             </>
                         ) : (
                             <>
-                                <h5>Arguments</h5>
+                                <h5>{t("entry.arguments")}</h5>
                                 <div className="mb-4">
                                     {(req_args.length || opt_args.length) >
-                                        0 && <h6>Required</h6>}
+                                        0 && <h6>{t("entry.required")}</h6>}
                                     <div>
                                         <ArgTable
                                             cmd={entry.command}
@@ -146,7 +148,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
                                     {opt_args.length > 0 && (
                                         <>
                                             <br />
-                                            <h6>Optional</h6>
+                                            <h6>{t("entry.optional")}</h6>
                                             <div>
                                                 <ArgTable
                                                     cmd={entry.command}
@@ -159,7 +161,7 @@ export default function CommandEntry(props: Props): React.ReactElement {
 
                                 {entry.example && (
                                     <>
-                                        <h5>Example</h5>
+                                        <h5>{t("entry.example")}</h5>
                                         <div className="">
                                             <div className="mock-chatbar">
                                                 <div>

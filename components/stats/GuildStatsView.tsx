@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import Link from "next/link";
+import { Trans, useTranslation } from "react-i18next";
 import styles from "./GuildStatsView.module.css";
 import {
     GuildStats, GuildLeaderboards, GuildStatsSummary, StatsPlayer, DuoWinrate, PlayerWinrate, IMPOSTOR_DUO_MIN_GAMES,
@@ -24,7 +25,8 @@ function useMe(...ids: string[]): boolean {
     return !!me && ids.includes(me);
 }
 function MeBadge(): React.ReactElement {
-    return <span className={styles.meBadge}>You</span>;
+    const { t } = useTranslation();
+    return <span className={styles.meBadge}>{t("shared.you")}</span>;
 }
 
 /** Where player names link. Only the real boards provide it: the blurred sample has no links, so nothing hidden
@@ -33,8 +35,9 @@ const LinkContext = React.createContext<{ guildId: string; preview: boolean } | 
 
 /** A known player's name, linking to their player page when the boards are real. */
 function NameText({ id, name }: { id: string; name: string }): React.ReactElement {
+    const { t } = useTranslation();
     const links = useContext(LinkContext);
-    const text = <span className={styles.name} title={`User ID ${id}`}>{name}</span>;
+    const text = <span className={styles.name} title={t("shared.userId", { id })}>{name}</span>;
     return links ? <Link className={styles.nameLink} href={userStatsHref(links.guildId, id, links.preview)}>{text}</Link> : text;
 }
 
@@ -51,11 +54,12 @@ function Avatar({ players, id, size = 28 }: { players: Players; id: string; size
 
 /** A user on a board: picture plus their name, or the ID itself when nothing knows a name for them. */
 function Player({ players, id }: { players: Players; id: string }): React.ReactElement {
+    const { t } = useTranslation();
     const name = playerName(players, id);
     const me = useMe(id);
     return <span className={styles.player}>
         <Avatar players={players} id={id} />
-        {name ? <NameText id={id} name={name} /> : <code className={styles.unknown} title="This player's name isn't known yet">{id}</code>}
+        {name ? <NameText id={id} name={name} /> : <code className={styles.unknown} title={t("shared.unknownPlayer")}>{id}</code>}
         {me && <MeBadge />}
     </span>;
 }
@@ -91,8 +95,6 @@ function Rate({ value, side }: { value: number; side: Side }): React.ReactElemen
     </span>;
 }
 
-function plural(n: number, word: string): string { return `${n} ${word}${n === 1 ? "" : "s"}`; }
-
 function Board({ title, hint, children }: { title: string; hint?: string; children: React.ReactNode }): React.ReactElement {
     return <section className={styles.card} aria-label={title}>
         <h2>{title}</h2>
@@ -110,7 +112,8 @@ function Table({ head, children }: { head: React.ReactNode; children: React.Reac
 }
 
 function WinrateBoard({ rows, players, side }: { rows: PlayerWinrate[]; players: Players; side: Side }): React.ReactElement {
-    return <Table head={<><th scope="col" className={styles.rank}>#</th><th scope="col">Player</th><th scope="col" className={styles.num}>Wins</th><th scope="col" className={styles.num}>Games</th><th scope="col" className={styles.rate}>Winrate</th></>}>
+    const { t } = useTranslation();
+    return <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("shared.column.player")}</th><th scope="col" className={styles.num}>{t("shared.column.wins")}</th><th scope="col" className={styles.num}>{t("shared.column.games")}</th><th scope="col" className={styles.rate}>{t("shared.column.winrate")}</th></>}>
         {rows.map((r, i) => <Row key={r.userId} ids={[r.userId]}>
             <td className={styles.rank}><Rank n={i + 1} /></td>
             <th scope="row"><Player players={players} id={r.userId} /></th>
@@ -120,7 +123,8 @@ function WinrateBoard({ rows, players, side }: { rows: PlayerWinrate[]; players:
 }
 
 function DuoBoard({ rows, players, side }: { rows: DuoWinrate[]; players: Players; side: Side }): React.ReactElement {
-    return <Table head={<><th scope="col" className={styles.rank}>#</th><th scope="col">Players</th><th scope="col" className={styles.num}>Wins</th><th scope="col" className={styles.num}>Games</th><th scope="col" className={styles.rate}>Winrate</th></>}>
+    const { t } = useTranslation();
+    return <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("guild.column.players")}</th><th scope="col" className={styles.num}>{t("shared.column.wins")}</th><th scope="col" className={styles.num}>{t("shared.column.games")}</th><th scope="col" className={styles.rate}>{t("shared.column.winrate")}</th></>}>
         {rows.map((r, i) => <Row key={`${r.userId}:${r.teammateId}`} ids={[r.userId, r.teammateId]}>
             <td className={styles.rank}><Rank n={i + 1} /></td>
             <th scope="row"><Pair players={players} a={r.userId} b={r.teammateId} /></th>
@@ -132,30 +136,32 @@ function DuoBoard({ rows, players, side }: { rows: DuoWinrate[]; players: Player
 /** The headline holders: the top entry of the boards people care about most, as big cards. Only boards with an
  * entry get a card, so a young server may show one or none. */
 function Spotlight({ boards, players }: { boards: GuildLeaderboards; players: Players }): React.ReactElement | null {
-    const cards: Array<{ label: string; id: string; teammate?: string; value: string; detail: string; side: Side }> = [];
+    const { t } = useTranslation();
+    // key keeps React's list keys stable whatever the language.
+    const cards: Array<{ key: string; label: string; id: string; teammate?: string; value: string; detail: string; side: Side }> = [];
     const most = boards.mostGames[0];
-    if (most) cards.push({ label: "Most games", id: most.userId, value: plural(most.games, "game"), detail: "the server's regular", side: "overall" });
+    if (most) cards.push({ key: "mostGames", label: t("guild.board.mostGames"), id: most.userId, value: t("guild.games", { count: most.games }), detail: t("guild.spotlight.regular"), side: "overall" });
     const best = boards.winrate[0];
-    if (best) cards.push({ label: "Best winrate", id: best.userId, value: percent(best.winrate), detail: `${best.wins} of ${plural(best.games, "game")}`, side: "overall" });
+    if (best) cards.push({ key: "bestWinrate", label: t("guild.spotlight.bestWinrate"), id: best.userId, value: percent(best.winrate), detail: t("guild.spotlight.winsOf", { wins: best.wins, count: best.games }), side: "overall" });
     const crew = boards.crewmateWinrate[0];
-    if (crew) cards.push({ label: "Top crewmate", id: crew.userId, value: percent(crew.winrate), detail: `${crew.wins} of ${plural(crew.games, "crewmate game")}`, side: "crew" });
+    if (crew) cards.push({ key: "topCrewmate", label: t("guild.spotlight.topCrewmate"), id: crew.userId, value: percent(crew.winrate), detail: t("guild.spotlight.winsOfCrewmate", { wins: crew.wins, count: crew.games }), side: "crew" });
     const imp = boards.impostorWinrate[0];
-    if (imp) cards.push({ label: "Top impostor", id: imp.userId, value: percent(imp.winrate), detail: `${imp.wins} of ${plural(imp.games, "impostor game")}`, side: "impostor" });
+    if (imp) cards.push({ key: "topImpostor", label: t("guild.spotlight.topImpostor"), id: imp.userId, value: percent(imp.winrate), detail: t("guild.spotlight.winsOfImpostor", { wins: imp.wins, count: imp.games }), side: "impostor" });
     const duo = boards.bestCrewmateDuo[0];
-    if (duo) cards.push({ label: "Best duo", id: duo.userId, teammate: duo.teammateId, value: percent(duo.winrate), detail: `${duo.wins} of ${plural(duo.games, "game")} together`, side: "crew" });
+    if (duo) cards.push({ key: "bestDuo", label: t("guild.spotlight.bestDuo"), id: duo.userId, teammate: duo.teammateId, value: percent(duo.winrate), detail: t("guild.spotlight.winsTogether", { wins: duo.wins, count: duo.games }), side: "crew" });
     const target = boards.firstTarget[0];
-    if (target) cards.push({ label: "First to go", id: target.userId, value: percent(target.rate), detail: `first to die in ${target.firstDeaths} of ${plural(target.crewmateGames, "game")}`, side: "impostor" });
+    if (target) cards.push({ key: "firstToGo", label: t("guild.spotlight.firstToGo"), id: target.userId, value: percent(target.rate), detail: t("guild.spotlight.firstToDie", { deaths: target.firstDeaths, count: target.crewmateGames }), side: "impostor" });
     if (cards.length === 0) return null;
-    return <section className={styles.spotlight} aria-label="Hall of fame">
-        <h2 className={styles.sectionTitle}>Hall of fame</h2>
+    return <section className={styles.spotlight} aria-label={t("guild.spotlight.title")}>
+        <h2 className={styles.sectionTitle}>{t("guild.spotlight.title")}</h2>
         <div className={styles.spotlightGrid}>
-            {cards.map((c) => <SpotlightCard key={c.label} ids={c.teammate ? [c.id, c.teammate] : [c.id]} side={c.side}>
+            {cards.map((c) => <SpotlightCard key={c.key} ids={c.teammate ? [c.id, c.teammate] : [c.id]} side={c.side}>
                 <div className={styles.spotlightLabel}>{c.label}</div>
                 <div className={styles.spotlightAvatars}>
                     <Avatar players={players} id={c.id} size={64} />
                     {c.teammate && <Avatar players={players} id={c.teammate} size={64} />}
                 </div>
-                <div className={styles.spotlightName}><Name players={players} id={c.id} />{c.teammate && <><span className={styles.amp}> & </span><Name players={players} id={c.teammate} /></>}</div>
+                <div className={styles.spotlightName}><Name players={players} id={c.id} />{c.teammate && <><span className={styles.amp}>{t("guild.spotlight.and")}</span><Name players={players} id={c.teammate} /></>}</div>
                 <div className={styles.spotlightValue}>{c.value}</div>
                 <div className={styles.spotlightDetail}>{c.detail}</div>
             </SpotlightCard>)}
@@ -169,50 +175,52 @@ function SpotlightCard({ ids, side, children }: { ids: string[]; side: Side; chi
 }
 
 function Leaderboards({ boards, players }: { boards: GuildLeaderboards; players: Players }): React.ReactElement {
+    const { t } = useTranslation();
     const min = boards.minGames;
-    const needMin = <Empty>No one has played {plural(min, "game")} in this role yet.</Empty>;
-    const needDuo = (role: string, games: number) => <Empty>No two players have been {role} together in {plural(games, "game")} yet.</Empty>;
+    const needMin = <Empty>{t("guild.empty.roleGames", { count: min })}</Empty>;
+    const needCrewmateDuo = <Empty>{t("guild.empty.crewmateDuo", { count: min })}</Empty>;
+    const needImpostorDuo = <Empty>{t("guild.empty.impostorDuo", { count: IMPOSTOR_DUO_MIN_GAMES })}</Empty>;
     return <>
         <Spotlight boards={boards} players={players} />
-        <h2 className={styles.sectionTitle}>Leaderboards</h2>
-        <p className={styles.meta}>Rate boards rank players with at least {plural(min, "game")}; impostor duos need {IMPOSTOR_DUO_MIN_GAMES} games together.</p>
+        <h2 className={styles.sectionTitle}>{t("guild.leaderboards.title")}</h2>
+        <p className={styles.meta}>{t("guild.leaderboards.minimums", { games: t("guild.games", { count: min }), duoGames: t("guild.games", { count: IMPOSTOR_DUO_MIN_GAMES }) })}</p>
         <div className={styles.grid}>
-            <Board title="Overall winrate">
-                {boards.winrate.length === 0 ? <Empty>No one has played {plural(min, "game")} yet.</Empty> : <WinrateBoard rows={boards.winrate} players={players} side="overall" />}
+            <Board title={t("guild.board.overallWinrate")}>
+                {boards.winrate.length === 0 ? <Empty>{t("guild.empty.games", { count: min })}</Empty> : <WinrateBoard rows={boards.winrate} players={players} side="overall" />}
             </Board>
-            <Board title="Most games">
-                {boards.mostGames.length === 0 ? <Empty>No games recorded yet.</Empty> : <Table head={<><th scope="col" className={styles.rank}>#</th><th scope="col">Player</th><th scope="col" className={styles.num}>Games</th></>}>
+            <Board title={t("guild.board.mostGames")}>
+                {boards.mostGames.length === 0 ? <Empty>{t("guild.empty.noGames")}</Empty> : <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("shared.column.player")}</th><th scope="col" className={styles.num}>{t("shared.column.games")}</th></>}>
                     {boards.mostGames.map((r, i) => <Row key={r.userId} ids={[r.userId]}><td className={styles.rank}><Rank n={i + 1} /></td><th scope="row"><Player players={players} id={r.userId} /></th><td className={styles.num}>{r.games}</td></Row>)}
                 </Table>}
             </Board>
-            <Board title="Crewmate winrate">
+            <Board title={t("guild.board.crewmateWinrate")}>
                 {boards.crewmateWinrate.length === 0 ? needMin : <WinrateBoard rows={boards.crewmateWinrate} players={players} side="crew" />}
             </Board>
-            <Board title="Impostor winrate">
+            <Board title={t("guild.board.impostorWinrate")}>
                 {boards.impostorWinrate.length === 0 ? needMin : <WinrateBoard rows={boards.impostorWinrate} players={players} side="impostor" />}
             </Board>
-            <Board title="Best crewmate duos">
-                {boards.bestCrewmateDuo.length === 0 ? needDuo("crewmates", min) : <DuoBoard rows={boards.bestCrewmateDuo} players={players} side="crew" />}
+            <Board title={t("guild.board.bestCrewmateDuos")}>
+                {boards.bestCrewmateDuo.length === 0 ? needCrewmateDuo : <DuoBoard rows={boards.bestCrewmateDuo} players={players} side="crew" />}
             </Board>
-            <Board title="Worst crewmate duos">
-                {boards.worstCrewmateDuo.length === 0 ? needDuo("crewmates", min) : <DuoBoard rows={boards.worstCrewmateDuo} players={players} side="crew" />}
+            <Board title={t("guild.board.worstCrewmateDuos")}>
+                {boards.worstCrewmateDuo.length === 0 ? needCrewmateDuo : <DuoBoard rows={boards.worstCrewmateDuo} players={players} side="crew" />}
             </Board>
-            <Board title="Best impostor duos">
-                {boards.bestImpostorDuo.length === 0 ? needDuo("impostors", IMPOSTOR_DUO_MIN_GAMES) : <DuoBoard rows={boards.bestImpostorDuo} players={players} side="impostor" />}
+            <Board title={t("guild.board.bestImpostorDuos")}>
+                {boards.bestImpostorDuo.length === 0 ? needImpostorDuo : <DuoBoard rows={boards.bestImpostorDuo} players={players} side="impostor" />}
             </Board>
-            <Board title="Worst impostor duos">
-                {boards.worstImpostorDuo.length === 0 ? needDuo("impostors", IMPOSTOR_DUO_MIN_GAMES) : <DuoBoard rows={boards.worstImpostorDuo} players={players} side="impostor" />}
+            <Board title={t("guild.board.worstImpostorDuos")}>
+                {boards.worstImpostorDuo.length === 0 ? needImpostorDuo : <DuoBoard rows={boards.worstImpostorDuo} players={players} side="impostor" />}
             </Board>
-            <Board title="First to die" hint="How often a player was the first one killed, out of their games as a crewmate.">
-                {boards.firstTarget.length === 0 ? needMin : <Table head={<><th scope="col" className={styles.rank}>#</th><th scope="col">Player</th><th scope="col" className={styles.num}>First deaths</th><th scope="col" className={styles.num}>Crewmate games</th><th scope="col" className={styles.rate}>Rate</th></>}>
+            <Board title={t("guild.board.firstToDie")} hint={t("guild.board.firstToDieHint")}>
+                {boards.firstTarget.length === 0 ? needMin : <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("shared.column.player")}</th><th scope="col" className={styles.num}>{t("guild.column.firstDeaths")}</th><th scope="col" className={styles.num}>{t("guild.column.crewmateGames")}</th><th scope="col" className={styles.rate}>{t("shared.column.rate")}</th></>}>
                     {boards.firstTarget.map((r, i) => <Row key={r.userId} ids={[r.userId]}>
                         <td className={styles.rank}><Rank n={i + 1} /></td><th scope="row"><Player players={players} id={r.userId} /></th>
                         <td className={styles.num}>{r.firstDeaths}</td><td className={styles.num}>{r.crewmateGames}</td><td className={styles.rate}><Rate value={r.rate} side="impostor" /></td>
                     </Row>)}
                 </Table>}
             </Board>
-            <Board title="Killed by" hint="How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.">
-                {boards.killedBy.length === 0 ? <Empty>No crewmate and impostor have shared {plural(min, "game")} yet.</Empty> : <Table head={<><th scope="col" className={styles.rank}>#</th><th scope="col">Crewmate</th><th scope="col">Impostor</th><th scope="col" className={styles.num}>Deaths</th><th scope="col" className={styles.num}>Games</th><th scope="col" className={styles.rate}>Rate</th></>}>
+            <Board title={t("guild.board.killedBy")} hint={t("guild.board.killedByHint")}>
+                {boards.killedBy.length === 0 ? <Empty>{t("guild.empty.killedBy", { count: min })}</Empty> : <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("shared.role.crewmate")}</th><th scope="col">{t("shared.column.impostor")}</th><th scope="col" className={styles.num}>{t("shared.column.deaths")}</th><th scope="col" className={styles.num}>{t("shared.column.games")}</th><th scope="col" className={styles.rate}>{t("shared.column.rate")}</th></>}>
                     {boards.killedBy.map((r, i) => <Row key={`${r.userId}:${r.impostorId}`} ids={[r.userId, r.impostorId]}>
                         <td className={styles.rank}><Rank n={i + 1} /></td><th scope="row"><Player players={players} id={r.userId} /></th><td><Player players={players} id={r.impostorId} /></td>
                         <td className={styles.num}>{r.deaths}</td><td className={styles.num}>{r.games}</td><td className={styles.rate}><Rate value={r.rate} side="impostor" /></td>
@@ -224,27 +232,30 @@ function Leaderboards({ boards, players }: { boards: GuildLeaderboards; players:
 }
 
 function ShareBar({ summary }: { summary: GuildStatsSummary }): React.ReactElement {
+    const { t } = useTranslation();
     const other = Math.max(0, 100 - summary.crewmateWinrate - summary.impostorWinrate);
+    const strong = { strong: <strong /> };
     return <>
-        <div className={styles.shareBar} role="img" aria-label={`Crewmates won ${percent(summary.crewmateWinrate)} of games, impostors ${percent(summary.impostorWinrate)}`}>
+        <div className={styles.shareBar} role="img" aria-label={t("guild.share.label", { crewmates: percent(summary.crewmateWinrate), impostors: percent(summary.impostorWinrate) })}>
             {summary.crewmateWinrate > 0 && <div className={`${styles.shareSegment} ${styles.crew}`} style={{ width: `${summary.crewmateWinrate}%` }} />}
             {summary.impostorWinrate > 0 && <div className={`${styles.shareSegment} ${styles.impostor}`} style={{ width: `${summary.impostorWinrate}%` }} />}
         </div>
         <ul className={styles.legend}>
-            <li><span className={`${styles.swatch} ${styles.crew}`} aria-hidden="true" />Crewmates <strong>{percent(summary.crewmateWinrate)}</strong></li>
-            <li><span className={`${styles.swatch} ${styles.impostor}`} aria-hidden="true" />Impostors <strong>{percent(summary.impostorWinrate)}</strong></li>
-            {other >= 0.1 && <li><span className={`${styles.swatch} ${styles.none}`} aria-hidden="true" />No result recorded <strong>{percent(Math.round(other * 10) / 10)}</strong></li>}
+            <li><span className={`${styles.swatch} ${styles.crew}`} aria-hidden="true" /><Trans t={t} i18nKey="guild.share.crewmates" values={{ rate: percent(summary.crewmateWinrate) }} components={strong} /></li>
+            <li><span className={`${styles.swatch} ${styles.impostor}`} aria-hidden="true" /><Trans t={t} i18nKey="guild.share.impostors" values={{ rate: percent(summary.impostorWinrate) }} components={strong} /></li>
+            {other >= 0.1 && <li><span className={`${styles.swatch} ${styles.none}`} aria-hidden="true" /><Trans t={t} i18nKey="guild.share.none" values={{ rate: percent(Math.round(other * 10) / 10) }} components={strong} /></li>}
         </ul>
     </>;
 }
 
 /** The premium layout's summary: one strip, so the boards take the page. */
 function SummaryStrip({ summary }: { summary: GuildStatsSummary }): React.ReactElement {
-    return <section className={`${styles.card} ${styles.strip}`} aria-label="Summary">
+    const { t } = useTranslation();
+    return <section className={`${styles.card} ${styles.strip}`} aria-label={t("guild.strip.label")}>
         <div className={styles.stripStats}>
-            <div className={styles.stripStat}><span className={styles.stripValue}>{summary.gamesPlayed.toLocaleString("en-US")}</span><span className={styles.stripLabel}>games played</span></div>
-            <div className={styles.stripStat}><span className={styles.stripValue}>{summary.crewmateWins.toLocaleString("en-US")}</span><span className={styles.stripLabel}><span className={`${styles.swatch} ${styles.crew}`} aria-hidden="true" />crewmate wins</span></div>
-            <div className={styles.stripStat}><span className={styles.stripValue}>{summary.impostorWins.toLocaleString("en-US")}</span><span className={styles.stripLabel}><span className={`${styles.swatch} ${styles.impostor}`} aria-hidden="true" />impostor wins</span></div>
+            <div className={styles.stripStat}><span className={styles.stripValue}>{t("shared.number", { value: summary.gamesPlayed })}</span><span className={styles.stripLabel}>{t("guild.strip.gamesPlayed")}</span></div>
+            <div className={styles.stripStat}><span className={styles.stripValue}>{t("shared.number", { value: summary.crewmateWins })}</span><span className={styles.stripLabel}><span className={`${styles.swatch} ${styles.crew}`} aria-hidden="true" />{t("guild.strip.crewmateWins")}</span></div>
+            <div className={styles.stripStat}><span className={styles.stripValue}>{t("shared.number", { value: summary.impostorWins })}</span><span className={styles.stripLabel}><span className={`${styles.swatch} ${styles.impostor}`} aria-hidden="true" />{t("guild.strip.impostorWins")}</span></div>
         </div>
         {summary.gamesPlayed > 0 && <div className={styles.stripBar}><ShareBar summary={summary} /></div>}
     </section>;
@@ -254,12 +265,13 @@ function SummaryStrip({ summary }: { summary: GuildStatsSummary }): React.ReactE
  * entries and blurred, under a prompt that takes them to the premium page with this server preselected. The
  * blurred content is hidden from assistive technology; the prompt says what is there. */
 function LockedLeaderboards({ guildId, premiumHref }: { guildId: string; premiumHref: string }): React.ReactElement {
+    const { t } = useTranslation();
     return <div className={styles.locked}>
         <div className={styles.lockOverlay}>
-            <section className={styles.lockCard} aria-label="Leaderboards">
-                <h2>Leaderboards are a premium feature</h2>
-                <p>See who really wins here: winrates, best and worst duos, who dies first, and more. Servers with AutoMuteUs Premium get every board on this page, and the detailed <code>/stats</code> command.</p>
-                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>Get Premium for this server</Link>
+            <section className={styles.lockCard} aria-label={t("guild.leaderboards.title")}>
+                <h2>{t("guild.locked.title")}</h2>
+                <p><Trans t={t} i18nKey="guild.locked.body" components={{ code: <code /> }} /></p>
+                <Link href={{ pathname: premiumHref, query: { guild: guildId } }}>{t("shared.getPremium")}</Link>
             </section>
         </div>
         <div className={styles.lockedContent} aria-hidden="true">
@@ -271,12 +283,13 @@ function LockedLeaderboards({ guildId, premiumHref }: { guildId: string; premium
 /** Renders a guild's stats document. Pure: everything shown comes from the document, and unknown names fall
  * back to the user ID rather than a lookup. */
 export default function GuildStatsView({ stats, premiumHref = "/premium", currentUserId, preview = false }: Props): React.ReactElement {
+    const { t, i18n } = useTranslation();
     const { summary, leaderboards, players } = stats;
     const generated = new Date(stats.generatedAt * 1000);
     return <div>
         <SummaryStrip summary={summary} />
         {leaderboards ? <MeContext.Provider value={currentUserId}><LinkContext.Provider value={{ guildId: stats.guildId, preview }}><Leaderboards boards={leaderboards} players={players} /></LinkContext.Provider></MeContext.Provider>
             : <LockedLeaderboards guildId={stats.guildId} premiumHref={premiumHref} />}
-        <p className={styles.meta}>Updated <time dateTime={generated.toISOString()}>{generated.toLocaleString("en-US", { dateStyle: "medium", timeStyle: "short" })}</time>. Stats count games where players were linked to the bot and are refreshed about once a minute.</p>
+        <p className={styles.meta}><Trans t={t} i18nKey="guild.updated" values={{ when: generated.toLocaleString(i18n.language, { dateStyle: "medium", timeStyle: "short" }) }} components={{ time: <time dateTime={generated.toISOString()} /> }} /></p>
     </div>;
 }

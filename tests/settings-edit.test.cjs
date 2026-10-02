@@ -115,3 +115,22 @@ test("role colours and unknown-ID detection", () => {
     assert.deepEqual(unknownRoleIDs(["345678901234567890"], undefined), [], "unknown list means no judgement");
     assert.deepEqual(unknownRoleIDs("junk", roles), []);
 });
+
+test("translated validation messages match the English the API route sends", () => {
+    const i18n = require("../utils/i18n.ts").default;
+    const t = i18n.getFixedT("en", "settings");
+    const roles = Array.from({ length: 101 }, (_, i) => String(100000000000000000n + BigInt(i)));
+    const cases = [
+        [{ ...defaults, language: "xx", mapVersion: "huge", displayRoomCode: "sometimes", autoRefresh: "yes", deleteGameSummary: 2.5, matchSummaryChannelID: "12" }],
+        [setDelay(setVoiceRule(defaults, "DeafRules", "TASKS", "dead", "true"), "LOBBY", "TASKS", 99)],
+        [{ permissionRoleIDs: ["234567890123456789", "x", "234567890123456789"] }, ["permissionRoleIDs"]],
+        [{ permissionRoleIDs: "x" }, ["permissionRoleIDs"]],
+        [{ permissionRoleIDs: roles }, ["permissionRoleIDs"]],
+        [{ adminIDs: [] }, ["adminIDs"]],
+    ];
+    for (const [draft, keys] of cases) {
+        const english = validateDraft(draft, keys);
+        assert.ok(english.length > 0);
+        assert.deepEqual(validateDraft(draft, keys, t), english);
+    }
+});

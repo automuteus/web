@@ -11,6 +11,8 @@ const { test } = require("node:test");
 const assert = require("node:assert/strict");
 const React = require("react");
 const { renderToStaticMarkup } = require("react-dom/server");
+// Initializes i18next with the bundled English catalog, as _app does in the browser.
+const { default: i18n } = require("../utils/i18n.ts");
 const { COLORS, parseMatchSummary, previewFree, matchNumber, clock, duration, timelineSections } = require("../components/stats/match-summary.ts");
 const { default: MatchSummaryView } = require("../components/stats/MatchSummaryView.tsx");
 const fixture = require("./fixtures/match-summary.json");
@@ -91,10 +93,10 @@ test("clock and duration format offsets and lengths", () => {
     assert.equal(clock(0), "0:00");
     assert.equal(clock(65), "1:05");
     assert.equal(clock(3723), "1:02:03");
-    assert.equal(duration(45), "45 s");
-    assert.equal(duration(845), "14 min 5 s");
-    assert.equal(duration(600), "10 min");
-    assert.equal(duration(3720), "1 h 2 min");
+    assert.equal(duration(45, i18n.t), "45 s");
+    assert.equal(duration(845, i18n.t), "14 min 5 s");
+    assert.equal(duration(600, i18n.t), "10 min");
+    assert.equal(duration(3720, i18n.t), "1 h 2 min");
 });
 
 test("the timeline splits into rounds and meetings, keeping a late exile with its meeting", () => {

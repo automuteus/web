@@ -2,6 +2,11 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import resourcesToBackend from "i18next-resources-to-backend";
 import { LANGUAGES } from "../components/settings/settings-edit";
+import common from "../locales/en/common.json";
+import home from "../locales/en/home.json";
+import commands from "../locales/en/commands.json";
+import premium from "../locales/en/premium.json";
+import settings from "../locales/en/settings.json";
 import stats from "../locales/en/stats.json";
 
 /** The UI ships the same translations as the bot, so a language the bot speaks is one the site may speak. Crowdin
@@ -27,9 +32,9 @@ i18n.use(initReactI18next)
         supportedLngs: SUPPORTED,
         nonExplicitSupportedLngs: true,
         load: "languageOnly",
-        ns: ["stats"],
+        ns: ["common", "home", "commands", "premium", "settings", "stats"],
         defaultNS: "stats",
-        resources: { en: { stats } },
+        resources: { en: { common, home, commands, premium, settings, stats } },
         partialBundledLanguages: true,
         initAsync: false,
         // React escapes text already.

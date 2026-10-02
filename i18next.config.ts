@@ -9,19 +9,12 @@ export default defineConfig({
         primaryLanguage: "en",
         defaultNS: "stats",
         indentation: 2,
-        // Built from API values: result and color names.
-        preservePatterns: ["stats:shared.result.*", "stats:shared.color.*"],
+        // Keys built at runtime: results and colors from the API, command descriptions, language names.
+        preservePatterns: ["stats:shared.result.*", "stats:shared.color.*", "stats:match.crewmate.colorName.*", "commands:command.*", "settings:languageName.*"],
     },
     lint: {
-        // Views still to convert. Remove a file from this list once its strings go through t(); CI then keeps it clean.
-        ignore: [
-            "components/commands/**", "components/index/**", "components/premium/**", "data/**",
-            "components/layout/AppLayout.tsx", "components/layout/ErrorLayout.tsx", "components/layout/Header.tsx", "components/layout/HeaderLink.tsx",
-            "components/layout/Metadata.tsx", "components/layout/ResetPanel.tsx",
-            "components/settings/SettingsView.tsx", "components/stats/GuildStatsView.tsx", "components/stats/MatchSummaryView.tsx",
-            "pages/404.tsx", "pages/commands.tsx", "pages/index.tsx", "pages/premium/**", "pages/settings.tsx",
-            "pages/stats.tsx", "pages/stats/match.tsx", "pages/stats/user.tsx", "pages/_document.tsx",
-        ],
+        // Every view goes through t(), so CI flags any new hardcoded string.
+        ignore: [],
         checkConcatenation: "error",
     },
 });

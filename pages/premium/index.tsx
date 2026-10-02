@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { Trans, useTranslation } from "react-i18next";
 import { Alert, Button, Modal, Spinner } from "react-bootstrap";
 import { Guild } from "../../types/Guild";
 
@@ -18,11 +19,12 @@ import AppLayout from "../../components/layout/AppLayout";
 import GuildSelect from "../../components/premium/GuildSelect";
 import PremiumItem from "../../components/premium/PremiumItem";
 import { premium_items } from "../../data/premium_items";
-import PremiumPerk from "../../components/premium/PremiumPerk";
+import PremiumPerk, { PerkId } from "../../components/premium/PremiumPerk";
 import { GuildPremium, describePremium, parsePremium } from "../../components/premium/premium-status";
 import { PremiumRecord, premiumActive } from "../../components/stats/guild-stats";
 
 export default function PremiumPage() {
+    const { t } = useTranslation("premium");
     const router = useRouter();
     const { status } = useSession();
     const [guild, setGuild] = useState<string>();
@@ -34,8 +36,8 @@ export default function PremiumPage() {
     const [premium, setPremium] = useState<{ guild: string; record: GuildPremium }>();
     const record = premium && premium.guild === guild ? premium.record : undefined;
     const active = record && premiumActive(record) ? record : undefined;
-    const serverName = guilds?.find((g) => g.id === guild)?.name || "This server";
-    const summary = record && guild ? describePremium(record, serverName) : undefined;
+    const serverName = guilds?.find((g) => g.id === guild)?.name || t("thisServer");
+    const summary = record && guild ? describePremium(record, serverName, t) : undefined;
 
     useEffect(() => {
         if (status !== "authenticated") {
@@ -87,19 +89,19 @@ export default function PremiumPage() {
 
     return (
         <AppLayout
-            title="AutoMuteUs - Premium"
+            title={t("meta.title")}
             metaImg="https://automute.us/images/logo_premium.png"
-            metaDesc="AutoMuteUs Premium allows you to bypass Discord rate limits, track stats with leaderboards, and gain access to premium Discord support channels!"
+            metaDesc={t("meta.description")}
         >
             <div className="container pb-4">
                 <div className="d-block d-md-flex align-items-center justify-content-between">
-                    <h1>AutoMuteUs Premium</h1>
+                    <h1>{t("heading")}</h1>
                     {status === "unauthenticated" ? (
                         <button
                             onClick={() => signIn("discord")}
                             className="btn btn-sm btn-secondary"
                         >
-                            Sign in to view your servers
+                            {t("signIn")}
                         </button>
                     ) : guilds ? (
                         <GuildSelect
@@ -114,15 +116,12 @@ export default function PremiumPage() {
                                 size="sm"
                                 className="me-2"
                             />
-                            Loading your servers
+                            {t("loadingServers")}
                         </button>
                     )}
                 </div>
                 <div className="subtitle">
-                    Looking to upgrade your Among Us gameplay even further?
-                    Running into limitations with the bot while it's under high
-                    load? Consider AutoMuteUs premium to support the project as
-                    well as improve your muting experience!
+                    {t("subtitle")}
                 </div>
 
                 {summary && (
@@ -134,12 +133,11 @@ export default function PremiumPage() {
                         <div>{summary.message}</div>
                         {active && (
                             <div className="text-warning mt-2">
-                                Each purchase starts a new PayPal subscription, so buying here won't replace the
-                                current one, and its remaining days don't carry over. If you're changing tiers,{" "}
-                                <a href="https://cancelprem.automute.us/" target="_blank">
-                                    cancel the current subscription
-                                </a>{" "}
-                                first.
+                                <Trans
+                                    t={t}
+                                    i18nKey="status.changingTiers"
+                                    components={{ cancel: <a href="https://cancelprem.automute.us/" target="_blank" /> }}
+                                />
                             </div>
                         )}
                     </Alert>
@@ -159,30 +157,21 @@ export default function PremiumPage() {
                 </div>
 
                 <div className="cancel-notice text-center">
-                    <h6 className="text-danger">Looking to cancel?</h6>
+                    <h6 className="text-danger">{t("cancel.heading")}</h6>
                     <div>
-                        As per the email you received on purchase, you can{" "}
-                        <a
-                            href="https://cancelprem.automute.us/"
-                            target="_blank"
-                            className="intense"
-                        >
-                            manage your subscriptions via PayPal.
-                        </a>
-                        <br />
-                        If you checked out with a PayPal guest account, or
-                        otherwise need help,{" "}
-                        <a
-                            href="https://forms.gle/pSy1GkUtQwZKdcNEA"
-                            target="_blank"
-                            className="intense"
-                        >
-                            please use this form.
-                        </a>
+                        <Trans
+                            t={t}
+                            i18nKey="cancel.body"
+                            components={{
+                                manage: <a href="https://cancelprem.automute.us/" target="_blank" className="intense" />,
+                                br: <br />,
+                                form: <a href="https://forms.gle/pSy1GkUtQwZKdcNEA" target="_blank" className="intense" />,
+                            }}
+                        />
                     </div>
                 </div>
 
-                <h2 className="text-center">Premium Perks</h2>
+                <h2 className="text-center">{t("perksHeading")}</h2>
 
                 <div className="d-flex flex-row premium-perks">
                     {current_perks.map((perk) => {
@@ -199,10 +188,10 @@ export default function PremiumPage() {
                 keyboard={false}
             >
                 <Modal.Header className="bg-danger align-items-center justify-content-center">
-                    <Modal.Title>Server ID Pre-selected</Modal.Title>
+                    <Modal.Title>{t("modal.title")}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body className="text-center">
-                    The server ID you've selected is:
+                    {t("modal.selected")}
                     <div
                         className="text-center p-2"
                         style={{ fontSize: "1.25rem" }}
@@ -210,27 +199,23 @@ export default function PremiumPage() {
                         <kbd className="bg-light text-dark">{guild}</kbd>
                     </div>
                     <div>
-                        <strong>
-                            Please confirm that this is the server you want
-                            selected!
-                        </strong>
+                        <strong>{t("modal.confirmPrompt")}</strong>
                     </div>
                     <div>
-                        If you'd prefer a different server, sign in and select
-                        from your joined servers list.
+                        {t("modal.different")}
                     </div>
                     <small>
                         <a
                             href="https://support.discord.com/hc/en-us/articles/206346498-Where-can-I-find-my-User-Server-Message-ID-"
                             target="_blank"
                         >
-                            How do I find my server ID?
+                            {t("modal.findId")}
                         </a>
                     </small>
                 </Modal.Body>
                 <Modal.Footer className="align-items-center justify-content-center">
                     <Button variant="danger" onClick={closeModal}>
-                        Confirm Server ID
+                        {t("modal.confirm")}
                     </Button>
                 </Modal.Footer>
             </Modal>
@@ -238,35 +223,11 @@ export default function PremiumPage() {
     );
 }
 
-const current_perks = [
-    {
-        perk: "Priority Game Access",
-        description:
-            "Always be able to make new games, even when the bot is under high load! ",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faGamepad} />,
-    },
-    {
-        perk: "Stats and Leaderboards",
-        description:
-            "View Among Us stats and leaderboards for the players on your server!",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faMedal} />,
-    },
-    {
-        perk: "Premium Support",
-        description:
-            "Access to Premium-only channels and chats in our official Discord!",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faHeadset} />,
-    },
-    {
-        perk: "Priority Muting Bots",
-        description:
-            "Issues requests alongside the main bot; this drastically improves the speed of mutes/deafens in your games",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faRobot} />,
-    },
-    {
-        perk: "Premium Servers",
-        description:
-            "Get your premium AutoMuteUs bot status in multiple Discord servers!",
-        icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faDiscord} />,
-    },
+// The perk cards in order; PremiumPerk looks up each one's text.
+const current_perks: Array<{ perk: PerkId; icon: React.ReactNode }> = [
+    { perk: "gameAccess", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faGamepad} /> },
+    { perk: "stats", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faMedal} /> },
+    { perk: "support", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faHeadset} /> },
+    { perk: "mutingBots", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faRobot} /> },
+    { perk: "servers", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faDiscord} /> },
 ];
