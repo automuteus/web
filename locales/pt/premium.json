@@ -9,13 +9,6 @@
     },
     "chooseServer": "Escolha um servidor primeiro",
     "current": "Plano atual",
-    "donation": {
-      "button": "Fazer uma doação",
-      "description": "Você não ganha nenhum privilégio especial no bot, mas ganha nosso agradecimento por tornar possível este projeto de código aberto!",
-      "heading": "Contribua com o valor que quiser ❤️",
-      "thanks": "Obrigado! ♥",
-      "title": "Doação"
-    },
     "gold": {
       "button": "Assinar Gold"
     },
@@ -25,7 +18,17 @@
       "button": "Assinar Silver"
     }
   },
+  "checkout": {
+    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
+    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
+    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
+    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
+    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
+    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+  },
   "guildSelect": {
+    "byId": "Server {{id}}",
     "noServers": "Nenhum servidor encontrado.",
     "prompt": "Selecionar servidor",
     "reload": "Tente recarregar a página."
@@ -44,6 +47,21 @@
     "selected": "O ID do servidor selecionado é:",
     "title": "ID do servidor pré-selecionado"
   },
+  "paid": {
+    "back": "Back to AutoMuteUs Premium",
+    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "cancelled": {
+      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
+      "heading": "Checkout cancelled"
+    },
+    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
+    "heading": "Thanks for supporting AutoMuteUs!",
+    "title": "AutoMuteUs - Thank you",
+    "unknown": {
+      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
+      "heading": "Welcome back from PayPal"
+    }
+  },
   "perk": {
     "gameAccess": {
       "description": "Always be able to make new games, even when the bot is under high load!",
@@ -53,20 +71,28 @@
       "description": "Enviam requisições junto com o bot principal, o que acelera muito o silenciamento e o ensurdecimento nas suas partidas",
       "title": "Bots de silenciamento prioritários"
     },
-    "servers": {
-      "description": "Tenha o status premium do AutoMuteUs em vários servidores do Discord!",
-      "title": "Servidores Premium"
-    },
     "stats": {
       "description": "Veja estatísticas e classificações de Among Us dos jogadores do seu servidor!",
       "title": "Estatísticas e classificações"
     },
     "support": {
-      "description": "Acesso a canais e chats exclusivos Premium no nosso Discord oficial!",
+      "description": "Access to Gold-only channels and chats in our official Discord!",
       "title": "Suporte Premium"
     }
   },
   "perksHeading": "Vantagens Premium",
+  "picker": {
+    "heading": "Which server is this for?",
+    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
+    "none": "Choose a server to get started."
+  },
+  "rebuy": {
+    "anyway": "Buy anyway",
+    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
+    "keep": "Keep the current plan",
+    "title": "Buy {{tier}} again?",
+    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+  },
   "signIn": "Entre para ver seus servidores",
   "status": {
     "changingTiers": "Cada compra inicia uma nova assinatura do PayPal, então comprar aqui não substitui a atual, e os dias restantes dela não são transferidos. Se você vai mudar de plano, <cancel>cancele a assinatura atual</cancel> primeiro.",
