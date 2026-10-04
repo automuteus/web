@@ -19,16 +19,16 @@
     }
   },
   "checkout": {
-    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
-    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
-    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
-    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
-    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
-    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
-    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+    "cancelled": "購入をキャンセルしました。請求は発生していません。準備ができたら、下のプランからいつでも購入できます。",
+    "confirmed": "お支払いを確認しました！{{server}} のプレミアム状況は下に最新の状態で表示されています。",
+    "inProgress": "PayPal のタブでお支払いを完了してから、このページに戻ってください。PayPal が確認すると（通常は数分以内）、このページは自動で更新されます。再度購入する必要はありません。",
+    "pending": "ありがとうございます！PayPal が {{server}} のお支払いを確認しています。プレミアムは通常数分以内に有効になり、このページは自動で更新されるため、再度購入する必要はありません。",
+    "pendingSignedOut": "ありがとうございます！PayPal が {{server}} のお支払いを確認しています。プレミアムは通常数分以内に有効になります。このサーバーのプレミアム状況を見るにはログインしてください。再度購入する必要はありません。",
+    "pendingUnknown": "PayPal からおかえりなさい。{{server}} のお支払いを完了した場合、プレミアムは通常数分以内に有効になり、このページは自動で更新されるため、再度購入する必要はありません。キャンセルした場合、請求は発生していません。",
+    "slow": "まだ PayPal の確認を待っています。お支払いは通常数分以内に確認されますが、時間がかかることもあります。1 時間経っても {{server}} にプレミアムが付与されない場合は、再度購入するのではなく<form>こちらからお知らせください</form>。"
   },
   "guildSelect": {
-    "byId": "Server {{id}}",
+    "byId": "サーバー {{id}}",
     "noServers": "サーバーが見つかりません。",
     "prompt": "サーバーを選択",
     "reload": "ページを再読み込みしてみてください。"
@@ -48,23 +48,23 @@
     "title": "サーバー ID が選択済みです"
   },
   "paid": {
-    "back": "Back to AutoMuteUs Premium",
-    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "back": "AutoMuteUs プレミアムに戻る",
+    "body": "PayPal がお支払いを確認しています。プレミアムは通常数分以内に有効になり、プレミアムページに表示されるため、再度購入する必要はありません。",
     "cancelled": {
-      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
-      "heading": "Checkout cancelled"
+      "body": "請求は発生していません。いつでも戻ってきて加入できます。",
+      "heading": "購入をキャンセルしました"
     },
-    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
-    "heading": "Thanks for supporting AutoMuteUs!",
-    "title": "AutoMuteUs - Thank you",
+    "closeTab": "このタブは閉じて構いません。最初に開いていた AutoMuteUs のページに最新の状況が表示されます。",
+    "heading": "AutoMuteUs をご支援いただきありがとうございます！",
+    "title": "AutoMuteUs - ありがとうございます",
     "unknown": {
-      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
-      "heading": "Welcome back from PayPal"
+      "body": "お支払いを完了した場合、PayPal が現在確認中です。プレミアムは通常数分以内に有効になり、プレミアムページに表示されるため、再度購入する必要はありません。キャンセルした場合、請求は発生していません。",
+      "heading": "PayPal からおかえりなさい"
     }
   },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load!",
+      "description": "ボットが高負荷のときでも、いつでも新しいゲームを作成できます！",
       "title": "ゲームの優先アクセス"
     },
     "mutingBots": {
@@ -76,22 +76,22 @@
       "title": "統計とリーダーボード"
     },
     "support": {
-      "description": "Access to Gold-only channels and chats in our official Discord!",
+      "description": "公式 Discord の Gold 専用チャンネルとチャットを利用できます！",
       "title": "プレミアムサポート"
     }
   },
   "perksHeading": "プレミアムの特典",
   "picker": {
-    "heading": "Which server is this for?",
-    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
-    "none": "Choose a server to get started."
+    "heading": "どのサーバー向けですか？",
+    "help": "プレミアムは Discord サーバーごとに適用されます。サーバーを選ぶと下のプランが選べるようになり、そのサーバーの現在の状況も確認できます。",
+    "none": "まずサーバーを選択してください。"
   },
   "rebuy": {
-    "anyway": "Buy anyway",
-    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
-    "keep": "Keep the current plan",
-    "title": "Buy {{tier}} again?",
-    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+    "anyway": "それでも購入する",
+    "body": "このサーバーにはすでに AutoMuteUs {{tier}} があります。再度購入すると、別途請求される 2 つ目の PayPal サブスクリプションが開始され、現在のサブスクリプションは解約するまで継続します。",
+    "keep": "現在のプランを維持する",
+    "title": "{{tier}} を再度購入しますか？",
+    "wait": "お支払い直後でプレミアムがまだ表示されていない場合は、購入せずに数分お待ちください。"
   },
   "signIn": "サインインしてサーバーを表示",
   "status": {
