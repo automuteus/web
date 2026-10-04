@@ -10,7 +10,7 @@ on:
 
 jobs:
   check:
-    name: Typecheck
+    name: Typecheck, test, and i18n
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -27,6 +27,13 @@ jobs:
 
       - name: Typecheck
         run: yarn typecheck
+
+      - name: Unit tests
+        run: yarn test
+
+      # Fails on a hardcoded UI string or an English catalog that doesn't match the source.
+      - name: i18n catalogs
+        run: yarn i18n:check
 
   docker:
     needs: check

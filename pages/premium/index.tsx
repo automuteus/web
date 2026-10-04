@@ -60,14 +60,14 @@ export default function PremiumPage() {
         saveCheckout(next);
     }, []);
 
-    // The buyer is back from PayPal (the popup said so, or the tab itself returned with ?paid=1): show the paid-for
-    // server and start waiting for its premium to change. The record from before the purchase is the one taken at
-    // departure, kept in sessionStorage in case this is a fresh page load.
-    const returned = useCallback((paidGuild: string) => {
+    // The buyer is back from PayPal (the popup said so, or the tab itself returned with ?paid=1 or ?returned=1): show
+    // the paid-for server and start waiting for its premium to change. The record from before the purchase is the one
+    // taken at departure, kept in sessionStorage in case this is a fresh page load.
+    const returned = useCallback((paidGuild: string, outcome: "paid" | "unknown") => {
         setGuild(paidGuild);
         setCheckout((current) => {
             const base = current && current.guild === paidGuild ? current : loadCheckout(paidGuild) ?? { guild: paidGuild };
-            const next: Checkout = { ...base, since: Date.now(), returned: true, done: undefined };
+            const next: Checkout = { ...base, since: Date.now(), returned: outcome, done: undefined };
             saveCheckout(next);
             return next;
         });
@@ -110,13 +110,15 @@ export default function PremiumPage() {
         return () => window.removeEventListener("focus", onFocus);
     }, []);
 
-    // /premium/paid, in the PayPal popup, reports how the checkout went.
+    // The return page, in the PayPal popup, reports how the checkout went. It names the server only when PayPal was
+    // sent back to /premium/paid; otherwise the checkout this page started says which server it was.
     useEffect(() => {
         const onMessage = (event: MessageEvent) => {
             if (event.origin !== window.location.origin || !isCheckoutMessage(event.data)) return;
-            const { guild: paidGuild, cancelled } = event.data;
+            const { outcome } = event.data;
+            const paidGuild = event.data.guild ?? checkout?.guild;
             if (!paidGuild) return;
-            if (cancelled) {
+            if (outcome === "cancelled") {
                 setCheckout((current) => {
                     if (!current || current.guild !== paidGuild) return current;
                     saveCheckout(undefined);
@@ -124,19 +126,20 @@ export default function PremiumPage() {
                 });
                 return;
             }
-            returned(paidGuild);
+            returned(paidGuild, outcome);
         };
         window.addEventListener("message", onMessage);
         return () => window.removeEventListener("message", onMessage);
-    }, [returned]);
+    }, [returned, checkout?.guild]);
 
     // While a purchase is pending, poll for its server's premium (from departure, so a buyer who closes PayPal's
-    // receipt without coming back still sees the result) and give up a while after the buyer's return. A buyer who
-    // never came back most likely never paid, so that wait ends quietly rather than with a warning.
+    // receipt without coming back still sees the result) and give up a while after the buyer's return. The wait ends
+    // with a warning only when PayPal said the buyer paid; one who never came back, or came back without PayPal
+    // saying how, most likely never paid, so that wait ends quietly.
     useEffect(() => {
         if (!signedIn || !checkout || checkout.done) return;
         const id = setInterval(() => {
-            if (Date.now() - checkout.since > POLL_FOR) updateCheckout(checkout.returned ? { ...checkout, done: "timeout" } : undefined);
+            if (Date.now() - checkout.since > POLL_FOR) updateCheckout(checkout.returned === "paid" ? { ...checkout, done: "timeout" } : undefined);
             else setRefresh((n) => n + 1);
         }, POLL_EVERY);
         return () => clearInterval(id);
@@ -152,30 +155,36 @@ export default function PremiumPage() {
     useEffect(() => {
         if (router.query.guild && util.validGuild(router.query.guild)) {
             if (router.query.paid === "1") {
-                returned(router.query.guild as string);
+                returned(router.query.guild as string, "paid");
+            } else if (router.query.returned === "1") {
+                returned(router.query.guild as string, "unknown");
             } else {
                 setOpen(true);
                 setGuild(router.query.guild as string);
             }
         }
-    }, [router.query.guild, router.query.paid, returned]);
+    }, [router.query.guild, router.query.paid, router.query.returned, returned]);
 
     // Remembers the server's premium as the buyer leaves, so its change is what confirms the payment.
-    const handleCheckout = (target: string | undefined) => {
-        if (!target) return;
+    const handleCheckout = (target: string) => {
         const before = premium && premium.guild === target ? fingerprint(premium.record) : undefined;
-        updateCheckout({ guild: target, before, since: Date.now(), returned: false });
+        updateCheckout({ guild: target, before, since: Date.now() });
     };
 
+    const pendingText = () => {
+        if (status === "unauthenticated") return t("checkout.pendingSignedOut", { server: serverName });
+        if (checkout?.returned === "unknown") return t("checkout.pendingUnknown", { server: serverName });
+        return t("checkout.pending", { server: serverName });
+    };
     const checkoutNote = checkout && checkout.guild === guild && (checkout.returned || checkout.done)
         ? checkout.done === "confirmed"
             ? { kind: "confirmed", message: t("checkout.confirmed", { server: serverName }) }
             : checkout.done === "timeout"
                 ? { kind: "timeout" }
-                : { kind: "pending", message: status === "unauthenticated" ? t("checkout.pendingSignedOut", { server: serverName }) : t("checkout.pending", { server: serverName }) }
+                : { kind: "pending", message: pendingText() }
         : undefined;
 
-    const handleGuildSelect = (key: any) => {
+    const handleGuildSelect = (key: string) => {
         router.push({
             query: {},
         });
@@ -194,77 +203,91 @@ export default function PremiumPage() {
             metaDesc={t("meta.description")}
         >
             <div className="container pb-4">
-                <div className="d-block d-md-flex align-items-center justify-content-between">
-                    <h1>{t("heading")}</h1>
-                    {status === "unauthenticated" ? (
-                        <button
-                            onClick={() => signIn("discord")}
-                            className="btn btn-sm btn-secondary"
-                        >
-                            {t("signIn")}
-                        </button>
-                    ) : guilds ? (
-                        <GuildSelect
-                            guilds={guilds}
-                            onSelect={handleGuildSelect}
-                            initial={router.query.guild}
-                        />
-                    ) : (
-                        <button className="btn btn-sm btn-secondary" disabled>
-                            <Spinner
-                                animation="border"
-                                size="sm"
-                                className="me-2"
-                            />
-                            {t("loadingServers")}
-                        </button>
-                    )}
-                </div>
+                <h1>{t("heading")}</h1>
                 <div className="subtitle">
                     {t("subtitle")}
                 </div>
 
-                {checkoutNote && (
-                    <Alert
-                        variant="transparent"
-                        className={`mt-3 mb-0 ${checkoutNote.kind === "confirmed" ? "text-success" : "text-warning"}`}
-                        style={{ background: "var(--dark)" }}
-                    >
-                        {checkoutNote.kind === "pending" && <Spinner animation="border" size="sm" className="me-2" />}
-                        {checkoutNote.kind === "timeout" ? (
-                            <Trans
-                                t={t}
-                                i18nKey="checkout.slow"
-                                values={{ server: serverName }}
-                                components={{ form: <a href="https://forms.gle/pSy1GkUtQwZKdcNEA" target="_blank" className="intense" /> }}
+                {/* Premium is bought per server, so choosing one comes before the plans, where a browsing visitor
+                    sees it rather than finding the buttons disabled. */}
+                <div className="premium-server-picker mt-4">
+                    <div className="d-flex flex-column flex-md-row align-items-md-center justify-content-between gap-3">
+                        <div>
+                            <h2 className="h5 mb-1">{t("picker.heading")}</h2>
+                            <div className="text-light small mb-0">{t("picker.help")}</div>
+                        </div>
+                        {status === "unauthenticated" ? (
+                            <button
+                                onClick={() => signIn("discord")}
+                                className="btn btn-premium btn-lg flex-shrink-0"
+                            >
+                                <FontAwesomeIcon icon={faDiscord} className="me-2" />
+                                {t("signIn")}
+                            </button>
+                        ) : guilds ? (
+                            <GuildSelect
+                                guilds={guilds}
+                                onSelect={handleGuildSelect}
+                                selected={guild}
+                                size="lg"
                             />
                         ) : (
-                            checkoutNote.message
+                            <button className="btn btn-lg btn-secondary flex-shrink-0" disabled>
+                                <Spinner
+                                    animation="border"
+                                    size="sm"
+                                    className="me-2"
+                                />
+                                {t("loadingServers")}
+                            </button>
                         )}
-                    </Alert>
-                )}
+                    </div>
+                    {signedIn && guilds && guilds.length > 0 && !guild && (
+                        <div className="text-warning mt-3">{t("picker.none")}</div>
+                    )}
 
-                {/* While a payment is being confirmed, the summary would only contradict the note above it. */}
-                {summary && checkoutNote?.kind !== "pending" && (
-                    <Alert
-                        variant="transparent"
-                        className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : summary.kind === "ending" ? "text-warning" : "text-light"}`}
-                        style={{ background: "var(--dark)" }}
-                    >
-                        <div>{summary.message}</div>
-                        {active && (
-                            <div className="text-warning mt-2">
+                    {checkoutNote && (
+                        <Alert
+                            variant="transparent"
+                            className={`mt-3 mb-0 ${checkoutNote.kind === "confirmed" ? "text-success" : "text-warning"}`}
+                            style={{ background: "var(--darkest)" }}
+                        >
+                            {checkoutNote.kind === "pending" && <Spinner animation="border" size="sm" className="me-2" />}
+                            {checkoutNote.kind === "timeout" ? (
                                 <Trans
                                     t={t}
-                                    i18nKey="status.changingTiers"
-                                    components={{ cancel: <a href="https://cancelprem.automute.us/" target="_blank" /> }}
+                                    i18nKey="checkout.slow"
+                                    values={{ server: serverName }}
+                                    components={{ form: <a href="https://forms.gle/pSy1GkUtQwZKdcNEA" target="_blank" className="intense" /> }}
                                 />
-                            </div>
-                        )}
-                    </Alert>
-                )}
+                            ) : (
+                                checkoutNote.message
+                            )}
+                        </Alert>
+                    )}
 
-                <div className="row row-cols-1 row-cols-md-2 row-cols-lg-2 row-cols-xl-4 g-3 mt-4 mb-3 justify-content-center">
+                    {/* While a payment is being confirmed, the summary would only contradict the note above it. */}
+                    {summary && checkoutNote?.kind !== "pending" && (
+                        <Alert
+                            variant="transparent"
+                            className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : summary.kind === "ending" ? "text-warning" : "text-light"}`}
+                            style={{ background: "var(--darkest)" }}
+                        >
+                            <div>{summary.message}</div>
+                            {active && (
+                                <div className="text-warning mt-2">
+                                    <Trans
+                                        t={t}
+                                        i18nKey="status.changingTiers"
+                                        components={{ cancel: <a href="https://cancelprem.automute.us/" target="_blank" /> }}
+                                    />
+                                </div>
+                            )}
+                        </Alert>
+                    )}
+                </div>
+
+                <div className="row row-cols-1 row-cols-md-3 g-3 mt-3 mb-3 justify-content-center">
                     {premium_items.map((item) => {
                         return (
                             <PremiumItem
@@ -351,5 +374,4 @@ const current_perks: Array<{ perk: PerkId; icon: React.ReactNode }> = [
     { perk: "stats", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faMedal} /> },
     { perk: "support", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faHeadset} /> },
     { perk: "mutingBots", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faRobot} /> },
-    { perk: "servers", icon: <FontAwesomeIcon size="2x" className="mb-3" icon={faDiscord} /> },
 ];

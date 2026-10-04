@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 
-export type PerkId = "gameAccess" | "stats" | "support" | "mutingBots" | "servers";
+export type PerkId = "gameAccess" | "stats" | "support" | "mutingBots";
 
 export interface PremiumItemPerk {
     perk: PerkId;
@@ -15,7 +15,6 @@ export function usePerkText(): Record<PerkId, { title: string; description: stri
         stats: { title: t("perk.stats.title"), description: t("perk.stats.description") },
         support: { title: t("perk.support.title"), description: t("perk.support.description") },
         mutingBots: { title: t("perk.mutingBots.title"), description: t("perk.mutingBots.description") },
-        servers: { title: t("perk.servers.title"), description: t("perk.servers.description") },
     };
 }
 

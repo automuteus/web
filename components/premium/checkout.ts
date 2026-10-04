@@ -1,17 +1,22 @@
 import { GuildPremium } from "./premium-status";
 
-/** The data /premium/paid posts to the premium page that opened PayPal in a popup. */
+/** How a checkout ended. unknown is a return PayPal said nothing about: the hosted buttons' own return URL
+ * (/premium/callback) overrides the one the link asks for, and carries neither the server nor the outcome. */
+export type CheckoutOutcome = "paid" | "cancelled" | "unknown";
+
+/** The data the return page posts to the premium page that opened PayPal in a popup. */
 export const CHECKOUT_MESSAGE = "automuteus:checkout";
 export interface CheckoutMessage {
     type: typeof CHECKOUT_MESSAGE;
-    /** The server paid for; absent for a donation. */
+    /** The server paid for, when the return URL named it; otherwise the premium page uses the checkout it started. */
     guild?: string;
-    /** The buyer backed out at PayPal and nothing was charged. */
-    cancelled: boolean;
+    outcome: CheckoutOutcome;
 }
 
 export function isCheckoutMessage(data: unknown): data is CheckoutMessage {
-    return !!data && typeof data === "object" && (data as { type?: unknown }).type === CHECKOUT_MESSAGE;
+    if (!data || typeof data !== "object") return false;
+    const { type, outcome } = data as { type?: unknown; outcome?: unknown };
+    return type === CHECKOUT_MESSAGE && (outcome === "paid" || outcome === "cancelled" || outcome === "unknown");
 }
 
 /** A purchase the premium page is watching: the server's premium as it stood when the buyer left for PayPal, so any
@@ -22,8 +27,8 @@ export interface Checkout {
     before?: string;
     /** When the wait started: departure, then the return from PayPal, which restarts the clock. */
     since: number;
-    /** The buyer came back from PayPal, so the page should say what it is waiting for. */
-    returned: boolean;
+    /** How the buyer came back from PayPal; absent until they do. */
+    returned?: "paid" | "unknown";
     done?: "confirmed" | "timeout";
 }
 
@@ -42,7 +47,8 @@ export function paymentApplied(checkout: Checkout, record: GuildPremium, active:
     return checkout.before ? fingerprint(record) !== checkout.before : active;
 }
 
-/** The checkout survives the tab navigating to PayPal and back (when the popup was blocked) in sessionStorage. */
+/** The checkout survives the tab navigating to PayPal and back (when the popup was blocked) in sessionStorage, which
+ * a popup opened from the page also starts out with a copy of. */
 const STORAGE_KEY = "automuteus:premium-checkout";
 
 export function saveCheckout(checkout: Checkout | undefined): void {
@@ -54,13 +60,19 @@ export function saveCheckout(checkout: Checkout | undefined): void {
     }
 }
 
-export function loadCheckout(guild: string): Checkout | undefined {
+/** The saved checkout, for the given server or (with none given) whichever server it was for. */
+export function loadCheckout(guild?: string): Checkout | undefined {
     try {
         const raw = sessionStorage.getItem(STORAGE_KEY);
         if (!raw) return undefined;
         const saved = JSON.parse(raw) as Partial<Checkout>;
-        if (saved.guild !== guild || typeof saved.since !== "number") return undefined;
-        return { guild, before: typeof saved.before === "string" ? saved.before : undefined, since: saved.since, returned: saved.returned === true };
+        if (typeof saved.guild !== "string" || (guild && saved.guild !== guild) || typeof saved.since !== "number") return undefined;
+        return {
+            guild: saved.guild,
+            before: typeof saved.before === "string" ? saved.before : undefined,
+            since: saved.since,
+            returned: saved.returned === "paid" || saved.returned === "unknown" ? saved.returned : undefined,
+        };
     } catch {
         return undefined;
     }
