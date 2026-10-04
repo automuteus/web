@@ -19,6 +19,7 @@
     }
   },
   "checkout": {
+    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
     "confirmed": "Payment received! {{server}}'s premium is up to date below.",
     "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
     "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",

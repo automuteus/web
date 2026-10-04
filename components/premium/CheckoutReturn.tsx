@@ -29,7 +29,10 @@ export default function CheckoutReturn({ outcome }: Props): React.ReactElement {
         setGuild(fromQuery ?? loadCheckout()?.guild ?? null);
     }, [router.isReady, router.query.guild]);
 
-    const query = guild ? { guild, ...(outcome === "paid" ? { paid: "1" } : outcome === "unknown" ? { returned: "1" } : {}) } : undefined;
+    // A cancellation goes on even with no server known: there is nothing to wait for, only a checkout to forget.
+    const query = outcome === "cancelled"
+        ? guild === undefined ? undefined : { ...(guild ? { guild } : {}), cancelled: "1" }
+        : guild ? { guild, ...(outcome === "paid" ? { paid: "1" } : { returned: "1" }) } : undefined;
 
     useEffect(() => {
         if (query) router.replace({ pathname: "/premium", query });
@@ -46,7 +49,7 @@ export default function CheckoutReturn({ outcome }: Props): React.ReactElement {
     return (
         <AppLayout title={t("paid.title")} theatric>
             <div className="d-flex flex-column flex-grow-1 align-items-center justify-content-center text-center p-3">
-                {guild === null ? (
+                {guild === null && outcome !== "cancelled" ? (
                     <>
                         <h1>{text.heading}</h1>
                         <p className="subtitle">{text.body}</p>

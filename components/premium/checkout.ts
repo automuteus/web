@@ -54,13 +54,18 @@ export function saveCheckout(checkout: Checkout | undefined): void {
     }
 }
 
-/** The saved checkout, for the given server or (with none given) whichever server it was for. */
-export function loadCheckout(guild?: string): Checkout | undefined {
+/** The saved checkout, for the given server or (with none given) whichever server it was for. One left over from
+ * longer ago than the page would have waited is forgotten rather than revived. */
+export function loadCheckout(guild?: string, now = Date.now()): Checkout | undefined {
     try {
         const raw = sessionStorage.getItem(STORAGE_KEY);
         if (!raw) return undefined;
         const saved = JSON.parse(raw) as Partial<Checkout>;
         if (typeof saved.guild !== "string" || (guild && saved.guild !== guild) || typeof saved.since !== "number") return undefined;
+        if (now - saved.since > POLL_FOR) {
+            sessionStorage.removeItem(STORAGE_KEY);
+            return undefined;
+        }
         return {
             guild: saved.guild,
             before: typeof saved.before === "string" ? saved.before : undefined,

@@ -50,7 +50,8 @@ test("a checkout survives the tab leaving for PayPal and back, for its own serve
     const store = new Map();
     global.sessionStorage = { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) };
     try {
-        const checkout = { guild: GUILD, before: fingerprint(free), since: 42, returned: undefined };
+        const since = Date.now();
+        const checkout = { guild: GUILD, before: fingerprint(free), since, returned: undefined };
         saveCheckout(checkout);
         assert.deepEqual(loadCheckout(GUILD), checkout);
         // The return page, told nothing by PayPal, asks which server the checkout was for.
@@ -58,6 +59,9 @@ test("a checkout survives the tab leaving for PayPal and back, for its own serve
         assert.equal(loadCheckout("876543210987654321"), undefined);
         saveCheckout({ ...checkout, returned: "unknown" });
         assert.equal(loadCheckout(GUILD).returned, "unknown");
+        // One older than the page would have waited for is forgotten, not revived on the next visit.
+        assert.equal(loadCheckout(GUILD, since + 16 * 60 * 1000), undefined);
+        assert.equal(loadCheckout(GUILD), undefined);
         saveCheckout({ ...checkout, done: "confirmed" });
         assert.equal(loadCheckout(GUILD), undefined);
     } finally {

@@ -48,6 +48,8 @@ export default function PremiumPage() {
     const [refresh, setRefresh] = useState(0);
     // The purchase being watched, if any; see components/premium/checkout.ts.
     const [checkout, setCheckout] = useState<Checkout>();
+    // The buyer backed out at PayPal, which sent them back with cancelled=1.
+    const [cancelled, setCancelled] = useState(false);
     const record = premium && premium.guild === guild ? premium.record : undefined;
     const active = record && premiumActive(record) ? record : undefined;
     const serverName = guilds?.find((g) => g.id === guild)?.name || t("thisServer");
@@ -131,6 +133,15 @@ export default function PremiumPage() {
 
     useEffect(() => {
         if (!router.isReady) return;
+        if (router.query.cancelled === "1") {
+            // Nothing was bought, so nothing is waited for; the server, if known, is kept selected for another go.
+            const saved = loadCheckout();
+            updateCheckout(undefined);
+            setCancelled(true);
+            const target = router.query.guild && util.validGuild(router.query.guild) ? (router.query.guild as string) : saved?.guild;
+            if (target) setGuild(target);
+            return;
+        }
         if (router.query.guild && util.validGuild(router.query.guild)) {
             if (router.query.paid === "1") {
                 returned(router.query.guild as string, "paid");
@@ -149,7 +160,7 @@ export default function PremiumPage() {
             setCheckout((current) => current ?? saved);
             setGuild((current) => current ?? saved.guild);
         }
-    }, [router.isReady, router.query.guild, router.query.paid, router.query.returned, returned]);
+    }, [router.isReady, router.query.guild, router.query.paid, router.query.returned, router.query.cancelled, returned, updateCheckout]);
 
     // Remembers the server's premium as the buyer leaves, so its change is what confirms the payment.
     const handleCheckout = (target: string) => {
@@ -168,7 +179,9 @@ export default function PremiumPage() {
             : checkout.done === "timeout"
                 ? { kind: "timeout" }
                 : { kind: "pending", message: pendingText() }
-        : undefined;
+        : cancelled
+            ? { kind: "cancelled", message: t("checkout.cancelled") }
+            : undefined;
 
     const handleGuildSelect = (key: string) => {
         router.push({
@@ -177,6 +190,7 @@ export default function PremiumPage() {
 
         // A finished checkout's note is for the server it was about; a new choice starts clean.
         if (checkout?.done) updateCheckout(undefined);
+        setCancelled(false);
         setGuild(key);
     };
 
@@ -235,7 +249,7 @@ export default function PremiumPage() {
                     {checkoutNote && (
                         <Alert
                             variant="transparent"
-                            className={`mt-3 mb-0 ${checkoutNote.kind === "confirmed" ? "text-success" : "text-warning"}`}
+                            className={`mt-3 mb-0 ${checkoutNote.kind === "confirmed" ? "text-success" : checkoutNote.kind === "cancelled" ? "text-light" : "text-warning"}`}
                             style={{ background: "var(--darkest)" }}
                         >
                             {checkoutNote.kind === "pending" && <Spinner animation="border" size="sm" className="me-2" />}
