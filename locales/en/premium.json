@@ -21,6 +21,7 @@
   "checkout": {
     "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
     "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
     "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
     "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
     "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
@@ -53,6 +54,7 @@
       "body": "Nothing was charged. You can come back and subscribe whenever you like.",
       "heading": "Checkout cancelled"
     },
+    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
     "heading": "Thanks for supporting AutoMuteUs!",
     "title": "AutoMuteUs - Thank you",
     "unknown": {

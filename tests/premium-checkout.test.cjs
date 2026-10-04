@@ -8,7 +8,7 @@ for (const ext of [".ts", ".tsx"]) {
 }
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { fingerprint, paymentApplied, returnOutcome, saveCheckout, loadCheckout } = require("../components/premium/checkout.ts");
+const { fingerprint, paymentApplied, returnOutcome, saveCheckout, loadCheckout, isCheckoutReport } = require("../components/premium/checkout.ts");
 const { checkoutUrl } = require("../components/premium/PremiumItem.tsx");
 
 const GUILD = "123456789012345678";
@@ -46,12 +46,21 @@ test("a return is believed paid only when the link's own return URL, which names
     assert.equal(returnOutcome({ cancelled: "1" }, "unknown"), "cancelled");
 });
 
+test("only a well-formed report from the return page is acted on", () => {
+    assert.ok(isCheckoutReport({ outcome: "paid", guild: GUILD }));
+    // A button-level return URL names no server; the premium page falls back to the checkout it started.
+    assert.ok(isCheckoutReport({ outcome: "unknown" }));
+    assert.equal(isCheckoutReport({ outcome: "refunded" }), false);
+    assert.equal(isCheckoutReport({ outcome: "paid", guild: 5 }), false);
+    assert.equal(isCheckoutReport(null), false);
+});
+
 test("a checkout survives the tab leaving for PayPal and back, for its own server only, until it is done", () => {
     const store = new Map();
     global.sessionStorage = { getItem: (k) => store.get(k) ?? null, setItem: (k, v) => store.set(k, v), removeItem: (k) => store.delete(k) };
     try {
         const since = Date.now();
-        const checkout = { guild: GUILD, before: fingerprint(free), since, returned: undefined };
+        const checkout = { guild: GUILD, before: fingerprint(free), since, returned: undefined, tab: true };
         saveCheckout(checkout);
         assert.deepEqual(loadCheckout(GUILD), checkout);
         // The return page, told nothing by PayPal, asks which server the checkout was for.

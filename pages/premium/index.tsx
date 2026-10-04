@@ -25,7 +25,9 @@ import {
     Checkout,
     POLL_EVERY,
     POLL_FOR,
+    checkoutChannel,
     fingerprint,
+    isCheckoutReport,
     loadCheckout,
     paymentApplied,
     saveCheckout,
@@ -153,32 +155,54 @@ export default function PremiumPage() {
             }
             return;
         }
-        // Back on the page without PayPal sending them (they closed its receipt and came back by hand, say): a
-        // checkout this tab started is still watched, quietly, so the payment shows up when it lands.
+        // Back on the page without PayPal sending them: its receipt page often waits for a "Return to Merchant" click,
+        // and many just come back by hand instead. A checkout this tab started is picked up as a return PayPal said
+        // nothing about, so the page says what it is waiting for and shows the payment when it lands.
         const saved = loadCheckout();
         if (saved) {
-            setCheckout((current) => current ?? saved);
+            setCheckout((current) => current ?? { ...saved, returned: saved.returned ?? "unknown", since: Date.now() });
             setGuild((current) => current ?? saved.guild);
         }
     }, [router.isReady, router.query.guild, router.query.paid, router.query.returned, router.query.cancelled, returned, updateCheckout]);
 
     // Remembers the server's premium as the buyer leaves, so its change is what confirms the payment.
-    const handleCheckout = (target: string) => {
+    const handleCheckout = (target: string, tab: boolean) => {
         const before = premium && premium.guild === target ? fingerprint(premium.record) : undefined;
-        updateCheckout({ guild: target, before, since: Date.now() });
+        setCancelled(false);
+        updateCheckout({ guild: target, before, since: Date.now(), tab });
     };
+
+    // The return page, in PayPal's tab, reports how the checkout went; this page is the one still in view.
+    useEffect(() => {
+        const channel = checkoutChannel();
+        if (!channel) return;
+        channel.onmessage = (event: MessageEvent) => {
+            if (!isCheckoutReport(event.data)) return;
+            const target = event.data.guild ?? checkout?.guild;
+            if (!target) return;
+            if (event.data.outcome === "cancelled") {
+                updateCheckout(undefined);
+                setCancelled(true);
+                setGuild((current) => current ?? target);
+                return;
+            }
+            returned(target, event.data.outcome);
+        };
+        return () => channel.close();
+    }, [checkout?.guild, returned, updateCheckout]);
 
     const pendingText = () => {
         if (status === "unauthenticated") return t("checkout.pendingSignedOut", { server: serverName });
         if (checkout?.returned === "unknown") return t("checkout.pendingUnknown", { server: serverName });
         return t("checkout.pending", { server: serverName });
     };
-    const checkoutNote = checkout && checkout.guild === guild && (checkout.returned || checkout.done)
+    // While PayPal has a tab of its own, this page says so and keeps watching; its page often offers no way back.
+    const checkoutNote = checkout && checkout.guild === guild && (checkout.returned || checkout.done || checkout.tab)
         ? checkout.done === "confirmed"
             ? { kind: "confirmed", message: t("checkout.confirmed", { server: serverName }) }
             : checkout.done === "timeout"
                 ? { kind: "timeout" }
-                : { kind: "pending", message: pendingText() }
+                : { kind: "pending", message: checkout.returned ? pendingText() : t("checkout.inProgress", { server: serverName }) }
         : cancelled
             ? { kind: "cancelled", message: t("checkout.cancelled") }
             : undefined;

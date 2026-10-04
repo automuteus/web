@@ -24,6 +24,26 @@ export interface Checkout {
     /** How the buyer came back from PayPal; absent until they do. */
     returned?: "paid" | "unknown";
     done?: "confirmed" | "timeout";
+    /** PayPal was opened in a second tab, leaving the premium page in view; the return page then reports back over
+     * checkoutChannel() instead of taking that tab anywhere. */
+    tab?: boolean;
+}
+
+/** The buyer's tabs talk over this: the return page in PayPal's tab tells the premium page how the checkout ended.
+ * Unlike window.opener, it survives whatever PayPal does to the tab in between. */
+export interface CheckoutReport {
+    outcome: CheckoutOutcome;
+    guild?: string;
+}
+
+export function checkoutChannel(): BroadcastChannel | undefined {
+    return typeof BroadcastChannel === "undefined" ? undefined : new BroadcastChannel("automuteus:checkout");
+}
+
+export function isCheckoutReport(data: unknown): data is CheckoutReport {
+    if (!data || typeof data !== "object") return false;
+    const { outcome, guild } = data as { outcome?: unknown; guild?: unknown };
+    return (outcome === "paid" || outcome === "cancelled" || outcome === "unknown") && (guild === undefined || typeof guild === "string");
 }
 
 /** Poll this often, and give up this long after the buyer's return. PayPal's notification normally lands within a
@@ -71,6 +91,7 @@ export function loadCheckout(guild?: string, now = Date.now()): Checkout | undef
             before: typeof saved.before === "string" ? saved.before : undefined,
             since: saved.since,
             returned: saved.returned === "paid" || saved.returned === "unknown" ? saved.returned : undefined,
+            tab: saved.tab === true,
         };
     } catch {
         return undefined;

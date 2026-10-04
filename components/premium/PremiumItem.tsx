@@ -20,7 +20,8 @@ export function checkoutReturnUrl(guildId: string, cancelled: boolean): string {
  * of its own in PayPal, which otherwise wins and names neither the server nor the outcome. */
 export function checkoutUrl(paypalId: string, guildId: string, userId?: string): string {
     const custom = userId && validGuild(userId) ? `${guildId}:${userId}` : guildId;
-    const params = new URLSearchParams({ cmd: "_s-xclick", hosted_button_id: paypalId, custom, rm: "1" });
+    // cbt labels PayPal's "Return to Merchant" button, which guest (card) payers always have to click.
+    const params = new URLSearchParams({ cmd: "_s-xclick", hosted_button_id: paypalId, custom, rm: "1", cbt: "Return to AutoMuteUs" });
     params.set("return", checkoutReturnUrl(guildId, false));
     params.set("cancel_return", checkoutReturnUrl(guildId, true));
     return `https://www.paypal.com/cgi-bin/webscr?${params}`;
@@ -47,8 +48,9 @@ export interface Props extends PremiumItemData {
     userId?: string;
     /** Whether the selected server already has this tier active. */
     current?: boolean;
-    /** Called as the buyer leaves for PayPal, so the page can watch for the server's premium to change. */
-    onCheckout?: (guildId: string) => void;
+    /** Called as the buyer leaves for PayPal, so the page can watch for the server's premium to change; tab says
+     * whether PayPal opened in a second tab (the page stays in view) or took over this one. */
+    onCheckout?: (guildId: string, tab: boolean) => void;
 }
 
 export default function PremiumItem(props: Props): React.ReactElement {
@@ -72,11 +74,17 @@ export default function PremiumItem(props: Props): React.ReactElement {
     const checkout = () => {
         setConfirming(false);
         if (!guildId) return;
-        // Remembered (in sessionStorage) before leaving, so the return page and the premium page can pick up the
-        // purchase in this same tab. PayPal runs here rather than in a popup: a popup cannot reliably reach the page
-        // that opened it, or close itself, once PayPal has had it.
-        props.onCheckout?.(guildId);
-        window.location.assign(checkoutUrl(props.paypalId, guildId, props.userId));
+        // PayPal opens in a new tab so this page stays in view and can show the payment landing: PayPal's own
+        // post-payment page for these buttons often offers no way back at all. The checkout is remembered (in
+        // sessionStorage, which the new tab starts with a copy of) before the tab opens, so the return page knows
+        // which purchase it belongs to. When the browser refuses a new tab, PayPal takes over this one instead.
+        const url = checkoutUrl(props.paypalId, guildId, props.userId);
+        props.onCheckout?.(guildId, true);
+        const tab = window.open(url, "_blank");
+        if (!tab) {
+            props.onCheckout?.(guildId, false);
+            window.location.assign(url);
+        }
     };
 
     return (
