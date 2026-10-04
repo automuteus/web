@@ -3,7 +3,7 @@ import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Trans, useTranslation } from "react-i18next";
-import { popupCenter, validGuild } from "../../utils/functions";
+import { validGuild } from "../../utils/functions";
 import { PremiumItemPerk, usePerkText } from "./PremiumPerk";
 
 /** Where PayPal sends the buyer afterwards: /premium/paid, which tells the premium page the checkout finished. */
@@ -13,10 +13,14 @@ export function checkoutReturnUrl(guildId: string, cancelled: boolean): string {
     return `${window.location.origin}/premium/paid?${params}`;
 }
 
-/** The hosted button's checkout URL. custom carries the server; return and cancel_return bring the buyer back to
- * the site (rm=1: by GET, with no payment variables) instead of leaving them on PayPal's generic receipt. */
-export function checkoutUrl(paypalId: string, guildId: string): string {
-    const params = new URLSearchParams({ cmd: "_s-xclick", hosted_button_id: paypalId, custom: guildId, rm: "1" });
+/** The hosted button's checkout URL. custom carries the server and, when someone is signed in, their Discord user ID
+ * as "<server>:<user>", which PayPal repeats on every notification for the subscription so the payment listener can
+ * record who bought it. return and cancel_return bring the buyer back to the site (rm=1: by GET, with no payment
+ * variables) instead of leaving them on PayPal's generic receipt; they only apply when the button has no return URL
+ * of its own in PayPal, which otherwise wins and names neither the server nor the outcome. */
+export function checkoutUrl(paypalId: string, guildId: string, userId?: string): string {
+    const custom = userId && validGuild(userId) ? `${guildId}:${userId}` : guildId;
+    const params = new URLSearchParams({ cmd: "_s-xclick", hosted_button_id: paypalId, custom, rm: "1" });
     params.set("return", checkoutReturnUrl(guildId, false));
     params.set("cancel_return", checkoutReturnUrl(guildId, true));
     return `https://www.paypal.com/cgi-bin/webscr?${params}`;
@@ -39,6 +43,8 @@ export interface PremiumItemData {
 
 export interface Props extends PremiumItemData {
     guildId?: number | string;
+    /** The signed-in buyer's Discord user ID, recorded with the subscription. */
+    userId?: string;
     /** Whether the selected server already has this tier active. */
     current?: boolean;
     /** Called as the buyer leaves for PayPal, so the page can watch for the server's premium to change. */
@@ -66,12 +72,11 @@ export default function PremiumItem(props: Props): React.ReactElement {
     const checkout = () => {
         setConfirming(false);
         if (!guildId) return;
+        // Remembered (in sessionStorage) before leaving, so the return page and the premium page can pick up the
+        // purchase in this same tab. PayPal runs here rather than in a popup: a popup cannot reliably reach the page
+        // that opened it, or close itself, once PayPal has had it.
         props.onCheckout?.(guildId);
-        const url = checkoutUrl(props.paypalId, guildId);
-        // The popup's window name, not shown.
-        const popup = popupCenter({ url, title: "AutoMuteUs Premium", w: 400, h: 600 });
-        // Popup blocked: check out in this tab instead; /premium/paid then links back here.
-        if (!popup) window.location.assign(url);
+        window.location.assign(checkoutUrl(props.paypalId, guildId, props.userId));
     };
 
     return (

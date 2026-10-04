@@ -8,7 +8,7 @@ for (const ext of [".ts", ".tsx"]) {
 }
 const { test } = require("node:test");
 const assert = require("node:assert/strict");
-const { fingerprint, paymentApplied, isCheckoutMessage, saveCheckout, loadCheckout, CHECKOUT_MESSAGE } = require("../components/premium/checkout.ts");
+const { fingerprint, paymentApplied, returnOutcome, saveCheckout, loadCheckout } = require("../components/premium/checkout.ts");
 const { checkoutUrl } = require("../components/premium/PremiumItem.tsx");
 
 const GUILD = "123456789012345678";
@@ -35,14 +35,15 @@ test("without a record from before the purchase, active is the best available pr
     assert.equal(paymentApplied(checkout, gold, true), true);
 });
 
-test("only the popup's own message type, with a known outcome, is accepted", () => {
-    assert.ok(isCheckoutMessage({ type: CHECKOUT_MESSAGE, guild: GUILD, outcome: "paid" }));
-    // The buttons' own return URL names neither the server nor the outcome.
-    assert.ok(isCheckoutMessage({ type: CHECKOUT_MESSAGE, outcome: "unknown" }));
-    assert.equal(isCheckoutMessage({ type: CHECKOUT_MESSAGE, guild: GUILD }), false);
-    assert.equal(isCheckoutMessage({ type: "other", outcome: "paid" }), false);
-    assert.equal(isCheckoutMessage(null), false);
-    assert.equal(isCheckoutMessage("automuteus:checkout"), false);
+test("a return is believed paid only when the link's own return URL, which names the server, was used", () => {
+    assert.equal(returnOutcome({ guild: GUILD }, "paid"), "paid");
+    assert.equal(returnOutcome({ guild: GUILD, cancelled: "1" }, "paid"), "cancelled");
+    // A button-level return URL arrives bare, for payments and cancellations alike.
+    assert.equal(returnOutcome({}, "paid"), "unknown");
+    assert.equal(returnOutcome({}, "unknown"), "unknown");
+    assert.equal(returnOutcome({ guild: GUILD }, "unknown"), "unknown");
+    // cancelled=1 can only have been set on purpose.
+    assert.equal(returnOutcome({ cancelled: "1" }, "unknown"), "cancelled");
 });
 
 test("a checkout survives the tab leaving for PayPal and back, for its own server only, until it is done", () => {
@@ -75,6 +76,11 @@ test("the PayPal URL names the server and brings the buyer back to /premium/paid
         assert.equal(url.searchParams.get("rm"), "1");
         assert.equal(url.searchParams.get("return"), `https://automute.us/premium/paid?guild=${GUILD}`);
         assert.equal(url.searchParams.get("cancel_return"), `https://automute.us/premium/paid?guild=${GUILD}&cancelled=1`);
+        // Signed in, custom also names the buyer, for the payment listener to record; anything else is left off.
+        const USER = "223456789012345678";
+        assert.equal(new URL(checkoutUrl("M8D39PF5ADGJW", GUILD, USER)).searchParams.get("custom"), `${GUILD}:${USER}`);
+        assert.equal(new URL(checkoutUrl("M8D39PF5ADGJW", GUILD, "")).searchParams.get("custom"), GUILD);
+        assert.equal(new URL(checkoutUrl("M8D39PF5ADGJW", GUILD, "not-an-id")).searchParams.get("custom"), GUILD);
     } finally {
         delete global.window;
     }

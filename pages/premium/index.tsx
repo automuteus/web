@@ -26,7 +26,6 @@ import {
     POLL_EVERY,
     POLL_FOR,
     fingerprint,
-    isCheckoutMessage,
     loadCheckout,
     paymentApplied,
     saveCheckout,
@@ -36,7 +35,7 @@ import { PremiumRecord, premiumActive } from "../../components/stats/guild-stats
 export default function PremiumPage() {
     const { t } = useTranslation("premium");
     const router = useRouter();
-    const { status } = useSession();
+    const { data: session, status } = useSession();
     const [guild, setGuild] = useState<string>();
     const [open, setOpen] = useState<boolean>(false);
     // undefined = not loaded yet (or signed out); [] = signed in, nothing found
@@ -110,28 +109,6 @@ export default function PremiumPage() {
         return () => window.removeEventListener("focus", onFocus);
     }, []);
 
-    // The return page, in the PayPal popup, reports how the checkout went. It names the server only when PayPal was
-    // sent back to /premium/paid; otherwise the checkout this page started says which server it was.
-    useEffect(() => {
-        const onMessage = (event: MessageEvent) => {
-            if (event.origin !== window.location.origin || !isCheckoutMessage(event.data)) return;
-            const { outcome } = event.data;
-            const paidGuild = event.data.guild ?? checkout?.guild;
-            if (!paidGuild) return;
-            if (outcome === "cancelled") {
-                setCheckout((current) => {
-                    if (!current || current.guild !== paidGuild) return current;
-                    saveCheckout(undefined);
-                    return undefined;
-                });
-                return;
-            }
-            returned(paidGuild, outcome);
-        };
-        window.addEventListener("message", onMessage);
-        return () => window.removeEventListener("message", onMessage);
-    }, [returned, checkout?.guild]);
-
     // While a purchase is pending, poll for its server's premium (from departure, so a buyer who closes PayPal's
     // receipt without coming back still sees the result) and give up a while after the buyer's return. The wait ends
     // with a warning only when PayPal said the buyer paid; one who never came back, or came back without PayPal
@@ -153,6 +130,7 @@ export default function PremiumPage() {
     }, [checkout, premium, updateCheckout]);
 
     useEffect(() => {
+        if (!router.isReady) return;
         if (router.query.guild && util.validGuild(router.query.guild)) {
             if (router.query.paid === "1") {
                 returned(router.query.guild as string, "paid");
@@ -162,8 +140,16 @@ export default function PremiumPage() {
                 setOpen(true);
                 setGuild(router.query.guild as string);
             }
+            return;
         }
-    }, [router.query.guild, router.query.paid, router.query.returned, returned]);
+        // Back on the page without PayPal sending them (they closed its receipt and came back by hand, say): a
+        // checkout this tab started is still watched, quietly, so the payment shows up when it lands.
+        const saved = loadCheckout();
+        if (saved) {
+            setCheckout((current) => current ?? saved);
+            setGuild((current) => current ?? saved.guild);
+        }
+    }, [router.isReady, router.query.guild, router.query.paid, router.query.returned, returned]);
 
     // Remembers the server's premium as the buyer leaves, so its change is what confirms the payment.
     const handleCheckout = (target: string) => {
@@ -294,6 +280,7 @@ export default function PremiumPage() {
                                 key={item.paypalId}
                                 {...item}
                                 guildId={guild}
+                                userId={session?.user?.id}
                                 current={!!active && item.tier === active.tier}
                                 onCheckout={handleCheckout}
                             />

@@ -1,22 +1,16 @@
 import { GuildPremium } from "./premium-status";
 
-/** How a checkout ended. unknown is a return PayPal said nothing about: the hosted buttons' own return URL
- * (/premium/callback) overrides the one the link asks for, and carries neither the server nor the outcome. */
+/** How a checkout ended. unknown is a return PayPal said nothing about: a return URL set on the hosted button itself
+ * overrides the one the link asks for, and carries neither the server nor the outcome. */
 export type CheckoutOutcome = "paid" | "cancelled" | "unknown";
 
-/** The data the return page posts to the premium page that opened PayPal in a popup. */
-export const CHECKOUT_MESSAGE = "automuteus:checkout";
-export interface CheckoutMessage {
-    type: typeof CHECKOUT_MESSAGE;
-    /** The server paid for, when the return URL named it; otherwise the premium page uses the checkout it started. */
-    guild?: string;
-    outcome: CheckoutOutcome;
-}
-
-export function isCheckoutMessage(data: unknown): data is CheckoutMessage {
-    if (!data || typeof data !== "object") return false;
-    const { type, outcome } = data as { type?: unknown; outcome?: unknown };
-    return type === CHECKOUT_MESSAGE && (outcome === "paid" || outcome === "cancelled" || outcome === "unknown");
+/** What a return page's query says about the checkout. Only the link's own return URLs carry guild, so a return
+ * without it came through the button's URL, where PayPal sends payments and cancellations alike: paid is believed
+ * only alongside guild, while cancelled=1 can only have been asked for deliberately. */
+export function returnOutcome(query: { guild?: unknown; cancelled?: unknown }, defaultOutcome: CheckoutOutcome): CheckoutOutcome {
+    if (query.cancelled === "1") return "cancelled";
+    if (defaultOutcome === "paid" && typeof query.guild !== "string") return "unknown";
+    return defaultOutcome;
 }
 
 /** A purchase the premium page is watching: the server's premium as it stood when the buyer left for PayPal, so any
