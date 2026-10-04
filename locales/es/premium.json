@@ -19,16 +19,16 @@
     }
   },
   "checkout": {
-    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
-    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
-    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
-    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
-    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
-    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
-    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+    "cancelled": "Compra cancelada. No se cobró nada; los planes de abajo estarán aquí cuando quieras.",
+    "confirmed": "¡Pago recibido! El premium de {{server}} está actualizado abajo.",
+    "inProgress": "Completa el pago en la pestaña de PayPal y luego vuelve aquí: esta página se actualiza sola en cuanto PayPal lo confirme, normalmente en unos minutos. No hace falta comprar de nuevo.",
+    "pending": "¡Gracias! PayPal está confirmando tu pago para {{server}}. Premium suele activarse en unos minutos y esta página se actualizará sola, así que no hace falta comprar de nuevo.",
+    "pendingSignedOut": "¡Gracias! PayPal está confirmando tu pago para {{server}}. Premium suele activarse en unos minutos; inicia sesión para ver el estado premium de este servidor. No hace falta comprar de nuevo.",
+    "pendingUnknown": "De vuelta de PayPal. Si completaste el pago para {{server}}, premium suele activarse en unos minutos y esta página se actualizará sola, así que no hace falta comprar de nuevo. Si cancelaste, no se cobró nada.",
+    "slow": "Seguimos esperando a PayPal. Los pagos suelen confirmarse en unos minutos, aunque algunos tardan más. Si {{server}} no tiene premium en una hora, <form>avísanos</form> en lugar de comprar de nuevo."
   },
   "guildSelect": {
-    "byId": "Server {{id}}",
+    "byId": "Servidor {{id}}",
     "noServers": "No se encontraron servidores.",
     "prompt": "Seleccionar servidor",
     "reload": "Prueba a recargar la página."
@@ -48,23 +48,23 @@
     "title": "ID del servidor preseleccionado"
   },
   "paid": {
-    "back": "Back to AutoMuteUs Premium",
-    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "back": "Volver a AutoMuteUs Premium",
+    "body": "PayPal está confirmando tu pago. Premium suele activarse en unos minutos y aparecerá en la página de premium, así que no hace falta comprar de nuevo.",
     "cancelled": {
-      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
-      "heading": "Checkout cancelled"
+      "body": "No se cobró nada. Puedes volver y suscribirte cuando quieras.",
+      "heading": "Compra cancelada"
     },
-    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
-    "heading": "Thanks for supporting AutoMuteUs!",
-    "title": "AutoMuteUs - Thank you",
+    "closeTab": "Puedes cerrar esta pestaña. La página de AutoMuteUs desde la que empezaste tiene la información más reciente.",
+    "heading": "¡Gracias por apoyar a AutoMuteUs!",
+    "title": "AutoMuteUs - Gracias",
     "unknown": {
-      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
-      "heading": "Welcome back from PayPal"
+      "body": "Si completaste el pago, PayPal lo está confirmando ahora: premium suele activarse en unos minutos y aparecerá en la página de premium, así que no hace falta comprar de nuevo. Si cancelaste, no se cobró nada.",
+      "heading": "De vuelta de PayPal"
     }
   },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load!",
+      "description": "Podrás crear partidas nuevas siempre, incluso cuando el bot esté muy cargado.",
       "title": "Acceso prioritario a partidas"
     },
     "mutingBots": {
@@ -76,22 +76,22 @@
       "title": "Estadísticas y tablas de clasificación"
     },
     "support": {
-      "description": "Access to Gold-only channels and chats in our official Discord!",
+      "description": "¡Acceso a canales y chats exclusivos para Gold en nuestro Discord oficial!",
       "title": "Soporte Premium"
     }
   },
   "perksHeading": "Ventajas Premium",
   "picker": {
-    "heading": "Which server is this for?",
-    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
-    "none": "Choose a server to get started."
+    "heading": "¿Para qué servidor es?",
+    "help": "Premium es por servidor de Discord. Elige uno para activar los planes de abajo y ver lo que ya tiene.",
+    "none": "Elige un servidor para empezar."
   },
   "rebuy": {
-    "anyway": "Buy anyway",
-    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
-    "keep": "Keep the current plan",
-    "title": "Buy {{tier}} again?",
-    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+    "anyway": "Comprar de todos modos",
+    "body": "Este servidor ya tiene AutoMuteUs {{tier}}. Comprarlo de nuevo inicia una segunda suscripción de PayPal, facturada por separado, y la actual sigue activa hasta que la canceles.",
+    "keep": "Mantener el plan actual",
+    "title": "¿Comprar {{tier}} de nuevo?",
+    "wait": "Si acabas de pagar y premium aún no aparece, mejor espera unos minutos."
   },
   "signIn": "Inicia sesión para ver tus servidores",
   "status": {
