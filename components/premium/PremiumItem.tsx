@@ -1,10 +1,31 @@
-import React from "react";
+import React, { useState } from "react";
 import { faPaypal } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Button, Modal, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Trans, useTranslation } from "react-i18next";
 import { popupCenter, validGuild } from "../../utils/functions";
 import { PremiumItemPerk, usePerkText } from "./PremiumPerk";
+
+/** Where PayPal sends the buyer afterwards: /premium/paid, which tells the premium page the checkout finished. */
+export function checkoutReturnUrl(guildId: string | undefined, cancelled: boolean): string {
+    const params = new URLSearchParams();
+    if (guildId) params.set("guild", guildId);
+    if (cancelled) params.set("cancelled", "1");
+    const query = params.toString();
+    return `${window.location.origin}/premium/paid${query ? "?" + query : ""}`;
+}
+
+/** The hosted button's checkout URL. custom carries the server; return and cancel_return bring the buyer back to
+ * the site (rm=1: by GET, with no payment variables) instead of leaving them on PayPal's generic receipt. A donation
+ * still names the server for the ledger, but the return page must not promise it premium. */
+export function checkoutUrl(paypalId: string, guildId: string | undefined, donation = false): string {
+    const params = new URLSearchParams({ cmd: "_s-xclick", hosted_button_id: paypalId, rm: "1" });
+    if (guildId) params.set("custom", guildId);
+    const watched = donation ? undefined : guildId;
+    params.set("return", checkoutReturnUrl(watched, false));
+    params.set("cancel_return", checkoutReturnUrl(watched, true));
+    return `https://www.paypal.com/cgi-bin/webscr?${params}`;
+}
 
 export type PremiumCard = "bronze" | "silver" | "gold" | "donation";
 
@@ -25,15 +46,30 @@ export interface Props extends PremiumItemData {
     guildId?: number | string;
     /** Whether the selected server already has this tier active. */
     current?: boolean;
+    /** Called as the buyer leaves for PayPal, so the page can watch for the server's premium to change. */
+    onCheckout?: (guildId: string | undefined) => void;
 }
 
 export default function PremiumItem(props: Props): React.ReactElement {
     const { t } = useTranslation("premium");
     const perkText = usePerkText();
-    const guild_target = props.guildId ? "&custom=" + props.guildId : "";
+    // Asks before starting a second subscription for a tier the server already has.
+    const [confirming, setConfirming] = useState(false);
+    const guildId = props.guildId ? String(props.guildId) : undefined;
     const valid = validGuild(props.guildId);
     const isDonation = props.card === "donation";
     const disabled = !valid && !isDonation;
+
+    const checkout = () => {
+        setConfirming(false);
+        // Only a tier purchase changes the server's premium, so a donation is nothing for the page to wait on.
+        props.onCheckout?.(isDonation ? undefined : guildId);
+        const url = checkoutUrl(props.paypalId, guildId, isDonation);
+        // The popup's window name, not shown.
+        const popup = popupCenter({ url, title: "AutoMuteUs Premium", w: 400, h: 600 });
+        // Popup blocked: check out in this tab instead; /premium/paid then links back here.
+        if (!popup) window.location.assign(url);
+    };
     const cardTitle = {
         bronze: t("tier.bronze"),
         silver: t("tier.silver"),
@@ -98,24 +134,31 @@ export default function PremiumItem(props: Props): React.ReactElement {
                             className="btn btn-premium btn-sm"
                             disabled={disabled}
                             style={disabled ? { pointerEvents: "none" } : {}}
-                            onClick={() =>
-                                popupCenter({
-                                    url:
-                                        "https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=" +
-                                        props.paypalId +
-                                        guild_target,
-                                    // The popup's window name, not shown.
-                                    title: "AutoMuteUs Premium",
-                                    w: 400,
-                                    h: 600,
-                                })
-                            }
+                            onClick={() => (props.current ? setConfirming(true) : checkout())}
                         >
                             <FontAwesomeIcon icon={faPaypal} className="me-2" />
                             {buttonText}
                         </button>
                     </span>
                 </OverlayTrigger>
+                <Modal show={confirming} onHide={() => setConfirming(false)} centered>
+                    <Modal.Header className="bg-warning text-dark align-items-center justify-content-center">
+                        <Modal.Title>{t("rebuy.title", { tier: cardTitle })}</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body className="text-center">
+                        <div>{t("rebuy.body", { tier: cardTitle })}</div>
+                        <div className="mt-2">{t("rebuy.wait")}</div>
+                    </Modal.Body>
+                    <Modal.Footer className="align-items-center justify-content-center">
+                        <Button variant="secondary" onClick={() => setConfirming(false)}>
+                            {t("rebuy.keep")}
+                        </Button>
+                        <Button variant="warning" onClick={checkout}>
+                            <FontAwesomeIcon icon={faPaypal} className="me-2" />
+                            {t("rebuy.anyway")}
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
                 {isDonation && (
                     <div className="card-text">
                         <div>

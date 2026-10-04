@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import { Trans, useTranslation } from "react-i18next";
@@ -21,6 +21,16 @@ import PremiumItem from "../../components/premium/PremiumItem";
 import { premium_items } from "../../data/premium_items";
 import PremiumPerk, { PerkId } from "../../components/premium/PremiumPerk";
 import { GuildPremium, describePremium, parsePremium } from "../../components/premium/premium-status";
+import {
+    Checkout,
+    POLL_EVERY,
+    POLL_FOR,
+    fingerprint,
+    isCheckoutMessage,
+    loadCheckout,
+    paymentApplied,
+    saveCheckout,
+} from "../../components/premium/checkout";
 import { PremiumRecord, premiumActive } from "../../components/stats/guild-stats";
 
 export default function PremiumPage() {
@@ -34,10 +44,34 @@ export default function PremiumPage() {
     // The selected server's premium, keyed by server so a stale answer never shows under another one. Only
     // members can read it, so a server picked by ID the user is not in simply shows no status.
     const [premium, setPremium] = useState<{ guild: string; record: GuildPremium }>();
+    // Bumped to fetch the selected server's premium again: on each poll while a checkout is pending, and whenever the
+    // window regains focus, since the buyer has usually just closed PayPal.
+    const [refresh, setRefresh] = useState(0);
+    // The purchase being watched, if any; see components/premium/checkout.ts.
+    const [checkout, setCheckout] = useState<Checkout>();
     const record = premium && premium.guild === guild ? premium.record : undefined;
     const active = record && premiumActive(record) ? record : undefined;
     const serverName = guilds?.find((g) => g.id === guild)?.name || t("thisServer");
     const summary = record && guild ? describePremium(record, serverName, t) : undefined;
+    const signedIn = status === "authenticated";
+
+    const updateCheckout = useCallback((next: Checkout | undefined) => {
+        setCheckout(next);
+        saveCheckout(next);
+    }, []);
+
+    // The buyer is back from PayPal (the popup said so, or the tab itself returned with ?paid=1): show the paid-for
+    // server and start waiting for its premium to change. The record from before the purchase is the one taken at
+    // departure, kept in sessionStorage in case this is a fresh page load.
+    const returned = useCallback((paidGuild: string) => {
+        setGuild(paidGuild);
+        setCheckout((current) => {
+            const base = current && current.guild === paidGuild ? current : loadCheckout(paidGuild) ?? { guild: paidGuild };
+            const next: Checkout = { ...base, since: Date.now(), returned: true, done: undefined };
+            saveCheckout(next);
+            return next;
+        });
+    }, []);
 
     useEffect(() => {
         if (status !== "authenticated") {
@@ -58,7 +92,7 @@ export default function PremiumPage() {
     }, [status]);
 
     useEffect(() => {
-        if (status !== "authenticated" || !guild || !util.validGuild(guild)) return;
+        if (!signedIn || !guild || !util.validGuild(guild)) return;
         const controller = new AbortController();
         fetch(`/api/guild/premium?${new URLSearchParams({ guildID: guild })}`, { signal: controller.signal, cache: "no-store" })
             .then(async (res) => {
@@ -68,20 +102,86 @@ export default function PremiumPage() {
             })
             .catch(() => {});
         return () => controller.abort();
-    }, [status, guild]);
+    }, [signedIn, guild, refresh]);
+
+    useEffect(() => {
+        const onFocus = () => setRefresh((n) => n + 1);
+        window.addEventListener("focus", onFocus);
+        return () => window.removeEventListener("focus", onFocus);
+    }, []);
+
+    // /premium/paid, in the PayPal popup, reports how the checkout went.
+    useEffect(() => {
+        const onMessage = (event: MessageEvent) => {
+            if (event.origin !== window.location.origin || !isCheckoutMessage(event.data)) return;
+            const { guild: paidGuild, cancelled } = event.data;
+            if (!paidGuild) return;
+            if (cancelled) {
+                setCheckout((current) => {
+                    if (!current || current.guild !== paidGuild) return current;
+                    saveCheckout(undefined);
+                    return undefined;
+                });
+                return;
+            }
+            returned(paidGuild);
+        };
+        window.addEventListener("message", onMessage);
+        return () => window.removeEventListener("message", onMessage);
+    }, [returned]);
+
+    // While a purchase is pending, poll for its server's premium (from departure, so a buyer who closes PayPal's
+    // receipt without coming back still sees the result) and give up a while after the buyer's return. A buyer who
+    // never came back most likely never paid, so that wait ends quietly rather than with a warning.
+    useEffect(() => {
+        if (!signedIn || !checkout || checkout.done) return;
+        const id = setInterval(() => {
+            if (Date.now() - checkout.since > POLL_FOR) updateCheckout(checkout.returned ? { ...checkout, done: "timeout" } : undefined);
+            else setRefresh((n) => n + 1);
+        }, POLL_EVERY);
+        return () => clearInterval(id);
+    }, [signedIn, checkout, updateCheckout]);
+
+    useEffect(() => {
+        if (!checkout || checkout.done || !premium || premium.guild !== checkout.guild) return;
+        if (paymentApplied(checkout, premium.record, premiumActive(premium.record))) {
+            updateCheckout({ ...checkout, done: "confirmed" });
+        }
+    }, [checkout, premium, updateCheckout]);
 
     useEffect(() => {
         if (router.query.guild && util.validGuild(router.query.guild)) {
-            setOpen(true);
-            setGuild(router.query.guild as string);
+            if (router.query.paid === "1") {
+                returned(router.query.guild as string);
+            } else {
+                setOpen(true);
+                setGuild(router.query.guild as string);
+            }
         }
-    }, [router.query.guild]);
+    }, [router.query.guild, router.query.paid, returned]);
+
+    // Remembers the server's premium as the buyer leaves, so its change is what confirms the payment.
+    const handleCheckout = (target: string | undefined) => {
+        if (!target) return;
+        const before = premium && premium.guild === target ? fingerprint(premium.record) : undefined;
+        updateCheckout({ guild: target, before, since: Date.now(), returned: false });
+    };
+
+    const checkoutNote = checkout && checkout.guild === guild && (checkout.returned || checkout.done)
+        ? checkout.done === "confirmed"
+            ? { kind: "confirmed", message: t("checkout.confirmed", { server: serverName }) }
+            : checkout.done === "timeout"
+                ? { kind: "timeout" }
+                : { kind: "pending", message: status === "unauthenticated" ? t("checkout.pendingSignedOut", { server: serverName }) : t("checkout.pending", { server: serverName }) }
+        : undefined;
 
     const handleGuildSelect = (key: any) => {
         router.push({
             query: {},
         });
 
+        // A finished checkout's note is for the server it was about; a new choice starts clean.
+        if (checkout?.done) updateCheckout(undefined);
         setGuild(key);
     };
 
@@ -124,7 +224,28 @@ export default function PremiumPage() {
                     {t("subtitle")}
                 </div>
 
-                {summary && (
+                {checkoutNote && (
+                    <Alert
+                        variant="transparent"
+                        className={`mt-3 mb-0 ${checkoutNote.kind === "confirmed" ? "text-success" : "text-warning"}`}
+                        style={{ background: "var(--dark)" }}
+                    >
+                        {checkoutNote.kind === "pending" && <Spinner animation="border" size="sm" className="me-2" />}
+                        {checkoutNote.kind === "timeout" ? (
+                            <Trans
+                                t={t}
+                                i18nKey="checkout.slow"
+                                values={{ server: serverName }}
+                                components={{ form: <a href="https://forms.gle/pSy1GkUtQwZKdcNEA" target="_blank" className="intense" /> }}
+                            />
+                        ) : (
+                            checkoutNote.message
+                        )}
+                    </Alert>
+                )}
+
+                {/* While a payment is being confirmed, the summary would only contradict the note above it. */}
+                {summary && checkoutNote?.kind !== "pending" && (
                     <Alert
                         variant="transparent"
                         className={`mt-3 mb-0 ${summary.kind === "active" ? "text-success" : summary.kind === "ending" ? "text-warning" : "text-light"}`}
@@ -151,6 +272,7 @@ export default function PremiumPage() {
                                 {...item}
                                 guildId={guild}
                                 current={!!active && item.tier === active.tier}
+                                onCheckout={handleCheckout}
                             />
                         );
                     })}

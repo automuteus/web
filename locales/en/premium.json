@@ -25,6 +25,12 @@
       "button": "Get Silver"
     }
   },
+  "checkout": {
+    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
+    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
+    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+  },
   "guildSelect": {
     "noServers": "No servers found.",
     "prompt": "Select Server",
@@ -43,6 +49,20 @@
     "findId": "How do I find my server ID?",
     "selected": "The server ID you've selected is:",
     "title": "Server ID Pre-selected"
+  },
+  "paid": {
+    "back": "Back to AutoMuteUs Premium",
+    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "cancelled": {
+      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
+      "heading": "Checkout cancelled"
+    },
+    "donation": {
+      "body": "Your donation helps keep this open source project running.",
+      "heading": "Thank you! ♥"
+    },
+    "heading": "Thanks for supporting AutoMuteUs!",
+    "title": "AutoMuteUs - Thank you"
   },
   "perk": {
     "gameAccess": {
@@ -67,6 +87,13 @@
     }
   },
   "perksHeading": "Premium Perks",
+  "rebuy": {
+    "anyway": "Buy anyway",
+    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
+    "keep": "Keep the current plan",
+    "title": "Buy {{tier}} again?",
+    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+  },
   "signIn": "Sign in to view your servers",
   "status": {
     "changingTiers": "Each purchase starts a new PayPal subscription, so buying here won't replace the current one, and its remaining days don't carry over. If you're changing tiers, <cancel>cancel the current subscription</cancel> first.",

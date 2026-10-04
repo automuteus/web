@@ -40,6 +40,7 @@ export const compareAlph = (a: any, b: any, field: string) => {
     return cmp;
 };
 
+/** Opens url in a centred popup and returns the window, or null when the browser blocked it. */
 export const popupCenter = ({
     url,
     title,
@@ -50,7 +51,7 @@ export const popupCenter = ({
     title: string;
     w: number;
     h: number;
-}) => {
+}): Window | null => {
     const dualScreenLeft =
         window.screenLeft !== undefined ? window.screenLeft : window.screenX;
     const dualScreenTop =
@@ -82,6 +83,6 @@ export const popupCenter = ({
       `
     );
 
-    //@ts-ignore
-    if (window.focus) newWindow.focus();
+    if (newWindow && window.focus) newWindow.focus();
+    return newWindow;
 };
