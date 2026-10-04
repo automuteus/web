@@ -1,64 +1,45 @@
 import { Guild } from "../../types/Guild";
-import React, { BaseSyntheticEvent, useState } from "react";
+import React from "react";
 import { Dropdown } from "react-bootstrap";
 import { useTranslation } from "react-i18next";
 import GuildEntry from "./GuildEntry";
 
 interface Props {
     guilds: Array<Guild>;
-    onSelect: any;
-    initial?: string | string[];
+    onSelect: (guildId: string) => void;
+    /** The server currently chosen, however it was chosen (here, by URL, or by a finished checkout). */
+    selected?: string;
+    size?: "sm" | "lg";
 }
 
 export default function GuildSelect(props: Props): React.ReactElement {
-    const { guilds, onSelect, initial } = props;
+    const { guilds, onSelect, selected, size } = props;
     const { t } = useTranslation("premium");
-
-    let g;
-    if (guilds) g = guilds.find((v) => v.id === initial);
-
-    // Whether the toggle prompts for a server; decided once, like the selection it stands in for.
-    const [prompt] = useState<boolean>(!initial);
-    // The picked entry's markup, copied into the toggle.
-    const [btnText, setBtnText] = useState<string>();
-
-    const handleSelect = (key: any, e: BaseSyntheticEvent) => {
-        setBtnText((e.target as HTMLElement).innerHTML);
-        onSelect(key);
-    };
+    const current = selected ? guilds.find((v) => v.id === selected) : undefined;
 
     if (guilds.length <= 0)
         return (
-            <div className="d-flex align-items-center text-right mb-2 " title={t("guildSelect.reload")}><button className="btn btn-dark" disabled>{t("guildSelect.noServers")}</button></div>
+            <div className="d-flex align-items-center" title={t("guildSelect.reload")}><button className="btn btn-dark" disabled>{t("guildSelect.noServers")}</button></div>
         );
 
     return (
-        <div className="d-flex align-items-center text-right mb-2 ">
-            <Dropdown className="guild-dropdown" onSelect={handleSelect}>
+        <div className="d-flex align-items-center">
+            <Dropdown className="guild-dropdown" onSelect={(key) => key && onSelect(key)}>
                 <Dropdown.Toggle
                     variant="premium"
+                    size={size}
                     className="text-sentence-case"
                 >
-                    {btnText ? (
-                        <span
-                            dangerouslySetInnerHTML={{
-                                __html: btnText,
-                            }}
-                        ></span>
-                    ) : prompt ? (
-                        <span>
-                            <span>{t("guildSelect.prompt")}</span>
-                        </span>
+                    {current ? (
+                        <GuildEntry {...current} key={current.id} unwrapped />
                     ) : (
-                        g && <GuildEntry {...g} key={g.id} unwrapped />
+                        <span>{selected ? t("guildSelect.byId", { id: selected }) : t("guildSelect.prompt")}</span>
                     )}
                 </Dropdown.Toggle>
                 <Dropdown.Menu className="text-white shadow" align="end">
-                    {Array.isArray(guilds) &&
-                        guilds.length > 0 &&
-                        [...guilds]
-                            .sort((a, b) => (a.name <= b.name ? -1 : 1))
-                            .map((g) => <GuildEntry {...g} key={g.id} />)}
+                    {[...guilds]
+                        .sort((a, b) => (a.name <= b.name ? -1 : 1))
+                        .map((g) => <GuildEntry {...g} key={g.id} />)}
                 </Dropdown.Menu>
             </Dropdown>
         </div>

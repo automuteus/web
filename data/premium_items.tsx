@@ -3,7 +3,6 @@ import { PremiumItemData } from "../components/premium/PremiumItem";
 import crewmate_brown from "../public/images/svg/crewmate_brown.svg";
 import crewmate_white from "../public/images/svg/crewmate_white.svg";
 import crewmate_yellow from "../public/images/svg/crewmate_yellow.svg";
-import crewmate_cyan from "../public/images/svg/crewmate_cyan.svg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheckCircle, faTimes, faTimesCircle } from "@fortawesome/free-solid-svg-icons";
 
@@ -43,15 +42,6 @@ export const premium_items: Array<PremiumItemData> = [
                     />
                 ),
             },
-            {
-                perk: "servers",
-                value: (
-                    <FontAwesomeIcon
-                        icon={faTimesCircle}
-                        className="text-muted"
-                    />
-                ),
-            },
         ],
     },
     {
@@ -72,7 +62,12 @@ export const premium_items: Array<PremiumItemData> = [
             },
             {
                 perk: "support",
-                value: <FontAwesomeIcon icon={faCheckCircle} />,
+                value: (
+                    <FontAwesomeIcon
+                        icon={faTimesCircle}
+                        className="text-muted"
+                    />
+                ),
             },
             {
                 perk: "mutingBots",
@@ -81,15 +76,6 @@ export const premium_items: Array<PremiumItemData> = [
                         <FontAwesomeIcon icon={faTimes} />
                         <strong> 1</strong>
                     </>
-                ),
-            },
-            {
-                perk: "servers",
-                value: (
-                    <FontAwesomeIcon
-                        icon={faTimesCircle}
-                        className="text-muted"
-                    />
                 ),
             },
         ],
@@ -123,21 +109,6 @@ export const premium_items: Array<PremiumItemData> = [
                     </>
                 ),
             },
-            {
-                perk: "servers",
-                value: (
-                    <>
-                        <FontAwesomeIcon icon={faTimes} />
-                        <strong className=""> 2</strong>
-                    </>
-                ),
-            },
         ],
-    },
-    {
-        card: "donation",
-        accentColor: "#38fedc",
-        paypalId: "YM72RY5TF6WZU",
-        image: crewmate_cyan.src,
     },
 ];
