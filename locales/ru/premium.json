@@ -9,13 +9,6 @@
     },
     "chooseServer": "Сначала выберите сервер",
     "current": "Текущий план",
-    "donation": {
-      "button": "Пожертвовать",
-      "description": "Особых привилегий в боте вы не получите, но получите нашу благодарность за то, что помогаете существовать этому проекту с открытым исходным кодом!",
-      "heading": "Поддержите любой суммой ❤️",
-      "thanks": "Спасибо! ♥",
-      "title": "Пожертвование"
-    },
     "gold": {
       "button": "Купить Gold"
     },
@@ -25,7 +18,17 @@
       "button": "Купить Silver"
     }
   },
+  "checkout": {
+    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
+    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
+    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
+    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
+    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
+    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+  },
   "guildSelect": {
+    "byId": "Server {{id}}",
     "noServers": "Серверы не найдены.",
     "prompt": "Выберите сервер",
     "reload": "Попробуйте перезагрузить страницу."
@@ -44,6 +47,21 @@
     "selected": "Выбранный ID сервера:",
     "title": "Сервер уже выбран"
   },
+  "paid": {
+    "back": "Back to AutoMuteUs Premium",
+    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "cancelled": {
+      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
+      "heading": "Checkout cancelled"
+    },
+    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
+    "heading": "Thanks for supporting AutoMuteUs!",
+    "title": "AutoMuteUs - Thank you",
+    "unknown": {
+      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
+      "heading": "Welcome back from PayPal"
+    }
+  },
   "perk": {
     "gameAccess": {
       "description": "Always be able to make new games, even when the bot is under high load!",
@@ -53,20 +71,28 @@
       "description": "Отправляют запросы вместе с основным ботом, благодаря чему мьют и отключение звука в ваших играх происходят намного быстрее",
       "title": "Боты приоритетного мьюта"
     },
-    "servers": {
-      "description": "Премиум-статус бота AutoMuteUs сразу на нескольких серверах Discord!",
-      "title": "Премиум-серверы"
-    },
     "stats": {
       "description": "Статистика Among Us и таблицы лидеров для игроков вашего сервера!",
       "title": "Статистика и таблицы лидеров"
     },
     "support": {
-      "description": "Доступ к премиум-каналам и чатам на нашем официальном сервере Discord!",
+      "description": "Access to Gold-only channels and chats in our official Discord!",
       "title": "Премиум-поддержка"
     }
   },
   "perksHeading": "Преимущества Премиума",
+  "picker": {
+    "heading": "Which server is this for?",
+    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
+    "none": "Choose a server to get started."
+  },
+  "rebuy": {
+    "anyway": "Buy anyway",
+    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
+    "keep": "Keep the current plan",
+    "title": "Buy {{tier}} again?",
+    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+  },
   "signIn": "Войдите, чтобы увидеть свои серверы",
   "status": {
     "changingTiers": "Каждая покупка оформляет новую подписку PayPal, поэтому покупка здесь не заменит текущую подписку, а её оставшиеся дни не перенесутся. Если вы меняете уровень, сначала <cancel>отмените текущую подписку</cancel>.",
