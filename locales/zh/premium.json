@@ -9,13 +9,6 @@
     },
     "chooseServer": "请先选择一个服务器",
     "current": "当前方案",
-    "donation": {
-      "button": "捐赠",
-      "description": "你不会获得任何机器人特权，但你会收获我们的感谢，是你让这个开源项目得以存在！",
-      "heading": "随心捐赠任意金额 ❤️",
-      "thanks": "谢谢你！♥",
-      "title": "捐赠"
-    },
     "gold": {
       "button": "获取 Gold"
     },
@@ -25,7 +18,17 @@
       "button": "获取 Silver"
     }
   },
+  "checkout": {
+    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
+    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
+    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
+    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
+    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
+    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+  },
   "guildSelect": {
+    "byId": "Server {{id}}",
     "noServers": "未找到服务器。",
     "prompt": "选择服务器",
     "reload": "请尝试重新加载页面。"
@@ -44,6 +47,21 @@
     "selected": "你选择的服务器 ID 是：",
     "title": "已预选服务器 ID"
   },
+  "paid": {
+    "back": "Back to AutoMuteUs Premium",
+    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "cancelled": {
+      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
+      "heading": "Checkout cancelled"
+    },
+    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
+    "heading": "Thanks for supporting AutoMuteUs!",
+    "title": "AutoMuteUs - Thank you",
+    "unknown": {
+      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
+      "heading": "Welcome back from PayPal"
+    }
+  },
   "perk": {
     "gameAccess": {
       "description": "Always be able to make new games, even when the bot is under high load!",
@@ -53,20 +71,28 @@
       "description": "与主机器人一起发送请求，大幅提升游戏中静音/拒听的速度",
       "title": "优先静音机器人"
     },
-    "servers": {
-      "description": "在多个 Discord 服务器中享受 AutoMuteUs 高级版机器人状态！",
-      "title": "高级版服务器"
-    },
     "stats": {
       "description": "查看你服务器中玩家的 Among Us 统计数据和排行榜！",
       "title": "统计与排行榜"
     },
     "support": {
-      "description": "可访问我们官方 Discord 中的高级版专属频道和聊天！",
+      "description": "Access to Gold-only channels and chats in our official Discord!",
       "title": "高级版支持"
     }
   },
   "perksHeading": "高级版特权",
+  "picker": {
+    "heading": "Which server is this for?",
+    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
+    "none": "Choose a server to get started."
+  },
+  "rebuy": {
+    "anyway": "Buy anyway",
+    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
+    "keep": "Keep the current plan",
+    "title": "Buy {{tier}} again?",
+    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+  },
   "signIn": "登录以查看你的服务器",
   "status": {
     "changingTiers": "每次购买都会创建一个新的 PayPal 订阅，因此在此购买不会替换当前订阅，当前订阅的剩余天数也不会转移。如果你要更换等级，请先<cancel>取消当前订阅</cancel>。",
