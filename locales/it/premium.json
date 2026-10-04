@@ -9,13 +9,6 @@
     },
     "chooseServer": "Scegli prima un server",
     "current": "Piano attuale",
-    "donation": {
-      "button": "Fai una donazione",
-      "description": "Non otterrai privilegi speciali sul bot, ma avrai tutta la nostra gratitudine per aver reso possibile questo progetto open source!",
-      "heading": "Contribuisci con l'importo che preferisci ❤️",
-      "thanks": "Grazie! ♥",
-      "title": "Donazione"
-    },
     "gold": {
       "button": "Scegli Gold"
     },
@@ -25,7 +18,17 @@
       "button": "Scegli Silver"
     }
   },
+  "checkout": {
+    "cancelled": "Acquisto annullato. Non è stato addebitato nulla; i piani qui sotto ti aspettano quando vuoi.",
+    "confirmed": "Pagamento ricevuto! Il premium di {{server}} è aggiornato qui sotto.",
+    "inProgress": "Completa il pagamento nella scheda PayPal, poi torna qui: questa pagina si aggiorna da sola appena PayPal lo conferma, di solito entro pochi minuti. Non serve acquistare di nuovo.",
+    "pending": "Grazie! PayPal sta confermando il tuo pagamento per {{server}}. Premium di solito si attiva entro pochi minuti e questa pagina si aggiornerà da sola, quindi non serve acquistare di nuovo.",
+    "pendingSignedOut": "Grazie! PayPal sta confermando il tuo pagamento per {{server}}. Premium di solito si attiva entro pochi minuti; accedi per vedere lo stato premium di questo server. Non serve acquistare di nuovo.",
+    "pendingUnknown": "Di ritorno da PayPal. Se hai completato il pagamento per {{server}}, premium di solito si attiva entro pochi minuti e questa pagina si aggiornerà da sola, quindi non serve acquistare di nuovo. Se hai annullato, non è stato addebitato nulla.",
+    "slow": "Stiamo ancora aspettando PayPal. I pagamenti di solito vengono confermati entro pochi minuti, ma alcuni richiedono più tempo. Se {{server}} non ha premium entro un'ora, <form>faccelo sapere</form> invece di acquistare di nuovo."
+  },
   "guildSelect": {
+    "byId": "Server {{id}}",
     "noServers": "Nessun server trovato.",
     "prompt": "Seleziona il server",
     "reload": "Prova a ricaricare la pagina."
@@ -44,29 +47,52 @@
     "selected": "L'ID del server che hai selezionato è:",
     "title": "ID server preselezionato"
   },
+  "paid": {
+    "back": "Torna ad AutoMuteUs Premium",
+    "body": "PayPal sta confermando il tuo pagamento. Premium di solito si attiva entro pochi minuti e comparirà nella pagina premium, quindi non serve acquistare di nuovo.",
+    "cancelled": {
+      "body": "Non è stato addebitato nulla. Puoi tornare ad abbonarti quando vuoi.",
+      "heading": "Acquisto annullato"
+    },
+    "closeTab": "Puoi chiudere questa scheda. La pagina di AutoMuteUs da cui hai iniziato ha le informazioni più recenti.",
+    "heading": "Grazie per il tuo supporto ad AutoMuteUs!",
+    "title": "AutoMuteUs - Grazie",
+    "unknown": {
+      "body": "Se hai completato il pagamento, PayPal lo sta confermando ora: premium di solito si attiva entro pochi minuti e comparirà nella pagina premium, quindi non serve acquistare di nuovo. Se hai annullato, non è stato addebitato nulla.",
+      "heading": "Di ritorno da PayPal"
+    }
+  },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load!",
+      "description": "Puoi sempre creare nuove partite, anche quando il bot è sotto carico elevato!",
       "title": "Accesso prioritario alle partite"
     },
     "mutingBots": {
       "description": "Inviano richieste insieme al bot principale; questo velocizza notevolmente i mute e i deafen nelle tue partite",
       "title": "Bot di mute prioritari"
     },
-    "servers": {
-      "description": "Ottieni lo stato Premium di AutoMuteUs in più server Discord!",
-      "title": "Server Premium"
-    },
     "stats": {
       "description": "Visualizza le statistiche di Among Us e le classifiche dei giocatori del tuo server!",
       "title": "Statistiche e classifiche"
     },
     "support": {
-      "description": "Accesso ai canali e alle chat riservati agli utenti Premium nel nostro Discord ufficiale!",
+      "description": "Accesso ai canali e alle chat riservati agli utenti Gold nel nostro Discord ufficiale!",
       "title": "Supporto Premium"
     }
   },
   "perksHeading": "Vantaggi Premium",
+  "picker": {
+    "heading": "Per quale server?",
+    "help": "Premium vale per singolo server Discord. Scegline uno per abilitare i piani qui sotto e vedere cosa ha già.",
+    "none": "Scegli un server per iniziare."
+  },
+  "rebuy": {
+    "anyway": "Acquista comunque",
+    "body": "Questo server ha già AutoMuteUs {{tier}}. Acquistarlo di nuovo avvia un secondo abbonamento PayPal, fatturato separatamente, e quello attuale continua finché non lo annulli.",
+    "keep": "Mantieni il piano attuale",
+    "title": "Acquistare di nuovo {{tier}}?",
+    "wait": "Se hai appena pagato e premium non compare ancora, aspetta qualche minuto."
+  },
   "signIn": "Accedi per vedere i tuoi server",
   "status": {
     "changingTiers": "Ogni acquisto avvia un nuovo abbonamento PayPal, quindi acquistare qui non sostituisce quello attuale e i giorni rimanenti non vengono trasferiti. Se stai cambiando livello, <cancel>annulla prima l'abbonamento attuale</cancel>.",

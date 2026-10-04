@@ -9,13 +9,6 @@
     },
     "chooseServer": "请先选择一个服务器",
     "current": "当前方案",
-    "donation": {
-      "button": "捐赠",
-      "description": "你不会获得任何机器人特权，但你会收获我们的感谢，是你让这个开源项目得以存在！",
-      "heading": "随心捐赠任意金额 ❤️",
-      "thanks": "谢谢你！♥",
-      "title": "捐赠"
-    },
     "gold": {
       "button": "获取 Gold"
     },
@@ -25,7 +18,17 @@
       "button": "获取 Silver"
     }
   },
+  "checkout": {
+    "cancelled": "已取消购买。未产生任何费用；准备好后随时可以选择下方的方案。",
+    "confirmed": "已收到付款！{{server}} 的高级版状态已在下方更新。",
+    "inProgress": "请在 PayPal 标签页中完成付款，然后回到这里：PayPal 确认后（通常几分钟内）此页面会自动更新。无需重复购买。",
+    "pending": "感谢！PayPal 正在确认你为 {{server}} 支付的款项。高级版通常会在几分钟内激活，此页面会自动更新，无需重复购买。",
+    "pendingSignedOut": "感谢！PayPal 正在确认你为 {{server}} 支付的款项。高级版通常会在几分钟内激活；登录即可查看该服务器的高级版状态。无需重复购买。",
+    "pendingUnknown": "欢迎从 PayPal 回来。如果你已完成 {{server}} 的付款，高级版通常会在几分钟内激活，此页面会自动更新，无需重复购买。如果你取消了付款，则不会产生任何费用。",
+    "slow": "仍在等待 PayPal。付款通常几分钟内确认，但有时需要更长时间。如果一小时后 {{server}} 仍未获得高级版，请<form>告诉我们</form>，不要重复购买。"
+  },
   "guildSelect": {
+    "byId": "服务器 {{id}}",
     "noServers": "未找到服务器。",
     "prompt": "选择服务器",
     "reload": "请尝试重新加载页面。"
@@ -44,29 +47,52 @@
     "selected": "你选择的服务器 ID 是：",
     "title": "已预选服务器 ID"
   },
+  "paid": {
+    "back": "返回 AutoMuteUs 高级版",
+    "body": "PayPal 正在确认你的付款。高级版通常会在几分钟内激活并显示在高级版页面上，无需重复购买。",
+    "cancelled": {
+      "body": "未产生任何费用。你可以随时回来订阅。",
+      "heading": "已取消购买"
+    },
+    "closeTab": "你可以关闭此标签页。你最初打开的 AutoMuteUs 页面会显示最新状态。",
+    "heading": "感谢你支持 AutoMuteUs！",
+    "title": "AutoMuteUs - 谢谢",
+    "unknown": {
+      "body": "如果你已完成付款，PayPal 正在确认中：高级版通常会在几分钟内激活并显示在高级版页面上，无需重复购买。如果你取消了付款，则不会产生任何费用。",
+      "heading": "欢迎从 PayPal 回来"
+    }
+  },
   "perk": {
     "gameAccess": {
-      "description": "Always be able to make new games, even when the bot is under high load!",
+      "description": "即使机器人负载很高，也总能创建新游戏！",
       "title": "优先游戏访问"
     },
     "mutingBots": {
       "description": "与主机器人一起发送请求，大幅提升游戏中静音/拒听的速度",
       "title": "优先静音机器人"
     },
-    "servers": {
-      "description": "在多个 Discord 服务器中享受 AutoMuteUs 高级版机器人状态！",
-      "title": "高级版服务器"
-    },
     "stats": {
       "description": "查看你服务器中玩家的 Among Us 统计数据和排行榜！",
       "title": "统计与排行榜"
     },
     "support": {
-      "description": "可访问我们官方 Discord 中的高级版专属频道和聊天！",
+      "description": "可访问我们官方 Discord 中的 Gold 专属频道和聊天！",
       "title": "高级版支持"
     }
   },
   "perksHeading": "高级版特权",
+  "picker": {
+    "heading": "这是为哪个服务器购买？",
+    "help": "高级版按 Discord 服务器计。选择一个服务器即可启用下方的方案，并查看它已拥有的内容。",
+    "none": "请选择一个服务器开始。"
+  },
+  "rebuy": {
+    "anyway": "仍然购买",
+    "body": "此服务器已拥有 AutoMuteUs {{tier}}。再次购买会创建第二个单独计费的 PayPal 订阅，而当前订阅会一直持续到你取消为止。",
+    "keep": "保留当前方案",
+    "title": "再次购买 {{tier}}？",
+    "wait": "如果你刚刚付款但高级版尚未显示，请先等待几分钟。"
+  },
   "signIn": "登录以查看你的服务器",
   "status": {
     "changingTiers": "每次购买都会创建一个新的 PayPal 订阅，因此在此购买不会替换当前订阅，当前订阅的剩余天数也不会转移。如果你要更换等级，请先<cancel>取消当前订阅</cancel>。",
