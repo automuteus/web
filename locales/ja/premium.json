@@ -9,13 +9,6 @@
     },
     "chooseServer": "先にサーバーを選択してください",
     "current": "現在のプラン",
-    "donation": {
-      "button": "寄付する",
-      "description": "ボットの特典はありませんが、このオープンソースプロジェクトを支えてくださることに心から感謝します！",
-      "heading": "お好きな金額でご支援ください ❤️",
-      "thanks": "ありがとうございます！ ♥",
-      "title": "寄付"
-    },
     "gold": {
       "button": "Gold に加入"
     },
@@ -25,7 +18,17 @@
       "button": "Silver に加入"
     }
   },
+  "checkout": {
+    "cancelled": "Checkout cancelled. Nothing was charged; the plans below are here whenever you're ready.",
+    "confirmed": "Payment received! {{server}}'s premium is up to date below.",
+    "inProgress": "Finish your payment in the PayPal tab, then come back here: this page updates on its own once PayPal confirms it, usually within a few minutes. There's no need to buy again.",
+    "pending": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes, and this page will update on its own, so there's no need to buy again.",
+    "pendingSignedOut": "Thanks! PayPal is confirming your payment for {{server}}. Premium usually activates within a few minutes; sign in to see this server's premium status. There's no need to buy again.",
+    "pendingUnknown": "Welcome back from PayPal. If you completed the payment for {{server}}, premium usually activates within a few minutes and this page will update on its own, so there's no need to buy again. If you cancelled, nothing was charged.",
+    "slow": "Still waiting on PayPal. Payments usually confirm within a few minutes, though some take longer. If {{server}} doesn't have premium within an hour, <form>let us know</form> rather than buying again."
+  },
   "guildSelect": {
+    "byId": "Server {{id}}",
     "noServers": "サーバーが見つかりません。",
     "prompt": "サーバーを選択",
     "reload": "ページを再読み込みしてみてください。"
@@ -44,6 +47,21 @@
     "selected": "選択されているサーバー ID：",
     "title": "サーバー ID が選択済みです"
   },
+  "paid": {
+    "back": "Back to AutoMuteUs Premium",
+    "body": "PayPal is confirming your payment. Premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again.",
+    "cancelled": {
+      "body": "Nothing was charged. You can come back and subscribe whenever you like.",
+      "heading": "Checkout cancelled"
+    },
+    "closeTab": "You can close this tab. The AutoMuteUs page you started from has the latest.",
+    "heading": "Thanks for supporting AutoMuteUs!",
+    "title": "AutoMuteUs - Thank you",
+    "unknown": {
+      "body": "If you completed your payment, PayPal is confirming it now: premium usually activates within a few minutes and the premium page will show it, so there's no need to buy again. If you cancelled, nothing was charged.",
+      "heading": "Welcome back from PayPal"
+    }
+  },
   "perk": {
     "gameAccess": {
       "description": "Always be able to make new games, even when the bot is under high load!",
@@ -53,20 +71,28 @@
       "description": "メインのボットと並行してリクエストを送り、ゲーム中のミュート / スピーカーミュートを大幅に高速化します",
       "title": "優先ミュートボット"
     },
-    "servers": {
-      "description": "複数の Discord サーバーで AutoMuteUs のプレミアムを利用できます！",
-      "title": "プレミアムサーバー"
-    },
     "stats": {
       "description": "サーバーのプレイヤーの Among Us 統計とリーダーボードを見られます！",
       "title": "統計とリーダーボード"
     },
     "support": {
-      "description": "公式 Discord のプレミアム専用チャンネルとチャットを利用できます！",
+      "description": "Access to Gold-only channels and chats in our official Discord!",
       "title": "プレミアムサポート"
     }
   },
   "perksHeading": "プレミアムの特典",
+  "picker": {
+    "heading": "Which server is this for?",
+    "help": "Premium is per Discord server. Pick one to enable the plans below and see what it has already.",
+    "none": "Choose a server to get started."
+  },
+  "rebuy": {
+    "anyway": "Buy anyway",
+    "body": "This server already has AutoMuteUs {{tier}}. Buying it again starts a second PayPal subscription, billed separately, and the current one keeps going until you cancel it.",
+    "keep": "Keep the current plan",
+    "title": "Buy {{tier}} again?",
+    "wait": "If you just paid and premium hasn't shown up yet, give it a few minutes instead."
+  },
   "signIn": "サインインしてサーバーを表示",
   "status": {
     "changingTiers": "購入するたびに新しい PayPal サブスクリプションが作成されるため、ここで購入しても現在のサブスクリプションは置き換わらず、残りの日数も引き継がれません。プランを変更する場合は、先に<cancel>現在のサブスクリプションを解約</cancel>してください。",
