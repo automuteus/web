@@ -147,8 +147,8 @@ function Spotlight({ boards, players }: { boards: GuildLeaderboards; players: Pl
     if (crew) cards.push({ key: "topCrewmate", label: t("guild.spotlight.topCrewmate"), id: crew.userId, value: percent(crew.winrate), detail: t("guild.spotlight.winsOfCrewmate", { wins: crew.wins, count: crew.games }), side: "crew" });
     const imp = boards.impostorWinrate[0];
     if (imp) cards.push({ key: "topImpostor", label: t("guild.spotlight.topImpostor"), id: imp.userId, value: percent(imp.winrate), detail: t("guild.spotlight.winsOfImpostor", { wins: imp.wins, count: imp.games }), side: "impostor" });
-    const duo = boards.bestCrewmateDuo[0];
-    if (duo) cards.push({ key: "bestDuo", label: t("guild.spotlight.bestDuo"), id: duo.userId, teammate: duo.teammateId, value: percent(duo.winrate), detail: t("guild.spotlight.winsTogether", { wins: duo.wins, count: duo.games }), side: "crew" });
+    const duo = boards.bestImpostorDuo[0];
+    if (duo) cards.push({ key: "bestDuo", label: t("guild.spotlight.bestDuo"), id: duo.userId, teammate: duo.teammateId, value: percent(duo.winrate), detail: t("guild.spotlight.winsTogether", { wins: duo.wins, count: duo.games }), side: "impostor" });
     const target = boards.firstTarget[0];
     if (target) cards.push({ key: "firstToGo", label: t("guild.spotlight.firstToGo"), id: target.userId, value: percent(target.rate), detail: t("guild.spotlight.firstToDie", { deaths: target.firstDeaths, count: target.crewmateGames }), side: "impostor" });
     if (cards.length === 0) return null;
@@ -178,7 +178,6 @@ function Leaderboards({ boards, players }: { boards: GuildLeaderboards; players:
     const { t } = useTranslation();
     const min = boards.minGames;
     const needMin = <Empty>{t("guild.empty.roleGames", { count: min })}</Empty>;
-    const needCrewmateDuo = <Empty>{t("guild.empty.crewmateDuo", { count: min })}</Empty>;
     const needImpostorDuo = <Empty>{t("guild.empty.impostorDuo", { count: IMPOSTOR_DUO_MIN_GAMES })}</Empty>;
     return <>
         <Spotlight boards={boards} players={players} />
@@ -199,16 +198,10 @@ function Leaderboards({ boards, players }: { boards: GuildLeaderboards; players:
             <Board title={t("guild.board.impostorWinrate")}>
                 {boards.impostorWinrate.length === 0 ? needMin : <WinrateBoard rows={boards.impostorWinrate} players={players} side="impostor" />}
             </Board>
-            <Board title={t("guild.board.bestCrewmateDuos")}>
-                {boards.bestCrewmateDuo.length === 0 ? needCrewmateDuo : <DuoBoard rows={boards.bestCrewmateDuo} players={players} side="crew" />}
-            </Board>
-            <Board title={t("guild.board.worstCrewmateDuos")}>
-                {boards.worstCrewmateDuo.length === 0 ? needCrewmateDuo : <DuoBoard rows={boards.worstCrewmateDuo} players={players} side="crew" />}
-            </Board>
-            <Board title={t("guild.board.bestImpostorDuos")}>
+            <Board title={t("guild.board.bestImpostorDuos")} hint={t("shared.rankedBySureness")}>
                 {boards.bestImpostorDuo.length === 0 ? needImpostorDuo : <DuoBoard rows={boards.bestImpostorDuo} players={players} side="impostor" />}
             </Board>
-            <Board title={t("guild.board.worstImpostorDuos")}>
+            <Board title={t("guild.board.worstImpostorDuos")} hint={t("shared.rankedBySureness")}>
                 {boards.worstImpostorDuo.length === 0 ? needImpostorDuo : <DuoBoard rows={boards.worstImpostorDuo} players={players} side="impostor" />}
             </Board>
             <Board title={t("guild.board.firstToDie")} hint={t("guild.board.firstToDieHint")}>
@@ -216,14 +209,6 @@ function Leaderboards({ boards, players }: { boards: GuildLeaderboards; players:
                     {boards.firstTarget.map((r, i) => <Row key={r.userId} ids={[r.userId]}>
                         <td className={styles.rank}><Rank n={i + 1} /></td><th scope="row"><Player players={players} id={r.userId} /></th>
                         <td className={styles.num}>{r.firstDeaths}</td><td className={styles.num}>{r.crewmateGames}</td><td className={styles.rate}><Rate value={r.rate} side="impostor" /></td>
-                    </Row>)}
-                </Table>}
-            </Board>
-            <Board title={t("guild.board.killedBy")} hint={t("guild.board.killedByHint")}>
-                {boards.killedBy.length === 0 ? <Empty>{t("guild.empty.killedBy", { count: min })}</Empty> : <Table head={<><th scope="col" className={styles.rank}>{t("guild.column.rank")}</th><th scope="col">{t("shared.role.crewmate")}</th><th scope="col">{t("shared.column.impostor")}</th><th scope="col" className={styles.num}>{t("shared.column.deaths")}</th><th scope="col" className={styles.num}>{t("shared.column.games")}</th><th scope="col" className={styles.rate}>{t("shared.column.rate")}</th></>}>
-                    {boards.killedBy.map((r, i) => <Row key={`${r.userId}:${r.impostorId}`} ids={[r.userId, r.impostorId]}>
-                        <td className={styles.rank}><Rank n={i + 1} /></td><th scope="row"><Player players={players} id={r.userId} /></th><td><Player players={players} id={r.impostorId} /></td>
-                        <td className={styles.num}>{r.deaths}</td><td className={styles.num}>{r.games}</td><td className={styles.rate}><Rate value={r.rate} side="impostor" /></td>
                     </Row>)}
                 </Table>}
             </Board>
