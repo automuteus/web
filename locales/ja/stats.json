@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "勝率の高いクルーメイトコンビ",
       "bestImpostorDuos": "勝率の高いインポスターコンビ",
       "crewmateWinrate": "クルーメイト勝率",
       "firstToDie": "最初の犠牲者",
       "firstToDieHint": "クルーメイトとして参加したゲームのうち、最初にキルされた割合です。",
       "impostorWinrate": "インポスター勝率",
-      "killedBy": "キルされた相手",
-      "killedByHint": "あるプレイヤーがインポスターだったゲームで、クルーメイトが死亡した割合です。Among Us は誰がキルしたかを報告しないため、死亡はそのゲームのインポスター全員にカウントされます。",
       "mostGames": "最多プレイ",
       "overallWinrate": "総合勝率",
-      "worstCrewmateDuos": "勝率の低いクルーメイトコンビ",
       "worstImpostorDuos": "勝率の低いインポスターコンビ"
     },
     "column": {
@@ -22,10 +18,8 @@
     },
     "empty": {
       "noGames": "記録されたゲームはまだありません。",
-      "crewmateDuo_other": "一緒にクルーメイトとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
       "games_other": "{{count}} ゲーム以上プレイしたプレイヤーはまだいません。",
       "impostorDuo_other": "一緒にインポスターとして {{count}} ゲーム以上プレイした 2 人組はまだいません。",
-      "killedBy_other": "{{count}} ゲーム以上を共にしたクルーメイトとインポスターの組み合わせはまだありません。",
       "roleGames_other": "この役職で {{count}} ゲーム以上プレイしたプレイヤーはまだいません。"
     },
     "leaderboards": {
@@ -290,6 +284,7 @@
       "none": "結果なし",
       "won": "勝利"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "インポスターが切断したため、クルーメイトの勝利",
       "crewmateTasks": "タスク完了でクルーメイトの勝利",
