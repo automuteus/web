@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Migliori coppie di Crewmate",
       "bestImpostorDuos": "Migliori coppie di Impostor",
       "crewmateWinrate": "Winrate da Crewmate",
       "firstToDie": "Primo a morire",
       "firstToDieHint": "Quante volte un giocatore è stato il primo a essere ucciso, sul totale delle sue partite da Crewmate.",
       "impostorWinrate": "Winrate da Impostor",
-      "killedBy": "Ucciso da",
-      "killedByHint": "Quante volte un Crewmate è morto nelle partite in cui un certo giocatore era Impostor. Among Us non indica chi ha ucciso, quindi una morte conta contro ogni Impostor di quella partita.",
       "mostGames": "Più partite",
       "overallWinrate": "Winrate complessivo",
-      "worstCrewmateDuos": "Peggiori coppie di Crewmate",
       "worstImpostorDuos": "Peggiori coppie di Impostor"
     },
     "column": {
@@ -22,14 +18,10 @@
     },
     "empty": {
       "noGames": "Nessuna partita registrata finora.",
-      "crewmateDuo_one": "Nessuna coppia di giocatori è ancora stata Crewmate insieme in almeno {{count}} partita.",
-      "crewmateDuo_other": "Nessuna coppia di giocatori è ancora stata Crewmate insieme in almeno {{count}} partite.",
       "games_one": "Nessuno ha ancora giocato almeno {{count}} partita.",
       "games_other": "Nessuno ha ancora giocato almeno {{count}} partite.",
       "impostorDuo_one": "Nessuna coppia di giocatori è ancora stata Impostor insieme in almeno {{count}} partita.",
       "impostorDuo_other": "Nessuna coppia di giocatori è ancora stata Impostor insieme in almeno {{count}} partite.",
-      "killedBy_one": "Nessuna coppia di Crewmate e Impostor ha ancora condiviso almeno {{count}} partita.",
-      "killedBy_other": "Nessuna coppia di Crewmate e Impostor ha ancora condiviso almeno {{count}} partite.",
       "roleGames_one": "Nessuno ha ancora giocato almeno {{count}} partita in questo ruolo.",
       "roleGames_other": "Nessuno ha ancora giocato almeno {{count}} partite in questo ruolo."
     },
@@ -310,6 +302,7 @@
       "none": "Nessun risultato",
       "won": "Vinta"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "I Crewmate hanno vinto perché gli Impostor si sono disconnessi",
       "crewmateTasks": "I Crewmate hanno vinto completando i compiti",

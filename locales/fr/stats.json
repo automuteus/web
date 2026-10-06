@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Meilleurs duos de coéquipiers",
       "bestImpostorDuos": "Meilleurs duos d'imposteurs",
       "crewmateWinrate": "Taux de victoire en coéquipier",
       "firstToDie": "Premier à mourir",
       "firstToDieHint": "Fréquence à laquelle un joueur a été le premier tué, sur ses parties en tant que coéquipier.",
       "impostorWinrate": "Taux de victoire en imposteur",
-      "killedBy": "Tué par",
-      "killedByHint": "Fréquence à laquelle un coéquipier est mort dans les parties où un joueur donné était imposteur. Among Us n'indique pas qui a tué, donc une mort est comptée contre chaque imposteur de la partie.",
       "mostGames": "Le plus de parties",
       "overallWinrate": "Taux de victoire global",
-      "worstCrewmateDuos": "Pires duos de coéquipiers",
       "worstImpostorDuos": "Pires duos d'imposteurs"
     },
     "column": {
@@ -22,14 +18,10 @@
     },
     "empty": {
       "noGames": "Aucune partie enregistrée pour l'instant.",
-      "crewmateDuo_one": "Aucun duo n'a encore joué {{count}} partie ensemble en tant que coéquipiers.",
-      "crewmateDuo_other": "Aucun duo n'a encore joué {{count}} parties ensemble en tant que coéquipiers.",
       "games_one": "Personne n'a encore joué {{count}} partie.",
       "games_other": "Personne n'a encore joué {{count}} parties.",
       "impostorDuo_one": "Aucun duo n'a encore joué {{count}} partie ensemble en tant qu'imposteurs.",
       "impostorDuo_other": "Aucun duo n'a encore joué {{count}} parties ensemble en tant qu'imposteurs.",
-      "killedBy_one": "Aucun coéquipier et aucun imposteur n'ont encore joué {{count}} partie ensemble.",
-      "killedBy_other": "Aucun coéquipier et aucun imposteur n'ont encore joué {{count}} parties ensemble.",
       "roleGames_one": "Personne n'a encore joué {{count}} partie dans ce rôle.",
       "roleGames_other": "Personne n'a encore joué {{count}} parties dans ce rôle."
     },
@@ -310,6 +302,7 @@
       "none": "Aucun résultat",
       "won": "Victoire"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "Victoire des coéquipiers après la déconnexion des imposteurs",
       "crewmateTasks": "Victoire des coéquipiers en terminant leurs tâches",

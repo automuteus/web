@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "最佳船员搭档",
       "bestImpostorDuos": "最佳内鬼搭档",
       "crewmateWinrate": "船员胜率",
       "firstToDie": "最先死亡",
       "firstToDieHint": "在玩家作为船员参与的游戏中，第一个被击杀的比例。",
       "impostorWinrate": "内鬼胜率",
-      "killedBy": "死于谁手",
-      "killedByHint": "在某位玩家担任内鬼的游戏中，船员死亡的比例。Among Us 不会报告是谁击杀的，因此每次死亡都会算在该局所有内鬼头上。",
       "mostGames": "游戏场数最多",
       "overallWinrate": "总胜率",
-      "worstCrewmateDuos": "最差船员搭档",
       "worstImpostorDuos": "最差内鬼搭档"
     },
     "column": {
@@ -22,10 +18,8 @@
     },
     "empty": {
       "noGames": "尚未记录任何游戏。",
-      "crewmateDuo_other": "还没有任何两名玩家一起当过 {{count}} 场船员。",
       "games_other": "还没有人玩满 {{count}} 场游戏。",
       "impostorDuo_other": "还没有任何两名玩家一起当过 {{count}} 场内鬼。",
-      "killedBy_other": "还没有船员和内鬼共同参与过 {{count}} 场游戏。",
       "roleGames_other": "还没有人以此身份玩满 {{count}} 场游戏。"
     },
     "leaderboards": {
@@ -290,6 +284,7 @@
       "none": "无结果",
       "won": "胜利"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "内鬼断开连接，船员获胜",
       "crewmateTasks": "船员完成所有任务获胜",
