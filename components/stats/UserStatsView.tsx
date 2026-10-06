@@ -308,16 +308,16 @@ function Details({ details, players }: { details: UserStatsDetails; players: Pla
             <Card title={t("user.killedBy.title")} hint={t("user.killedBy.hint")}>
                 {details.killedBy.length === 0 ? <Empty>{t("user.killedBy.empty", { count: min })}</Empty> : <KilledByTable rows={details.killedBy} players={players} />}
             </Card>
-            <Card title={t("user.teammates.bestCrewmate")}>
+            <Card title={t("user.teammates.bestCrewmate")} hint={t("shared.rankedBySureness")}>
                 {details.bestCrewmateTeammates.length === 0 ? noCrewmateTeammate : <TeammateTable rows={details.bestCrewmateTeammates} players={players} side="crew" />}
             </Card>
-            <Card title={t("user.teammates.worstCrewmate")}>
+            <Card title={t("user.teammates.worstCrewmate")} hint={t("shared.rankedBySureness")}>
                 {details.worstCrewmateTeammates.length === 0 ? noCrewmateTeammate : <TeammateTable rows={details.worstCrewmateTeammates} players={players} side="crew" />}
             </Card>
-            <Card title={t("user.teammates.bestImpostor")}>
+            <Card title={t("user.teammates.bestImpostor")} hint={t("shared.rankedBySureness")}>
                 {details.bestImpostorTeammates.length === 0 ? noImpostorTeammate : <TeammateTable rows={details.bestImpostorTeammates} players={players} side="impostor" />}
             </Card>
-            <Card title={t("user.teammates.worstImpostor")}>
+            <Card title={t("user.teammates.worstImpostor")} hint={t("shared.rankedBySureness")}>
                 {details.worstImpostorTeammates.length === 0 ? noImpostorTeammate : <TeammateTable rows={details.worstImpostorTeammates} players={players} side="impostor" />}
             </Card>
         </div>

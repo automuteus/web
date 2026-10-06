@@ -41,6 +41,13 @@ test("free documents have no leaderboards and tolerate missing players", () => {
     assert.equal(parseGuildStats({ ...free, leaderboards: null }).leaderboards, undefined);
 });
 
+test("documents from an API that still sends the retired pair boards parse the same", () => {
+    // The web deploys before the API that stops sending these, so it must accept documents that still have them.
+    const pair = { userId: "223456789012345678", teammateId: "323456789012345678", wins: 3, games: 4, winrate: 75 };
+    const older = { ...fixture, leaderboards: { ...fixture.leaderboards, bestCrewmateDuo: [pair], worstCrewmateDuo: [], killedBy: [{ userId: "323456789012345678", impostorId: "223456789012345678", deaths: 2, games: 3, rate: 66.7 }] } };
+    assert.deepEqual(parseGuildStats(older), fixture);
+});
+
 test("malformed documents are rejected rather than partially accepted", () => {
     const bad = [
         { ...fixture, guildId: "abc" },
@@ -49,10 +56,10 @@ test("malformed documents are rejected rather than partially accepted", () => {
         { ...fixture, summary: { ...fixture.summary, crewmateWinrate: NaN } },
         { ...fixture, summary: { ...fixture.summary, impostorWins: -1 } },
         { ...fixture, premium: { tier: "3", days: 1 } },
-        { ...fixture, leaderboards: { ...fixture.leaderboards, killedBy: undefined } },
+        { ...fixture, leaderboards: { ...fixture.leaderboards, firstTarget: undefined } },
         { ...fixture, leaderboards: { ...fixture.leaderboards, winrate: [{ userId: "223456789012345678", wins: 1, games: 1 }] } },
         { ...fixture, leaderboards: { ...fixture.leaderboards, mostGames: [{ userId: "<script>", games: 1 }] } },
-        { ...fixture, leaderboards: { ...fixture.leaderboards, bestCrewmateDuo: [{ userId: "223456789012345678", teammateId: 5, wins: 1, games: 1, winrate: 100 }] } },
+        { ...fixture, leaderboards: { ...fixture.leaderboards, bestImpostorDuo: [{ userId: "223456789012345678", teammateId: 5, wins: 1, games: 1, winrate: 100 }] } },
         [],
         "document",
         null,
@@ -108,9 +115,12 @@ test("premium mirrors the Go expiry rule and percentages drop a trailing zero", 
 test("premium fixture renders the summary, every board, cached names, and ID fallbacks", () => {
     const html = render(fixture);
     for (const value of ["games played", ">8<", "crewmate wins", "impostor wins", "Hall of fame", "Most games", "Best winrate", "Top crewmate", "Best duo", "First to go",
-        "Overall winrate", "Crewmate winrate", "Impostor winrate", "Best crewmate duos", "Worst crewmate duos",
-        "Best impostor duos", "Worst impostor duos", "First to die", "Killed by", "Al", "bob", "83.3%", "66.7%"]) {
+        "Overall winrate", "Crewmate winrate", "Impostor winrate", "Best impostor duos", "Worst impostor duos",
+        "Ranked with the number of games in mind", "First to die", "Al", "bob", "83.3%", "66.7%"]) {
         assert.ok(html.includes(value), `Missing ${value}`);
+    }
+    for (const retired of ["Best crewmate duos", "Worst crewmate duos", "Killed by"]) {
+        assert.ok(!html.includes(retired), `Retired board ${retired} still rendered`);
     }
     // No impostor winrate entry, so no "Top impostor" card.
     assert.ok(!html.includes("Top impostor"));
@@ -128,7 +138,6 @@ test("premium fixture renders the summary, every board, cached names, and ID fal
     assert.ok(html.includes("bronze"));
     // Empty boards explain the minimum instead of showing an empty table.
     assert.ok(html.includes("No one has played 3 games in this role yet."));
-    assert.ok(html.includes("No two players have been crewmates together in 3 games yet."));
     assert.ok(html.includes("impostor duos need 2 games together"));
     assert.ok(!html.includes("premium feature"));
     assert.ok(!html.includes("Games played"));

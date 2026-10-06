@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Best crewmate duos",
       "bestImpostorDuos": "Best impostor duos",
       "crewmateWinrate": "Crewmate winrate",
       "firstToDie": "First to die",
       "firstToDieHint": "How often a player was the first one killed, out of their games as a crewmate.",
       "impostorWinrate": "Impostor winrate",
-      "killedBy": "Killed by",
-      "killedByHint": "How often a crewmate died in games where a given player was an impostor. Among Us doesn't report who made a kill, so a death counts against every impostor in that game.",
       "mostGames": "Most games",
       "overallWinrate": "Overall winrate",
-      "worstCrewmateDuos": "Worst crewmate duos",
       "worstImpostorDuos": "Worst impostor duos"
     },
     "column": {
@@ -21,14 +17,10 @@
       "rank": "#"
     },
     "empty": {
-      "crewmateDuo_one": "No two players have been crewmates together in {{count}} game yet.",
-      "crewmateDuo_other": "No two players have been crewmates together in {{count}} games yet.",
       "games_one": "No one has played {{count}} game yet.",
       "games_other": "No one has played {{count}} games yet.",
       "impostorDuo_one": "No two players have been impostors together in {{count}} game yet.",
       "impostorDuo_other": "No two players have been impostors together in {{count}} games yet.",
-      "killedBy_one": "No crewmate and impostor have shared {{count}} game yet.",
-      "killedBy_other": "No crewmate and impostor have shared {{count}} games yet.",
       "noGames": "No games recorded yet.",
       "roleGames_one": "No one has played {{count}} game in this role yet.",
       "roleGames_other": "No one has played {{count}} games in this role yet."
@@ -312,6 +304,7 @@
       "none": "No result",
       "won": "Won"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "Crewmates won when the impostors disconnected",
       "crewmateTasks": "Crewmates won by finishing their tasks",

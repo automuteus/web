@@ -10,24 +10,21 @@ export interface GuildStatsSummary {
 }
 export interface PlayerGames { userId: string; games: number }
 export interface PlayerWinrate { userId: string; wins: number; games: number; winrate: number }
-/** A pair of players who shared a role, lower user ID first. */
+/** A pair of players who were impostors together, lower user ID first. */
 export interface DuoWinrate { userId: string; teammateId: string; wins: number; games: number; winrate: number }
 export interface FirstTarget { userId: string; firstDeaths: number; crewmateGames: number; rate: number }
-export interface KilledBy { userId: string; impostorId: string; deaths: number; games: number; rate: number }
 /** The premium boards, five entries each; the bot's leaderboard size setting is not used on the web. */
 export interface GuildLeaderboards {
-    /** The guild's leaderboard minimum: games needed before a player or crewmate duo is ranked by rate. */
+    /** The guild's leaderboard minimum: games needed before a player is ranked by rate. */
     minGames: number;
     mostGames: PlayerGames[];
     winrate: PlayerWinrate[];
     crewmateWinrate: PlayerWinrate[];
     impostorWinrate: PlayerWinrate[];
+    /** Ranked by how sure the winrate is, not the winrate alone, so a pair that won 7 of 8 places above 2 of 2. */
     bestImpostorDuo: DuoWinrate[];
     worstImpostorDuo: DuoWinrate[];
-    bestCrewmateDuo: DuoWinrate[];
-    worstCrewmateDuo: DuoWinrate[];
     firstTarget: FirstTarget[];
-    killedBy: KilledBy[];
 }
 /** How a user is shown: the API resolves these through Discord with the bot's credentials, or from the names
  * the bot cached (which carry no avatar). */
@@ -85,8 +82,6 @@ const duoWinrate = (r: Record<string, unknown>, at: string): DuoWinrate =>
     ({ userId: id(r.userId, `${at}.userId`), teammateId: id(r.teammateId, `${at}.teammateId`), wins: count(r.wins, `${at}.wins`), games: count(r.games, `${at}.games`), winrate: count(r.winrate, `${at}.winrate`) });
 const firstTarget = (r: Record<string, unknown>, at: string): FirstTarget =>
     ({ userId: id(r.userId, `${at}.userId`), firstDeaths: count(r.firstDeaths, `${at}.firstDeaths`), crewmateGames: count(r.crewmateGames, `${at}.crewmateGames`), rate: count(r.rate, `${at}.rate`) });
-const killedBy = (r: Record<string, unknown>, at: string): KilledBy =>
-    ({ userId: id(r.userId, `${at}.userId`), impostorId: id(r.impostorId, `${at}.impostorId`), deaths: count(r.deaths, `${at}.deaths`), games: count(r.games, `${at}.games`), rate: count(r.rate, `${at}.rate`) });
 
 /** Validates an upstream document and rebuilds it with only the fields the page reads, so nothing unexpected
  * reaches the browser and every number the page divides or sorts by is known to be a finite, non-negative
@@ -119,10 +114,7 @@ export function parseGuildStats(body: unknown): GuildStats {
             impostorWinrate: list(b.impostorWinrate, "leaderboards.impostorWinrate", playerWinrate),
             bestImpostorDuo: list(b.bestImpostorDuo, "leaderboards.bestImpostorDuo", duoWinrate),
             worstImpostorDuo: list(b.worstImpostorDuo, "leaderboards.worstImpostorDuo", duoWinrate),
-            bestCrewmateDuo: list(b.bestCrewmateDuo, "leaderboards.bestCrewmateDuo", duoWinrate),
-            worstCrewmateDuo: list(b.worstCrewmateDuo, "leaderboards.worstCrewmateDuo", duoWinrate),
             firstTarget: list(b.firstTarget, "leaderboards.firstTarget", firstTarget),
-            killedBy: list(b.killedBy, "leaderboards.killedBy", killedBy),
         };
     }
     stats.players = parsePlayers(doc.players === undefined || doc.players === null ? {} : record(doc.players, "players"));
@@ -169,10 +161,7 @@ export function sampleLeaderboards(): GuildLeaderboards {
         impostorWinrate: [{ userId: p[2], wins: 14, games: 21, winrate: 66.7 }, { userId: p[0], wins: 16, games: 27, winrate: 59.3 }, { userId: p[4], wins: 9, games: 17, winrate: 52.9 }],
         bestImpostorDuo: [{ userId: p[0], teammateId: p[2], wins: 6, games: 8, winrate: 75 }, { userId: p[1], teammateId: p[4], wins: 4, games: 7, winrate: 57.1 }],
         worstImpostorDuo: [{ userId: p[3], teammateId: p[4], wins: 1, games: 6, winrate: 16.7 }, { userId: p[1], teammateId: p[3], wins: 2, games: 5, winrate: 40 }],
-        bestCrewmateDuo: [{ userId: p[1], teammateId: p[3], wins: 41, games: 52, winrate: 78.8 }, { userId: p[0], teammateId: p[1], wins: 61, games: 84, winrate: 72.6 }, { userId: p[2], teammateId: p[3], wins: 30, games: 45, winrate: 66.7 }],
-        worstCrewmateDuo: [{ userId: p[2], teammateId: p[4], wins: 12, games: 33, winrate: 36.4 }, { userId: p[0], teammateId: p[4], wins: 20, games: 46, winrate: 43.5 }],
         firstTarget: [{ userId: p[4], firstDeaths: 19, crewmateGames: 61, rate: 31.1 }, { userId: p[2], firstDeaths: 17, crewmateGames: 76, rate: 22.4 }, { userId: p[3], firstDeaths: 11, crewmateGames: 58, rate: 19 }],
-        killedBy: [{ userId: p[4], impostorId: p[0], deaths: 15, games: 22, rate: 68.2 }, { userId: p[3], impostorId: p[2], deaths: 11, games: 18, rate: 61.1 }, { userId: p[1], impostorId: p[0], deaths: 13, games: 24, rate: 54.2 }],
     };
 }
 
