@@ -1,17 +1,13 @@
 {
   "guild": {
     "board": {
-      "bestCrewmateDuos": "Melhores duplas de tripulantes",
       "bestImpostorDuos": "Melhores duplas de impostores",
       "crewmateWinrate": "Taxa de vitória como tripulante",
       "firstToDie": "Primeiro a morrer",
       "firstToDieHint": "Com que frequência um jogador foi o primeiro a ser morto, entre suas partidas como tripulante.",
       "impostorWinrate": "Taxa de vitória como impostor",
-      "killedBy": "Morto por",
-      "killedByHint": "Com que frequência um tripulante morreu em partidas em que determinado jogador era impostor. O Among Us não informa quem fez cada abate, então uma morte conta contra todos os impostores daquela partida.",
       "mostGames": "Mais partidas",
       "overallWinrate": "Taxa de vitória geral",
-      "worstCrewmateDuos": "Piores duplas de tripulantes",
       "worstImpostorDuos": "Piores duplas de impostores"
     },
     "column": {
@@ -22,14 +18,10 @@
     },
     "empty": {
       "noGames": "Nenhuma partida registrada ainda.",
-      "crewmateDuo_one": "Nenhuma dupla chegou a {{count}} partida juntos como tripulantes ainda.",
-      "crewmateDuo_other": "Nenhuma dupla chegou a {{count}} partidas juntos como tripulantes ainda.",
       "games_one": "Ninguém chegou a {{count}} partida ainda.",
       "games_other": "Ninguém chegou a {{count}} partidas ainda.",
       "impostorDuo_one": "Nenhuma dupla chegou a {{count}} partida juntos como impostores ainda.",
       "impostorDuo_other": "Nenhuma dupla chegou a {{count}} partidas juntos como impostores ainda.",
-      "killedBy_one": "Nenhum par de tripulante e impostor chegou a {{count}} partida juntos ainda.",
-      "killedBy_other": "Nenhum par de tripulante e impostor chegou a {{count}} partidas juntos ainda.",
       "roleGames_one": "Ninguém chegou a {{count}} partida nesta função ainda.",
       "roleGames_other": "Ninguém chegou a {{count}} partidas nesta função ainda."
     },
@@ -310,6 +302,7 @@
       "none": "Sem resultado",
       "won": "Vitória"
     },
+    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "Os tripulantes venceram quando os impostores se desconectaram",
       "crewmateTasks": "Os tripulantes venceram completando as tarefas",
