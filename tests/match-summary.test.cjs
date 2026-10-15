@@ -39,6 +39,14 @@ test("free and in-progress documents omit what the API omits", () => {
     assert.deepEqual(parsed.players, {});
 });
 
+test("Hide and Seek results are named, not shown as unknown", () => {
+    for (const result of ["crewmateHideAndSeekTimer", "impostorHideAndSeekKills"]) {
+        const parsed = parseMatchSummary({ ...fixture, result });
+        assert.equal(parsed.result, result);
+        assert.ok(render(parsed).includes("Hide and Seek"), result);
+    }
+});
+
 test("values a newer API might add are dropped, not fatal", () => {
     const parsed = parseMatchSummary({ ...fixture, map: "newmap", region: "oc", result: "somethingNew",
         roster: [{ ...fixture.roster[0], color: "fuchsia" }],
