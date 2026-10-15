@@ -307,9 +307,11 @@
     "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
     "result": {
       "crewmateDisconnect": "Crewmates won when the impostors disconnected",
+      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
       "crewmateTasks": "Crewmates won by finishing their tasks",
       "crewmateVote": "Crewmates won by voting out the impostors",
       "impostorDisconnect": "Impostors won when the crewmates disconnected",
+      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
       "impostorKill": "Impostors won by kills",
       "impostorSabotage": "Impostors won by sabotage",
       "impostorVote": "Impostors won by vote",

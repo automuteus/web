@@ -3,7 +3,8 @@ import { PremiumRecord, StatsPlayer, parsePlayers } from "./guild-stats";
 
 /** The GET /guild/match document, mirroring MatchSummary in the Go API (internal/api/match_summary.go). */
 export type MatchStatus = "finished" | "inProgress" | "aborted";
-export type MatchResult = "crewmateVote" | "crewmateTasks" | "crewmateDisconnect" | "impostorVote" | "impostorKill" | "impostorSabotage" | "impostorDisconnect" | "unknown";
+export type MatchResult = "crewmateVote" | "crewmateTasks" | "crewmateDisconnect" | "crewmateHideAndSeekTimer"
+    | "impostorVote" | "impostorKill" | "impostorSabotage" | "impostorDisconnect" | "impostorHideAndSeekKills" | "unknown";
 export type Role = "crewmate" | "impostor";
 export type MatchMap = "skeld" | "mira" | "polus" | "dleks" | "airship" | "fungle";
 export type Region = "na" | "eu" | "as";
@@ -60,7 +61,8 @@ export const MAP_NAMES: Record<MatchMap, string> = { skeld: "The Skeld", mira: "
 /** The regions and results the page can name; their names are in the stats catalog (match.region.*, shared.result.*). */
 export const REGIONS: readonly Region[] = ["na", "eu", "as"];
 export const RESULTS: readonly MatchResult[] = [
-    "crewmateVote", "crewmateTasks", "crewmateDisconnect", "impostorVote", "impostorKill", "impostorSabotage", "impostorDisconnect", "unknown",
+    "crewmateVote", "crewmateTasks", "crewmateDisconnect", "crewmateHideAndSeekTimer",
+    "impostorVote", "impostorKill", "impostorSabotage", "impostorDisconnect", "impostorHideAndSeekKills", "unknown",
 ];
 
 const SNOWFLAKE = /^[0-9]{17,20}$/;
