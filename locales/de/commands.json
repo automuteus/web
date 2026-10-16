@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "User to unlink"
+        "user": "Benutzer, dessen Verlinkung aufgehoben werden soll"
       },
       "description": "Die Verlinkung eines Discord-Benutzers mit seiner Farbe im Spiel aufheben"
     }

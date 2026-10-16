@@ -338,14 +338,14 @@
       "none": "Без результата",
       "won": "Победа"
     },
-    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
+    "rankedBySureness": "Рейтинг учитывает число игр, поэтому 7 побед из 8 игр стоят выше, чем 2 победы из 2.",
     "result": {
       "crewmateDisconnect": "Экипаж победил, потому что предатели отключились",
-      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
+      "crewmateHideAndSeekTimer": "Прятки: экипаж продержался, пока не истекло время",
       "crewmateTasks": "Экипаж победил, выполнив все задания",
       "crewmateVote": "Экипаж победил, изгнав предателей",
       "impostorDisconnect": "Предатели победили, потому что члены экипажа отключились",
-      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
+      "impostorHideAndSeekKills": "Прятки: водящий поймал весь экипаж",
       "impostorKill": "Предатели победили убийствами",
       "impostorSabotage": "Предатели победили саботажем",
       "impostorVote": "Предатели победили голосованием",
