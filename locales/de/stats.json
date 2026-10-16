@@ -302,14 +302,14 @@
       "none": "Kein Ergebnis",
       "won": "Gewonnen"
     },
-    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
+    "rankedBySureness": "Bei der Rangfolge zählt auch die Anzahl der Spiele, daher liegen 7 Siege aus 8 Spielen vor 2 Siegen aus 2.",
     "result": {
       "crewmateDisconnect": "Crewmates haben gewonnen, weil die Impostor die Verbindung getrennt haben",
-      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
+      "crewmateHideAndSeekTimer": "Verstecken: Die Crewmates haben überlebt, bis die Zeit abgelaufen war",
       "crewmateTasks": "Crewmates haben durch Erledigen ihrer Tasks gewonnen",
       "crewmateVote": "Crewmates haben gewonnen, indem sie die Impostor rausgewählt haben",
       "impostorDisconnect": "Impostor haben gewonnen, weil die Crewmates die Verbindung getrennt haben",
-      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
+      "impostorHideAndSeekKills": "Verstecken: Der Sucher hat alle Crewmates erwischt",
       "impostorKill": "Impostor haben durch Kills gewonnen",
       "impostorSabotage": "Impostor haben durch Sabotage gewonnen",
       "impostorVote": "Impostor haben durch Abstimmung gewonnen",
