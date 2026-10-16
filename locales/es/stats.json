@@ -302,14 +302,14 @@
       "none": "Sin resultado",
       "won": "Victoria"
     },
-    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
+    "rankedBySureness": "La clasificación tiene en cuenta el número de partidas, así que 7 victorias en 8 partidas quedan por encima de 2 victorias en 2.",
     "result": {
       "crewmateDisconnect": "Los tripulantes ganaron porque los impostores se desconectaron",
-      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
+      "crewmateHideAndSeekTimer": "Escondite: los tripulantes sobrevivieron hasta que se acabó el tiempo",
       "crewmateTasks": "Los tripulantes ganaron completando sus tareas",
       "crewmateVote": "Los tripulantes ganaron expulsando a los impostores",
       "impostorDisconnect": "Los impostores ganaron porque los tripulantes se desconectaron",
-      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
+      "impostorHideAndSeekKills": "Escondite: el buscador atrapó a todos los tripulantes",
       "impostorKill": "Los impostores ganaron por asesinatos",
       "impostorSabotage": "Los impostores ganaron por sabotaje",
       "impostorVote": "Los impostores ganaron por votación",
