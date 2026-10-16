@@ -302,14 +302,14 @@
       "none": "Aucun résultat",
       "won": "Victoire"
     },
-    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
+    "rankedBySureness": "Le classement tient compte du nombre de parties, donc 7 victoires sur 8 parties passent devant 2 victoires sur 2.",
     "result": {
       "crewmateDisconnect": "Victoire des coéquipiers après la déconnexion des imposteurs",
-      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
+      "crewmateHideAndSeekTimer": "Cache-cache : les coéquipiers ont survécu jusqu'à la fin du temps imparti",
       "crewmateTasks": "Victoire des coéquipiers en terminant leurs tâches",
       "crewmateVote": "Victoire des coéquipiers en éjectant les imposteurs",
       "impostorDisconnect": "Victoire des imposteurs après la déconnexion des coéquipiers",
-      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
+      "impostorHideAndSeekKills": "Cache-cache : le chercheur a attrapé tous les coéquipiers",
       "impostorKill": "Victoire des imposteurs par les meurtres",
       "impostorSabotage": "Victoire des imposteurs par sabotage",
       "impostorVote": "Victoire des imposteurs par le vote",
