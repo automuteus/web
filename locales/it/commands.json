@@ -85,7 +85,7 @@
     },
     "unlink": {
       "arg": {
-        "user": "User to unlink"
+        "user": "Utente da scollegare"
       },
       "description": "Scollega un utente Discord dal suo colore in gioco"
     }
