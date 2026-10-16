@@ -302,14 +302,14 @@
       "none": "Nessun risultato",
       "won": "Vinta"
     },
-    "rankedBySureness": "Ranked with the number of games in mind, so 7 wins in 8 games places above 2 wins in 2.",
+    "rankedBySureness": "La classifica tiene conto del numero di partite, quindi 7 vittorie su 8 partite si piazzano sopra 2 vittorie su 2.",
     "result": {
       "crewmateDisconnect": "I Crewmate hanno vinto perché gli Impostor si sono disconnessi",
-      "crewmateHideAndSeekTimer": "Hide and Seek: the crewmates survived until time ran out",
+      "crewmateHideAndSeekTimer": "Nascondino: i Crewmate sono sopravvissuti fino allo scadere del tempo",
       "crewmateTasks": "I Crewmate hanno vinto completando i compiti",
       "crewmateVote": "I Crewmate hanno vinto espellendo gli Impostor",
       "impostorDisconnect": "Gli Impostor hanno vinto perché i Crewmate si sono disconnessi",
-      "impostorHideAndSeekKills": "Hide and Seek: the seeker caught every crewmate",
+      "impostorHideAndSeekKills": "Nascondino: il cercatore ha preso tutti i Crewmate",
       "impostorKill": "Gli Impostor hanno vinto con le uccisioni",
       "impostorSabotage": "Gli Impostor hanno vinto con un sabotaggio",
       "impostorVote": "Gli Impostor hanno vinto con le votazioni",
