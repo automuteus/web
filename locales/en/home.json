@@ -9,7 +9,7 @@
   "stats": {
     "activeGames": "Active Games",
     "gamesMuted": "Games Muted",
-    "servers": "Servers",
+    "servers": "Servers Joined",
     "users": "Users"
   },
   "subtitle": "AutoMuteUs is a Discord Bot that collects Among Us game data to automatically mute/unmute players during games!"
